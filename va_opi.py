@@ -10,8 +10,8 @@ box_height = 25  # Controls how tall boxes are
 horizontal_gap = 5
 vertical_gap = 5  # Separation between boxes
 
-name_width = 180
-text_width = 100
+name_width = 150
+text_width = 600
 
 # Name column
 name_x = 5
@@ -52,12 +52,16 @@ for type in data.keys():
         child_count = len(data[type][key])
         for child in data[type][key]:
             if child[-3:] == "SET":
-                child_text = TextEntry(x0, y0, 600/child_count - horizontal_gap, box_height, child)
+                child_text = TextEntry(
+                    x0, y0, text_width / child_count - horizontal_gap, box_height, child
+                )
             else:
-                child_text = TextUpdate(x0, y0, 600/child_count - horizontal_gap, box_height, child)
+                child_text = TextUpdate(
+                    x0, y0, text_width / child_count - horizontal_gap, box_height, child
+                )
 
             screen.add_child(child_text)
-            x0 += 600/child_count
+            x0 += text_width / child_count
 
         y0 += box_height + vertical_gap
 
