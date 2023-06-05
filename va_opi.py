@@ -4,17 +4,22 @@ from opigen.contrib import Display
 from opigen.contrib import TextUpdate
 
 # Variables to control widget positioning
-box_height = 25  # Controls how tall boxes are
-gap_h, gap_v = 5, 5  # Separation between boxes
-w_name, w_xpos, w_ypos = [200, 60, 60]  # Width of sections
 filename = "va_opi"
+box_height = 25  # Controls how tall boxes are
+horizontal_gap = 5
+vertical_gap = 5 # Separation between boxes
+
+name_width = 180
+text_width = 100
 
 # Name column
-x_name, y0 = 5, 5
+name_x = 5
+y0 = 5
+
 # xpos column
-x_xpos = x_name + w_name + gap_h
+x_xpos = name_x + name_width + horizontal_gap
 # ypos column
-x_ypos = x_xpos + w_xpos + gap_h
+x_ypos = x_xpos + text_width + horizontal_gap
 
 # Reads in data from file
 va_pvs = open("VA_pvlist.txt", "r")
@@ -34,14 +39,17 @@ for line in raw_data:
 screen = Display(800, 600, "BPM Readings")
 
 for key in data.keys():
-    name_lbl = widgets.Label(x_name, y0, w_name, box_height, key)
+    name_lbl = widgets.Label(name_x, y0, name_width, box_height, key)
     screen.add_child(name_lbl)
 
-    for child in data[key]:
-        child_text = TextUpdate(x_xpos, y0, w_xpos, box_height, child)
-        screen.add_child(child_text)
+    x0 = name_x + name_width + horizontal_gap
 
-    y0 += box_height + gap_v
+    for child in data[key]:
+        child_text = TextUpdate(x0, y0, text_width, box_height, child)
+        screen.add_child(child_text)
+        x0 += text_width + horizontal_gap
+
+    y0 += box_height + vertical_gap
 
 # for name, xpos, ypos in data:
 #     name_lbl = widgets.Label(x_name, y0, w_name, box_height, name)
