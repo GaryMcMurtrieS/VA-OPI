@@ -21,10 +21,12 @@ y0 = 5
 va_pvs = open("VA_pvlist.txt", "r")
 raw_data = va_pvs.readlines()
 
+# Creates a dictionary for each type, that maps to a dictionary for each name with entries for each widget that must be created.
 data = {}
 for line in raw_data:
     line = line.rstrip()
 
+    # Strips numbers from the type, so they can be grouped together
     type = (
         line.split(":")[2].split("_")[0].translate(str.maketrans("", "", "0123456789"))
     )
@@ -42,9 +44,11 @@ for line in raw_data:
 # Sets up screen
 screen = Display(800, 600, "BPM Readings")
 
+# Gets all the types and sorts them
 types = [i for i in data.keys()]
 types.sort()
 
+# Creates the widgets and parts to actually display
 for type in types:
     for key in data[type]:
         name_lbl = widgets.Label(name_x, y0, name_width, box_height, key)
@@ -54,6 +58,7 @@ for type in types:
 
         child_count = len(data[type][key])
         for child in data[type][key]:
+            # Boxes for the child widgets are resized to fill horizontally
             if child[-3:] == "SET":
                 child_text = TextEntry(
                     x0, y0, text_width / child_count - horizontal_gap, box_height, child
