@@ -52,12 +52,12 @@ for type in data.keys():
         child_count = len(data[type][key])
         for child in data[type][key]:
             if child[-3:] == "SET":
-                child_text = TextEntry(x0, y0, 600/child_count, box_height, child)
+                child_text = TextEntry(x0, y0, 600/child_count - horizontal_gap, box_height, child)
             else:
-                child_text = TextUpdate(x0, y0, 600/child_count, box_height, child)
+                child_text = TextUpdate(x0, y0, 600/child_count - horizontal_gap, box_height, child)
 
             screen.add_child(child_text)
-            x0 += 600/child_count + horizontal_gap
+            x0 += 600/child_count
 
         y0 += box_height + vertical_gap
 
