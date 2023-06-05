@@ -42,7 +42,10 @@ for line in raw_data:
 # Sets up screen
 screen = Display(800, 600, "BPM Readings")
 
-for type in data.keys():
+types = [i for i in data.keys()]
+types.sort()
+
+for type in types:
     for key in data[type]:
         name_lbl = widgets.Label(name_x, y0, name_width, box_height, key)
         screen.add_child(name_lbl)
