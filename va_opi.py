@@ -42,21 +42,22 @@ for line in raw_data:
 # Sets up screen
 screen = Display(800, 600, "BPM Readings")
 
-for type in data.keys().sort():
+for type in data.keys():
     for key in data[type]:
         name_lbl = widgets.Label(name_x, y0, name_width, box_height, key)
         screen.add_child(name_lbl)
 
         x0 = name_x + name_width + horizontal_gap
 
+        child_count = len(data[type][key])
         for child in data[type][key]:
             if child[-3:] == "SET":
-                child_text = TextEntry(x0, y0, text_width, box_height, child)
+                child_text = TextEntry(x0, y0, 600/child_count, box_height, child)
             else:
-                child_text = TextUpdate(x0, y0, text_width, box_height, child)
+                child_text = TextUpdate(x0, y0, 600/child_count, box_height, child)
 
             screen.add_child(child_text)
-            x0 += text_width + horizontal_gap
+            x0 += 600/child_count + horizontal_gap
 
         y0 += box_height + vertical_gap
 
