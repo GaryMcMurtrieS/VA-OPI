@@ -24,32 +24,41 @@ raw_data = va_pvs.readlines()
 data = {}
 for line in raw_data:
     line = line.rstrip()
+
+    type = (
+        line.split(":")[2].split("_")[0].translate(str.maketrans("", "", "0123456789"))
+    )
+
+    if type not in data:
+        data[type] = {}
+
     name = ":".join(line.split(":")[1:3])
 
-    if name not in data:
-        data[name] = []
+    if name not in data[type]:
+        data[type][name] = []
 
-    data[name].append(line)
+    data[type][name].append(line)
 
 # Sets up screen
 screen = Display(800, 600, "BPM Readings")
 
-for key in data.keys():
-    name_lbl = widgets.Label(name_x, y0, name_width, box_height, key)
-    screen.add_child(name_lbl)
+for type in data.keys().sort():
+    for key in data[type]:
+        name_lbl = widgets.Label(name_x, y0, name_width, box_height, key)
+        screen.add_child(name_lbl)
 
-    x0 = name_x + name_width + horizontal_gap
+        x0 = name_x + name_width + horizontal_gap
 
-    for child in data[key]:
-        if child[-3:] == "SET":
-            child_text = TextEntry(x0, y0, text_width, box_height, child)
-        else:
-            child_text = TextUpdate(x0, y0, text_width, box_height, child)
+        for child in data[type][key]:
+            if child[-3:] == "SET":
+                child_text = TextEntry(x0, y0, text_width, box_height, child)
+            else:
+                child_text = TextUpdate(x0, y0, text_width, box_height, child)
 
-        screen.add_child(child_text)
-        x0 += text_width + horizontal_gap
+            screen.add_child(child_text)
+            x0 += text_width + horizontal_gap
 
-    y0 += box_height + vertical_gap
+        y0 += box_height + vertical_gap
 
 # Outputs to file
 r = Renderer(screen)
