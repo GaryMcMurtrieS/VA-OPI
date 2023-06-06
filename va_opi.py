@@ -13,7 +13,6 @@ vertical_gap = 5  # Separation between boxes
 name_width = 150
 text_width = 600
 
-# Name column
 name_x = 5
 y0 = 5
 
@@ -50,6 +49,10 @@ types.sort()
 
 # Creates the widgets and parts to actually display
 for type in types:
+    type_group = widgets.GroupingContainer(name_x, y0, name_width, box_height, type)
+    screen.add_child(type_group)
+    y0 += box_height + vertical_gap
+
     for key in data[type]:
         name_lbl = widgets.Label(name_x, y0, name_width, box_height, key)
         screen.add_child(name_lbl)
