@@ -9,12 +9,9 @@ filename = "va_opi"
 box_height = 25  # Controls how tall boxes are
 horizontal_gap = 5
 vertical_gap = 5  # Separation between boxes
-
-name_width = 150
-text_width = 600
-
+label_width = 150
+data_width = 700
 name_x = 5
-y0 = 5
 
 # Reads in data from file
 va_pvs = open("VA_pvlist.txt", "r")
@@ -43,36 +40,40 @@ for line in raw_data:
 # Sets up screen
 screen = Display(800, 600, "BPM Readings")
 
+# Creates the tab container to hold all the various monitors
+tab_container = widgets.TabbedContainer(name_x, y0, label_width + data_width + 10, box_height * 50)
+screen.add_child(tab_container)
+
 # Gets all the types and sorts them
 types = [i for i in data.keys()]
 types.sort()
 
-# Creates the widgets and parts to actually display
+# Creates a tab for each type of monitor
 for type in types:
-    type_group = widgets.GroupingContainer(name_x, y0, name_width, box_height, type)
-    screen.add_child(type_group)
-    y0 += box_height + vertical_gap
+    tab_container.add_tab(type)
+    y0 = 5
 
-    for key in data[type]:
-        name_lbl = widgets.Label(name_x, y0, name_width, box_height, key)
-        screen.add_child(name_lbl)
+    # This goes through each monitor and adds them to the tab
+    for monitor in data[type]:
+        label = widgets.Label(name_x, y0, label_width, box_height, monitor)
+        tab_container.add_child_to_tab(type, label)
 
-        x0 = name_x + name_width + horizontal_gap
+        x0 = name_x + label_width + horizontal_gap
 
-        child_count = len(data[type][key])
-        for child in data[type][key]:
+        child_count = len(data[type][monitor])
+        for child in data[type][monitor]:
             # Boxes for the child widgets are resized to fill horizontally
-            if child[-3:] == "SET":
+            if child[-4:] == "CSET":
                 child_text = TextEntry(
-                    x0, y0, text_width / child_count - horizontal_gap, box_height, child
+                    x0, y0, data_width / child_count - horizontal_gap, box_height, child
                 )
             else:
                 child_text = TextUpdate(
-                    x0, y0, text_width / child_count - horizontal_gap, box_height, child
+                    x0, y0, data_width / child_count - horizontal_gap, box_height, child
                 )
 
-            screen.add_child(child_text)
-            x0 += text_width / child_count
+            tab_container.add_child_to_tab(type, child_text)
+            x0 += data_width / child_count
 
         y0 += box_height + vertical_gap
 
