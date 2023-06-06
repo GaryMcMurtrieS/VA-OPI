@@ -12,6 +12,7 @@ vertical_gap = 5  # Separation between boxes
 label_width = 150
 data_width = 700
 name_x = 5
+y0 = 5
 
 # Reads in data from file
 va_pvs = open("VA_pvlist.txt", "r")
