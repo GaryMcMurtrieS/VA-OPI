@@ -43,6 +43,7 @@ screen = Display(800, 600, "BPM Readings")
 
 # Creates the tab container to hold all the various monitors
 tab_container = widgets.TabbedContainer(name_x, y0, label_width + data_width + 10, box_height * 30)
+tab_container.resize_behaviour = widgets.ResizeBehaviour.RESIZE_OPI_TO_FIT_CONTAINER
 screen.add_child(tab_container)
 
 # Gets all the types and sorts them
@@ -54,6 +55,7 @@ for type in types:
     y0 = 5
 
     tab_widget = widgets.GroupingContainer(0, 0, label_width + data_width + 10, box_height * 30, type)
+    tab_widget.resize_behaviour = widgets.ResizeBehaviour.RESIZE_OPI_TO_FIT_CONTAINER
 
     # This goes through each monitor and adds them to the tab
     for monitor in data[type]:
