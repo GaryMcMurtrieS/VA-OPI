@@ -42,7 +42,7 @@ for line in raw_data:
 screen = Display(800, 600, "BPM Readings")
 
 # Creates the tab container to hold all the various monitors
-tab_container = widgets.TabbedContainer(name_x, y0, label_width + data_width + 10, box_height * 50)
+tab_container = widgets.TabbedContainer(name_x, y0, label_width + data_width + 10, box_height * 30)
 screen.add_child(tab_container)
 
 # Gets all the types and sorts them
@@ -51,13 +51,14 @@ types.sort()
 
 # Creates a tab for each type of monitor
 for type in types:
-    tab_container.add_tab(type)
     y0 = 5
+
+    tab_widget = widgets.GroupingContainer(0, 0, label_width + data_width + 10, box_height * 30, type)
 
     # This goes through each monitor and adds them to the tab
     for monitor in data[type]:
         label = widgets.Label(name_x, y0, label_width, box_height, monitor)
-        tab_container.add_child_to_tab(type, label)
+        tab_container.add_child(label)
 
         x0 = name_x + label_width + horizontal_gap
 
@@ -73,10 +74,12 @@ for type in types:
                     x0, y0, data_width / child_count - horizontal_gap, box_height, child
                 )
 
-            tab_container.add_child_to_tab(type, child_text)
+            tab_widget.add_child(child_text)
             x0 += data_width / child_count
 
         y0 += box_height + vertical_gap
+
+    tab_container.add_tab(type, tab_widget)
 
 # Outputs to file
 r = Renderer(screen)
