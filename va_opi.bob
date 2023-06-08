@@ -28,10 +28,10 @@
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>750</height>
+              <height>725</height>
               <name>BEAM</name>
               <transparent>true</transparent>
-              <width>860</width>
+              <width>850</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -91,10 +91,10 @@
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>750</height>
+              <height>725</height>
               <name>BPM</name>
               <transparent>true</transparent>
-              <width>860</width>
+              <width>850</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -6306,10 +6306,10 @@
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>750</height>
+              <height>725</height>
               <name>CAV</name>
               <transparent>true</transparent>
-              <width>860</width>
+              <width>850</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -18919,10 +18919,10 @@
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>750</height>
+              <height>725</height>
               <name>CHARGE</name>
               <transparent>true</transparent>
-              <width>860</width>
+              <width>850</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -18982,10 +18982,10 @@
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>750</height>
+              <height>725</height>
               <name>CNT</name>
               <transparent>true</transparent>
-              <width>860</width>
+              <width>850</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -19045,10 +19045,10 @@
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>750</height>
+              <height>725</height>
               <name>DCH</name>
               <transparent>true</transparent>
-              <width>860</width>
+              <width>850</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -22640,10 +22640,10 @@
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>750</height>
+              <height>725</height>
               <name>DCV</name>
               <transparent>true</transparent>
-              <width>860</width>
+              <width>850</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -26235,10 +26235,10 @@
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>750</height>
+              <height>725</height>
               <name>DH</name>
               <transparent>true</transparent>
-              <width>860</width>
+              <width>850</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -26998,10 +26998,10 @@
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>750</height>
+              <height>725</height>
               <name>MpsStatus</name>
               <transparent>true</transparent>
-              <width>860</width>
+              <width>850</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -27061,10 +27061,10 @@
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>750</height>
+              <height>725</height>
               <name>NOISE</name>
               <transparent>true</transparent>
-              <width>860</width>
+              <width>850</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -27124,10 +27124,10 @@
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>750</height>
+              <height>725</height>
               <name>PM</name>
               <transparent>true</transparent>
-              <width>860</width>
+              <width>850</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -28851,10 +28851,10 @@
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>750</height>
+              <height>725</height>
               <name>QH</name>
               <transparent>true</transparent>
-              <width>860</width>
+              <width>850</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -30204,10 +30204,10 @@
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>750</height>
+              <height>725</height>
               <name>QV</name>
               <transparent>true</transparent>
-              <width>860</width>
+              <width>850</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -31321,10 +31321,10 @@
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>750</height>
+              <height>725</height>
               <name>RATE</name>
               <transparent>true</transparent>
-              <width>860</width>
+              <width>850</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -31384,10 +31384,10 @@
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>750</height>
+              <height>725</height>
               <name>S</name>
               <transparent>true</transparent>
-              <width>860</width>
+              <width>850</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -31557,10 +31557,10 @@
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>750</height>
+              <height>725</height>
               <name>SOL</name>
               <transparent>true</transparent>
-              <width>860</width>
+              <width>850</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -33913,10 +33913,10 @@
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>750</height>
+              <height>725</height>
               <name>STATUS</name>
               <transparent>true</transparent>
-              <width>860</width>
+              <width>850</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">

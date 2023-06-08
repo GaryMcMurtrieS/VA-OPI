@@ -13,7 +13,6 @@
   <widget typeId="org.csstudio.opibuilder.widgets.tab" version="1.0.0">
     <height>750</height>
     <name>TabbedContainer_0</name>
-    <resize_behaviour>1</resize_behaviour>
     <tab_count>17</tab_count>
     <tab_0_title>BEAM</tab_0_title>
     <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
@@ -31,12 +30,11 @@
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>750</height>
+        <height>725</height>
         <lock_children>true</lock_children>
         <name>BEAM</name>
-        <resize_behaviour>1</resize_behaviour>
         <transparent>true</transparent>
-        <width>860</width>
+        <width>850</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -96,12 +94,11 @@
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>750</height>
+        <height>725</height>
         <lock_children>true</lock_children>
         <name>BPM</name>
-        <resize_behaviour>1</resize_behaviour>
         <transparent>true</transparent>
-        <width>860</width>
+        <width>850</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -6612,12 +6609,11 @@
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>750</height>
+        <height>725</height>
         <lock_children>true</lock_children>
         <name>CAV</name>
-        <resize_behaviour>1</resize_behaviour>
         <transparent>true</transparent>
-        <width>860</width>
+        <width>850</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -19690,12 +19686,11 @@
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>750</height>
+        <height>725</height>
         <lock_children>true</lock_children>
         <name>CHARGE</name>
-        <resize_behaviour>1</resize_behaviour>
         <transparent>true</transparent>
-        <width>860</width>
+        <width>850</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -19755,12 +19750,11 @@
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>750</height>
+        <height>725</height>
         <lock_children>true</lock_children>
         <name>CNT</name>
-        <resize_behaviour>1</resize_behaviour>
         <transparent>true</transparent>
-        <width>860</width>
+        <width>850</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -19820,12 +19814,11 @@
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>750</height>
+        <height>725</height>
         <lock_children>true</lock_children>
         <name>DCH</name>
-        <resize_behaviour>1</resize_behaviour>
         <transparent>true</transparent>
-        <width>860</width>
+        <width>850</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -23536,12 +23529,11 @@
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>750</height>
+        <height>725</height>
         <lock_children>true</lock_children>
         <name>DCV</name>
-        <resize_behaviour>1</resize_behaviour>
         <transparent>true</transparent>
-        <width>860</width>
+        <width>850</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -27252,12 +27244,11 @@
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>750</height>
+        <height>725</height>
         <lock_children>true</lock_children>
         <name>DH</name>
-        <resize_behaviour>1</resize_behaviour>
         <transparent>true</transparent>
-        <width>860</width>
+        <width>850</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -28040,12 +28031,11 @@
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>750</height>
+        <height>725</height>
         <lock_children>true</lock_children>
         <name>MpsStatus</name>
-        <resize_behaviour>1</resize_behaviour>
         <transparent>true</transparent>
-        <width>860</width>
+        <width>850</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -28105,12 +28095,11 @@
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>750</height>
+        <height>725</height>
         <lock_children>true</lock_children>
         <name>NOISE</name>
-        <resize_behaviour>1</resize_behaviour>
         <transparent>true</transparent>
-        <width>860</width>
+        <width>850</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -28170,12 +28159,11 @@
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>750</height>
+        <height>725</height>
         <lock_children>true</lock_children>
         <name>PM</name>
-        <resize_behaviour>1</resize_behaviour>
         <transparent>true</transparent>
-        <width>860</width>
+        <width>850</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -29982,12 +29970,11 @@
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>750</height>
+        <height>725</height>
         <lock_children>true</lock_children>
         <name>QH</name>
-        <resize_behaviour>1</resize_behaviour>
         <transparent>true</transparent>
-        <width>860</width>
+        <width>850</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -31380,12 +31367,11 @@
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>750</height>
+        <height>725</height>
         <lock_children>true</lock_children>
         <name>QV</name>
-        <resize_behaviour>1</resize_behaviour>
         <transparent>true</transparent>
-        <width>860</width>
+        <width>850</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -32534,12 +32520,11 @@
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>750</height>
+        <height>725</height>
         <lock_children>true</lock_children>
         <name>RATE</name>
-        <resize_behaviour>1</resize_behaviour>
         <transparent>true</transparent>
-        <width>860</width>
+        <width>850</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -32599,12 +32584,11 @@
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>750</height>
+        <height>725</height>
         <lock_children>true</lock_children>
         <name>S</name>
-        <resize_behaviour>1</resize_behaviour>
         <transparent>true</transparent>
-        <width>860</width>
+        <width>850</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -32777,12 +32761,11 @@
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>750</height>
+        <height>725</height>
         <lock_children>true</lock_children>
         <name>SOL</name>
-        <resize_behaviour>1</resize_behaviour>
         <transparent>true</transparent>
-        <width>860</width>
+        <width>850</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -35212,12 +35195,11 @@
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>750</height>
+        <height>725</height>
         <lock_children>true</lock_children>
         <name>STATUS</name>
-        <resize_behaviour>1</resize_behaviour>
         <transparent>true</transparent>
-        <width>860</width>
+        <width>850</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
