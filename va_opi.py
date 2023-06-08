@@ -22,8 +22,7 @@ for line in raw_data:
     line = line.rstrip()
 
     # Strips numbers from the type, so they can be grouped together
-    device_type = ''.join(ch for ch in line.split(":")[2].split("_")[0]
-                          if not ch.isdigit())
+    device_type = ''.join(ch for ch in line.split(":")[2].split("_")[0] if not ch.isdigit())
 
     name = ":".join(line.split(":")[1:3])
 
@@ -35,8 +34,7 @@ screen = Display(800, 600, "Virtual Accelerator")
 # Creates the tab container to hold all the various monitors
 x0 = horizontal_gap
 y0 = vertical_gap
-tab_container = widgets.TabbedContainer(x0, y0, name_width + data_width + 10,
-                                        box_height * 30)
+tab_container = widgets.TabbedContainer(x0, y0, name_width + data_width + 10, box_height * 30)
 screen.add_child(tab_container)
 
 # Gets all the types and sorts them
@@ -48,22 +46,19 @@ for device_type in device_types:
     y0 = vertical_gap
 
     # Creates a singular widget to add to the tab that contains all other widgets
-    tab_widget = widgets.GroupingContainer(0, 0, name_width + data_width,
-                                           box_height * 29, device_type)
+    tab_widget = widgets.GroupingContainer(0, 0, name_width + data_width, box_height * 29,
+                                           device_type)
 
     # Gets names of columns to be shown
-    column_names = sorted([
-        i.split(":")[-1]
-        for i in pv_data[device_type][next(iter(pv_data[device_type]))]
-    ])
+    column_names = sorted(
+        [i.split(":")[-1] for i in pv_data[device_type][next(iter(pv_data[device_type]))]])
     column_count = len(column_names)
     column_width = (data_width / column_count) - horizontal_gap
 
     # Creates all the widgets for column name labels
     x0 = horizontal_gap + name_width + horizontal_gap
     for column_name in column_names:
-        column_label = widgets.Label(x0, y0, column_width, box_height,
-                                     column_name)
+        column_label = widgets.Label(x0, y0, column_width, box_height, column_name)
         tab_widget.add_child(column_label)
         x0 += column_width + horizontal_gap
     y0 += box_height + vertical_gap
@@ -83,11 +78,9 @@ for device_type in device_types:
         # and only read back
         for parameter in sorted(pv_data[device_type][device]):
             if parameter.endswith("CSET"):
-                parameter_output = TextEntry(x0, y0, column_width, box_height,
-                                             parameter)
+                parameter_output = TextEntry(x0, y0, column_width, box_height, parameter)
             else:
-                parameter_output = TextUpdate(x0, y0, column_width, box_height,
-                                              parameter)
+                parameter_output = TextUpdate(x0, y0, column_width, box_height, parameter)
 
             tab_widget.add_child(parameter_output)
             x0 += column_width + horizontal_gap
