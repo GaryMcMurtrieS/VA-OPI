@@ -4,14 +4,14 @@
   <background_color>
     <color red="255" green="255" blue="255" name="DISPLAY_BG"/>
   </background_color>
-  <height>600</height>
-  <name>Virtual Accelerator</name>
+  <height>650</height>
+  <name>LS1FS1 Virtual Accelerator</name>
   <show_grid>true</show_grid>
   <width>800</width>
   <x>0</x>
   <y>0</y>
   <widget typeId="org.csstudio.opibuilder.widgets.tab" version="1.0.0">
-    <height>750</height>
+    <height>683</height>
     <name>TabbedContainer_0</name>
     <tab_count>17</tab_count>
     <tab_0_title>BEAM</tab_0_title>
@@ -22,19 +22,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>717</height>
+      <height>650</height>
       <lock_children>true</lock_children>
       <name>BEAM</name>
       <transparent>true</transparent>
-      <width>858</width>
+      <width>875</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>725</height>
+        <height>650</height>
         <lock_children>true</lock_children>
         <name>BEAM</name>
         <transparent>true</transparent>
-        <width>850</width>
+        <width>875</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -86,19 +86,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>717</height>
+      <height>650</height>
       <lock_children>true</lock_children>
       <name>BPM</name>
       <transparent>true</transparent>
-      <width>858</width>
+      <width>875</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>725</height>
+        <height>650</height>
         <lock_children>true</lock_children>
         <name>BPM</name>
         <transparent>true</transparent>
-        <width>850</width>
+        <width>875</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -6601,19 +6601,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>717</height>
+      <height>650</height>
       <lock_children>true</lock_children>
       <name>CAV</name>
       <transparent>true</transparent>
-      <width>858</width>
+      <width>875</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>725</height>
+        <height>650</height>
         <lock_children>true</lock_children>
         <name>CAV</name>
         <transparent>true</transparent>
-        <width>850</width>
+        <width>875</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -19678,19 +19678,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>717</height>
+      <height>650</height>
       <lock_children>true</lock_children>
       <name>CHARGE</name>
       <transparent>true</transparent>
-      <width>858</width>
+      <width>875</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>725</height>
+        <height>650</height>
         <lock_children>true</lock_children>
         <name>CHARGE</name>
         <transparent>true</transparent>
-        <width>850</width>
+        <width>875</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -19742,19 +19742,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>717</height>
+      <height>650</height>
       <lock_children>true</lock_children>
       <name>CNT</name>
       <transparent>true</transparent>
-      <width>858</width>
+      <width>875</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>725</height>
+        <height>650</height>
         <lock_children>true</lock_children>
         <name>CNT</name>
         <transparent>true</transparent>
-        <width>850</width>
+        <width>875</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -19806,19 +19806,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>717</height>
+      <height>650</height>
       <lock_children>true</lock_children>
       <name>DCH</name>
       <transparent>true</transparent>
-      <width>858</width>
+      <width>875</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>725</height>
+        <height>650</height>
         <lock_children>true</lock_children>
         <name>DCH</name>
         <transparent>true</transparent>
-        <width>850</width>
+        <width>875</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -23521,19 +23521,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>717</height>
+      <height>650</height>
       <lock_children>true</lock_children>
       <name>DCV</name>
       <transparent>true</transparent>
-      <width>858</width>
+      <width>875</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>725</height>
+        <height>650</height>
         <lock_children>true</lock_children>
         <name>DCV</name>
         <transparent>true</transparent>
-        <width>850</width>
+        <width>875</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -27236,19 +27236,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>717</height>
+      <height>650</height>
       <lock_children>true</lock_children>
       <name>DH</name>
       <transparent>true</transparent>
-      <width>858</width>
+      <width>875</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>725</height>
+        <height>650</height>
         <lock_children>true</lock_children>
         <name>DH</name>
         <transparent>true</transparent>
-        <width>850</width>
+        <width>875</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -28023,19 +28023,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>717</height>
+      <height>650</height>
       <lock_children>true</lock_children>
       <name>MpsStatus</name>
       <transparent>true</transparent>
-      <width>858</width>
+      <width>875</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>725</height>
+        <height>650</height>
         <lock_children>true</lock_children>
         <name>MpsStatus</name>
         <transparent>true</transparent>
-        <width>850</width>
+        <width>875</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -28087,19 +28087,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>717</height>
+      <height>650</height>
       <lock_children>true</lock_children>
       <name>NOISE</name>
       <transparent>true</transparent>
-      <width>858</width>
+      <width>875</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>725</height>
+        <height>650</height>
         <lock_children>true</lock_children>
         <name>NOISE</name>
         <transparent>true</transparent>
-        <width>850</width>
+        <width>875</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -28151,19 +28151,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>717</height>
+      <height>650</height>
       <lock_children>true</lock_children>
       <name>PM</name>
       <transparent>true</transparent>
-      <width>858</width>
+      <width>875</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>725</height>
+        <height>650</height>
         <lock_children>true</lock_children>
         <name>PM</name>
         <transparent>true</transparent>
-        <width>850</width>
+        <width>875</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -29962,19 +29962,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>717</height>
+      <height>650</height>
       <lock_children>true</lock_children>
       <name>QH</name>
       <transparent>true</transparent>
-      <width>858</width>
+      <width>875</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>725</height>
+        <height>650</height>
         <lock_children>true</lock_children>
         <name>QH</name>
         <transparent>true</transparent>
-        <width>850</width>
+        <width>875</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -31359,19 +31359,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>717</height>
+      <height>650</height>
       <lock_children>true</lock_children>
       <name>QV</name>
       <transparent>true</transparent>
-      <width>858</width>
+      <width>875</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>725</height>
+        <height>650</height>
         <lock_children>true</lock_children>
         <name>QV</name>
         <transparent>true</transparent>
-        <width>850</width>
+        <width>875</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -32512,19 +32512,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>717</height>
+      <height>650</height>
       <lock_children>true</lock_children>
       <name>RATE</name>
       <transparent>true</transparent>
-      <width>858</width>
+      <width>875</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>725</height>
+        <height>650</height>
         <lock_children>true</lock_children>
         <name>RATE</name>
         <transparent>true</transparent>
-        <width>850</width>
+        <width>875</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -32576,19 +32576,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>717</height>
+      <height>650</height>
       <lock_children>true</lock_children>
       <name>S</name>
       <transparent>true</transparent>
-      <width>858</width>
+      <width>875</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>725</height>
+        <height>650</height>
         <lock_children>true</lock_children>
         <name>S</name>
         <transparent>true</transparent>
-        <width>850</width>
+        <width>875</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -32753,19 +32753,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>717</height>
+      <height>650</height>
       <lock_children>true</lock_children>
       <name>SOL</name>
       <transparent>true</transparent>
-      <width>858</width>
+      <width>875</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>725</height>
+        <height>650</height>
         <lock_children>true</lock_children>
         <name>SOL</name>
         <transparent>true</transparent>
-        <width>850</width>
+        <width>875</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -35187,19 +35187,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>717</height>
+      <height>650</height>
       <lock_children>true</lock_children>
       <name>STATUS</name>
       <transparent>true</transparent>
-      <width>858</width>
+      <width>875</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
-        <height>725</height>
+        <height>650</height>
         <lock_children>true</lock_children>
         <name>STATUS</name>
         <transparent>true</transparent>
-        <width>850</width>
+        <width>875</width>
         <x>0</x>
         <y>0</y>
         <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -35243,7 +35243,7 @@
         </widget>
       </widget>
     </widget>
-    <width>860</width>
+    <width>877</width>
     <x>5</x>
     <y>5</y>
   </widget>

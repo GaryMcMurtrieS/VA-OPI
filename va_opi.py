@@ -6,11 +6,13 @@ from opigen.contrib import TextUpdate
 
 # Variables to control widget positioning
 filename = "va_opi"
-box_height = 25
-horizontal_gap = 5
-vertical_gap = 5
+widget_height = 25
 name_width = 150
 data_width = 700
+screen_width = 800
+screen_height = 650
+horizontal_gap = 5
+vertical_gap = 5
 
 # Reads in data from file
 raw_data = open("VA_pvlist.txt", "r", encoding='utf-8').readlines()
@@ -29,12 +31,13 @@ for line in raw_data:
     pv_data.setdefault(device_type, {}).setdefault(name, []).append(line)
 
 # Sets up screen
-screen = Display(800, 600, "Virtual Accelerator")
+screen = Display(screen_width, screen_height, "LS1FS1 Virtual Accelerator")
 
 # Creates the tab container to hold all the various monitors
 x0 = horizontal_gap
 y0 = vertical_gap
-tab_container = widgets.TabbedContainer(x0, y0, name_width + data_width + 10, box_height * 30)
+tab_container = widgets.TabbedContainer(x0, y0, name_width + data_width + (3 * horizontal_gap) + 12,
+                                        screen_height + 33)
 screen.add_child(tab_container)
 
 # Gets all the types and sorts them
@@ -46,8 +49,9 @@ for device_type in device_types:
     y0 = vertical_gap
 
     # Creates a singular widget to add to the tab that contains all other widgets
-    tab_widget = widgets.GroupingContainer(0, 0, name_width + data_width, box_height * 29,
-                                           device_type)
+    tab_widget = widgets.GroupingContainer(0, 0,
+                                           name_width + data_width + (3 * horizontal_gap) + 10,
+                                           screen_height, device_type)
 
     # Gets names of columns to be shown
     column_names = sorted(
@@ -58,17 +62,17 @@ for device_type in device_types:
     # Creates all the widgets for column name labels
     x0 = horizontal_gap + name_width + horizontal_gap
     for column_name in column_names:
-        column_label = widgets.Label(x0, y0, column_width, box_height, column_name)
+        column_label = widgets.Label(x0, y0, column_width, widget_height, column_name)
         tab_widget.add_child(column_label)
         x0 += column_width + horizontal_gap
-    y0 += box_height + vertical_gap
+    y0 += widget_height + vertical_gap
 
     # This goes through each actual device that is of type device type
     for device in pv_data[device_type]:
         x0 = horizontal_gap
 
         # First, the label is created and added with the device ID
-        device_label = widgets.Label(x0, y0, name_width, box_height, device)
+        device_label = widgets.Label(x0, y0, name_width, widget_height, device)
         tab_widget.add_child(device_label)
 
         x0 += name_width + horizontal_gap
@@ -78,14 +82,14 @@ for device_type in device_types:
         # and only read back
         for parameter in sorted(pv_data[device_type][device]):
             if parameter.endswith("CSET"):
-                parameter_output = TextEntry(x0, y0, column_width, box_height, parameter)
+                parameter_output = TextEntry(x0, y0, column_width, widget_height, parameter)
             else:
-                parameter_output = TextUpdate(x0, y0, column_width, box_height, parameter)
+                parameter_output = TextUpdate(x0, y0, column_width, widget_height, parameter)
 
             tab_widget.add_child(parameter_output)
             x0 += column_width + horizontal_gap
 
-        y0 += box_height + vertical_gap
+        y0 += widget_height + vertical_gap
 
     # Once all widgets are added to the container for the tab, the tab is created and the widget is
     # added to it

@@ -4,13 +4,13 @@
     <color red="255" green="255" blue="255" name="DISPLAY_BG"/>
   </background_color>
   <grid_visible>true</grid_visible>
-  <height>600</height>
-  <name>Virtual Accelerator</name>
+  <height>650</height>
+  <name>LS1FS1 Virtual Accelerator</name>
   <width>800</width>
   <x>0</x>
   <y>0</y>
   <widget type="tabs" version="2.0.0">
-    <height>750</height>
+    <height>683</height>
     <name>TabbedContainer_0</name>
     <tabs>
       <tab>
@@ -21,17 +21,17 @@
             <foreground_color>
               <color red="255" green="255" blue="255"/>
             </foreground_color>
-            <height>717</height>
+            <height>650</height>
             <name>BEAM</name>
             <transparent>true</transparent>
-            <width>858</width>
+            <width>875</width>
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>725</height>
+              <height>650</height>
               <name>BEAM</name>
               <transparent>true</transparent>
-              <width>850</width>
+              <width>875</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -84,17 +84,17 @@
             <foreground_color>
               <color red="255" green="255" blue="255"/>
             </foreground_color>
-            <height>717</height>
+            <height>650</height>
             <name>BPM</name>
             <transparent>true</transparent>
-            <width>858</width>
+            <width>875</width>
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>725</height>
+              <height>650</height>
               <name>BPM</name>
               <transparent>true</transparent>
-              <width>850</width>
+              <width>875</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -6299,17 +6299,17 @@
             <foreground_color>
               <color red="255" green="255" blue="255"/>
             </foreground_color>
-            <height>717</height>
+            <height>650</height>
             <name>CAV</name>
             <transparent>true</transparent>
-            <width>858</width>
+            <width>875</width>
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>725</height>
+              <height>650</height>
               <name>CAV</name>
               <transparent>true</transparent>
-              <width>850</width>
+              <width>875</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -18912,17 +18912,17 @@
             <foreground_color>
               <color red="255" green="255" blue="255"/>
             </foreground_color>
-            <height>717</height>
+            <height>650</height>
             <name>CHARGE</name>
             <transparent>true</transparent>
-            <width>858</width>
+            <width>875</width>
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>725</height>
+              <height>650</height>
               <name>CHARGE</name>
               <transparent>true</transparent>
-              <width>850</width>
+              <width>875</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -18975,17 +18975,17 @@
             <foreground_color>
               <color red="255" green="255" blue="255"/>
             </foreground_color>
-            <height>717</height>
+            <height>650</height>
             <name>CNT</name>
             <transparent>true</transparent>
-            <width>858</width>
+            <width>875</width>
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>725</height>
+              <height>650</height>
               <name>CNT</name>
               <transparent>true</transparent>
-              <width>850</width>
+              <width>875</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -19038,17 +19038,17 @@
             <foreground_color>
               <color red="255" green="255" blue="255"/>
             </foreground_color>
-            <height>717</height>
+            <height>650</height>
             <name>DCH</name>
             <transparent>true</transparent>
-            <width>858</width>
+            <width>875</width>
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>725</height>
+              <height>650</height>
               <name>DCH</name>
               <transparent>true</transparent>
-              <width>850</width>
+              <width>875</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -22633,17 +22633,17 @@
             <foreground_color>
               <color red="255" green="255" blue="255"/>
             </foreground_color>
-            <height>717</height>
+            <height>650</height>
             <name>DCV</name>
             <transparent>true</transparent>
-            <width>858</width>
+            <width>875</width>
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>725</height>
+              <height>650</height>
               <name>DCV</name>
               <transparent>true</transparent>
-              <width>850</width>
+              <width>875</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -26228,17 +26228,17 @@
             <foreground_color>
               <color red="255" green="255" blue="255"/>
             </foreground_color>
-            <height>717</height>
+            <height>650</height>
             <name>DH</name>
             <transparent>true</transparent>
-            <width>858</width>
+            <width>875</width>
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>725</height>
+              <height>650</height>
               <name>DH</name>
               <transparent>true</transparent>
-              <width>850</width>
+              <width>875</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -26991,17 +26991,17 @@
             <foreground_color>
               <color red="255" green="255" blue="255"/>
             </foreground_color>
-            <height>717</height>
+            <height>650</height>
             <name>MpsStatus</name>
             <transparent>true</transparent>
-            <width>858</width>
+            <width>875</width>
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>725</height>
+              <height>650</height>
               <name>MpsStatus</name>
               <transparent>true</transparent>
-              <width>850</width>
+              <width>875</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -27054,17 +27054,17 @@
             <foreground_color>
               <color red="255" green="255" blue="255"/>
             </foreground_color>
-            <height>717</height>
+            <height>650</height>
             <name>NOISE</name>
             <transparent>true</transparent>
-            <width>858</width>
+            <width>875</width>
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>725</height>
+              <height>650</height>
               <name>NOISE</name>
               <transparent>true</transparent>
-              <width>850</width>
+              <width>875</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -27117,17 +27117,17 @@
             <foreground_color>
               <color red="255" green="255" blue="255"/>
             </foreground_color>
-            <height>717</height>
+            <height>650</height>
             <name>PM</name>
             <transparent>true</transparent>
-            <width>858</width>
+            <width>875</width>
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>725</height>
+              <height>650</height>
               <name>PM</name>
               <transparent>true</transparent>
-              <width>850</width>
+              <width>875</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -28844,17 +28844,17 @@
             <foreground_color>
               <color red="255" green="255" blue="255"/>
             </foreground_color>
-            <height>717</height>
+            <height>650</height>
             <name>QH</name>
             <transparent>true</transparent>
-            <width>858</width>
+            <width>875</width>
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>725</height>
+              <height>650</height>
               <name>QH</name>
               <transparent>true</transparent>
-              <width>850</width>
+              <width>875</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -30197,17 +30197,17 @@
             <foreground_color>
               <color red="255" green="255" blue="255"/>
             </foreground_color>
-            <height>717</height>
+            <height>650</height>
             <name>QV</name>
             <transparent>true</transparent>
-            <width>858</width>
+            <width>875</width>
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>725</height>
+              <height>650</height>
               <name>QV</name>
               <transparent>true</transparent>
-              <width>850</width>
+              <width>875</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -31314,17 +31314,17 @@
             <foreground_color>
               <color red="255" green="255" blue="255"/>
             </foreground_color>
-            <height>717</height>
+            <height>650</height>
             <name>RATE</name>
             <transparent>true</transparent>
-            <width>858</width>
+            <width>875</width>
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>725</height>
+              <height>650</height>
               <name>RATE</name>
               <transparent>true</transparent>
-              <width>850</width>
+              <width>875</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -31377,17 +31377,17 @@
             <foreground_color>
               <color red="255" green="255" blue="255"/>
             </foreground_color>
-            <height>717</height>
+            <height>650</height>
             <name>S</name>
             <transparent>true</transparent>
-            <width>858</width>
+            <width>875</width>
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>725</height>
+              <height>650</height>
               <name>S</name>
               <transparent>true</transparent>
-              <width>850</width>
+              <width>875</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -31550,17 +31550,17 @@
             <foreground_color>
               <color red="255" green="255" blue="255"/>
             </foreground_color>
-            <height>717</height>
+            <height>650</height>
             <name>SOL</name>
             <transparent>true</transparent>
-            <width>858</width>
+            <width>875</width>
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>725</height>
+              <height>650</height>
               <name>SOL</name>
               <transparent>true</transparent>
-              <width>850</width>
+              <width>875</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -33906,17 +33906,17 @@
             <foreground_color>
               <color red="255" green="255" blue="255"/>
             </foreground_color>
-            <height>717</height>
+            <height>650</height>
             <name>STATUS</name>
             <transparent>true</transparent>
-            <width>858</width>
+            <width>875</width>
             <x>1</x>
             <y>1</y>
             <widget type="group" version="2.0.0">
-              <height>725</height>
+              <height>650</height>
               <name>STATUS</name>
               <transparent>true</transparent>
-              <width>850</width>
+              <width>875</width>
               <x>0</x>
               <y>0</y>
               <widget type="label" version="2.0.0">
@@ -33962,7 +33962,7 @@
         </children>
       </tab>
     </tabs>
-    <width>860</width>
+    <width>877</width>
     <x>5</x>
     <y>5</y>
   </widget>
