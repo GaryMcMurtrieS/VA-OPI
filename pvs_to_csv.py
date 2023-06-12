@@ -15,12 +15,14 @@ def convert_to_csv(txt_file, csv_file):
     df2 = pvs[2].str.split('_', expand=True)
     pvs = pd.concat([pvs[0], df1, df2, pvs.loc[:, 3:]], axis=1)
 
+    pvs.dropna()
+
     pvs.columns = [
-        "System Idenfitier", "Location", "Managing Device", "Device Type", "Position",
+        "System Identifier", "Location", "Managing Device", "Device Type", "Position",
         "Variable Identifier"
     ]
 
-    pvs.to_csv(csv_file, index=True)
+    pvs.to_csv(csv_file, index=False)
 
 
 if __name__ == "__main__":
