@@ -15,22 +15,6 @@ HORIZONTAL_GAP = 5
 VERTICAL_GAP = 5
 
 
-def create_tab_container(screen):
-    """Creates and adds tab container to the screen"""
-    tab_container = widgets.TabbedContainer(HORIZONTAL_GAP, VERTICAL_GAP,
-                                            NAME_WIDTH + DATA_WIDTH + (3 * HORIZONTAL_GAP) + 12,
-                                            SCREEN_HEIGHT + 33)
-    screen.add_child(tab_container)
-    return tab_container
-
-
-def get_device_types(pv_data):
-    """Gets all the device types and sorts them"""
-    device_types = pv_data["Device Type"].unique()
-    device_types.sort()
-    return device_types
-
-
 def create_columns_and_get_width(filtered_pvs, tab_widget):
     """Creates column labels for the given tab"""
     # Gets and sorts all column names
@@ -94,13 +78,16 @@ def main():
     screen = Display(SCREEN_WIDTH, SCREEN_HEIGHT, "LS1FS1 Virtual Accelerator")
 
     # Creates the tab container to hold all the various monitors
-    tab_container = create_tab_container(screen)
+    tab_container = widgets.TabbedContainer(HORIZONTAL_GAP, VERTICAL_GAP,
+                                            NAME_WIDTH + DATA_WIDTH + (3 * HORIZONTAL_GAP) + 12,
+                                            SCREEN_HEIGHT + 33)
+    screen.add_child(tab_container)
 
     # Reads in the data with all the pvs to be displayed
     pv_data = pd.read_csv("va_pvs.csv").dropna()
 
     # Creates a tab for each type of monitor
-    for device_type in get_device_types(pv_data):
+    for device_type in sorted(pv_data["Device Type"].unique()):
         # Filters data to only data on that tab
         filtered_pvs = pv_data[pv_data["Device Type"] == device_type]
         # Creates, fills, and adds the tab to the tab container

@@ -15,8 +15,6 @@ def convert_to_csv(txt_file, csv_file):
     df2 = pvs[2].str.split('_', expand=True)
     pvs = pd.concat([pvs[0], df1, df2, pvs.loc[:, 3:]], axis=1)
 
-    pvs.dropna()
-
     pvs.columns = [
         "System Identifier", "Location", "Managing Device", "Device Type", "Position",
         "Variable Identifier"
