@@ -12,6 +12,7 @@
   <widget type="tabs" version="2.0.0">
     <height>683</height>
     <name>TabbedContainer_0</name>
+    <resize>1</resize>
     <tabs>
       <tab>
         <name>BEAM</name>
@@ -30,6 +31,7 @@
             <widget type="group" version="2.0.0">
               <height>650</height>
               <name>BEAM</name>
+              <resize>1</resize>
               <transparent>true</transparent>
               <width>875</width>
               <x>0</x>
@@ -93,6 +95,7 @@
             <widget type="group" version="2.0.0">
               <height>650</height>
               <name>BPM</name>
+              <resize>1</resize>
               <transparent>true</transparent>
               <width>875</width>
               <x>0</x>
@@ -6308,6 +6311,7 @@
             <widget type="group" version="2.0.0">
               <height>650</height>
               <name>CAV</name>
+              <resize>1</resize>
               <transparent>true</transparent>
               <width>875</width>
               <x>0</x>
@@ -18921,6 +18925,7 @@
             <widget type="group" version="2.0.0">
               <height>650</height>
               <name>CHARGE</name>
+              <resize>1</resize>
               <transparent>true</transparent>
               <width>875</width>
               <x>0</x>
@@ -18984,6 +18989,7 @@
             <widget type="group" version="2.0.0">
               <height>650</height>
               <name>CNT</name>
+              <resize>1</resize>
               <transparent>true</transparent>
               <width>875</width>
               <x>0</x>
@@ -19047,6 +19053,7 @@
             <widget type="group" version="2.0.0">
               <height>650</height>
               <name>DCH</name>
+              <resize>1</resize>
               <transparent>true</transparent>
               <width>875</width>
               <x>0</x>
@@ -22642,6 +22649,7 @@
             <widget type="group" version="2.0.0">
               <height>650</height>
               <name>DCV</name>
+              <resize>1</resize>
               <transparent>true</transparent>
               <width>875</width>
               <x>0</x>
@@ -26237,6 +26245,7 @@
             <widget type="group" version="2.0.0">
               <height>650</height>
               <name>DH</name>
+              <resize>1</resize>
               <transparent>true</transparent>
               <width>875</width>
               <x>0</x>
@@ -27000,6 +27009,7 @@
             <widget type="group" version="2.0.0">
               <height>650</height>
               <name>MpsStatus</name>
+              <resize>1</resize>
               <transparent>true</transparent>
               <width>875</width>
               <x>0</x>
@@ -27063,6 +27073,7 @@
             <widget type="group" version="2.0.0">
               <height>650</height>
               <name>NOISE</name>
+              <resize>1</resize>
               <transparent>true</transparent>
               <width>875</width>
               <x>0</x>
@@ -27126,6 +27137,7 @@
             <widget type="group" version="2.0.0">
               <height>650</height>
               <name>PM</name>
+              <resize>1</resize>
               <transparent>true</transparent>
               <width>875</width>
               <x>0</x>
@@ -28853,6 +28865,7 @@
             <widget type="group" version="2.0.0">
               <height>650</height>
               <name>QH</name>
+              <resize>1</resize>
               <transparent>true</transparent>
               <width>875</width>
               <x>0</x>
@@ -30206,6 +30219,7 @@
             <widget type="group" version="2.0.0">
               <height>650</height>
               <name>QV</name>
+              <resize>1</resize>
               <transparent>true</transparent>
               <width>875</width>
               <x>0</x>
@@ -31323,6 +31337,7 @@
             <widget type="group" version="2.0.0">
               <height>650</height>
               <name>RATE</name>
+              <resize>1</resize>
               <transparent>true</transparent>
               <width>875</width>
               <x>0</x>
@@ -31386,6 +31401,7 @@
             <widget type="group" version="2.0.0">
               <height>650</height>
               <name>S</name>
+              <resize>1</resize>
               <transparent>true</transparent>
               <width>875</width>
               <x>0</x>
@@ -31559,6 +31575,7 @@
             <widget type="group" version="2.0.0">
               <height>650</height>
               <name>SOL</name>
+              <resize>1</resize>
               <transparent>true</transparent>
               <width>875</width>
               <x>0</x>
@@ -33915,6 +33932,7 @@
             <widget type="group" version="2.0.0">
               <height>650</height>
               <name>STATUS</name>
+              <resize>1</resize>
               <transparent>true</transparent>
               <width>875</width>
               <x>0</x>
