@@ -11,14 +11,17 @@ def convert_to_csv(txt_file, csv_file):
 
     # Splitting only columns 2 and 3 on underscores, as the final column with variable identifiers
     # contains underscores but should not be split
-    df1 = pvs[1].str.split('_', expand=True)
-    df2 = pvs[2].str.split('_', expand=True)
-    pvs = pd.concat([pvs[0], df1, df2, pvs.loc[:, 3:]], axis=1)
+    split_columns = [pvs[i].str.split('_', expand=True) for i in range(1, 3)]
+    pvs = pd.concat([pvs[0]] + split_columns + [pvs.loc[:, 3:]], axis=1)
 
     pvs.columns = [
         "System Identifier", "Location", "Managing Device", "Device Type", "Position",
         "Variable Identifier"
     ]
+
+    # Swaps SVR row's Device Type and Variable Identifier
+    pvs.loc[pvs["Location"] == "SVR", ["Device Type", "Variable Identifier"]] = \
+    pvs.loc[pvs["Location"] == "SVR", ["Variable Identifier", "Device Type"]].values
 
     pvs.to_csv(csv_file, index=False)
 
