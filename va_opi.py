@@ -28,25 +28,14 @@ def create_columns_and_get_width(filtered_pvs, tab_widget):
     for column_name in column_names:
         column_label = widgets.Label(x_0, HORIZONTAL_GAP, column_width, WIDGET_HEIGHT, column_name)
         tab_widget.add_child(column_label)
+
         x_0 += column_width + HORIZONTAL_GAP
 
     return column_width, column_names
 
 
-def create_svr_tab(svr_data):
-    """Creates the tab for SVR data, which is different because of how the data is stored."""
-    # Creates a singular widget to add to the tab that contains all other widgets
-    tab_widget = widgets.GroupingContainer(0, 0, TOTAL_WIDTH + (3 * HORIZONTAL_GAP) + 10,
-                                           SCREEN_HEIGHT, "SVR")
-
-    # Create column labels
-    column_width, column_names = create_columns_and_get_width(svr_data, tab_widget)
-
-    # Get all the devices names with that type
-    device = "VA:SVR"
-
-    # Once we have all the device names, we loop through and add a row for each of them
-    y_0 = VERTICAL_GAP + WIDGET_HEIGHT + VERTICAL_GAP
+def create_widget_row(tab_widget, device, column_names, column_width, y_0):
+    """Creates a row of widgets for a given device"""
     # Label for the devices name
     device_label = widgets.Label(HORIZONTAL_GAP, y_0, NAME_WIDTH, WIDGET_HEIGHT, device[3:])
     tab_widget.add_child(device_label)
@@ -61,7 +50,22 @@ def create_svr_tab(svr_data):
         parameter_output = (TextEntry if parameter.endswith("CSET") else TextUpdate)(
             x_0, y_0, column_width, WIDGET_HEIGHT, process_variable)
         tab_widget.add_child(parameter_output)
+
         x_0 += column_width + HORIZONTAL_GAP
+
+
+def create_svr_tab(svr_data):
+    """Creates the tab for SVR data, which is different because of how the data is stored."""
+    # Creates a singular widget to add to the tab that contains all other widgets
+    tab_widget = widgets.GroupingContainer(0, 0, TOTAL_WIDTH + (3 * HORIZONTAL_GAP) + 10,
+                                           SCREEN_HEIGHT, "SVR")
+
+    # Create column labels
+    column_width, column_names = create_columns_and_get_width(svr_data, tab_widget)
+
+    # Once we have all the device names, we loop through and add a row for each of them
+    create_widget_row(tab_widget, "VA:SVR", column_names, column_width,
+                      VERTICAL_GAP + WIDGET_HEIGHT + VERTICAL_GAP)
 
     return tab_widget
 
@@ -82,22 +86,9 @@ def create_tab_widget(filtered_pvs, device_type):
 
     # Once we have all the device names, we loop through and add a row for each of them
     y_0 = VERTICAL_GAP + WIDGET_HEIGHT + VERTICAL_GAP
+
     for device in device_names:
-        # Label for the devices name
-        device_label = widgets.Label(HORIZONTAL_GAP, y_0, NAME_WIDTH, WIDGET_HEIGHT, device[3:])
-        tab_widget.add_child(device_label)
-
-        x_0 = HORIZONTAL_GAP + NAME_WIDTH + HORIZONTAL_GAP
-
-        # Next, each of that devices parameters is added as a widget
-        # CSET parameters can take text input and be changed, everything else cannot be changed
-        # and only read back
-        for parameter in column_names:
-            process_variable = device + ':' + parameter
-            parameter_output = (TextEntry if parameter.endswith("CSET") else TextUpdate)(
-                x_0, y_0, column_width, WIDGET_HEIGHT, process_variable)
-            tab_widget.add_child(parameter_output)
-            x_0 += column_width + HORIZONTAL_GAP
+        create_widget_row(tab_widget, device, column_names, column_width, y_0)
 
         y_0 += WIDGET_HEIGHT + VERTICAL_GAP
 
