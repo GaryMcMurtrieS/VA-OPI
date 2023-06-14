@@ -20,14 +20,21 @@ def create_graph(bpm_data, screen):
     graph = widgets.XYGraph(5, 5, 1000, 500)
 
     for _, device in bpm_data.iterrows():
-        process_variable = device["System Identifier"] + ':' + device["Location"] + '_' + device[
-            "Managing Device"] + ':' + device["Device Type"] + '_' + device["Position"] + ":X_RD"
-        graph.add_trace(f"sim://const({device['Position'][1:]})", process_variable)
+        system_identifier = device["System Identifier"]
+        location = device["Location"]
+        managing_device = device["Managing Device"]
+        device_type = device["Device Type"]
+        position = device["Position"]
+
+        process_variable = f"{system_identifier}:{location}_{managing_device}:{device_type}_\
+            {position}:X_RD"
+
+        graph.add_trace(f"sim://const({position[1:]})", process_variable)
 
     position_info = sorted([i[1:] for i in bpm_data["Position"]])
 
-    graph.set_axis_scale(-0.01, 0.01, False)
-    graph.set_axis_scale(position_info[0], position_info[-1])
+    graph.set_axis_scale(-0.01, 0.01, 1)
+    graph.set_axis_scale(position_info[0], position_info[-1], 0)
     screen.add_child(graph)
 
 
