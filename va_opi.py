@@ -1,4 +1,4 @@
-""" Creates Phoebus and CS-Studio OPI Files for reading Accelerator Data"""
+""" Creates Phoebus and CS-Studio OPI Files for reading Accelerator Data """
 
 import pandas as pd
 from opigen import Renderer, widgets
@@ -26,7 +26,7 @@ def create_columns_and_get_width(filtered_pvs, tab_widget):
     x_0 = HORIZONTAL_GAP + NAME_WIDTH + HORIZONTAL_GAP
 
     for column_name in column_names:
-        column_label = widgets.Label(x_0, HORIZONTAL_GAP, column_width, WIDGET_HEIGHT, column_name)
+        column_label = widgets.Label(x_0, VERTICAL_GAP, column_width, WIDGET_HEIGHT, column_name)
         tab_widget.add_child(column_label)
 
         x_0 += column_width + HORIZONTAL_GAP

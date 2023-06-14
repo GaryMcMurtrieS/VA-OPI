@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<display version="2.0.0">
+  <background_color>
+    <color red="255" green="255" blue="255" name="DISPLAY_BG"/>
+  </background_color>
+  <grid_visible>true</grid_visible>
+  <height>650</height>
+  <name>BPM Readings</name>
+  <width>800</width>
+  <x>0</x>
+  <y>0</y>
+  <widget type="org.csstudio.opibuilder.widgets.xyGraph" version="2.0.0">
+    <height>500</height>
+    <name>XYGraph_0</name>
+    <width>1000</width>
+    <x>5</x>
+    <y>5</y>
+  </widget>
+</display>
