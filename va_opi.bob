@@ -245,6 +245,38 @@
         </children>
       </tab>
       <tab>
+        <name>Graphs</name>
+        <children>
+          <widget type="group" version="2.0.0">
+            <style>3</style>
+            <foreground_color>
+              <color red="255" green="255" blue="255"/>
+            </foreground_color>
+            <height>650</height>
+            <name>Graphs</name>
+            <transparent>true</transparent>
+            <width>875</width>
+            <x>1</x>
+            <y>1</y>
+            <widget type="group" version="2.0.0">
+              <height>650</height>
+              <name>Graphs</name>
+              <transparent>true</transparent>
+              <width>875</width>
+              <x>0</x>
+              <y>0</y>
+              <widget type="org.csstudio.opibuilder.widgets.xyGraph" version="2.0.0">
+                <height>500</height>
+                <name>XYGraph_0</name>
+                <width>800</width>
+                <x>5</x>
+                <y>5</y>
+              </widget>
+            </widget>
+          </widget>
+        </children>
+      </tab>
+      <tab>
         <name>BPM</name>
         <children>
           <widget type="group" version="2.0.0">

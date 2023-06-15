@@ -13,6 +13,8 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 650
 HORIZONTAL_GAP = 5
 VERTICAL_GAP = 5
+GRAPH_WIDTH = 800
+GRAPH_HEIGHT = 500
 
 
 def create_columns_and_get_width(filtered_pvs, tab_widget):
@@ -70,6 +72,26 @@ def create_svr_tab(svr_data):
     return tab_widget
 
 
+def create_graphs_tab():
+    """Creates a tab for the XY Graphs with BPM data"""
+    # Creates a singular widget to add to the tab that contains all other widgets
+    tab_widget = widgets.GroupingContainer(0, 0, TOTAL_WIDTH + (3 * HORIZONTAL_GAP) + 10,
+                                           SCREEN_HEIGHT, "Graphs")
+
+    # Creates the graph and adds traces
+    graph = widgets.XYGraph(VERTICAL_GAP, HORIZONTAL_GAP, GRAPH_WIDTH, GRAPH_HEIGHT)
+    graph.add_trace('', "VA:LS1FS1:BPM_ALL:X_RD")
+    graph.add_trace('', "VA:LS1FS1:BPM_ALL:Y_RD")
+
+    # Setting what the y-axis should scale to
+    y_limit = 0.01
+    graph.set_axis_scale(-y_limit, y_limit, 1)
+
+    tab_widget.add_child(graph)
+
+    return tab_widget
+
+
 def create_tab_widget(filtered_pvs, device_type):
     """Creates the container that goes into a given tab"""
     # Creates a singular widget to add to the tab that contains all other widgets
@@ -111,7 +133,9 @@ def main():
     svr_data = pv_data[pv_data["Location"] == "SVR"]
     pv_data = pv_data.dropna()
 
+    # Creates the first two tabs, one for SVR and one for the XY Graphs
     tab_container.add_tab("SVR", create_svr_tab(svr_data))
+    tab_container.add_tab("Graphs", create_graphs_tab())
 
     # Creates a tab for each type of monitor
     for device_type in sorted(pv_data["Device Type"].unique()):

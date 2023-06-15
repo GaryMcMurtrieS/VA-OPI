@@ -13,7 +13,7 @@
   <widget typeId="org.csstudio.opibuilder.widgets.tab" version="1.0.0">
     <height>683</height>
     <name>TabbedContainer_0</name>
-    <tab_count>21</tab_count>
+    <tab_count>22</tab_count>
     <tab_0_title>SVR</tab_0_title>
     <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
       <border_alarm_sensitive>false</border_alarm_sensitive>
@@ -252,7 +252,54 @@
         </widget>
       </widget>
     </widget>
-    <tab_1_title>BPM</tab_1_title>
+    <tab_1_title>Graphs</tab_1_title>
+    <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+      <border_width>0</border_width>
+      <border_style>0</border_style>
+      <border_color>
+        <color red="255" green="255" blue="255"/>
+      </border_color>
+      <height>650</height>
+      <lock_children>true</lock_children>
+      <name>Graphs</name>
+      <transparent>true</transparent>
+      <width>875</width>
+      <x>1</x>
+      <y>1</y>
+      <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
+        <height>650</height>
+        <lock_children>true</lock_children>
+        <name>Graphs</name>
+        <transparent>true</transparent>
+        <width>875</width>
+        <x>0</x>
+        <y>0</y>
+        <widget typeId="org.csstudio.opibuilder.widgets.xyGraph" version="1.0.0">
+          <axis_1_auto_scale>false</axis_1_auto_scale>
+          <axis_1_maximum>0.01</axis_1_maximum>
+          <axis_1_minimum>-0.01</axis_1_minimum>
+          <height>500</height>
+          <name>XYGraph_0</name>
+          <show_toolbar>false</show_toolbar>
+          <trace_0_concatenate_data>false</trace_0_concatenate_data>
+          <trace_0_line_width>10</trace_0_line_width>
+          <trace_0_trace_type>3</trace_0_trace_type>
+          <trace_0_x_pv></trace_0_x_pv>
+          <trace_0_y_pv>VA:LS1FS1:BPM_ALL:X_RD</trace_0_y_pv>
+          <trace_1_concatenate_data>false</trace_1_concatenate_data>
+          <trace_1_line_width>10</trace_1_line_width>
+          <trace_1_trace_type>3</trace_1_trace_type>
+          <trace_1_x_pv></trace_1_x_pv>
+          <trace_1_y_pv>VA:LS1FS1:BPM_ALL:Y_RD</trace_1_y_pv>
+          <trace_count>2</trace_count>
+          <width>800</width>
+          <x>5</x>
+          <y>5</y>
+        </widget>
+      </widget>
+    </widget>
+    <tab_2_title>BPM</tab_2_title>
     <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
       <border_alarm_sensitive>false</border_alarm_sensitive>
       <border_width>0</border_width>
@@ -6767,7 +6814,7 @@
         </widget>
       </widget>
     </widget>
-    <tab_2_title>CAV</tab_2_title>
+    <tab_3_title>CAV</tab_3_title>
     <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
       <border_alarm_sensitive>false</border_alarm_sensitive>
       <border_width>0</border_width>
@@ -7748,7 +7795,7 @@
         </widget>
       </widget>
     </widget>
-    <tab_3_title>CAV1</tab_3_title>
+    <tab_4_title>CAV1</tab_4_title>
     <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
       <border_alarm_sensitive>false</border_alarm_sensitive>
       <border_width>0</border_width>
@@ -9625,7 +9672,7 @@
         </widget>
       </widget>
     </widget>
-    <tab_4_title>CAV2</tab_4_title>
+    <tab_5_title>CAV2</tab_5_title>
     <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
       <border_alarm_sensitive>false</border_alarm_sensitive>
       <border_width>0</border_width>
@@ -11502,7 +11549,7 @@
         </widget>
       </widget>
     </widget>
-    <tab_5_title>CAV3</tab_5_title>
+    <tab_6_title>CAV3</tab_6_title>
     <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
       <border_alarm_sensitive>false</border_alarm_sensitive>
       <border_width>0</border_width>
@@ -13379,7 +13426,7 @@
         </widget>
       </widget>
     </widget>
-    <tab_6_title>CAV4</tab_6_title>
+    <tab_7_title>CAV4</tab_7_title>
     <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
       <border_alarm_sensitive>false</border_alarm_sensitive>
       <border_width>0</border_width>
@@ -15256,7 +15303,7 @@
         </widget>
       </widget>
     </widget>
-    <tab_7_title>CAV5</tab_7_title>
+    <tab_8_title>CAV5</tab_8_title>
     <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
       <border_alarm_sensitive>false</border_alarm_sensitive>
       <border_width>0</border_width>
@@ -16573,7 +16620,7 @@
         </widget>
       </widget>
     </widget>
-    <tab_8_title>CAV6</tab_8_title>
+    <tab_9_title>CAV6</tab_9_title>
     <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
       <border_alarm_sensitive>false</border_alarm_sensitive>
       <border_width>0</border_width>
@@ -17890,7 +17937,7 @@
         </widget>
       </widget>
     </widget>
-    <tab_9_title>CAV7</tab_9_title>
+    <tab_10_title>CAV7</tab_10_title>
     <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
       <border_alarm_sensitive>false</border_alarm_sensitive>
       <border_width>0</border_width>
@@ -19207,7 +19254,7 @@
         </widget>
       </widget>
     </widget>
-    <tab_10_title>CAV8</tab_10_title>
+    <tab_11_title>CAV8</tab_11_title>
     <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
       <border_alarm_sensitive>false</border_alarm_sensitive>
       <border_width>0</border_width>
@@ -20524,7 +20571,7 @@
         </widget>
       </widget>
     </widget>
-    <tab_11_title>DCH</tab_11_title>
+    <tab_12_title>DCH</tab_12_title>
     <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
       <border_alarm_sensitive>false</border_alarm_sensitive>
       <border_width>0</border_width>
@@ -24239,7 +24286,7 @@
         </widget>
       </widget>
     </widget>
-    <tab_12_title>DCV</tab_12_title>
+    <tab_13_title>DCV</tab_13_title>
     <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
       <border_alarm_sensitive>false</border_alarm_sensitive>
       <border_width>0</border_width>
@@ -27954,7 +28001,7 @@
         </widget>
       </widget>
     </widget>
-    <tab_13_title>DH</tab_13_title>
+    <tab_14_title>DH</tab_14_title>
     <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
       <border_alarm_sensitive>false</border_alarm_sensitive>
       <border_width>0</border_width>
@@ -28741,7 +28788,7 @@
         </widget>
       </widget>
     </widget>
-    <tab_14_title>PM</tab_14_title>
+    <tab_15_title>PM</tab_15_title>
     <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
       <border_alarm_sensitive>false</border_alarm_sensitive>
       <border_width>0</border_width>
@@ -30552,7 +30599,7 @@
         </widget>
       </widget>
     </widget>
-    <tab_15_title>QH</tab_15_title>
+    <tab_16_title>QH</tab_16_title>
     <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
       <border_alarm_sensitive>false</border_alarm_sensitive>
       <border_width>0</border_width>
@@ -31949,7 +31996,7 @@
         </widget>
       </widget>
     </widget>
-    <tab_16_title>QV</tab_16_title>
+    <tab_17_title>QV</tab_17_title>
     <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
       <border_alarm_sensitive>false</border_alarm_sensitive>
       <border_width>0</border_width>
@@ -33102,7 +33149,7 @@
         </widget>
       </widget>
     </widget>
-    <tab_17_title>S</tab_17_title>
+    <tab_18_title>S</tab_18_title>
     <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
       <border_alarm_sensitive>false</border_alarm_sensitive>
       <border_width>0</border_width>
@@ -33279,7 +33326,7 @@
         </widget>
       </widget>
     </widget>
-    <tab_18_title>SOL1</tab_18_title>
+    <tab_19_title>SOL1</tab_19_title>
     <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
       <border_alarm_sensitive>false</border_alarm_sensitive>
       <border_width>0</border_width>
@@ -34188,7 +34235,7 @@
         </widget>
       </widget>
     </widget>
-    <tab_19_title>SOL2</tab_19_title>
+    <tab_20_title>SOL2</tab_20_title>
     <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
       <border_alarm_sensitive>false</border_alarm_sensitive>
       <border_width>0</border_width>
@@ -35097,7 +35144,7 @@
         </widget>
       </widget>
     </widget>
-    <tab_20_title>SOL3</tab_20_title>
+    <tab_21_title>SOL3</tab_21_title>
     <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
       <border_alarm_sensitive>false</border_alarm_sensitive>
       <border_width>0</border_width>

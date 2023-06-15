@@ -1,8 +1,7 @@
 """ Generates XY Graphs to display BPM"""
 
-import pandas as pd
 from opigen import Renderer, widgets
-from opigen.contrib import Display, TextEntry, TextUpdate
+from opigen.contrib import Display
 
 # Variables to control widget positioning
 FILENAME = "bpm_opi_graph"
@@ -13,41 +12,25 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 650
 HORIZONTAL_GAP = 5
 VERTICAL_GAP = 5
+GRAPH_WIDTH = 800
+GRAPH_HEIGHT = 500
 
 
-def create_graph(bpm_data, screen):
+def create_graph():
     """Creates the container that goes into a given tab"""
-    graph = widgets.XYGraph(5, 5, 1000, 500)
-
-    for _, device in bpm_data.iterrows():
-        system_identifier = device["System Identifier"]
-        location = device["Location"]
-        managing_device = device["Managing Device"]
-        device_type = device["Device Type"]
-        position = device["Position"]
-
-        process_variable = f"{system_identifier}:{location}_{managing_device}:{device_type}_\
-            {position}:X_RD"
-
-        graph.add_trace(f"sim://const({position[1:]})", process_variable)
-
-    position_info = sorted([i[1:] for i in bpm_data["Position"]])
-
-    graph.set_axis_scale(-0.01, 0.01, 1)
-    graph.set_axis_scale(position_info[0], position_info[-1], 0)
-    screen.add_child(graph)
+    graph = widgets.XYGraph(VERTICAL_GAP, HORIZONTAL_GAP, GRAPH_WIDTH, GRAPH_HEIGHT)
+    graph.add_trace('', "VA:LS1FS1:BPM_ALL:X_RD")
+    graph.add_trace('', "VA:LS1FS1:BPM_ALL:Y_RD")
+    y_limit = 0.01
+    graph.set_axis_scale(-y_limit, y_limit, 1)
+    return graph
 
 
 def main():
     """Uses dictionary of PVs to create widgets and then output the CS-Studio and Phoebus files"""
     # Sets up screen
     screen = Display(SCREEN_WIDTH, SCREEN_HEIGHT, "BPM Readings")
-
-    # Reads in the data with all the pvs to be displayed
-    pv_data = pd.read_csv("va_pvs.csv")
-    xrd_data = pv_data[pv_data["Variable Identifier"] == "X_RD"]
-
-    create_graph(xrd_data, screen)
+    screen.add_child(create_graph())
 
     # Outputs to file
     screen_renderer = Renderer(screen)

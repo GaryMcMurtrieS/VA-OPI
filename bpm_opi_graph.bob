@@ -12,7 +12,7 @@
   <widget type="org.csstudio.opibuilder.widgets.xyGraph" version="2.0.0">
     <height>500</height>
     <name>XYGraph_0</name>
-    <width>1000</width>
+    <width>800</width>
     <x>5</x>
     <y>5</y>
   </widget>
