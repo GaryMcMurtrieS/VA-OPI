@@ -81,8 +81,8 @@ def create_graphs_tab():
 
     # Creates the graph and adds traces
     graph = widgets.XYGraph(VERTICAL_GAP, HORIZONTAL_GAP, GRAPH_WIDTH, GRAPH_HEIGHT)
-    graph.add_trace('VA:LS1FS1:BPM_ALL:POS_RD', "VA:LS1FS1:BPM_ALL:X_RD", name="X_RD", line_width=5)
-    graph.add_trace('VA:LS1FS1:BPM_ALL:POS_RD', "VA:LS1FS1:BPM_ALL:Y_RD", name="Y_RD", line_width=5)
+    graph.add_trace('VA:LS1FS1:BPM_ALL:POS_RD', "VA:LS1FS1:BPM_ALL:X_RD", legend="X_RD", line_width=5)
+    graph.add_trace('VA:LS1FS1:BPM_ALL:POS_RD', "VA:LS1FS1:BPM_ALL:Y_RD", legend="Y_RD", line_width=5)
 
     graph.set_axis_title("Position of Device (m)", 0)
     graph.set_axis_title("Value Reading (m)", 1)
