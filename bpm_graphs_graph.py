@@ -1,7 +1,8 @@
-""" Generates XY Graphs to display BPM"""
+""" Generates XY Graphs to display BPM for testing """
 
 from opigen import Renderer, widgets
 from opigen.contrib import Display
+from opigen.opimodel.colors import Color
 
 # Variables to control widget positioning
 FILENAME = "bpm_opi_graph"
@@ -19,8 +20,16 @@ GRAPH_HEIGHT = 500
 def create_graph():
     """Creates the container that goes into a given tab"""
     graph = widgets.XYGraph(VERTICAL_GAP, HORIZONTAL_GAP, GRAPH_WIDTH, GRAPH_HEIGHT)
-    graph.add_trace('', "VA:LS1FS1:BPM_ALL:X_RD")
-    graph.add_trace('', "VA:LS1FS1:BPM_ALL:Y_RD")
+    graph.add_trace('VA:LS1FS1:BPM_ALL:POS_RD',
+                    "VA:LS1FS1:BPM_ALL:X_RD",
+                    name="X_RD",
+                    line_width=5,
+                    trace_color=Color((0, 255, 0)))
+    graph.add_trace('VA:LS1FS1:BPM_ALL:POS_RD',
+                    "VA:LS1FS1:BPM_ALL:Y_RD",
+                    name="Y_RD",
+                    line_width=5,
+                    trace_color=Color((0, 0, 255)))
     y_limit = 0.01
     graph.set_axis_scale(-y_limit, y_limit, 1)
     return graph

@@ -3,6 +3,7 @@
 import pandas as pd
 from opigen import Renderer, widgets
 from opigen.contrib import Display, TextEntry, TextUpdate
+from opigen.opimodel.colors import Color
 
 # Variables to control widget positioning
 FILENAME = "va_opi"
@@ -49,8 +50,8 @@ def create_widget_row(tab_widget, device, column_names, column_width, y_0):
     # and only read back
     for parameter in column_names:
         process_variable = device + ':' + parameter
-        parameter_output = (TextEntry if parameter.endswith("CSET") else TextUpdate)(
-            x_0, y_0, column_width, WIDGET_HEIGHT, process_variable)
+        parameter_output = (TextEntry if parameter.endswith("CSET") or device.endswith("SVR") else
+                            TextUpdate)(x_0, y_0, column_width, WIDGET_HEIGHT, process_variable)
         tab_widget.add_child(parameter_output)
 
         x_0 += column_width + HORIZONTAL_GAP
@@ -80,11 +81,14 @@ def create_graphs_tab():
 
     # Creates the graph and adds traces
     graph = widgets.XYGraph(VERTICAL_GAP, HORIZONTAL_GAP, GRAPH_WIDTH, GRAPH_HEIGHT)
-    graph.add_trace('', "VA:LS1FS1:BPM_ALL:X_RD")
-    graph.add_trace('', "VA:LS1FS1:BPM_ALL:Y_RD")
+    graph.add_trace('VA:LS1FS1:BPM_ALL:POS_RD', "VA:LS1FS1:BPM_ALL:X_RD", name="X_RD", line_width=5)
+    graph.add_trace('VA:LS1FS1:BPM_ALL:POS_RD', "VA:LS1FS1:BPM_ALL:Y_RD", name="Y_RD", line_width=5)
+
+    graph.set_axis_title("Position of Device (m)", 0)
+    graph.set_axis_title("Value Reading (m)", 1)
 
     # Setting what the y-axis should scale to
-    y_limit = 0.01
+    y_limit = 0.02
     graph.set_axis_scale(-y_limit, y_limit, 1)
 
     tab_widget.add_child(graph)

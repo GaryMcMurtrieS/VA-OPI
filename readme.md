@@ -5,3 +5,16 @@
 3.	Build OPIs to list all the device settings by types, e.g. one screen for correctors, one for cavities, etc.
 4.	Build OPIs to list all diagnostic device readings, e.g. beam position monitors (BPMs), and try to use chart widget to visualize the data
 5.	[optional] Try to build the synoptic view of the VA, this is a bonus item, but is also a good chance to extend the graphical drawing capabilities for opi-generator.
+
+### To-do
+- Make Graphs work in Phoebus
+- Add functionality to restore historic data
+- Implement ability to change trace color
+- Change what tooltips show
+- Make X and Y RD slightly shifted
+- Add other readbacks to graph (`PHA_RD`, `ENG_RD`)
+- Write test for XYGraph widget to OPI-gen
+- Explore Rules and Scripting capability of CS-Studio
+- OPI Creating and using local variables
+
+https://github.com/users/zhangt58/projects/1
