@@ -12,8 +12,6 @@
 - Implement ability to change trace color
 - Change what tooltips show
 - Make X and Y RD slightly shifted
-- Add other readbacks to graph (`PHA_RD`, `ENG_RD`)
-- Write test for XYGraph widget to OPI-gen
 - Explore Rules and Scripting capability of CS-Studio
 - OPI Creating and using local variables
 

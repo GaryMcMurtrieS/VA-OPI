@@ -3,7 +3,6 @@
 import pandas as pd
 from opigen import Renderer, widgets
 from opigen.contrib import Display, TextEntry, TextUpdate
-from opigen.opimodel.colors import Color
 
 # Variables to control widget positioning
 FILENAME = "va_opi"
@@ -16,6 +15,7 @@ HORIZONTAL_GAP = 5
 VERTICAL_GAP = 5
 GRAPH_WIDTH = 800
 GRAPH_HEIGHT = 500
+GRAPH_LINE_WIDTH = 5
 
 
 def create_columns_and_get_width(filtered_pvs, tab_widget):
@@ -79,17 +79,52 @@ def create_graphs_tab():
     tab_widget = widgets.GroupingContainer(0, 0, TOTAL_WIDTH + (3 * HORIZONTAL_GAP) + 10,
                                            SCREEN_HEIGHT, "Graphs")
 
-    # Creates the graph and adds traces
-    graph = widgets.XYGraph(VERTICAL_GAP, HORIZONTAL_GAP, GRAPH_WIDTH, GRAPH_HEIGHT)
-    graph.add_trace('VA:LS1FS1:BPM_ALL:POS_RD', "VA:LS1FS1:BPM_ALL:X_RD", legend="X_RD", line_width=5)
-    graph.add_trace('VA:LS1FS1:BPM_ALL:POS_RD', "VA:LS1FS1:BPM_ALL:Y_RD", legend="Y_RD", line_width=5)
-
+    # Creates the graph and sets x axis title
+    graph = widgets.XYGraph(HORIZONTAL_GAP, VERTICAL_GAP, GRAPH_WIDTH, GRAPH_HEIGHT)
     graph.set_axis_title("Position of Device (m)", 0)
-    graph.set_axis_title("Value Reading (m)", 1)
 
-    # Setting what the y-axis should scale to
-    y_limit = 0.02
+    # Adding traces for x and y readbacks
+    graph.add_trace('VA:LS1FS1:BPM_ALL:POS_RD',
+                    "VA:LS1FS1:BPM_ALL:X_RD",
+                    legend="X_RD",
+                    line_width=GRAPH_LINE_WIDTH)
+    graph.add_trace('VA:LS1FS1:BPM_ALL:POS_RD',
+                    "VA:LS1FS1:BPM_ALL:Y_RD",
+                    legend="Y_RD",
+                    line_width=GRAPH_LINE_WIDTH)
+
+    # Setting y axis for pos readbacks
+    graph.set_axis_title("Value Reading (m)", 1)
+    y_limit = 0.01
     graph.set_axis_scale(-y_limit, y_limit, 1)
+
+    # Adding trace for PHA readback
+    graph.add_trace('VA:LS1FS1:BPM_ALL:POS_RD',
+                    "VA:LS1FS1:BPM_ALL:PHA_RD",
+                    legend="PHA_RD",
+                    line_width=GRAPH_LINE_WIDTH)
+
+    graph.add_axis(1)
+    graph.change_trace_axis(2, 1, 2)
+
+    # Setting y axis for PHA readbacks
+    graph.set_axis_title("Value Reading (degrees)", 2)
+    y_limit = 300
+    graph.set_axis_scale(-y_limit, y_limit, 2)
+
+    # Adding trace for ENG readback
+    graph.add_trace('VA:LS1FS1:BPM_ALL:POS_RD',
+                    "VA:LS1FS1:BPM_ALL:ENG_RD",
+                    legend="ENG_RD",
+                    line_width=GRAPH_LINE_WIDTH)
+
+    graph.add_axis(1)
+    graph.change_trace_axis(3, 1, 3)
+
+    # Setting y axis for ENG readbacks
+    graph.set_axis_title("Value Reading (MeV)", 3)
+    y_limit = 30
+    graph.set_axis_scale(-y_limit, y_limit, 3)
 
     tab_widget.add_child(graph)
 
