@@ -228,7 +228,7 @@
       <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
         <height>650</height>
         <lock_children>true</lock_children>
-        <name>Graphs</name>
+        <name>BPM Graph</name>
         <transparent>true</transparent>
         <width>875</width>
         <x>0</x>
@@ -258,12 +258,14 @@
           <trace_0_name>X_RD</trace_0_name>
           <trace_0_trace_type>3</trace_0_trace_type>
           <trace_0_x_pv>VA:LS1FS1:BPM_ALL:POS_RD</trace_0_x_pv>
+          <trace_0_y_axis_index>1</trace_0_y_axis_index>
           <trace_0_y_pv>VA:LS1FS1:BPM_ALL:X_RD</trace_0_y_pv>
           <trace_1_concatenate_data>false</trace_1_concatenate_data>
           <trace_1_line_width>5</trace_1_line_width>
           <trace_1_name>Y_RD</trace_1_name>
           <trace_1_trace_type>3</trace_1_trace_type>
           <trace_1_x_pv>VA:LS1FS1:BPM_ALL:POS_RD</trace_1_x_pv>
+          <trace_1_y_axis_index>1</trace_1_y_axis_index>
           <trace_1_y_pv>VA:LS1FS1:BPM_ALL:Y_RD</trace_1_y_pv>
           <trace_2_concatenate_data>false</trace_2_concatenate_data>
           <trace_2_line_width>5</trace_2_line_width>

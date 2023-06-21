@@ -14,19 +14,9 @@
     <axis_0_axis_title>Position of Device (m)</axis_0_axis_title>
     <axis_1_auto_scale>false</axis_1_auto_scale>
     <axis_1_axis_title>Value Reading (m)</axis_1_axis_title>
-    <axis_1_maximum>0.02</axis_1_maximum>
-    <axis_1_minimum>-0.02</axis_1_minimum>
-    <axis_2_auto_scale>false</axis_2_auto_scale>
-    <axis_2_axis_title>Value Reading (degrees)</axis_2_axis_title>
-    <axis_2_maximum>300</axis_2_maximum>
-    <axis_2_minimum>-300</axis_2_minimum>
-    <axis_2_y_axis>true</axis_2_y_axis>
-    <axis_3_auto_scale>false</axis_3_auto_scale>
-    <axis_3_axis_title>Value Reading (MeV)</axis_3_axis_title>
-    <axis_3_maximum>30</axis_3_maximum>
-    <axis_3_minimum>-30</axis_3_minimum>
-    <axis_3_y_axis>true</axis_3_y_axis>
-    <axis_count>4</axis_count>
+    <axis_1_maximum>0.01</axis_1_maximum>
+    <axis_1_minimum>-0.01</axis_1_minimum>
+    <axis_count>2</axis_count>
     <height>500</height>
     <name>XYGraph_0</name>
     <show_toolbar>false</show_toolbar>
@@ -35,28 +25,16 @@
     <trace_0_name>X_RD</trace_0_name>
     <trace_0_trace_type>3</trace_0_trace_type>
     <trace_0_x_pv>VA:LS1FS1:BPM_ALL:POS_RD</trace_0_x_pv>
+    <trace_0_y_axis_index>1</trace_0_y_axis_index>
     <trace_0_y_pv>VA:LS1FS1:BPM_ALL:X_RD</trace_0_y_pv>
     <trace_1_concatenate_data>false</trace_1_concatenate_data>
     <trace_1_line_width>5</trace_1_line_width>
     <trace_1_name>Y_RD</trace_1_name>
     <trace_1_trace_type>3</trace_1_trace_type>
     <trace_1_x_pv>VA:LS1FS1:BPM_ALL:POS_RD</trace_1_x_pv>
+    <trace_1_y_axis_index>1</trace_1_y_axis_index>
     <trace_1_y_pv>VA:LS1FS1:BPM_ALL:Y_RD</trace_1_y_pv>
-    <trace_2_concatenate_data>false</trace_2_concatenate_data>
-    <trace_2_line_width>5</trace_2_line_width>
-    <trace_2_name>PHA_RD</trace_2_name>
-    <trace_2_trace_type>3</trace_2_trace_type>
-    <trace_2_x_pv>VA:LS1FS1:BPM_ALL:POS_RD</trace_2_x_pv>
-    <trace_2_y_axis_index>2</trace_2_y_axis_index>
-    <trace_2_y_pv>VA:LS1FS1:BPM_ALL:PHA_RD</trace_2_y_pv>
-    <trace_3_concatenate_data>false</trace_3_concatenate_data>
-    <trace_3_line_width>5</trace_3_line_width>
-    <trace_3_name>ENG_RD</trace_3_name>
-    <trace_3_trace_type>3</trace_3_trace_type>
-    <trace_3_x_pv>VA:LS1FS1:BPM_ALL:POS_RD</trace_3_x_pv>
-    <trace_3_y_axis_index>3</trace_3_y_axis_index>
-    <trace_3_y_pv>VA:LS1FS1:BPM_ALL:ENG_RD</trace_3_y_pv>
-    <trace_count>4</trace_count>
+    <trace_count>2</trace_count>
     <width>800</width>
     <x>5</x>
     <y>5</y>

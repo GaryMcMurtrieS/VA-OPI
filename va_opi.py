@@ -6,13 +6,17 @@ from opigen.contrib import Display, TextEntry, TextUpdate
 
 # Variables to control widget positioning
 FILENAME = "va_opi"
+
 WIDGET_HEIGHT = 25
 TOTAL_WIDTH = 850
 NAME_WIDTH = 150
+
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 650
+
 HORIZONTAL_GAP = 5
 VERTICAL_GAP = 5
+
 GRAPH_WIDTH = 800
 GRAPH_HEIGHT = 500
 GRAPH_LINE_WIDTH = 5
@@ -77,7 +81,7 @@ def create_graphs_tab():
     """Creates a tab for the XY Graphs with BPM data"""
     # Creates a singular widget to add to the tab that contains all other widgets
     tab_widget = widgets.GroupingContainer(0, 0, TOTAL_WIDTH + (3 * HORIZONTAL_GAP) + 10,
-                                           SCREEN_HEIGHT, "Graphs")
+                                           SCREEN_HEIGHT, "BPM Graph")
 
     # Creates the graph and sets x axis title
     graph = widgets.XYGraph(HORIZONTAL_GAP, VERTICAL_GAP, GRAPH_WIDTH, GRAPH_HEIGHT)
@@ -88,6 +92,7 @@ def create_graphs_tab():
                     "VA:LS1FS1:BPM_ALL:X_RD",
                     legend="X_RD",
                     line_width=GRAPH_LINE_WIDTH)
+
     graph.add_trace('VA:LS1FS1:BPM_ALL:POS_RD',
                     "VA:LS1FS1:BPM_ALL:Y_RD",
                     legend="Y_RD",
@@ -99,13 +104,12 @@ def create_graphs_tab():
     graph.set_axis_scale(-y_limit, y_limit, 1)
 
     # Adding trace for PHA readback
+    graph.add_y_axis()
     graph.add_trace('VA:LS1FS1:BPM_ALL:POS_RD',
                     "VA:LS1FS1:BPM_ALL:PHA_RD",
                     legend="PHA_RD",
-                    line_width=GRAPH_LINE_WIDTH)
-
-    graph.add_axis(1)
-    graph.change_trace_axis(2, 1, 2)
+                    line_width=GRAPH_LINE_WIDTH,
+                    y_axis=2)
 
     # Setting y axis for PHA readbacks
     graph.set_axis_title("Value Reading (degrees)", 2)
@@ -113,13 +117,12 @@ def create_graphs_tab():
     graph.set_axis_scale(-y_limit, y_limit, 2)
 
     # Adding trace for ENG readback
+    graph.add_y_axis()
     graph.add_trace('VA:LS1FS1:BPM_ALL:POS_RD',
                     "VA:LS1FS1:BPM_ALL:ENG_RD",
                     legend="ENG_RD",
-                    line_width=GRAPH_LINE_WIDTH)
-
-    graph.add_axis(1)
-    graph.change_trace_axis(3, 1, 3)
+                    line_width=GRAPH_LINE_WIDTH,
+                    y_axis=3)
 
     # Setting y axis for ENG readbacks
     graph.set_axis_title("Value Reading (MeV)", 3)
