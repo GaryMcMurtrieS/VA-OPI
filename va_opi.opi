@@ -33,7 +33,7 @@
         <height>457</height>
         <name>EmbeddedContainer_0</name>
         <opi_file>va_opi_tabs/SVR_tabs.opi</opi_file>
-        <resize_behaviour>2</resize_behaviour>
+        <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
         <y>0</y>
@@ -58,7 +58,7 @@
         <height>457</height>
         <name>EmbeddedContainer_1</name>
         <opi_file>va_opi_tabs/Graphs_tabs.opi</opi_file>
-        <resize_behaviour>2</resize_behaviour>
+        <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
         <y>0</y>

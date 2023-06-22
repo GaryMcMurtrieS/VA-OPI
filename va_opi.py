@@ -33,22 +33,14 @@ def main():
     # Create all the OPIs for the embedded containers
     device_types = va_opi_tabs.create_embeds()
 
-    # Creates the first two tabs, one for SVR and one for the XY Graphs
-    tab_container.add_tab(
-        "SVR",
-        widgets.EmbeddedContainer(0, 0, EMBED_WIDTH, EMBED_HEIGHT, f"{TAB_FOLDER}{'SVR'}_tabs.opi"))
-    tab_container.add_tab(
-        "Graphs",
-        widgets.EmbeddedContainer(0, 0, EMBED_WIDTH, EMBED_HEIGHT,
-                                  f"{TAB_FOLDER}{'Graphs'}_tabs.opi"))
-
     # Creates a tab for each type of monitor
-    for device_type in device_types:
+    initial_tabs = ["SVR", "Graphs"]
+    for tab_name in initial_tabs + device_types:
         tab_widget = widgets.EmbeddedContainer(0, 0, EMBED_WIDTH, EMBED_HEIGHT,
-                                               f"{TAB_FOLDER}{device_type}_tabs.opi")
+                                               f"{TAB_FOLDER}{tab_name}_tabs.opi")
 
         tab_widget.resize_behaviour = widgets.ResizeBehaviour.SCROLL
-        tab_container.add_tab(device_type, tab_widget)
+        tab_container.add_tab(tab_name, tab_widget)
 
     # Outputs to file
     screen_renderer = Renderer(screen)
