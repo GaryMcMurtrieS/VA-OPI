@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<display version="2.0.0">
+  <background_color>
+    <color red="255" green="255" blue="255" name="DISPLAY_BG"/>
+  </background_color>
+  <grid_visible>true</grid_visible>
+  <height>650</height>
+  <name>Graphs</name>
+  <width>800</width>
+  <x>0</x>
+  <y>0</y>
+  <widget type="xyplot" version="2.0.0">
+    <height>500</height>
+    <name>XYGraph_0</name>
+    <traces>
+      <trace>
+        <name>X_RD</name>
+        <x_pv>VA:LS1FS1:BPM_ALL:POS_RD</x_pv>
+        <y_pv>VA:LS1FS1:BPM_ALL:X_RD</y_pv>
+        <axis>0</axis>
+        <line_width>5</line_width>
+        <trace_type>5</trace_type>
+      </trace>
+      <trace>
+        <name>Y_RD</name>
+        <x_pv>VA:LS1FS1:BPM_ALL:POS_RD</x_pv>
+        <y_pv>VA:LS1FS1:BPM_ALL:Y_RD</y_pv>
+        <axis>0</axis>
+        <line_width>5</line_width>
+        <trace_type>5</trace_type>
+      </trace>
+      <trace>
+        <name>PHA_RD</name>
+        <x_pv>VA:LS1FS1:BPM_ALL:POS_RD</x_pv>
+        <y_pv>VA:LS1FS1:BPM_ALL:PHA_RD</y_pv>
+        <axis>1</axis>
+        <line_width>5</line_width>
+        <trace_type>5</trace_type>
+      </trace>
+      <trace>
+        <name>ENG_RD</name>
+        <x_pv>VA:LS1FS1:BPM_ALL:POS_RD</x_pv>
+        <y_pv>VA:LS1FS1:BPM_ALL:ENG_RD</y_pv>
+        <axis>2</axis>
+        <line_width>5</line_width>
+        <trace_type>5</trace_type>
+      </trace>
+    </traces>
+    <width>800</width>
+    <x>5</x>
+    <x_axis>
+      <title>Position of Device (m)</title>
+      <autoscale>True</autoscale>
+      <minimum>0</minimum>
+      <maximum>100</maximum>
+    </x_axis>
+    <y>5</y>
+    <y_axes>
+      <y_axis>
+        <title>Value Reading (m)</title>
+        <autoscale>False</autoscale>
+        <minimum>-0.01</minimum>
+        <maximum>0.01</maximum>
+      </y_axis>
+      <y_axis>
+        <title>Value Reading (degrees)</title>
+        <autoscale>False</autoscale>
+        <minimum>-300</minimum>
+        <maximum>300</maximum>
+      </y_axis>
+      <y_axis>
+        <title>Value Reading (MeV)</title>
+        <autoscale>False</autoscale>
+        <minimum>-30</minimum>
+        <maximum>30</maximum>
+      </y_axis>
+    </y_axes>
+  </widget>
+</display>

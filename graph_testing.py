@@ -4,7 +4,7 @@ from opigen import Renderer, widgets
 from opigen.contrib import Display
 
 # Variables to control widget positioning
-FILENAME = "bpm_opi_graph"
+FILENAME = "graph_testing"
 
 WIDGET_HEIGHT = 25
 TOTAL_WIDTH = 850

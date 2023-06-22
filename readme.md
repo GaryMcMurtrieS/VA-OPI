@@ -10,9 +10,7 @@
 - Add functionality to restore historic data
 - Change what tooltips show
 - Explore Rules and Scripting capability of CS-Studio
-- Make Graphs work in Phoebus
-- Make X and Y RD slightly shifted
+- Make X and Y RD slightly shifted (Don't think is possible in Phoebus)
 - OPI Creating and using local variables
-- Scale tab containers properly in Phoebus
 
 https://github.com/users/zhangt58/projects/1

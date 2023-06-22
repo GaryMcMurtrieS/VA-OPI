@@ -1,0 +1,1800 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<display version="2.0.0">
+  <background_color>
+    <color red="255" green="255" blue="255" name="DISPLAY_BG"/>
+  </background_color>
+  <grid_visible>true</grid_visible>
+  <height>650</height>
+  <name>CAV1</name>
+  <width>800</width>
+  <x>0</x>
+  <y>0</y>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_101</name>
+    <text>AMPL_CSET</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>160</x>
+    <y>5</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_102</name>
+    <text>AMPL_RD</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>276.6666666666667</x>
+    <y>5</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_103</name>
+    <text>AMPL_RSET</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>393.33333333333337</x>
+    <y>5</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_104</name>
+    <text>PHA_CSET</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>510.00000000000006</x>
+    <y>5</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_105</name>
+    <text>PHA_RD</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>626.6666666666667</x>
+    <y>5</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_106</name>
+    <text>PHA_RSET</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>743.3333333333334</x>
+    <y>5</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_107</name>
+    <text>FS1_CH01:CAV1_D2137</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>35</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_23</name>
+    <pv_name>VA:FS1_CH01:CAV1_D2137:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>160</x>
+    <y>35</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_332</name>
+    <pv_name>VA:FS1_CH01:CAV1_D2137:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>276.6666666666667</x>
+    <y>35</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_333</name>
+    <pv_name>VA:FS1_CH01:CAV1_D2137:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>393.33333333333337</x>
+    <y>35</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_24</name>
+    <pv_name>VA:FS1_CH01:CAV1_D2137:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>510.00000000000006</x>
+    <y>35</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_334</name>
+    <pv_name>VA:FS1_CH01:CAV1_D2137:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>626.6666666666667</x>
+    <y>35</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_335</name>
+    <pv_name>VA:FS1_CH01:CAV1_D2137:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>743.3333333333334</x>
+    <y>35</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_108</name>
+    <text>LS1_CA01:CAV1_D1127</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>65</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_25</name>
+    <pv_name>VA:LS1_CA01:CAV1_D1127:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>160</x>
+    <y>65</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_336</name>
+    <pv_name>VA:LS1_CA01:CAV1_D1127:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>276.6666666666667</x>
+    <y>65</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_337</name>
+    <pv_name>VA:LS1_CA01:CAV1_D1127:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>393.33333333333337</x>
+    <y>65</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_26</name>
+    <pv_name>VA:LS1_CA01:CAV1_D1127:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>510.00000000000006</x>
+    <y>65</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_338</name>
+    <pv_name>VA:LS1_CA01:CAV1_D1127:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>626.6666666666667</x>
+    <y>65</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_339</name>
+    <pv_name>VA:LS1_CA01:CAV1_D1127:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>743.3333333333334</x>
+    <y>65</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_109</name>
+    <text>LS1_CA02:CAV1_D1161</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>95</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_27</name>
+    <pv_name>VA:LS1_CA02:CAV1_D1161:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>160</x>
+    <y>95</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_340</name>
+    <pv_name>VA:LS1_CA02:CAV1_D1161:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>276.6666666666667</x>
+    <y>95</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_341</name>
+    <pv_name>VA:LS1_CA02:CAV1_D1161:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>393.33333333333337</x>
+    <y>95</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_28</name>
+    <pv_name>VA:LS1_CA02:CAV1_D1161:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>510.00000000000006</x>
+    <y>95</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_342</name>
+    <pv_name>VA:LS1_CA02:CAV1_D1161:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>626.6666666666667</x>
+    <y>95</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_343</name>
+    <pv_name>VA:LS1_CA02:CAV1_D1161:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>743.3333333333334</x>
+    <y>95</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_110</name>
+    <text>LS1_CA03:CAV1_D1195</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>125</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_29</name>
+    <pv_name>VA:LS1_CA03:CAV1_D1195:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>160</x>
+    <y>125</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_344</name>
+    <pv_name>VA:LS1_CA03:CAV1_D1195:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>276.6666666666667</x>
+    <y>125</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_345</name>
+    <pv_name>VA:LS1_CA03:CAV1_D1195:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>393.33333333333337</x>
+    <y>125</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_30</name>
+    <pv_name>VA:LS1_CA03:CAV1_D1195:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>510.00000000000006</x>
+    <y>125</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_346</name>
+    <pv_name>VA:LS1_CA03:CAV1_D1195:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>626.6666666666667</x>
+    <y>125</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_347</name>
+    <pv_name>VA:LS1_CA03:CAV1_D1195:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>743.3333333333334</x>
+    <y>125</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_111</name>
+    <text>LS1_CB01:CAV1_D1229</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>155</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_31</name>
+    <pv_name>VA:LS1_CB01:CAV1_D1229:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>160</x>
+    <y>155</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_348</name>
+    <pv_name>VA:LS1_CB01:CAV1_D1229:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>276.6666666666667</x>
+    <y>155</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_349</name>
+    <pv_name>VA:LS1_CB01:CAV1_D1229:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>393.33333333333337</x>
+    <y>155</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_32</name>
+    <pv_name>VA:LS1_CB01:CAV1_D1229:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>510.00000000000006</x>
+    <y>155</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_350</name>
+    <pv_name>VA:LS1_CB01:CAV1_D1229:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>626.6666666666667</x>
+    <y>155</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_351</name>
+    <pv_name>VA:LS1_CB01:CAV1_D1229:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>743.3333333333334</x>
+    <y>155</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_112</name>
+    <text>LS1_CB02:CAV1_D1293</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>185</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_33</name>
+    <pv_name>VA:LS1_CB02:CAV1_D1293:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>160</x>
+    <y>185</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_352</name>
+    <pv_name>VA:LS1_CB02:CAV1_D1293:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>276.6666666666667</x>
+    <y>185</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_353</name>
+    <pv_name>VA:LS1_CB02:CAV1_D1293:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>393.33333333333337</x>
+    <y>185</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_34</name>
+    <pv_name>VA:LS1_CB02:CAV1_D1293:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>510.00000000000006</x>
+    <y>185</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_354</name>
+    <pv_name>VA:LS1_CB02:CAV1_D1293:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>626.6666666666667</x>
+    <y>185</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_355</name>
+    <pv_name>VA:LS1_CB02:CAV1_D1293:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>743.3333333333334</x>
+    <y>185</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_113</name>
+    <text>LS1_CB03:CAV1_D1356</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>215</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_35</name>
+    <pv_name>VA:LS1_CB03:CAV1_D1356:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>160</x>
+    <y>215</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_356</name>
+    <pv_name>VA:LS1_CB03:CAV1_D1356:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>276.6666666666667</x>
+    <y>215</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_357</name>
+    <pv_name>VA:LS1_CB03:CAV1_D1356:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>393.33333333333337</x>
+    <y>215</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_36</name>
+    <pv_name>VA:LS1_CB03:CAV1_D1356:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>510.00000000000006</x>
+    <y>215</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_358</name>
+    <pv_name>VA:LS1_CB03:CAV1_D1356:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>626.6666666666667</x>
+    <y>215</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_359</name>
+    <pv_name>VA:LS1_CB03:CAV1_D1356:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>743.3333333333334</x>
+    <y>215</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_114</name>
+    <text>LS1_CB04:CAV1_D1420</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>245</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_37</name>
+    <pv_name>VA:LS1_CB04:CAV1_D1420:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>160</x>
+    <y>245</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_360</name>
+    <pv_name>VA:LS1_CB04:CAV1_D1420:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>276.6666666666667</x>
+    <y>245</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_361</name>
+    <pv_name>VA:LS1_CB04:CAV1_D1420:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>393.33333333333337</x>
+    <y>245</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_38</name>
+    <pv_name>VA:LS1_CB04:CAV1_D1420:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>510.00000000000006</x>
+    <y>245</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_362</name>
+    <pv_name>VA:LS1_CB04:CAV1_D1420:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>626.6666666666667</x>
+    <y>245</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_363</name>
+    <pv_name>VA:LS1_CB04:CAV1_D1420:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>743.3333333333334</x>
+    <y>245</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_115</name>
+    <text>LS1_CB05:CAV1_D1484</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>275</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_39</name>
+    <pv_name>VA:LS1_CB05:CAV1_D1484:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>160</x>
+    <y>275</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_364</name>
+    <pv_name>VA:LS1_CB05:CAV1_D1484:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>276.6666666666667</x>
+    <y>275</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_365</name>
+    <pv_name>VA:LS1_CB05:CAV1_D1484:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>393.33333333333337</x>
+    <y>275</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_40</name>
+    <pv_name>VA:LS1_CB05:CAV1_D1484:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>510.00000000000006</x>
+    <y>275</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_366</name>
+    <pv_name>VA:LS1_CB05:CAV1_D1484:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>626.6666666666667</x>
+    <y>275</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_367</name>
+    <pv_name>VA:LS1_CB05:CAV1_D1484:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>743.3333333333334</x>
+    <y>275</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_116</name>
+    <text>LS1_CB06:CAV1_D1548</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>305</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_41</name>
+    <pv_name>VA:LS1_CB06:CAV1_D1548:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>160</x>
+    <y>305</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_368</name>
+    <pv_name>VA:LS1_CB06:CAV1_D1548:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>276.6666666666667</x>
+    <y>305</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_369</name>
+    <pv_name>VA:LS1_CB06:CAV1_D1548:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>393.33333333333337</x>
+    <y>305</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_42</name>
+    <pv_name>VA:LS1_CB06:CAV1_D1548:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>510.00000000000006</x>
+    <y>305</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_370</name>
+    <pv_name>VA:LS1_CB06:CAV1_D1548:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>626.6666666666667</x>
+    <y>305</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_371</name>
+    <pv_name>VA:LS1_CB06:CAV1_D1548:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>743.3333333333334</x>
+    <y>305</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_117</name>
+    <text>LS1_CB07:CAV1_D1611</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>335</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_43</name>
+    <pv_name>VA:LS1_CB07:CAV1_D1611:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>160</x>
+    <y>335</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_372</name>
+    <pv_name>VA:LS1_CB07:CAV1_D1611:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>276.6666666666667</x>
+    <y>335</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_373</name>
+    <pv_name>VA:LS1_CB07:CAV1_D1611:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>393.33333333333337</x>
+    <y>335</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_44</name>
+    <pv_name>VA:LS1_CB07:CAV1_D1611:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>510.00000000000006</x>
+    <y>335</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_374</name>
+    <pv_name>VA:LS1_CB07:CAV1_D1611:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>626.6666666666667</x>
+    <y>335</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_375</name>
+    <pv_name>VA:LS1_CB07:CAV1_D1611:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>743.3333333333334</x>
+    <y>335</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_118</name>
+    <text>LS1_CB08:CAV1_D1675</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>365</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_45</name>
+    <pv_name>VA:LS1_CB08:CAV1_D1675:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>160</x>
+    <y>365</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_376</name>
+    <pv_name>VA:LS1_CB08:CAV1_D1675:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>276.6666666666667</x>
+    <y>365</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_377</name>
+    <pv_name>VA:LS1_CB08:CAV1_D1675:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>393.33333333333337</x>
+    <y>365</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_46</name>
+    <pv_name>VA:LS1_CB08:CAV1_D1675:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>510.00000000000006</x>
+    <y>365</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_378</name>
+    <pv_name>VA:LS1_CB08:CAV1_D1675:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>626.6666666666667</x>
+    <y>365</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_379</name>
+    <pv_name>VA:LS1_CB08:CAV1_D1675:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>743.3333333333334</x>
+    <y>365</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_119</name>
+    <text>LS1_CB09:CAV1_D1739</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>395</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_47</name>
+    <pv_name>VA:LS1_CB09:CAV1_D1739:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>160</x>
+    <y>395</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_380</name>
+    <pv_name>VA:LS1_CB09:CAV1_D1739:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>276.6666666666667</x>
+    <y>395</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_381</name>
+    <pv_name>VA:LS1_CB09:CAV1_D1739:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>393.33333333333337</x>
+    <y>395</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_48</name>
+    <pv_name>VA:LS1_CB09:CAV1_D1739:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>510.00000000000006</x>
+    <y>395</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_382</name>
+    <pv_name>VA:LS1_CB09:CAV1_D1739:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>626.6666666666667</x>
+    <y>395</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_383</name>
+    <pv_name>VA:LS1_CB09:CAV1_D1739:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>743.3333333333334</x>
+    <y>395</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_120</name>
+    <text>LS1_CB10:CAV1_D1802</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>425</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_49</name>
+    <pv_name>VA:LS1_CB10:CAV1_D1802:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>160</x>
+    <y>425</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_384</name>
+    <pv_name>VA:LS1_CB10:CAV1_D1802:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>276.6666666666667</x>
+    <y>425</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_385</name>
+    <pv_name>VA:LS1_CB10:CAV1_D1802:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>393.33333333333337</x>
+    <y>425</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_50</name>
+    <pv_name>VA:LS1_CB10:CAV1_D1802:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>510.00000000000006</x>
+    <y>425</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_386</name>
+    <pv_name>VA:LS1_CB10:CAV1_D1802:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>626.6666666666667</x>
+    <y>425</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_387</name>
+    <pv_name>VA:LS1_CB10:CAV1_D1802:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>743.3333333333334</x>
+    <y>425</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_121</name>
+    <text>LS1_CB11:CAV1_D1866</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>455</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_51</name>
+    <pv_name>VA:LS1_CB11:CAV1_D1866:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>160</x>
+    <y>455</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_388</name>
+    <pv_name>VA:LS1_CB11:CAV1_D1866:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>276.6666666666667</x>
+    <y>455</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_389</name>
+    <pv_name>VA:LS1_CB11:CAV1_D1866:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>393.33333333333337</x>
+    <y>455</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_52</name>
+    <pv_name>VA:LS1_CB11:CAV1_D1866:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>510.00000000000006</x>
+    <y>455</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_390</name>
+    <pv_name>VA:LS1_CB11:CAV1_D1866:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>626.6666666666667</x>
+    <y>455</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_391</name>
+    <pv_name>VA:LS1_CB11:CAV1_D1866:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>743.3333333333334</x>
+    <y>455</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_122</name>
+    <text>LS1_CH01:CAV1_D2085</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>485</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_53</name>
+    <pv_name>VA:LS1_CH01:CAV1_D2085:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>160</x>
+    <y>485</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_392</name>
+    <pv_name>VA:LS1_CH01:CAV1_D2085:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>276.6666666666667</x>
+    <y>485</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_393</name>
+    <pv_name>VA:LS1_CH01:CAV1_D2085:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>393.33333333333337</x>
+    <y>485</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_54</name>
+    <pv_name>VA:LS1_CH01:CAV1_D2085:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>510.00000000000006</x>
+    <y>485</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_394</name>
+    <pv_name>VA:LS1_CH01:CAV1_D2085:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>626.6666666666667</x>
+    <y>485</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_395</name>
+    <pv_name>VA:LS1_CH01:CAV1_D2085:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.66666666666667</width>
+    <x>743.3333333333334</x>
+    <y>485</y>
+  </widget>
+</display>
