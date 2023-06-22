@@ -4,10 +4,10 @@
   <background_color>
     <color red="255" green="255" blue="255" name="DISPLAY_BG"/>
   </background_color>
-  <height>650</height>
+  <height>500</height>
   <name>Graphs</name>
   <show_grid>true</show_grid>
-  <width>800</width>
+  <width>1000</width>
   <x>0</x>
   <y>0</y>
   <widget typeId="org.csstudio.opibuilder.widgets.xyGraph" version="1.0.0">

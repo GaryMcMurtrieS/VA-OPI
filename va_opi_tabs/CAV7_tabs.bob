@@ -4,9 +4,9 @@
     <color red="255" green="255" blue="255" name="DISPLAY_BG"/>
   </background_color>
   <grid_visible>true</grid_visible>
-  <height>650</height>
+  <height>500</height>
   <name>CAV7</name>
-  <width>800</width>
+  <width>1000</width>
   <x>0</x>
   <y>0</y>
   <widget type="label" version="2.0.0">
@@ -15,7 +15,7 @@
     <name>Label_223</name>
     <text>AMPL_CSET</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
+    <width>130.83333333333334</width>
     <x>160</x>
     <y>5</y>
   </widget>
@@ -25,8 +25,8 @@
     <name>Label_224</name>
     <text>AMPL_RD</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>276.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>295.83333333333337</x>
     <y>5</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -35,8 +35,8 @@
     <name>Label_225</name>
     <text>AMPL_RSET</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>393.33333333333337</x>
+    <width>130.83333333333334</width>
+    <x>431.66666666666674</x>
     <y>5</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -45,8 +45,8 @@
     <name>Label_226</name>
     <text>PHA_CSET</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>510.00000000000006</x>
+    <width>130.83333333333334</width>
+    <x>567.5000000000001</x>
     <y>5</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -55,8 +55,8 @@
     <name>Label_227</name>
     <text>PHA_RD</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>626.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>703.3333333333335</x>
     <y>5</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -65,8 +65,8 @@
     <name>Label_228</name>
     <text>PHA_RSET</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>743.3333333333334</x>
+    <width>130.83333333333334</width>
+    <x>839.1666666666669</x>
     <y>5</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -88,7 +88,7 @@
     <name>TextEntry_195</name>
     <pv_name>VA:LS1_CB01:CAV7_D1269:AMPL_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
+    <width>130.83333333333334</width>
     <x>160</x>
     <y>35</y>
   </widget>
@@ -106,8 +106,8 @@
     <name>TextUpdate_676</name>
     <pv_name>VA:LS1_CB01:CAV7_D1269:AMPL_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>276.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>295.83333333333337</x>
     <y>35</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -124,8 +124,8 @@
     <name>TextUpdate_677</name>
     <pv_name>VA:LS1_CB01:CAV7_D1269:AMPL_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>393.33333333333337</x>
+    <width>130.83333333333334</width>
+    <x>431.66666666666674</x>
     <y>35</y>
   </widget>
   <widget type="textentry" version="2.0.0">
@@ -137,8 +137,8 @@
     <name>TextEntry_196</name>
     <pv_name>VA:LS1_CB01:CAV7_D1269:PHA_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>510.00000000000006</x>
+    <width>130.83333333333334</width>
+    <x>567.5000000000001</x>
     <y>35</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -155,8 +155,8 @@
     <name>TextUpdate_678</name>
     <pv_name>VA:LS1_CB01:CAV7_D1269:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>626.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>703.3333333333335</x>
     <y>35</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -173,8 +173,8 @@
     <name>TextUpdate_679</name>
     <pv_name>VA:LS1_CB01:CAV7_D1269:PHA_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>743.3333333333334</x>
+    <width>130.83333333333334</width>
+    <x>839.1666666666669</x>
     <y>35</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -196,7 +196,7 @@
     <name>TextEntry_197</name>
     <pv_name>VA:LS1_CB02:CAV7_D1333:AMPL_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
+    <width>130.83333333333334</width>
     <x>160</x>
     <y>65</y>
   </widget>
@@ -214,8 +214,8 @@
     <name>TextUpdate_680</name>
     <pv_name>VA:LS1_CB02:CAV7_D1333:AMPL_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>276.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>295.83333333333337</x>
     <y>65</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -232,8 +232,8 @@
     <name>TextUpdate_681</name>
     <pv_name>VA:LS1_CB02:CAV7_D1333:AMPL_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>393.33333333333337</x>
+    <width>130.83333333333334</width>
+    <x>431.66666666666674</x>
     <y>65</y>
   </widget>
   <widget type="textentry" version="2.0.0">
@@ -245,8 +245,8 @@
     <name>TextEntry_198</name>
     <pv_name>VA:LS1_CB02:CAV7_D1333:PHA_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>510.00000000000006</x>
+    <width>130.83333333333334</width>
+    <x>567.5000000000001</x>
     <y>65</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -263,8 +263,8 @@
     <name>TextUpdate_682</name>
     <pv_name>VA:LS1_CB02:CAV7_D1333:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>626.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>703.3333333333335</x>
     <y>65</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -281,8 +281,8 @@
     <name>TextUpdate_683</name>
     <pv_name>VA:LS1_CB02:CAV7_D1333:PHA_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>743.3333333333334</x>
+    <width>130.83333333333334</width>
+    <x>839.1666666666669</x>
     <y>65</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -304,7 +304,7 @@
     <name>TextEntry_199</name>
     <pv_name>VA:LS1_CB03:CAV7_D1396:AMPL_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
+    <width>130.83333333333334</width>
     <x>160</x>
     <y>95</y>
   </widget>
@@ -322,8 +322,8 @@
     <name>TextUpdate_684</name>
     <pv_name>VA:LS1_CB03:CAV7_D1396:AMPL_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>276.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>295.83333333333337</x>
     <y>95</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -340,8 +340,8 @@
     <name>TextUpdate_685</name>
     <pv_name>VA:LS1_CB03:CAV7_D1396:AMPL_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>393.33333333333337</x>
+    <width>130.83333333333334</width>
+    <x>431.66666666666674</x>
     <y>95</y>
   </widget>
   <widget type="textentry" version="2.0.0">
@@ -353,8 +353,8 @@
     <name>TextEntry_200</name>
     <pv_name>VA:LS1_CB03:CAV7_D1396:PHA_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>510.00000000000006</x>
+    <width>130.83333333333334</width>
+    <x>567.5000000000001</x>
     <y>95</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -371,8 +371,8 @@
     <name>TextUpdate_686</name>
     <pv_name>VA:LS1_CB03:CAV7_D1396:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>626.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>703.3333333333335</x>
     <y>95</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -389,8 +389,8 @@
     <name>TextUpdate_687</name>
     <pv_name>VA:LS1_CB03:CAV7_D1396:PHA_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>743.3333333333334</x>
+    <width>130.83333333333334</width>
+    <x>839.1666666666669</x>
     <y>95</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -412,7 +412,7 @@
     <name>TextEntry_201</name>
     <pv_name>VA:LS1_CB04:CAV7_D1460:AMPL_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
+    <width>130.83333333333334</width>
     <x>160</x>
     <y>125</y>
   </widget>
@@ -430,8 +430,8 @@
     <name>TextUpdate_688</name>
     <pv_name>VA:LS1_CB04:CAV7_D1460:AMPL_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>276.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>295.83333333333337</x>
     <y>125</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -448,8 +448,8 @@
     <name>TextUpdate_689</name>
     <pv_name>VA:LS1_CB04:CAV7_D1460:AMPL_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>393.33333333333337</x>
+    <width>130.83333333333334</width>
+    <x>431.66666666666674</x>
     <y>125</y>
   </widget>
   <widget type="textentry" version="2.0.0">
@@ -461,8 +461,8 @@
     <name>TextEntry_202</name>
     <pv_name>VA:LS1_CB04:CAV7_D1460:PHA_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>510.00000000000006</x>
+    <width>130.83333333333334</width>
+    <x>567.5000000000001</x>
     <y>125</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -479,8 +479,8 @@
     <name>TextUpdate_690</name>
     <pv_name>VA:LS1_CB04:CAV7_D1460:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>626.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>703.3333333333335</x>
     <y>125</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -497,8 +497,8 @@
     <name>TextUpdate_691</name>
     <pv_name>VA:LS1_CB04:CAV7_D1460:PHA_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>743.3333333333334</x>
+    <width>130.83333333333334</width>
+    <x>839.1666666666669</x>
     <y>125</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -520,7 +520,7 @@
     <name>TextEntry_203</name>
     <pv_name>VA:LS1_CB05:CAV7_D1524:AMPL_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
+    <width>130.83333333333334</width>
     <x>160</x>
     <y>155</y>
   </widget>
@@ -538,8 +538,8 @@
     <name>TextUpdate_692</name>
     <pv_name>VA:LS1_CB05:CAV7_D1524:AMPL_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>276.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>295.83333333333337</x>
     <y>155</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -556,8 +556,8 @@
     <name>TextUpdate_693</name>
     <pv_name>VA:LS1_CB05:CAV7_D1524:AMPL_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>393.33333333333337</x>
+    <width>130.83333333333334</width>
+    <x>431.66666666666674</x>
     <y>155</y>
   </widget>
   <widget type="textentry" version="2.0.0">
@@ -569,8 +569,8 @@
     <name>TextEntry_204</name>
     <pv_name>VA:LS1_CB05:CAV7_D1524:PHA_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>510.00000000000006</x>
+    <width>130.83333333333334</width>
+    <x>567.5000000000001</x>
     <y>155</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -587,8 +587,8 @@
     <name>TextUpdate_694</name>
     <pv_name>VA:LS1_CB05:CAV7_D1524:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>626.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>703.3333333333335</x>
     <y>155</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -605,8 +605,8 @@
     <name>TextUpdate_695</name>
     <pv_name>VA:LS1_CB05:CAV7_D1524:PHA_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>743.3333333333334</x>
+    <width>130.83333333333334</width>
+    <x>839.1666666666669</x>
     <y>155</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -628,7 +628,7 @@
     <name>TextEntry_205</name>
     <pv_name>VA:LS1_CB06:CAV7_D1587:AMPL_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
+    <width>130.83333333333334</width>
     <x>160</x>
     <y>185</y>
   </widget>
@@ -646,8 +646,8 @@
     <name>TextUpdate_696</name>
     <pv_name>VA:LS1_CB06:CAV7_D1587:AMPL_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>276.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>295.83333333333337</x>
     <y>185</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -664,8 +664,8 @@
     <name>TextUpdate_697</name>
     <pv_name>VA:LS1_CB06:CAV7_D1587:AMPL_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>393.33333333333337</x>
+    <width>130.83333333333334</width>
+    <x>431.66666666666674</x>
     <y>185</y>
   </widget>
   <widget type="textentry" version="2.0.0">
@@ -677,8 +677,8 @@
     <name>TextEntry_206</name>
     <pv_name>VA:LS1_CB06:CAV7_D1587:PHA_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>510.00000000000006</x>
+    <width>130.83333333333334</width>
+    <x>567.5000000000001</x>
     <y>185</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -695,8 +695,8 @@
     <name>TextUpdate_698</name>
     <pv_name>VA:LS1_CB06:CAV7_D1587:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>626.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>703.3333333333335</x>
     <y>185</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -713,8 +713,8 @@
     <name>TextUpdate_699</name>
     <pv_name>VA:LS1_CB06:CAV7_D1587:PHA_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>743.3333333333334</x>
+    <width>130.83333333333334</width>
+    <x>839.1666666666669</x>
     <y>185</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -736,7 +736,7 @@
     <name>TextEntry_207</name>
     <pv_name>VA:LS1_CB07:CAV7_D1651:AMPL_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
+    <width>130.83333333333334</width>
     <x>160</x>
     <y>215</y>
   </widget>
@@ -754,8 +754,8 @@
     <name>TextUpdate_700</name>
     <pv_name>VA:LS1_CB07:CAV7_D1651:AMPL_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>276.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>295.83333333333337</x>
     <y>215</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -772,8 +772,8 @@
     <name>TextUpdate_701</name>
     <pv_name>VA:LS1_CB07:CAV7_D1651:AMPL_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>393.33333333333337</x>
+    <width>130.83333333333334</width>
+    <x>431.66666666666674</x>
     <y>215</y>
   </widget>
   <widget type="textentry" version="2.0.0">
@@ -785,8 +785,8 @@
     <name>TextEntry_208</name>
     <pv_name>VA:LS1_CB07:CAV7_D1651:PHA_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>510.00000000000006</x>
+    <width>130.83333333333334</width>
+    <x>567.5000000000001</x>
     <y>215</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -803,8 +803,8 @@
     <name>TextUpdate_702</name>
     <pv_name>VA:LS1_CB07:CAV7_D1651:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>626.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>703.3333333333335</x>
     <y>215</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -821,8 +821,8 @@
     <name>TextUpdate_703</name>
     <pv_name>VA:LS1_CB07:CAV7_D1651:PHA_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>743.3333333333334</x>
+    <width>130.83333333333334</width>
+    <x>839.1666666666669</x>
     <y>215</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -844,7 +844,7 @@
     <name>TextEntry_209</name>
     <pv_name>VA:LS1_CB08:CAV7_D1715:AMPL_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
+    <width>130.83333333333334</width>
     <x>160</x>
     <y>245</y>
   </widget>
@@ -862,8 +862,8 @@
     <name>TextUpdate_704</name>
     <pv_name>VA:LS1_CB08:CAV7_D1715:AMPL_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>276.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>295.83333333333337</x>
     <y>245</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -880,8 +880,8 @@
     <name>TextUpdate_705</name>
     <pv_name>VA:LS1_CB08:CAV7_D1715:AMPL_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>393.33333333333337</x>
+    <width>130.83333333333334</width>
+    <x>431.66666666666674</x>
     <y>245</y>
   </widget>
   <widget type="textentry" version="2.0.0">
@@ -893,8 +893,8 @@
     <name>TextEntry_210</name>
     <pv_name>VA:LS1_CB08:CAV7_D1715:PHA_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>510.00000000000006</x>
+    <width>130.83333333333334</width>
+    <x>567.5000000000001</x>
     <y>245</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -911,8 +911,8 @@
     <name>TextUpdate_706</name>
     <pv_name>VA:LS1_CB08:CAV7_D1715:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>626.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>703.3333333333335</x>
     <y>245</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -929,8 +929,8 @@
     <name>TextUpdate_707</name>
     <pv_name>VA:LS1_CB08:CAV7_D1715:PHA_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>743.3333333333334</x>
+    <width>130.83333333333334</width>
+    <x>839.1666666666669</x>
     <y>245</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -952,7 +952,7 @@
     <name>TextEntry_211</name>
     <pv_name>VA:LS1_CB09:CAV7_D1779:AMPL_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
+    <width>130.83333333333334</width>
     <x>160</x>
     <y>275</y>
   </widget>
@@ -970,8 +970,8 @@
     <name>TextUpdate_708</name>
     <pv_name>VA:LS1_CB09:CAV7_D1779:AMPL_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>276.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>295.83333333333337</x>
     <y>275</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -988,8 +988,8 @@
     <name>TextUpdate_709</name>
     <pv_name>VA:LS1_CB09:CAV7_D1779:AMPL_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>393.33333333333337</x>
+    <width>130.83333333333334</width>
+    <x>431.66666666666674</x>
     <y>275</y>
   </widget>
   <widget type="textentry" version="2.0.0">
@@ -1001,8 +1001,8 @@
     <name>TextEntry_212</name>
     <pv_name>VA:LS1_CB09:CAV7_D1779:PHA_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>510.00000000000006</x>
+    <width>130.83333333333334</width>
+    <x>567.5000000000001</x>
     <y>275</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1019,8 +1019,8 @@
     <name>TextUpdate_710</name>
     <pv_name>VA:LS1_CB09:CAV7_D1779:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>626.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>703.3333333333335</x>
     <y>275</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1037,8 +1037,8 @@
     <name>TextUpdate_711</name>
     <pv_name>VA:LS1_CB09:CAV7_D1779:PHA_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>743.3333333333334</x>
+    <width>130.83333333333334</width>
+    <x>839.1666666666669</x>
     <y>275</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1060,7 +1060,7 @@
     <name>TextEntry_213</name>
     <pv_name>VA:LS1_CB10:CAV7_D1842:AMPL_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
+    <width>130.83333333333334</width>
     <x>160</x>
     <y>305</y>
   </widget>
@@ -1078,8 +1078,8 @@
     <name>TextUpdate_712</name>
     <pv_name>VA:LS1_CB10:CAV7_D1842:AMPL_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>276.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>295.83333333333337</x>
     <y>305</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1096,8 +1096,8 @@
     <name>TextUpdate_713</name>
     <pv_name>VA:LS1_CB10:CAV7_D1842:AMPL_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>393.33333333333337</x>
+    <width>130.83333333333334</width>
+    <x>431.66666666666674</x>
     <y>305</y>
   </widget>
   <widget type="textentry" version="2.0.0">
@@ -1109,8 +1109,8 @@
     <name>TextEntry_214</name>
     <pv_name>VA:LS1_CB10:CAV7_D1842:PHA_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>510.00000000000006</x>
+    <width>130.83333333333334</width>
+    <x>567.5000000000001</x>
     <y>305</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1127,8 +1127,8 @@
     <name>TextUpdate_714</name>
     <pv_name>VA:LS1_CB10:CAV7_D1842:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>626.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>703.3333333333335</x>
     <y>305</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1145,8 +1145,8 @@
     <name>TextUpdate_715</name>
     <pv_name>VA:LS1_CB10:CAV7_D1842:PHA_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>743.3333333333334</x>
+    <width>130.83333333333334</width>
+    <x>839.1666666666669</x>
     <y>305</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1168,7 +1168,7 @@
     <name>TextEntry_215</name>
     <pv_name>VA:LS1_CB11:CAV7_D1906:AMPL_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
+    <width>130.83333333333334</width>
     <x>160</x>
     <y>335</y>
   </widget>
@@ -1186,8 +1186,8 @@
     <name>TextUpdate_716</name>
     <pv_name>VA:LS1_CB11:CAV7_D1906:AMPL_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>276.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>295.83333333333337</x>
     <y>335</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1204,8 +1204,8 @@
     <name>TextUpdate_717</name>
     <pv_name>VA:LS1_CB11:CAV7_D1906:AMPL_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>393.33333333333337</x>
+    <width>130.83333333333334</width>
+    <x>431.66666666666674</x>
     <y>335</y>
   </widget>
   <widget type="textentry" version="2.0.0">
@@ -1217,8 +1217,8 @@
     <name>TextEntry_216</name>
     <pv_name>VA:LS1_CB11:CAV7_D1906:PHA_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>510.00000000000006</x>
+    <width>130.83333333333334</width>
+    <x>567.5000000000001</x>
     <y>335</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1235,8 +1235,8 @@
     <name>TextUpdate_718</name>
     <pv_name>VA:LS1_CB11:CAV7_D1906:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>626.6666666666667</x>
+    <width>130.83333333333334</width>
+    <x>703.3333333333335</x>
     <y>335</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1253,8 +1253,8 @@
     <name>TextUpdate_719</name>
     <pv_name>VA:LS1_CB11:CAV7_D1906:PHA_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.66666666666667</width>
-    <x>743.3333333333334</x>
+    <width>130.83333333333334</width>
+    <x>839.1666666666669</x>
     <y>335</y>
   </widget>
 </display>

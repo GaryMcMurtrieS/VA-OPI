@@ -4,10 +4,10 @@
   <background_color>
     <color red="255" green="255" blue="255" name="DISPLAY_BG"/>
   </background_color>
-  <height>650</height>
+  <height>500</height>
   <name>S</name>
   <show_grid>true</show_grid>
-  <width>800</width>
+  <width>1000</width>
   <x>0</x>
   <y>0</y>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -16,7 +16,7 @@
     <name>Label_463</name>
     <text>B3_CSET</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>5</y>
   </widget>
@@ -26,8 +26,8 @@
     <name>Label_464</name>
     <text>B3_RD</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>5</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -36,8 +36,8 @@
     <name>Label_465</name>
     <text>B3_RSET</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>5</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -59,7 +59,7 @@
     <name>TextEntry_411</name>
     <pv_name>VA:FS1_BBS:S_D2419:B3_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>35</y>
   </widget>
@@ -78,8 +78,8 @@
     <name>TextUpdate_1192</name>
     <pv_name>VA:FS1_BBS:S_D2419:B3_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -97,8 +97,8 @@
     <name>TextUpdate_1193</name>
     <pv_name>VA:FS1_BBS:S_D2419:B3_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -120,7 +120,7 @@
     <name>TextEntry_412</name>
     <pv_name>VA:FS1_BBS:S_D2469:B3_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>65</y>
   </widget>
@@ -139,8 +139,8 @@
     <name>TextUpdate_1194</name>
     <pv_name>VA:FS1_BBS:S_D2469:B3_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -158,8 +158,8 @@
     <name>TextUpdate_1195</name>
     <pv_name>VA:FS1_BBS:S_D2469:B3_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>65</y>
   </widget>
 </display>

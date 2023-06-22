@@ -4,9 +4,9 @@
     <color red="255" green="255" blue="255" name="DISPLAY_BG"/>
   </background_color>
   <grid_visible>true</grid_visible>
-  <height>650</height>
+  <height>500</height>
   <name>DCH</name>
-  <width>800</width>
+  <width>1000</width>
   <x>0</x>
   <y>0</y>
   <widget type="label" version="2.0.0">
@@ -15,7 +15,7 @@
     <name>Label_257</name>
     <text>I_CSET</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>5</y>
   </widget>
@@ -25,8 +25,8 @@
     <name>Label_258</name>
     <text>I_RD</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>5</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -35,8 +35,8 @@
     <name>Label_259</name>
     <text>I_RSET</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>5</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -58,7 +58,7 @@
     <name>TextEntry_239</name>
     <pv_name>VA:FS1_BBS:DCH_D2412:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>35</y>
   </widget>
@@ -76,8 +76,8 @@
     <name>TextUpdate_764</name>
     <pv_name>VA:FS1_BBS:DCH_D2412:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>35</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -94,8 +94,8 @@
     <name>TextUpdate_765</name>
     <pv_name>VA:FS1_BBS:DCH_D2412:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>35</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -117,7 +117,7 @@
     <name>TextEntry_240</name>
     <pv_name>VA:FS1_BBS:DCH_D2476:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>65</y>
   </widget>
@@ -135,8 +135,8 @@
     <name>TextUpdate_766</name>
     <pv_name>VA:FS1_BBS:DCH_D2476:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>65</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -153,8 +153,8 @@
     <name>TextUpdate_767</name>
     <pv_name>VA:FS1_BBS:DCH_D2476:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>65</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -176,7 +176,7 @@
     <name>TextEntry_241</name>
     <pv_name>VA:FS1_BMS:DCH_D2507:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>95</y>
   </widget>
@@ -194,8 +194,8 @@
     <name>TextUpdate_768</name>
     <pv_name>VA:FS1_BMS:DCH_D2507:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>95</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -212,8 +212,8 @@
     <name>TextUpdate_769</name>
     <pv_name>VA:FS1_BMS:DCH_D2507:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>95</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -235,7 +235,7 @@
     <name>TextEntry_242</name>
     <pv_name>VA:FS1_BMS:DCH_D2534:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>125</y>
   </widget>
@@ -253,8 +253,8 @@
     <name>TextUpdate_770</name>
     <pv_name>VA:FS1_BMS:DCH_D2534:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>125</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -271,8 +271,8 @@
     <name>TextUpdate_771</name>
     <pv_name>VA:FS1_BMS:DCH_D2534:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>125</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -294,7 +294,7 @@
     <name>TextEntry_243</name>
     <pv_name>VA:FS1_BMS:DCH_D2584:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>155</y>
   </widget>
@@ -312,8 +312,8 @@
     <name>TextUpdate_772</name>
     <pv_name>VA:FS1_BMS:DCH_D2584:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>155</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -330,8 +330,8 @@
     <name>TextUpdate_773</name>
     <pv_name>VA:FS1_BMS:DCH_D2584:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>155</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -353,7 +353,7 @@
     <name>TextEntry_244</name>
     <pv_name>VA:FS1_BMS:DCH_D2640:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>185</y>
   </widget>
@@ -371,8 +371,8 @@
     <name>TextUpdate_774</name>
     <pv_name>VA:FS1_BMS:DCH_D2640:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>185</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -389,8 +389,8 @@
     <name>TextUpdate_775</name>
     <pv_name>VA:FS1_BMS:DCH_D2640:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>185</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -412,7 +412,7 @@
     <name>TextEntry_245</name>
     <pv_name>VA:FS1_BMS:DCH_D2662:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>215</y>
   </widget>
@@ -430,8 +430,8 @@
     <name>TextUpdate_776</name>
     <pv_name>VA:FS1_BMS:DCH_D2662:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>215</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -448,8 +448,8 @@
     <name>TextUpdate_777</name>
     <pv_name>VA:FS1_BMS:DCH_D2662:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>215</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -471,7 +471,7 @@
     <name>TextEntry_246</name>
     <pv_name>VA:FS1_BMS:DCH_D2688:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>245</y>
   </widget>
@@ -489,8 +489,8 @@
     <name>TextUpdate_778</name>
     <pv_name>VA:FS1_BMS:DCH_D2688:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>245</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -507,8 +507,8 @@
     <name>TextUpdate_779</name>
     <pv_name>VA:FS1_BMS:DCH_D2688:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>245</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -530,7 +530,7 @@
     <name>TextEntry_247</name>
     <pv_name>VA:FS1_CSS:DCH_D2189:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>275</y>
   </widget>
@@ -548,8 +548,8 @@
     <name>TextUpdate_780</name>
     <pv_name>VA:FS1_CSS:DCH_D2189:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>275</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -566,8 +566,8 @@
     <name>TextUpdate_781</name>
     <pv_name>VA:FS1_CSS:DCH_D2189:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>275</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -589,7 +589,7 @@
     <name>TextEntry_248</name>
     <pv_name>VA:FS1_CSS:DCH_D2210:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>305</y>
   </widget>
@@ -607,8 +607,8 @@
     <name>TextUpdate_782</name>
     <pv_name>VA:FS1_CSS:DCH_D2210:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>305</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -625,8 +625,8 @@
     <name>TextUpdate_783</name>
     <pv_name>VA:FS1_CSS:DCH_D2210:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>305</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -648,7 +648,7 @@
     <name>TextEntry_249</name>
     <pv_name>VA:FS1_CSS:DCH_D2257:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>335</y>
   </widget>
@@ -666,8 +666,8 @@
     <name>TextUpdate_784</name>
     <pv_name>VA:FS1_CSS:DCH_D2257:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>335</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -684,8 +684,8 @@
     <name>TextUpdate_785</name>
     <pv_name>VA:FS1_CSS:DCH_D2257:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>335</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -707,7 +707,7 @@
     <name>TextEntry_250</name>
     <pv_name>VA:FS1_CSS:DCH_D2276:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>365</y>
   </widget>
@@ -725,8 +725,8 @@
     <name>TextUpdate_786</name>
     <pv_name>VA:FS1_CSS:DCH_D2276:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>365</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -743,8 +743,8 @@
     <name>TextUpdate_787</name>
     <pv_name>VA:FS1_CSS:DCH_D2276:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>365</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -766,7 +766,7 @@
     <name>TextEntry_251</name>
     <pv_name>VA:FS1_CSS:DCH_D2351:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>395</y>
   </widget>
@@ -784,8 +784,8 @@
     <name>TextUpdate_788</name>
     <pv_name>VA:FS1_CSS:DCH_D2351:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>395</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -802,8 +802,8 @@
     <name>TextUpdate_789</name>
     <pv_name>VA:FS1_CSS:DCH_D2351:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>395</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -825,7 +825,7 @@
     <name>TextEntry_252</name>
     <pv_name>VA:FS1_CSS:DCH_D2367:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>425</y>
   </widget>
@@ -843,8 +843,8 @@
     <name>TextUpdate_790</name>
     <pv_name>VA:FS1_CSS:DCH_D2367:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>425</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -861,8 +861,8 @@
     <name>TextUpdate_791</name>
     <pv_name>VA:FS1_CSS:DCH_D2367:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>425</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -884,7 +884,7 @@
     <name>TextEntry_253</name>
     <pv_name>VA:FS1_CSS:DCH_D2381:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>455</y>
   </widget>
@@ -902,8 +902,8 @@
     <name>TextUpdate_792</name>
     <pv_name>VA:FS1_CSS:DCH_D2381:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>455</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -920,8 +920,8 @@
     <name>TextUpdate_793</name>
     <pv_name>VA:FS1_CSS:DCH_D2381:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>455</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -943,7 +943,7 @@
     <name>TextEntry_254</name>
     <pv_name>VA:LS1_BTS:DCH_D1937:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>485</y>
   </widget>
@@ -961,8 +961,8 @@
     <name>TextUpdate_794</name>
     <pv_name>VA:LS1_BTS:DCH_D1937:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>485</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -979,8 +979,8 @@
     <name>TextUpdate_795</name>
     <pv_name>VA:LS1_BTS:DCH_D1937:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>485</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1002,7 +1002,7 @@
     <name>TextEntry_255</name>
     <pv_name>VA:LS1_BTS:DCH_D1964:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>515</y>
   </widget>
@@ -1020,8 +1020,8 @@
     <name>TextUpdate_796</name>
     <pv_name>VA:LS1_BTS:DCH_D1964:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>515</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1038,8 +1038,8 @@
     <name>TextUpdate_797</name>
     <pv_name>VA:LS1_BTS:DCH_D1964:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>515</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1061,7 +1061,7 @@
     <name>TextEntry_256</name>
     <pv_name>VA:LS1_BTS:DCH_D1997:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>545</y>
   </widget>
@@ -1079,8 +1079,8 @@
     <name>TextUpdate_798</name>
     <pv_name>VA:LS1_BTS:DCH_D1997:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>545</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1097,8 +1097,8 @@
     <name>TextUpdate_799</name>
     <pv_name>VA:LS1_BTS:DCH_D1997:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>545</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1120,7 +1120,7 @@
     <name>TextEntry_257</name>
     <pv_name>VA:LS1_BTS:DCH_D2024:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>575</y>
   </widget>
@@ -1138,8 +1138,8 @@
     <name>TextUpdate_800</name>
     <pv_name>VA:LS1_BTS:DCH_D2024:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>575</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1156,8 +1156,8 @@
     <name>TextUpdate_801</name>
     <pv_name>VA:LS1_BTS:DCH_D2024:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>575</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1179,7 +1179,7 @@
     <name>TextEntry_258</name>
     <pv_name>VA:LS1_BTS:DCH_D2061:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>605</y>
   </widget>
@@ -1197,8 +1197,8 @@
     <name>TextUpdate_802</name>
     <pv_name>VA:LS1_BTS:DCH_D2061:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>605</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1215,8 +1215,8 @@
     <name>TextUpdate_803</name>
     <pv_name>VA:LS1_BTS:DCH_D2061:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>605</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1238,7 +1238,7 @@
     <name>TextEntry_259</name>
     <pv_name>VA:LS1_BTS:DCH_D2114:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>635</y>
   </widget>
@@ -1256,8 +1256,8 @@
     <name>TextUpdate_804</name>
     <pv_name>VA:LS1_BTS:DCH_D2114:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>635</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1274,8 +1274,8 @@
     <name>TextUpdate_805</name>
     <pv_name>VA:LS1_BTS:DCH_D2114:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>635</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1297,7 +1297,7 @@
     <name>TextEntry_260</name>
     <pv_name>VA:LS1_CA01:DCH_D1132:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>665</y>
   </widget>
@@ -1315,8 +1315,8 @@
     <name>TextUpdate_806</name>
     <pv_name>VA:LS1_CA01:DCH_D1132:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>665</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1333,8 +1333,8 @@
     <name>TextUpdate_807</name>
     <pv_name>VA:LS1_CA01:DCH_D1132:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>665</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1356,7 +1356,7 @@
     <name>TextEntry_261</name>
     <pv_name>VA:LS1_CA01:DCH_D1146:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>695</y>
   </widget>
@@ -1374,8 +1374,8 @@
     <name>TextUpdate_808</name>
     <pv_name>VA:LS1_CA01:DCH_D1146:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>695</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1392,8 +1392,8 @@
     <name>TextUpdate_809</name>
     <pv_name>VA:LS1_CA01:DCH_D1146:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>695</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1415,7 +1415,7 @@
     <name>TextEntry_262</name>
     <pv_name>VA:LS1_CA02:DCH_D1165:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>725</y>
   </widget>
@@ -1433,8 +1433,8 @@
     <name>TextUpdate_810</name>
     <pv_name>VA:LS1_CA02:DCH_D1165:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>725</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1451,8 +1451,8 @@
     <name>TextUpdate_811</name>
     <pv_name>VA:LS1_CA02:DCH_D1165:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>725</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1474,7 +1474,7 @@
     <name>TextEntry_263</name>
     <pv_name>VA:LS1_CA02:DCH_D1180:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>755</y>
   </widget>
@@ -1492,8 +1492,8 @@
     <name>TextUpdate_812</name>
     <pv_name>VA:LS1_CA02:DCH_D1180:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>755</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1510,8 +1510,8 @@
     <name>TextUpdate_813</name>
     <pv_name>VA:LS1_CA02:DCH_D1180:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>755</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1533,7 +1533,7 @@
     <name>TextEntry_264</name>
     <pv_name>VA:LS1_CA03:DCH_D1199:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>785</y>
   </widget>
@@ -1551,8 +1551,8 @@
     <name>TextUpdate_814</name>
     <pv_name>VA:LS1_CA03:DCH_D1199:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>785</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1569,8 +1569,8 @@
     <name>TextUpdate_815</name>
     <pv_name>VA:LS1_CA03:DCH_D1199:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>785</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1592,7 +1592,7 @@
     <name>TextEntry_265</name>
     <pv_name>VA:LS1_CA03:DCH_D1214:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>815</y>
   </widget>
@@ -1610,8 +1610,8 @@
     <name>TextUpdate_816</name>
     <pv_name>VA:LS1_CA03:DCH_D1214:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>815</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1628,8 +1628,8 @@
     <name>TextUpdate_817</name>
     <pv_name>VA:LS1_CA03:DCH_D1214:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>815</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1651,7 +1651,7 @@
     <name>TextEntry_266</name>
     <pv_name>VA:LS1_CB01:DCH_D1235:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>845</y>
   </widget>
@@ -1669,8 +1669,8 @@
     <name>TextUpdate_818</name>
     <pv_name>VA:LS1_CB01:DCH_D1235:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>845</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1687,8 +1687,8 @@
     <name>TextUpdate_819</name>
     <pv_name>VA:LS1_CB01:DCH_D1235:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>845</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1710,7 +1710,7 @@
     <name>TextEntry_267</name>
     <pv_name>VA:LS1_CB01:DCH_D1255:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>875</y>
   </widget>
@@ -1728,8 +1728,8 @@
     <name>TextUpdate_820</name>
     <pv_name>VA:LS1_CB01:DCH_D1255:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>875</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1746,8 +1746,8 @@
     <name>TextUpdate_821</name>
     <pv_name>VA:LS1_CB01:DCH_D1255:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>875</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1769,7 +1769,7 @@
     <name>TextEntry_268</name>
     <pv_name>VA:LS1_CB01:DCH_D1275:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>905</y>
   </widget>
@@ -1787,8 +1787,8 @@
     <name>TextUpdate_822</name>
     <pv_name>VA:LS1_CB01:DCH_D1275:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>905</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1805,8 +1805,8 @@
     <name>TextUpdate_823</name>
     <pv_name>VA:LS1_CB01:DCH_D1275:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>905</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1828,7 +1828,7 @@
     <name>TextEntry_269</name>
     <pv_name>VA:LS1_CB02:DCH_D1299:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>935</y>
   </widget>
@@ -1846,8 +1846,8 @@
     <name>TextUpdate_824</name>
     <pv_name>VA:LS1_CB02:DCH_D1299:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>935</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1864,8 +1864,8 @@
     <name>TextUpdate_825</name>
     <pv_name>VA:LS1_CB02:DCH_D1299:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>935</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1887,7 +1887,7 @@
     <name>TextEntry_270</name>
     <pv_name>VA:LS1_CB02:DCH_D1319:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>965</y>
   </widget>
@@ -1905,8 +1905,8 @@
     <name>TextUpdate_826</name>
     <pv_name>VA:LS1_CB02:DCH_D1319:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>965</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1923,8 +1923,8 @@
     <name>TextUpdate_827</name>
     <pv_name>VA:LS1_CB02:DCH_D1319:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>965</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1946,7 +1946,7 @@
     <name>TextEntry_271</name>
     <pv_name>VA:LS1_CB02:DCH_D1339:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>995</y>
   </widget>
@@ -1964,8 +1964,8 @@
     <name>TextUpdate_828</name>
     <pv_name>VA:LS1_CB02:DCH_D1339:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>995</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1982,8 +1982,8 @@
     <name>TextUpdate_829</name>
     <pv_name>VA:LS1_CB02:DCH_D1339:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>995</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2005,7 +2005,7 @@
     <name>TextEntry_272</name>
     <pv_name>VA:LS1_CB03:DCH_D1363:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1025</y>
   </widget>
@@ -2023,8 +2023,8 @@
     <name>TextUpdate_830</name>
     <pv_name>VA:LS1_CB03:DCH_D1363:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1025</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -2041,8 +2041,8 @@
     <name>TextUpdate_831</name>
     <pv_name>VA:LS1_CB03:DCH_D1363:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1025</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2064,7 +2064,7 @@
     <name>TextEntry_273</name>
     <pv_name>VA:LS1_CB03:DCH_D1383:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1055</y>
   </widget>
@@ -2082,8 +2082,8 @@
     <name>TextUpdate_832</name>
     <pv_name>VA:LS1_CB03:DCH_D1383:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1055</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -2100,8 +2100,8 @@
     <name>TextUpdate_833</name>
     <pv_name>VA:LS1_CB03:DCH_D1383:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1055</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2123,7 +2123,7 @@
     <name>TextEntry_274</name>
     <pv_name>VA:LS1_CB03:DCH_D1403:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1085</y>
   </widget>
@@ -2141,8 +2141,8 @@
     <name>TextUpdate_834</name>
     <pv_name>VA:LS1_CB03:DCH_D1403:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1085</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -2159,8 +2159,8 @@
     <name>TextUpdate_835</name>
     <pv_name>VA:LS1_CB03:DCH_D1403:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1085</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2182,7 +2182,7 @@
     <name>TextEntry_275</name>
     <pv_name>VA:LS1_CB04:DCH_D1426:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1115</y>
   </widget>
@@ -2200,8 +2200,8 @@
     <name>TextUpdate_836</name>
     <pv_name>VA:LS1_CB04:DCH_D1426:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1115</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -2218,8 +2218,8 @@
     <name>TextUpdate_837</name>
     <pv_name>VA:LS1_CB04:DCH_D1426:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1115</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2241,7 +2241,7 @@
     <name>TextEntry_276</name>
     <pv_name>VA:LS1_CB04:DCH_D1446:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1145</y>
   </widget>
@@ -2259,8 +2259,8 @@
     <name>TextUpdate_838</name>
     <pv_name>VA:LS1_CB04:DCH_D1446:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1145</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -2277,8 +2277,8 @@
     <name>TextUpdate_839</name>
     <pv_name>VA:LS1_CB04:DCH_D1446:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1145</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2300,7 +2300,7 @@
     <name>TextEntry_277</name>
     <pv_name>VA:LS1_CB04:DCH_D1466:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1175</y>
   </widget>
@@ -2318,8 +2318,8 @@
     <name>TextUpdate_840</name>
     <pv_name>VA:LS1_CB04:DCH_D1466:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1175</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -2336,8 +2336,8 @@
     <name>TextUpdate_841</name>
     <pv_name>VA:LS1_CB04:DCH_D1466:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1175</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2359,7 +2359,7 @@
     <name>TextEntry_278</name>
     <pv_name>VA:LS1_CB05:DCH_D1490:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1205</y>
   </widget>
@@ -2377,8 +2377,8 @@
     <name>TextUpdate_842</name>
     <pv_name>VA:LS1_CB05:DCH_D1490:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1205</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -2395,8 +2395,8 @@
     <name>TextUpdate_843</name>
     <pv_name>VA:LS1_CB05:DCH_D1490:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1205</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2418,7 +2418,7 @@
     <name>TextEntry_279</name>
     <pv_name>VA:LS1_CB05:DCH_D1510:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1235</y>
   </widget>
@@ -2436,8 +2436,8 @@
     <name>TextUpdate_844</name>
     <pv_name>VA:LS1_CB05:DCH_D1510:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1235</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -2454,8 +2454,8 @@
     <name>TextUpdate_845</name>
     <pv_name>VA:LS1_CB05:DCH_D1510:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1235</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2477,7 +2477,7 @@
     <name>TextEntry_280</name>
     <pv_name>VA:LS1_CB05:DCH_D1530:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1265</y>
   </widget>
@@ -2495,8 +2495,8 @@
     <name>TextUpdate_846</name>
     <pv_name>VA:LS1_CB05:DCH_D1530:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1265</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -2513,8 +2513,8 @@
     <name>TextUpdate_847</name>
     <pv_name>VA:LS1_CB05:DCH_D1530:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1265</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2536,7 +2536,7 @@
     <name>TextEntry_281</name>
     <pv_name>VA:LS1_CB06:DCH_D1554:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1295</y>
   </widget>
@@ -2554,8 +2554,8 @@
     <name>TextUpdate_848</name>
     <pv_name>VA:LS1_CB06:DCH_D1554:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1295</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -2572,8 +2572,8 @@
     <name>TextUpdate_849</name>
     <pv_name>VA:LS1_CB06:DCH_D1554:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1295</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2595,7 +2595,7 @@
     <name>TextEntry_282</name>
     <pv_name>VA:LS1_CB06:DCH_D1574:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1325</y>
   </widget>
@@ -2613,8 +2613,8 @@
     <name>TextUpdate_850</name>
     <pv_name>VA:LS1_CB06:DCH_D1574:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1325</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -2631,8 +2631,8 @@
     <name>TextUpdate_851</name>
     <pv_name>VA:LS1_CB06:DCH_D1574:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1325</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2654,7 +2654,7 @@
     <name>TextEntry_283</name>
     <pv_name>VA:LS1_CB06:DCH_D1594:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1355</y>
   </widget>
@@ -2672,8 +2672,8 @@
     <name>TextUpdate_852</name>
     <pv_name>VA:LS1_CB06:DCH_D1594:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1355</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -2690,8 +2690,8 @@
     <name>TextUpdate_853</name>
     <pv_name>VA:LS1_CB06:DCH_D1594:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1355</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2713,7 +2713,7 @@
     <name>TextEntry_284</name>
     <pv_name>VA:LS1_CB07:DCH_D1618:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1385</y>
   </widget>
@@ -2731,8 +2731,8 @@
     <name>TextUpdate_854</name>
     <pv_name>VA:LS1_CB07:DCH_D1618:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1385</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -2749,8 +2749,8 @@
     <name>TextUpdate_855</name>
     <pv_name>VA:LS1_CB07:DCH_D1618:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1385</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2772,7 +2772,7 @@
     <name>TextEntry_285</name>
     <pv_name>VA:LS1_CB07:DCH_D1637:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1415</y>
   </widget>
@@ -2790,8 +2790,8 @@
     <name>TextUpdate_856</name>
     <pv_name>VA:LS1_CB07:DCH_D1637:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1415</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -2808,8 +2808,8 @@
     <name>TextUpdate_857</name>
     <pv_name>VA:LS1_CB07:DCH_D1637:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1415</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2831,7 +2831,7 @@
     <name>TextEntry_286</name>
     <pv_name>VA:LS1_CB07:DCH_D1657:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1445</y>
   </widget>
@@ -2849,8 +2849,8 @@
     <name>TextUpdate_858</name>
     <pv_name>VA:LS1_CB07:DCH_D1657:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1445</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -2867,8 +2867,8 @@
     <name>TextUpdate_859</name>
     <pv_name>VA:LS1_CB07:DCH_D1657:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1445</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2890,7 +2890,7 @@
     <name>TextEntry_287</name>
     <pv_name>VA:LS1_CB08:DCH_D1681:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1475</y>
   </widget>
@@ -2908,8 +2908,8 @@
     <name>TextUpdate_860</name>
     <pv_name>VA:LS1_CB08:DCH_D1681:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1475</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -2926,8 +2926,8 @@
     <name>TextUpdate_861</name>
     <pv_name>VA:LS1_CB08:DCH_D1681:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1475</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2949,7 +2949,7 @@
     <name>TextEntry_288</name>
     <pv_name>VA:LS1_CB08:DCH_D1701:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1505</y>
   </widget>
@@ -2967,8 +2967,8 @@
     <name>TextUpdate_862</name>
     <pv_name>VA:LS1_CB08:DCH_D1701:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1505</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -2985,8 +2985,8 @@
     <name>TextUpdate_863</name>
     <pv_name>VA:LS1_CB08:DCH_D1701:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1505</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -3008,7 +3008,7 @@
     <name>TextEntry_289</name>
     <pv_name>VA:LS1_CB08:DCH_D1721:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1535</y>
   </widget>
@@ -3026,8 +3026,8 @@
     <name>TextUpdate_864</name>
     <pv_name>VA:LS1_CB08:DCH_D1721:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1535</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -3044,8 +3044,8 @@
     <name>TextUpdate_865</name>
     <pv_name>VA:LS1_CB08:DCH_D1721:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1535</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -3067,7 +3067,7 @@
     <name>TextEntry_290</name>
     <pv_name>VA:LS1_CB09:DCH_D1745:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1565</y>
   </widget>
@@ -3085,8 +3085,8 @@
     <name>TextUpdate_866</name>
     <pv_name>VA:LS1_CB09:DCH_D1745:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1565</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -3103,8 +3103,8 @@
     <name>TextUpdate_867</name>
     <pv_name>VA:LS1_CB09:DCH_D1745:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1565</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -3126,7 +3126,7 @@
     <name>TextEntry_291</name>
     <pv_name>VA:LS1_CB09:DCH_D1765:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1595</y>
   </widget>
@@ -3144,8 +3144,8 @@
     <name>TextUpdate_868</name>
     <pv_name>VA:LS1_CB09:DCH_D1765:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1595</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -3162,8 +3162,8 @@
     <name>TextUpdate_869</name>
     <pv_name>VA:LS1_CB09:DCH_D1765:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1595</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -3185,7 +3185,7 @@
     <name>TextEntry_292</name>
     <pv_name>VA:LS1_CB09:DCH_D1785:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1625</y>
   </widget>
@@ -3203,8 +3203,8 @@
     <name>TextUpdate_870</name>
     <pv_name>VA:LS1_CB09:DCH_D1785:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1625</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -3221,8 +3221,8 @@
     <name>TextUpdate_871</name>
     <pv_name>VA:LS1_CB09:DCH_D1785:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1625</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -3244,7 +3244,7 @@
     <name>TextEntry_293</name>
     <pv_name>VA:LS1_CB10:DCH_D1809:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1655</y>
   </widget>
@@ -3262,8 +3262,8 @@
     <name>TextUpdate_872</name>
     <pv_name>VA:LS1_CB10:DCH_D1809:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1655</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -3280,8 +3280,8 @@
     <name>TextUpdate_873</name>
     <pv_name>VA:LS1_CB10:DCH_D1809:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1655</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -3303,7 +3303,7 @@
     <name>TextEntry_294</name>
     <pv_name>VA:LS1_CB10:DCH_D1829:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1685</y>
   </widget>
@@ -3321,8 +3321,8 @@
     <name>TextUpdate_874</name>
     <pv_name>VA:LS1_CB10:DCH_D1829:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1685</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -3339,8 +3339,8 @@
     <name>TextUpdate_875</name>
     <pv_name>VA:LS1_CB10:DCH_D1829:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1685</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -3362,7 +3362,7 @@
     <name>TextEntry_295</name>
     <pv_name>VA:LS1_CB10:DCH_D1849:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1715</y>
   </widget>
@@ -3380,8 +3380,8 @@
     <name>TextUpdate_876</name>
     <pv_name>VA:LS1_CB10:DCH_D1849:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1715</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -3398,8 +3398,8 @@
     <name>TextUpdate_877</name>
     <pv_name>VA:LS1_CB10:DCH_D1849:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1715</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -3421,7 +3421,7 @@
     <name>TextEntry_296</name>
     <pv_name>VA:LS1_CB11:DCH_D1872:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1745</y>
   </widget>
@@ -3439,8 +3439,8 @@
     <name>TextUpdate_878</name>
     <pv_name>VA:LS1_CB11:DCH_D1872:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1745</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -3457,8 +3457,8 @@
     <name>TextUpdate_879</name>
     <pv_name>VA:LS1_CB11:DCH_D1872:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1745</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -3480,7 +3480,7 @@
     <name>TextEntry_297</name>
     <pv_name>VA:LS1_CB11:DCH_D1892:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1775</y>
   </widget>
@@ -3498,8 +3498,8 @@
     <name>TextUpdate_880</name>
     <pv_name>VA:LS1_CB11:DCH_D1892:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1775</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -3516,8 +3516,8 @@
     <name>TextUpdate_881</name>
     <pv_name>VA:LS1_CB11:DCH_D1892:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1775</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -3539,7 +3539,7 @@
     <name>TextEntry_298</name>
     <pv_name>VA:LS1_CB11:DCH_D1912:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
+    <width>266.6666666666667</width>
     <x>160</x>
     <y>1805</y>
   </widget>
@@ -3557,8 +3557,8 @@
     <name>TextUpdate_882</name>
     <pv_name>VA:LS1_CB11:DCH_D1912:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>393.33333333333337</x>
+    <width>266.6666666666667</width>
+    <x>431.6666666666667</x>
     <y>1805</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -3575,8 +3575,8 @@
     <name>TextUpdate_883</name>
     <pv_name>VA:LS1_CB11:DCH_D1912:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>228.33333333333334</width>
-    <x>626.6666666666667</x>
+    <width>266.6666666666667</width>
+    <x>703.3333333333334</x>
     <y>1805</y>
   </widget>
 </display>

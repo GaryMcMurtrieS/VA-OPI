@@ -4,9 +4,9 @@
     <color red="255" green="255" blue="255" name="DISPLAY_BG"/>
   </background_color>
   <grid_visible>true</grid_visible>
-  <height>650</height>
+  <height>500</height>
   <name>PM</name>
-  <width>800</width>
+  <width>1000</width>
   <x>0</x>
   <y>0</y>
   <widget type="label" version="2.0.0">
@@ -15,7 +15,7 @@
     <name>Label_398</name>
     <text>CXY_RD</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
+    <width>111.42857142857143</width>
     <x>160</x>
     <y>5</y>
   </widget>
@@ -25,8 +25,8 @@
     <name>Label_399</name>
     <text>XCEN_RD</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>260.0</x>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
     <y>5</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -35,8 +35,8 @@
     <name>Label_400</name>
     <text>XRMS_RD</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>360.0</x>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
     <y>5</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -45,8 +45,8 @@
     <name>Label_401</name>
     <text>XYRMS_RD</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>460.0</x>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
     <y>5</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -55,8 +55,8 @@
     <name>Label_402</name>
     <text>XY_RD</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>560.0</x>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
     <y>5</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -65,8 +65,8 @@
     <name>Label_403</name>
     <text>YCEN_RD</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>660.0</x>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
     <y>5</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -75,8 +75,8 @@
     <name>Label_404</name>
     <text>YRMS_RD</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>760.0</x>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
     <y>5</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -103,7 +103,7 @@
     <name>TextUpdate_1028</name>
     <pv_name>VA:FS1_BBS:PM_D2444:CXY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
+    <width>111.42857142857143</width>
     <x>160</x>
     <y>35</y>
   </widget>
@@ -121,8 +121,8 @@
     <name>TextUpdate_1029</name>
     <pv_name>VA:FS1_BBS:PM_D2444:XCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>260.0</x>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
     <y>35</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -139,8 +139,8 @@
     <name>TextUpdate_1030</name>
     <pv_name>VA:FS1_BBS:PM_D2444:XRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>360.0</x>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
     <y>35</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -157,8 +157,8 @@
     <name>TextUpdate_1031</name>
     <pv_name>VA:FS1_BBS:PM_D2444:XYRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>460.0</x>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
     <y>35</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -175,8 +175,8 @@
     <name>TextUpdate_1032</name>
     <pv_name>VA:FS1_BBS:PM_D2444:XY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>560.0</x>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
     <y>35</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -193,8 +193,8 @@
     <name>TextUpdate_1033</name>
     <pv_name>VA:FS1_BBS:PM_D2444:YCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>660.0</x>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
     <y>35</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -211,8 +211,8 @@
     <name>TextUpdate_1034</name>
     <pv_name>VA:FS1_BBS:PM_D2444:YRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>760.0</x>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
     <y>35</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -239,7 +239,7 @@
     <name>TextUpdate_1035</name>
     <pv_name>VA:FS1_BBS:PM_D2482:CXY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
+    <width>111.42857142857143</width>
     <x>160</x>
     <y>65</y>
   </widget>
@@ -257,8 +257,8 @@
     <name>TextUpdate_1036</name>
     <pv_name>VA:FS1_BBS:PM_D2482:XCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>260.0</x>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
     <y>65</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -275,8 +275,8 @@
     <name>TextUpdate_1037</name>
     <pv_name>VA:FS1_BBS:PM_D2482:XRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>360.0</x>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
     <y>65</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -293,8 +293,8 @@
     <name>TextUpdate_1038</name>
     <pv_name>VA:FS1_BBS:PM_D2482:XYRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>460.0</x>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
     <y>65</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -311,8 +311,8 @@
     <name>TextUpdate_1039</name>
     <pv_name>VA:FS1_BBS:PM_D2482:XY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>560.0</x>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
     <y>65</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -329,8 +329,8 @@
     <name>TextUpdate_1040</name>
     <pv_name>VA:FS1_BBS:PM_D2482:YCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>660.0</x>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
     <y>65</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -347,8 +347,8 @@
     <name>TextUpdate_1041</name>
     <pv_name>VA:FS1_BBS:PM_D2482:YRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>760.0</x>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
     <y>65</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -375,7 +375,7 @@
     <name>TextUpdate_1042</name>
     <pv_name>VA:FS1_BMS:PM_D2504:CXY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
+    <width>111.42857142857143</width>
     <x>160</x>
     <y>95</y>
   </widget>
@@ -393,8 +393,8 @@
     <name>TextUpdate_1043</name>
     <pv_name>VA:FS1_BMS:PM_D2504:XCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>260.0</x>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
     <y>95</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -411,8 +411,8 @@
     <name>TextUpdate_1044</name>
     <pv_name>VA:FS1_BMS:PM_D2504:XRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>360.0</x>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
     <y>95</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -429,8 +429,8 @@
     <name>TextUpdate_1045</name>
     <pv_name>VA:FS1_BMS:PM_D2504:XYRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>460.0</x>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
     <y>95</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -447,8 +447,8 @@
     <name>TextUpdate_1046</name>
     <pv_name>VA:FS1_BMS:PM_D2504:XY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>560.0</x>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
     <y>95</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -465,8 +465,8 @@
     <name>TextUpdate_1047</name>
     <pv_name>VA:FS1_BMS:PM_D2504:YCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>660.0</x>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
     <y>95</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -483,8 +483,8 @@
     <name>TextUpdate_1048</name>
     <pv_name>VA:FS1_BMS:PM_D2504:YRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>760.0</x>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
     <y>95</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -511,7 +511,7 @@
     <name>TextUpdate_1049</name>
     <pv_name>VA:FS1_BMS:PM_D2602:CXY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
+    <width>111.42857142857143</width>
     <x>160</x>
     <y>125</y>
   </widget>
@@ -529,8 +529,8 @@
     <name>TextUpdate_1050</name>
     <pv_name>VA:FS1_BMS:PM_D2602:XCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>260.0</x>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
     <y>125</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -547,8 +547,8 @@
     <name>TextUpdate_1051</name>
     <pv_name>VA:FS1_BMS:PM_D2602:XRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>360.0</x>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
     <y>125</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -565,8 +565,8 @@
     <name>TextUpdate_1052</name>
     <pv_name>VA:FS1_BMS:PM_D2602:XYRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>460.0</x>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
     <y>125</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -583,8 +583,8 @@
     <name>TextUpdate_1053</name>
     <pv_name>VA:FS1_BMS:PM_D2602:XY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>560.0</x>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
     <y>125</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -601,8 +601,8 @@
     <name>TextUpdate_1054</name>
     <pv_name>VA:FS1_BMS:PM_D2602:YCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>660.0</x>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
     <y>125</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -619,8 +619,8 @@
     <name>TextUpdate_1055</name>
     <pv_name>VA:FS1_BMS:PM_D2602:YRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>760.0</x>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
     <y>125</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -647,7 +647,7 @@
     <name>TextUpdate_1056</name>
     <pv_name>VA:FS1_BMS:PM_D2703:CXY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
+    <width>111.42857142857143</width>
     <x>160</x>
     <y>155</y>
   </widget>
@@ -665,8 +665,8 @@
     <name>TextUpdate_1057</name>
     <pv_name>VA:FS1_BMS:PM_D2703:XCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>260.0</x>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
     <y>155</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -683,8 +683,8 @@
     <name>TextUpdate_1058</name>
     <pv_name>VA:FS1_BMS:PM_D2703:XRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>360.0</x>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
     <y>155</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -701,8 +701,8 @@
     <name>TextUpdate_1059</name>
     <pv_name>VA:FS1_BMS:PM_D2703:XYRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>460.0</x>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
     <y>155</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -719,8 +719,8 @@
     <name>TextUpdate_1060</name>
     <pv_name>VA:FS1_BMS:PM_D2703:XY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>560.0</x>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
     <y>155</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -737,8 +737,8 @@
     <name>TextUpdate_1061</name>
     <pv_name>VA:FS1_BMS:PM_D2703:YCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>660.0</x>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
     <y>155</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -755,8 +755,8 @@
     <name>TextUpdate_1062</name>
     <pv_name>VA:FS1_BMS:PM_D2703:YRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>760.0</x>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
     <y>155</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -783,7 +783,7 @@
     <name>TextUpdate_1063</name>
     <pv_name>VA:FS1_CSS:PM_D2198:CXY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
+    <width>111.42857142857143</width>
     <x>160</x>
     <y>185</y>
   </widget>
@@ -801,8 +801,8 @@
     <name>TextUpdate_1064</name>
     <pv_name>VA:FS1_CSS:PM_D2198:XCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>260.0</x>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
     <y>185</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -819,8 +819,8 @@
     <name>TextUpdate_1065</name>
     <pv_name>VA:FS1_CSS:PM_D2198:XRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>360.0</x>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
     <y>185</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -837,8 +837,8 @@
     <name>TextUpdate_1066</name>
     <pv_name>VA:FS1_CSS:PM_D2198:XYRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>460.0</x>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
     <y>185</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -855,8 +855,8 @@
     <name>TextUpdate_1067</name>
     <pv_name>VA:FS1_CSS:PM_D2198:XY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>560.0</x>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
     <y>185</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -873,8 +873,8 @@
     <name>TextUpdate_1068</name>
     <pv_name>VA:FS1_CSS:PM_D2198:YCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>660.0</x>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
     <y>185</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -891,8 +891,8 @@
     <name>TextUpdate_1069</name>
     <pv_name>VA:FS1_CSS:PM_D2198:YRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>760.0</x>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
     <y>185</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -919,7 +919,7 @@
     <name>TextUpdate_1070</name>
     <pv_name>VA:FS1_CSS:PM_D2225:CXY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
+    <width>111.42857142857143</width>
     <x>160</x>
     <y>215</y>
   </widget>
@@ -937,8 +937,8 @@
     <name>TextUpdate_1071</name>
     <pv_name>VA:FS1_CSS:PM_D2225:XCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>260.0</x>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
     <y>215</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -955,8 +955,8 @@
     <name>TextUpdate_1072</name>
     <pv_name>VA:FS1_CSS:PM_D2225:XRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>360.0</x>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
     <y>215</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -973,8 +973,8 @@
     <name>TextUpdate_1073</name>
     <pv_name>VA:FS1_CSS:PM_D2225:XYRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>460.0</x>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
     <y>215</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -991,8 +991,8 @@
     <name>TextUpdate_1074</name>
     <pv_name>VA:FS1_CSS:PM_D2225:XY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>560.0</x>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
     <y>215</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1009,8 +1009,8 @@
     <name>TextUpdate_1075</name>
     <pv_name>VA:FS1_CSS:PM_D2225:YCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>660.0</x>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
     <y>215</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1027,8 +1027,8 @@
     <name>TextUpdate_1076</name>
     <pv_name>VA:FS1_CSS:PM_D2225:YRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>760.0</x>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
     <y>215</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1055,7 +1055,7 @@
     <name>TextUpdate_1077</name>
     <pv_name>VA:FS1_CSS:PM_D2249:CXY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
+    <width>111.42857142857143</width>
     <x>160</x>
     <y>245</y>
   </widget>
@@ -1073,8 +1073,8 @@
     <name>TextUpdate_1078</name>
     <pv_name>VA:FS1_CSS:PM_D2249:XCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>260.0</x>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
     <y>245</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1091,8 +1091,8 @@
     <name>TextUpdate_1079</name>
     <pv_name>VA:FS1_CSS:PM_D2249:XRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>360.0</x>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
     <y>245</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1109,8 +1109,8 @@
     <name>TextUpdate_1080</name>
     <pv_name>VA:FS1_CSS:PM_D2249:XYRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>460.0</x>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
     <y>245</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1127,8 +1127,8 @@
     <name>TextUpdate_1081</name>
     <pv_name>VA:FS1_CSS:PM_D2249:XY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>560.0</x>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
     <y>245</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1145,8 +1145,8 @@
     <name>TextUpdate_1082</name>
     <pv_name>VA:FS1_CSS:PM_D2249:YCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>660.0</x>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
     <y>245</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1163,8 +1163,8 @@
     <name>TextUpdate_1083</name>
     <pv_name>VA:FS1_CSS:PM_D2249:YRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>760.0</x>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
     <y>245</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1191,7 +1191,7 @@
     <name>TextUpdate_1084</name>
     <pv_name>VA:FS1_CSS:PM_D2315:CXY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
+    <width>111.42857142857143</width>
     <x>160</x>
     <y>275</y>
   </widget>
@@ -1209,8 +1209,8 @@
     <name>TextUpdate_1085</name>
     <pv_name>VA:FS1_CSS:PM_D2315:XCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>260.0</x>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
     <y>275</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1227,8 +1227,8 @@
     <name>TextUpdate_1086</name>
     <pv_name>VA:FS1_CSS:PM_D2315:XRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>360.0</x>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
     <y>275</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1245,8 +1245,8 @@
     <name>TextUpdate_1087</name>
     <pv_name>VA:FS1_CSS:PM_D2315:XYRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>460.0</x>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
     <y>275</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1263,8 +1263,8 @@
     <name>TextUpdate_1088</name>
     <pv_name>VA:FS1_CSS:PM_D2315:XY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>560.0</x>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
     <y>275</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1281,8 +1281,8 @@
     <name>TextUpdate_1089</name>
     <pv_name>VA:FS1_CSS:PM_D2315:YCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>660.0</x>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
     <y>275</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1299,8 +1299,8 @@
     <name>TextUpdate_1090</name>
     <pv_name>VA:FS1_CSS:PM_D2315:YRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>760.0</x>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
     <y>275</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1327,7 +1327,7 @@
     <name>TextUpdate_1091</name>
     <pv_name>VA:FS1_CSS:PM_D2385:CXY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
+    <width>111.42857142857143</width>
     <x>160</x>
     <y>305</y>
   </widget>
@@ -1345,8 +1345,8 @@
     <name>TextUpdate_1092</name>
     <pv_name>VA:FS1_CSS:PM_D2385:XCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>260.0</x>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
     <y>305</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1363,8 +1363,8 @@
     <name>TextUpdate_1093</name>
     <pv_name>VA:FS1_CSS:PM_D2385:XRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>360.0</x>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
     <y>305</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1381,8 +1381,8 @@
     <name>TextUpdate_1094</name>
     <pv_name>VA:FS1_CSS:PM_D2385:XYRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>460.0</x>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
     <y>305</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1399,8 +1399,8 @@
     <name>TextUpdate_1095</name>
     <pv_name>VA:FS1_CSS:PM_D2385:XY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>560.0</x>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
     <y>305</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1417,8 +1417,8 @@
     <name>TextUpdate_1096</name>
     <pv_name>VA:FS1_CSS:PM_D2385:YCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>660.0</x>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
     <y>305</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1435,8 +1435,8 @@
     <name>TextUpdate_1097</name>
     <pv_name>VA:FS1_CSS:PM_D2385:YRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>760.0</x>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
     <y>305</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1463,7 +1463,7 @@
     <name>TextUpdate_1098</name>
     <pv_name>VA:LS1_BTS:PM_D2056:CXY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
+    <width>111.42857142857143</width>
     <x>160</x>
     <y>335</y>
   </widget>
@@ -1481,8 +1481,8 @@
     <name>TextUpdate_1099</name>
     <pv_name>VA:LS1_BTS:PM_D2056:XCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>260.0</x>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
     <y>335</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1499,8 +1499,8 @@
     <name>TextUpdate_1100</name>
     <pv_name>VA:LS1_BTS:PM_D2056:XRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>360.0</x>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
     <y>335</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1517,8 +1517,8 @@
     <name>TextUpdate_1101</name>
     <pv_name>VA:LS1_BTS:PM_D2056:XYRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>460.0</x>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
     <y>335</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1535,8 +1535,8 @@
     <name>TextUpdate_1102</name>
     <pv_name>VA:LS1_BTS:PM_D2056:XY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>560.0</x>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
     <y>335</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1553,8 +1553,8 @@
     <name>TextUpdate_1103</name>
     <pv_name>VA:LS1_BTS:PM_D2056:YCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>660.0</x>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
     <y>335</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1571,8 +1571,8 @@
     <name>TextUpdate_1104</name>
     <pv_name>VA:LS1_BTS:PM_D2056:YRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>760.0</x>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
     <y>335</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1599,7 +1599,7 @@
     <name>TextUpdate_1105</name>
     <pv_name>VA:LS1_BTS:PM_D2131:CXY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
+    <width>111.42857142857143</width>
     <x>160</x>
     <y>365</y>
   </widget>
@@ -1617,8 +1617,8 @@
     <name>TextUpdate_1106</name>
     <pv_name>VA:LS1_BTS:PM_D2131:XCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>260.0</x>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
     <y>365</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1635,8 +1635,8 @@
     <name>TextUpdate_1107</name>
     <pv_name>VA:LS1_BTS:PM_D2131:XRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>360.0</x>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
     <y>365</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1653,8 +1653,8 @@
     <name>TextUpdate_1108</name>
     <pv_name>VA:LS1_BTS:PM_D2131:XYRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>460.0</x>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
     <y>365</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1671,8 +1671,8 @@
     <name>TextUpdate_1109</name>
     <pv_name>VA:LS1_BTS:PM_D2131:XY_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>560.0</x>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
     <y>365</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1689,8 +1689,8 @@
     <name>TextUpdate_1110</name>
     <pv_name>VA:LS1_BTS:PM_D2131:YCEN_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>660.0</x>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
     <y>365</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1707,8 +1707,8 @@
     <name>TextUpdate_1111</name>
     <pv_name>VA:LS1_BTS:PM_D2131:YRMS_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>95.0</width>
-    <x>760.0</x>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
     <y>365</y>
   </widget>
 </display>

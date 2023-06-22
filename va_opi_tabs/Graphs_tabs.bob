@@ -4,9 +4,9 @@
     <color red="255" green="255" blue="255" name="DISPLAY_BG"/>
   </background_color>
   <grid_visible>true</grid_visible>
-  <height>650</height>
+  <height>500</height>
   <name>Graphs</name>
-  <width>800</width>
+  <width>1000</width>
   <x>0</x>
   <y>0</y>
   <widget type="xyplot" version="2.0.0">

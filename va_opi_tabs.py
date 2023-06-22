@@ -1,4 +1,4 @@
-""" Creates Phoebus and CS-Studio OPI Files for reading Accelerator Data """
+""" For each tab in the VA OPI, creates an OPI that is embedded into that tab """
 
 import pandas as pd
 from opigen import Renderer, widgets
@@ -8,15 +8,15 @@ from opigen.contrib import Display, TextEntry, TextUpdate
 FILENAME = "va_opi"
 TAB_FOLDER_PATH = "va_opi_tabs/"
 
-WIDGET_HEIGHT = 25
-TOTAL_WIDTH = 850
-NAME_WIDTH = 150
-
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 650
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 500
 
 HORIZONTAL_GAP = 5
 VERTICAL_GAP = 5
+
+WIDGET_HEIGHT = 25
+TOTAL_WIDTH = SCREEN_WIDTH - HORIZONTAL_GAP * 2 - 25
+NAME_WIDTH = 150
 
 GRAPH_WIDTH = 800
 GRAPH_HEIGHT = 500
@@ -63,7 +63,8 @@ def create_widget_row(tab_widget, device, column_names, column_width, y_0):
 
 
 def create_svr_tab(folder_path, svr_data):
-    """Creates the tab for SVR data, which is different because of how the data is stored."""
+    """Creates the OPI for SVR data, which is different because of how the data is stored."""
+    # OPI to render to
     opi = Display(SCREEN_WIDTH, SCREEN_HEIGHT, "SVR")
 
     # Create column labels
@@ -80,7 +81,8 @@ def create_svr_tab(folder_path, svr_data):
 
 
 def create_graphs_tab(folder_path):
-    """Creates a tab for the XY Graphs with BPM data"""
+    """Creates the OPI for the XY Graphs with BPM data"""
+    # OPI to render to
     opi = Display(SCREEN_WIDTH, SCREEN_HEIGHT, "Graphs")
 
     # Creates the graph and sets x axis title
@@ -137,7 +139,8 @@ def create_graphs_tab(folder_path):
 
 
 def create_tab_widget(folder_path, filtered_pvs, device_type):
-    """Creates the container that goes into a given tab"""
+    """Creates the OPI that goes into a given tab"""
+    # OPI to render to
     opi = Display(SCREEN_WIDTH, SCREEN_HEIGHT, device_type)
 
     # Create column labels
@@ -162,24 +165,25 @@ def create_tab_widget(folder_path, filtered_pvs, device_type):
 
 
 def create_embeds(folder_path=TAB_FOLDER_PATH):
-    """Uses dictionary of PVs to create widgets and then output the CS-Studio and Phoebus files"""
+    """Creates all the embedded OPIs and returns list of device types for tab creation"""
     # Reads in the data with all the pvs to be displayed
     pv_data = pd.read_csv("va_pvs.csv")
     svr_data = pv_data[pv_data["Location"] == "SVR"]
     pv_data = pv_data.dropna()
 
-    # Creates the first two tabs, one for SVR and one for the XY Graphs
+    # Creates the first two OPIs, one for SVR and one for the XY Graphs
     create_svr_tab(folder_path, svr_data)
     create_graphs_tab(folder_path)
 
-    # Creates a tab for each type of monitor
+    # Creates an OPI for each type of device
     device_types = sorted(pv_data["Device Type"].unique())
     for device_type in device_types:
         # Filters data to only data on that tab
         filtered_pvs = pv_data[pv_data["Device Type"] == device_type]
-        # Creates, fills, and adds the tab to the tab container
+        # Creates, fills, and outputs the OPI for that device type
         create_tab_widget(folder_path, filtered_pvs, device_type)
 
+    # Returns Device types to know what tabs need to be created
     return device_types
 
 
