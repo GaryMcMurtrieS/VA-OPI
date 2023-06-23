@@ -28,7 +28,7 @@
             <x>1</x>
             <y>1</y>
             <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/SVR_tabs.opi</file>
+              <file>va_opi_tabs/SVR_tab.opi</file>
               <height>457</height>
               <name>EmbeddedContainer_0</name>
               <resize>0</resize>
@@ -54,7 +54,7 @@
             <x>1</x>
             <y>1</y>
             <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/Graphs_tabs.opi</file>
+              <file>va_opi_tabs/Graphs_tab.opi</file>
               <height>457</height>
               <name>EmbeddedContainer_1</name>
               <resize>0</resize>
@@ -80,7 +80,7 @@
             <x>1</x>
             <y>1</y>
             <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/BPM_tabs.opi</file>
+              <file>va_opi_tabs/BPM_tab.opi</file>
               <height>457</height>
               <name>EmbeddedContainer_2</name>
               <resize>0</resize>
@@ -106,7 +106,7 @@
             <x>1</x>
             <y>1</y>
             <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/CAV_tabs.opi</file>
+              <file>va_opi_tabs/CAV_tab.opi</file>
               <height>457</height>
               <name>EmbeddedContainer_3</name>
               <resize>0</resize>
@@ -132,7 +132,7 @@
             <x>1</x>
             <y>1</y>
             <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/CAV1_tabs.opi</file>
+              <file>va_opi_tabs/CAV1_tab.opi</file>
               <height>457</height>
               <name>EmbeddedContainer_4</name>
               <resize>0</resize>
@@ -158,7 +158,7 @@
             <x>1</x>
             <y>1</y>
             <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/CAV2_tabs.opi</file>
+              <file>va_opi_tabs/CAV2_tab.opi</file>
               <height>457</height>
               <name>EmbeddedContainer_5</name>
               <resize>0</resize>
@@ -184,7 +184,7 @@
             <x>1</x>
             <y>1</y>
             <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/CAV3_tabs.opi</file>
+              <file>va_opi_tabs/CAV3_tab.opi</file>
               <height>457</height>
               <name>EmbeddedContainer_6</name>
               <resize>0</resize>
@@ -210,7 +210,7 @@
             <x>1</x>
             <y>1</y>
             <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/CAV4_tabs.opi</file>
+              <file>va_opi_tabs/CAV4_tab.opi</file>
               <height>457</height>
               <name>EmbeddedContainer_7</name>
               <resize>0</resize>
@@ -236,7 +236,7 @@
             <x>1</x>
             <y>1</y>
             <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/CAV5_tabs.opi</file>
+              <file>va_opi_tabs/CAV5_tab.opi</file>
               <height>457</height>
               <name>EmbeddedContainer_8</name>
               <resize>0</resize>
@@ -262,7 +262,7 @@
             <x>1</x>
             <y>1</y>
             <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/CAV6_tabs.opi</file>
+              <file>va_opi_tabs/CAV6_tab.opi</file>
               <height>457</height>
               <name>EmbeddedContainer_9</name>
               <resize>0</resize>
@@ -288,7 +288,7 @@
             <x>1</x>
             <y>1</y>
             <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/CAV7_tabs.opi</file>
+              <file>va_opi_tabs/CAV7_tab.opi</file>
               <height>457</height>
               <name>EmbeddedContainer_10</name>
               <resize>0</resize>
@@ -314,7 +314,7 @@
             <x>1</x>
             <y>1</y>
             <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/CAV8_tabs.opi</file>
+              <file>va_opi_tabs/CAV8_tab.opi</file>
               <height>457</height>
               <name>EmbeddedContainer_11</name>
               <resize>0</resize>
@@ -340,7 +340,7 @@
             <x>1</x>
             <y>1</y>
             <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/DCH_tabs.opi</file>
+              <file>va_opi_tabs/DCH_tab.opi</file>
               <height>457</height>
               <name>EmbeddedContainer_12</name>
               <resize>0</resize>
@@ -366,7 +366,7 @@
             <x>1</x>
             <y>1</y>
             <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/DCV_tabs.opi</file>
+              <file>va_opi_tabs/DCV_tab.opi</file>
               <height>457</height>
               <name>EmbeddedContainer_13</name>
               <resize>0</resize>
@@ -392,7 +392,7 @@
             <x>1</x>
             <y>1</y>
             <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/DH_tabs.opi</file>
+              <file>va_opi_tabs/DH_tab.opi</file>
               <height>457</height>
               <name>EmbeddedContainer_14</name>
               <resize>0</resize>
@@ -418,7 +418,7 @@
             <x>1</x>
             <y>1</y>
             <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/PM_tabs.opi</file>
+              <file>va_opi_tabs/PM_tab.opi</file>
               <height>457</height>
               <name>EmbeddedContainer_15</name>
               <resize>0</resize>
@@ -444,7 +444,7 @@
             <x>1</x>
             <y>1</y>
             <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/QH_tabs.opi</file>
+              <file>va_opi_tabs/QH_tab.opi</file>
               <height>457</height>
               <name>EmbeddedContainer_16</name>
               <resize>0</resize>
@@ -470,7 +470,7 @@
             <x>1</x>
             <y>1</y>
             <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/QV_tabs.opi</file>
+              <file>va_opi_tabs/QV_tab.opi</file>
               <height>457</height>
               <name>EmbeddedContainer_17</name>
               <resize>0</resize>
@@ -496,7 +496,7 @@
             <x>1</x>
             <y>1</y>
             <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/S_tabs.opi</file>
+              <file>va_opi_tabs/S_tab.opi</file>
               <height>457</height>
               <name>EmbeddedContainer_18</name>
               <resize>0</resize>
@@ -522,7 +522,7 @@
             <x>1</x>
             <y>1</y>
             <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/SOL1_tabs.opi</file>
+              <file>va_opi_tabs/SOL1_tab.opi</file>
               <height>457</height>
               <name>EmbeddedContainer_19</name>
               <resize>0</resize>
@@ -548,7 +548,7 @@
             <x>1</x>
             <y>1</y>
             <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/SOL2_tabs.opi</file>
+              <file>va_opi_tabs/SOL2_tab.opi</file>
               <height>457</height>
               <name>EmbeddedContainer_20</name>
               <resize>0</resize>
@@ -574,7 +574,7 @@
             <x>1</x>
             <y>1</y>
             <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/SOL3_tabs.opi</file>
+              <file>va_opi_tabs/SOL3_tab.opi</file>
               <height>457</height>
               <name>EmbeddedContainer_21</name>
               <resize>0</resize>

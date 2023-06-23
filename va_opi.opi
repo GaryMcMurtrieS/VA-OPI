@@ -32,7 +32,7 @@
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
         <height>457</height>
         <name>EmbeddedContainer_0</name>
-        <opi_file>va_opi_tabs/SVR_tabs.opi</opi_file>
+        <opi_file>va_opi_tabs/SVR_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
@@ -57,7 +57,7 @@
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
         <height>457</height>
         <name>EmbeddedContainer_1</name>
-        <opi_file>va_opi_tabs/Graphs_tabs.opi</opi_file>
+        <opi_file>va_opi_tabs/Graphs_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
@@ -82,7 +82,7 @@
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
         <height>457</height>
         <name>EmbeddedContainer_2</name>
-        <opi_file>va_opi_tabs/BPM_tabs.opi</opi_file>
+        <opi_file>va_opi_tabs/BPM_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
@@ -107,7 +107,7 @@
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
         <height>457</height>
         <name>EmbeddedContainer_3</name>
-        <opi_file>va_opi_tabs/CAV_tabs.opi</opi_file>
+        <opi_file>va_opi_tabs/CAV_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
@@ -132,7 +132,7 @@
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
         <height>457</height>
         <name>EmbeddedContainer_4</name>
-        <opi_file>va_opi_tabs/CAV1_tabs.opi</opi_file>
+        <opi_file>va_opi_tabs/CAV1_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
@@ -157,7 +157,7 @@
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
         <height>457</height>
         <name>EmbeddedContainer_5</name>
-        <opi_file>va_opi_tabs/CAV2_tabs.opi</opi_file>
+        <opi_file>va_opi_tabs/CAV2_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
@@ -182,7 +182,7 @@
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
         <height>457</height>
         <name>EmbeddedContainer_6</name>
-        <opi_file>va_opi_tabs/CAV3_tabs.opi</opi_file>
+        <opi_file>va_opi_tabs/CAV3_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
@@ -207,7 +207,7 @@
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
         <height>457</height>
         <name>EmbeddedContainer_7</name>
-        <opi_file>va_opi_tabs/CAV4_tabs.opi</opi_file>
+        <opi_file>va_opi_tabs/CAV4_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
@@ -232,7 +232,7 @@
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
         <height>457</height>
         <name>EmbeddedContainer_8</name>
-        <opi_file>va_opi_tabs/CAV5_tabs.opi</opi_file>
+        <opi_file>va_opi_tabs/CAV5_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
@@ -257,7 +257,7 @@
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
         <height>457</height>
         <name>EmbeddedContainer_9</name>
-        <opi_file>va_opi_tabs/CAV6_tabs.opi</opi_file>
+        <opi_file>va_opi_tabs/CAV6_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
@@ -282,7 +282,7 @@
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
         <height>457</height>
         <name>EmbeddedContainer_10</name>
-        <opi_file>va_opi_tabs/CAV7_tabs.opi</opi_file>
+        <opi_file>va_opi_tabs/CAV7_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
@@ -307,7 +307,7 @@
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
         <height>457</height>
         <name>EmbeddedContainer_11</name>
-        <opi_file>va_opi_tabs/CAV8_tabs.opi</opi_file>
+        <opi_file>va_opi_tabs/CAV8_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
@@ -332,7 +332,7 @@
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
         <height>457</height>
         <name>EmbeddedContainer_12</name>
-        <opi_file>va_opi_tabs/DCH_tabs.opi</opi_file>
+        <opi_file>va_opi_tabs/DCH_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
@@ -357,7 +357,7 @@
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
         <height>457</height>
         <name>EmbeddedContainer_13</name>
-        <opi_file>va_opi_tabs/DCV_tabs.opi</opi_file>
+        <opi_file>va_opi_tabs/DCV_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
@@ -382,7 +382,7 @@
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
         <height>457</height>
         <name>EmbeddedContainer_14</name>
-        <opi_file>va_opi_tabs/DH_tabs.opi</opi_file>
+        <opi_file>va_opi_tabs/DH_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
@@ -407,7 +407,7 @@
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
         <height>457</height>
         <name>EmbeddedContainer_15</name>
-        <opi_file>va_opi_tabs/PM_tabs.opi</opi_file>
+        <opi_file>va_opi_tabs/PM_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
@@ -432,7 +432,7 @@
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
         <height>457</height>
         <name>EmbeddedContainer_16</name>
-        <opi_file>va_opi_tabs/QH_tabs.opi</opi_file>
+        <opi_file>va_opi_tabs/QH_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
@@ -457,7 +457,7 @@
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
         <height>457</height>
         <name>EmbeddedContainer_17</name>
-        <opi_file>va_opi_tabs/QV_tabs.opi</opi_file>
+        <opi_file>va_opi_tabs/QV_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
@@ -482,7 +482,7 @@
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
         <height>457</height>
         <name>EmbeddedContainer_18</name>
-        <opi_file>va_opi_tabs/S_tabs.opi</opi_file>
+        <opi_file>va_opi_tabs/S_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
@@ -507,7 +507,7 @@
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
         <height>457</height>
         <name>EmbeddedContainer_19</name>
-        <opi_file>va_opi_tabs/SOL1_tabs.opi</opi_file>
+        <opi_file>va_opi_tabs/SOL1_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
@@ -532,7 +532,7 @@
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
         <height>457</height>
         <name>EmbeddedContainer_20</name>
-        <opi_file>va_opi_tabs/SOL2_tabs.opi</opi_file>
+        <opi_file>va_opi_tabs/SOL2_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
@@ -557,7 +557,7 @@
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
         <height>457</height>
         <name>EmbeddedContainer_21</name>
-        <opi_file>va_opi_tabs/SOL3_tabs.opi</opi_file>
+        <opi_file>va_opi_tabs/SOL3_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
         <width>988</width>
         <x>0</x>
