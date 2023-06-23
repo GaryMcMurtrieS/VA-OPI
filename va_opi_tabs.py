@@ -76,8 +76,8 @@ def create_svr_tab(folder_path, svr_data):
 
     # Outputs to file
     opi_renderer = Renderer(opi)
-    opi_renderer.to_opi(f"{folder_path}{'SVR'}_tabs.opi")
-    opi_renderer.to_bob(f"{folder_path}{'SVR'}_tabs.bob")
+    opi_renderer.to_opi(f"{folder_path}{'SVR'}_tab.opi")
+    opi_renderer.to_bob(f"{folder_path}{'SVR'}_tab.bob")
 
 
 def create_graphs_tab(folder_path):
@@ -134,8 +134,8 @@ def create_graphs_tab(folder_path):
     opi.add_child(graph)
 
     opi_renderer = Renderer(opi)
-    opi_renderer.to_opi(f"{folder_path}{'Graphs'}_tabs.opi")
-    opi_renderer.to_bob(f"{folder_path}{'Graphs'}_tabs.bob")
+    opi_renderer.to_opi(f"{folder_path}{'Graphs'}_tab.opi")
+    opi_renderer.to_bob(f"{folder_path}{'Graphs'}_tab.bob")
 
 
 def create_tab_widget(folder_path, filtered_pvs, device_type):
@@ -160,8 +160,8 @@ def create_tab_widget(folder_path, filtered_pvs, device_type):
 
     # Outputs to file
     opi_renderer = Renderer(opi)
-    opi_renderer.to_opi(f"{folder_path}{device_type}_tabs.opi")
-    opi_renderer.to_bob(f"{folder_path}{device_type}_tabs.bob")
+    opi_renderer.to_opi(f"{folder_path}{device_type}_tab.opi")
+    opi_renderer.to_bob(f"{folder_path}{device_type}_tab.bob")
 
 
 def create_embeds(folder_path=TAB_FOLDER_PATH):

@@ -37,7 +37,7 @@ def main():
     initial_tabs = ["SVR", "Graphs"]
     for tab_name in initial_tabs + device_types:
         tab_widget = widgets.EmbeddedContainer(0, 0, EMBED_WIDTH, EMBED_HEIGHT,
-                                               f"{TAB_FOLDER}{tab_name}_tabs.opi")
+                                               f"{TAB_FOLDER}{tab_name}_tab.opi")
 
         tab_widget.resize_behaviour = widgets.ResizeBehaviour.SCROLL
         tab_container.add_tab(tab_name, tab_widget)
