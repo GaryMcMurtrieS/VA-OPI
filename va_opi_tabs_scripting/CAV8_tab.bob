@@ -1,0 +1,1347 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<display version="2.0.0">
+  <background_color>
+    <color red="255" green="255" blue="255" name="DISPLAY_BG"/>
+  </background_color>
+  <grid_visible>true</grid_visible>
+  <height>500</height>
+  <name>CAV8</name>
+  <width>1000</width>
+  <x>0</x>
+  <y>0</y>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_250</name>
+    <text>AMPL_CSET</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>160</x>
+    <y>5</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_251</name>
+    <text>AMPL_RD</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
+    <y>5</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_252</name>
+    <text>AMPL_RSET</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
+    <y>5</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_253</name>
+    <text>PHA_CSET</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
+    <y>5</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_254</name>
+    <text>PHA_RD</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
+    <y>5</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_255</name>
+    <text>PHA_RSET</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
+    <y>5</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_256</name>
+    <text>RESET</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
+    <y>5</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_257</name>
+    <text>LS1_CB01:CAV8_D1281</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>35</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_217</name>
+    <pv_name>VA:LS1_CB01:CAV8_D1281:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>160</x>
+    <y>35</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_720</name>
+    <pv_name>VA:LS1_CB01:CAV8_D1281:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
+    <y>35</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_721</name>
+    <pv_name>VA:LS1_CB01:CAV8_D1281:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
+    <y>35</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_218</name>
+    <pv_name>VA:LS1_CB01:CAV8_D1281:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
+    <y>35</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_722</name>
+    <pv_name>VA:LS1_CB01:CAV8_D1281:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
+    <y>35</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_723</name>
+    <pv_name>VA:LS1_CB01:CAV8_D1281:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
+    <y>35</y>
+  </widget>
+  <widget type="org.csstudio.opibuilder.widgets.MenuButton" version="2.0.0">
+    <height>25</height>
+    <name>MenuButton_181</name>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
+    <y>35</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_258</name>
+    <text>LS1_CB02:CAV8_D1345</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>65</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_219</name>
+    <pv_name>VA:LS1_CB02:CAV8_D1345:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>160</x>
+    <y>65</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_724</name>
+    <pv_name>VA:LS1_CB02:CAV8_D1345:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
+    <y>65</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_725</name>
+    <pv_name>VA:LS1_CB02:CAV8_D1345:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
+    <y>65</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_220</name>
+    <pv_name>VA:LS1_CB02:CAV8_D1345:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
+    <y>65</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_726</name>
+    <pv_name>VA:LS1_CB02:CAV8_D1345:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
+    <y>65</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_727</name>
+    <pv_name>VA:LS1_CB02:CAV8_D1345:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
+    <y>65</y>
+  </widget>
+  <widget type="org.csstudio.opibuilder.widgets.MenuButton" version="2.0.0">
+    <height>25</height>
+    <name>MenuButton_182</name>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
+    <y>65</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_259</name>
+    <text>LS1_CB03:CAV8_D1408</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>95</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_221</name>
+    <pv_name>VA:LS1_CB03:CAV8_D1408:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>160</x>
+    <y>95</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_728</name>
+    <pv_name>VA:LS1_CB03:CAV8_D1408:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
+    <y>95</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_729</name>
+    <pv_name>VA:LS1_CB03:CAV8_D1408:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
+    <y>95</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_222</name>
+    <pv_name>VA:LS1_CB03:CAV8_D1408:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
+    <y>95</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_730</name>
+    <pv_name>VA:LS1_CB03:CAV8_D1408:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
+    <y>95</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_731</name>
+    <pv_name>VA:LS1_CB03:CAV8_D1408:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
+    <y>95</y>
+  </widget>
+  <widget type="org.csstudio.opibuilder.widgets.MenuButton" version="2.0.0">
+    <height>25</height>
+    <name>MenuButton_183</name>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
+    <y>95</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_260</name>
+    <text>LS1_CB04:CAV8_D1472</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>125</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_223</name>
+    <pv_name>VA:LS1_CB04:CAV8_D1472:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>160</x>
+    <y>125</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_732</name>
+    <pv_name>VA:LS1_CB04:CAV8_D1472:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
+    <y>125</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_733</name>
+    <pv_name>VA:LS1_CB04:CAV8_D1472:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
+    <y>125</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_224</name>
+    <pv_name>VA:LS1_CB04:CAV8_D1472:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
+    <y>125</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_734</name>
+    <pv_name>VA:LS1_CB04:CAV8_D1472:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
+    <y>125</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_735</name>
+    <pv_name>VA:LS1_CB04:CAV8_D1472:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
+    <y>125</y>
+  </widget>
+  <widget type="org.csstudio.opibuilder.widgets.MenuButton" version="2.0.0">
+    <height>25</height>
+    <name>MenuButton_184</name>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
+    <y>125</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_261</name>
+    <text>LS1_CB05:CAV8_D1536</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>155</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_225</name>
+    <pv_name>VA:LS1_CB05:CAV8_D1536:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>160</x>
+    <y>155</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_736</name>
+    <pv_name>VA:LS1_CB05:CAV8_D1536:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
+    <y>155</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_737</name>
+    <pv_name>VA:LS1_CB05:CAV8_D1536:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
+    <y>155</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_226</name>
+    <pv_name>VA:LS1_CB05:CAV8_D1536:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
+    <y>155</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_738</name>
+    <pv_name>VA:LS1_CB05:CAV8_D1536:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
+    <y>155</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_739</name>
+    <pv_name>VA:LS1_CB05:CAV8_D1536:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
+    <y>155</y>
+  </widget>
+  <widget type="org.csstudio.opibuilder.widgets.MenuButton" version="2.0.0">
+    <height>25</height>
+    <name>MenuButton_185</name>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
+    <y>155</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_262</name>
+    <text>LS1_CB06:CAV8_D1599</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>185</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_227</name>
+    <pv_name>VA:LS1_CB06:CAV8_D1599:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>160</x>
+    <y>185</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_740</name>
+    <pv_name>VA:LS1_CB06:CAV8_D1599:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
+    <y>185</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_741</name>
+    <pv_name>VA:LS1_CB06:CAV8_D1599:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
+    <y>185</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_228</name>
+    <pv_name>VA:LS1_CB06:CAV8_D1599:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
+    <y>185</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_742</name>
+    <pv_name>VA:LS1_CB06:CAV8_D1599:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
+    <y>185</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_743</name>
+    <pv_name>VA:LS1_CB06:CAV8_D1599:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
+    <y>185</y>
+  </widget>
+  <widget type="org.csstudio.opibuilder.widgets.MenuButton" version="2.0.0">
+    <height>25</height>
+    <name>MenuButton_186</name>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
+    <y>185</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_263</name>
+    <text>LS1_CB07:CAV8_D1663</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>215</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_229</name>
+    <pv_name>VA:LS1_CB07:CAV8_D1663:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>160</x>
+    <y>215</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_744</name>
+    <pv_name>VA:LS1_CB07:CAV8_D1663:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
+    <y>215</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_745</name>
+    <pv_name>VA:LS1_CB07:CAV8_D1663:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
+    <y>215</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_230</name>
+    <pv_name>VA:LS1_CB07:CAV8_D1663:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
+    <y>215</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_746</name>
+    <pv_name>VA:LS1_CB07:CAV8_D1663:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
+    <y>215</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_747</name>
+    <pv_name>VA:LS1_CB07:CAV8_D1663:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
+    <y>215</y>
+  </widget>
+  <widget type="org.csstudio.opibuilder.widgets.MenuButton" version="2.0.0">
+    <height>25</height>
+    <name>MenuButton_187</name>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
+    <y>215</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_264</name>
+    <text>LS1_CB08:CAV8_D1727</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>245</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_231</name>
+    <pv_name>VA:LS1_CB08:CAV8_D1727:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>160</x>
+    <y>245</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_748</name>
+    <pv_name>VA:LS1_CB08:CAV8_D1727:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
+    <y>245</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_749</name>
+    <pv_name>VA:LS1_CB08:CAV8_D1727:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
+    <y>245</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_232</name>
+    <pv_name>VA:LS1_CB08:CAV8_D1727:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
+    <y>245</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_750</name>
+    <pv_name>VA:LS1_CB08:CAV8_D1727:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
+    <y>245</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_751</name>
+    <pv_name>VA:LS1_CB08:CAV8_D1727:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
+    <y>245</y>
+  </widget>
+  <widget type="org.csstudio.opibuilder.widgets.MenuButton" version="2.0.0">
+    <height>25</height>
+    <name>MenuButton_188</name>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
+    <y>245</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_265</name>
+    <text>LS1_CB09:CAV8_D1791</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>275</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_233</name>
+    <pv_name>VA:LS1_CB09:CAV8_D1791:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>160</x>
+    <y>275</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_752</name>
+    <pv_name>VA:LS1_CB09:CAV8_D1791:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
+    <y>275</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_753</name>
+    <pv_name>VA:LS1_CB09:CAV8_D1791:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
+    <y>275</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_234</name>
+    <pv_name>VA:LS1_CB09:CAV8_D1791:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
+    <y>275</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_754</name>
+    <pv_name>VA:LS1_CB09:CAV8_D1791:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
+    <y>275</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_755</name>
+    <pv_name>VA:LS1_CB09:CAV8_D1791:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
+    <y>275</y>
+  </widget>
+  <widget type="org.csstudio.opibuilder.widgets.MenuButton" version="2.0.0">
+    <height>25</height>
+    <name>MenuButton_189</name>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
+    <y>275</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_266</name>
+    <text>LS1_CB10:CAV8_D1854</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>305</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_235</name>
+    <pv_name>VA:LS1_CB10:CAV8_D1854:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>160</x>
+    <y>305</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_756</name>
+    <pv_name>VA:LS1_CB10:CAV8_D1854:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
+    <y>305</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_757</name>
+    <pv_name>VA:LS1_CB10:CAV8_D1854:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
+    <y>305</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_236</name>
+    <pv_name>VA:LS1_CB10:CAV8_D1854:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
+    <y>305</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_758</name>
+    <pv_name>VA:LS1_CB10:CAV8_D1854:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
+    <y>305</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_759</name>
+    <pv_name>VA:LS1_CB10:CAV8_D1854:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
+    <y>305</y>
+  </widget>
+  <widget type="org.csstudio.opibuilder.widgets.MenuButton" version="2.0.0">
+    <height>25</height>
+    <name>MenuButton_190</name>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
+    <y>305</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_267</name>
+    <text>LS1_CB11:CAV8_D1918</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>335</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_237</name>
+    <pv_name>VA:LS1_CB11:CAV8_D1918:AMPL_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>160</x>
+    <y>335</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_760</name>
+    <pv_name>VA:LS1_CB11:CAV8_D1918:AMPL_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>276.42857142857144</x>
+    <y>335</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_761</name>
+    <pv_name>VA:LS1_CB11:CAV8_D1918:AMPL_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>392.8571428571429</x>
+    <y>335</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_238</name>
+    <pv_name>VA:LS1_CB11:CAV8_D1918:PHA_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>509.28571428571433</x>
+    <y>335</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_762</name>
+    <pv_name>VA:LS1_CB11:CAV8_D1918:PHA_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>625.7142857142858</x>
+    <y>335</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_763</name>
+    <pv_name>VA:LS1_CB11:CAV8_D1918:PHA_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>111.42857142857143</width>
+    <x>742.1428571428572</x>
+    <y>335</y>
+  </widget>
+  <widget type="org.csstudio.opibuilder.widgets.MenuButton" version="2.0.0">
+    <height>25</height>
+    <name>MenuButton_191</name>
+    <width>111.42857142857143</width>
+    <x>858.5714285714287</x>
+    <y>335</y>
+  </widget>
+</display>

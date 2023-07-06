@@ -4,14 +4,14 @@
   <background_color>
     <color red="255" green="255" blue="255" name="DISPLAY_BG"/>
   </background_color>
-  <height>500</height>
+  <height>700</height>
   <name>LS1FS1 Virtual Accelerator</name>
   <show_grid>true</show_grid>
-  <width>1000</width>
+  <width>1200</width>
   <x>0</x>
   <y>0</y>
   <widget typeId="org.csstudio.opibuilder.widgets.tab" version="1.0.0">
-    <height>490</height>
+    <height>690</height>
     <name>TabbedContainer_0</name>
     <tab_count>22</tab_count>
     <tab_0_title>SVR</tab_0_title>
@@ -22,19 +22,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>457</height>
+      <height>657</height>
       <lock_children>true</lock_children>
       <name>SVR</name>
       <transparent>true</transparent>
-      <width>988</width>
+      <width>1188</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-        <height>457</height>
+        <height>657</height>
         <name>EmbeddedContainer_0</name>
         <opi_file>va_opi_tabs/SVR_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
-        <width>988</width>
+        <width>1188</width>
         <x>0</x>
         <y>0</y>
       </widget>
@@ -47,19 +47,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>457</height>
+      <height>657</height>
       <lock_children>true</lock_children>
       <name>Graphs</name>
       <transparent>true</transparent>
-      <width>988</width>
+      <width>1188</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-        <height>457</height>
+        <height>657</height>
         <name>EmbeddedContainer_1</name>
         <opi_file>va_opi_tabs/Graphs_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
-        <width>988</width>
+        <width>1188</width>
         <x>0</x>
         <y>0</y>
       </widget>
@@ -72,19 +72,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>457</height>
+      <height>657</height>
       <lock_children>true</lock_children>
       <name>BPM</name>
       <transparent>true</transparent>
-      <width>988</width>
+      <width>1188</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-        <height>457</height>
+        <height>657</height>
         <name>EmbeddedContainer_2</name>
         <opi_file>va_opi_tabs/BPM_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
-        <width>988</width>
+        <width>1188</width>
         <x>0</x>
         <y>0</y>
       </widget>
@@ -97,19 +97,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>457</height>
+      <height>657</height>
       <lock_children>true</lock_children>
       <name>CAV</name>
       <transparent>true</transparent>
-      <width>988</width>
+      <width>1188</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-        <height>457</height>
+        <height>657</height>
         <name>EmbeddedContainer_3</name>
         <opi_file>va_opi_tabs/CAV_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
-        <width>988</width>
+        <width>1188</width>
         <x>0</x>
         <y>0</y>
       </widget>
@@ -122,19 +122,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>457</height>
+      <height>657</height>
       <lock_children>true</lock_children>
       <name>CAV1</name>
       <transparent>true</transparent>
-      <width>988</width>
+      <width>1188</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-        <height>457</height>
+        <height>657</height>
         <name>EmbeddedContainer_4</name>
         <opi_file>va_opi_tabs/CAV1_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
-        <width>988</width>
+        <width>1188</width>
         <x>0</x>
         <y>0</y>
       </widget>
@@ -147,19 +147,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>457</height>
+      <height>657</height>
       <lock_children>true</lock_children>
       <name>CAV2</name>
       <transparent>true</transparent>
-      <width>988</width>
+      <width>1188</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-        <height>457</height>
+        <height>657</height>
         <name>EmbeddedContainer_5</name>
         <opi_file>va_opi_tabs/CAV2_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
-        <width>988</width>
+        <width>1188</width>
         <x>0</x>
         <y>0</y>
       </widget>
@@ -172,19 +172,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>457</height>
+      <height>657</height>
       <lock_children>true</lock_children>
       <name>CAV3</name>
       <transparent>true</transparent>
-      <width>988</width>
+      <width>1188</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-        <height>457</height>
+        <height>657</height>
         <name>EmbeddedContainer_6</name>
         <opi_file>va_opi_tabs/CAV3_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
-        <width>988</width>
+        <width>1188</width>
         <x>0</x>
         <y>0</y>
       </widget>
@@ -197,19 +197,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>457</height>
+      <height>657</height>
       <lock_children>true</lock_children>
       <name>CAV4</name>
       <transparent>true</transparent>
-      <width>988</width>
+      <width>1188</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-        <height>457</height>
+        <height>657</height>
         <name>EmbeddedContainer_7</name>
         <opi_file>va_opi_tabs/CAV4_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
-        <width>988</width>
+        <width>1188</width>
         <x>0</x>
         <y>0</y>
       </widget>
@@ -222,19 +222,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>457</height>
+      <height>657</height>
       <lock_children>true</lock_children>
       <name>CAV5</name>
       <transparent>true</transparent>
-      <width>988</width>
+      <width>1188</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-        <height>457</height>
+        <height>657</height>
         <name>EmbeddedContainer_8</name>
         <opi_file>va_opi_tabs/CAV5_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
-        <width>988</width>
+        <width>1188</width>
         <x>0</x>
         <y>0</y>
       </widget>
@@ -247,19 +247,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>457</height>
+      <height>657</height>
       <lock_children>true</lock_children>
       <name>CAV6</name>
       <transparent>true</transparent>
-      <width>988</width>
+      <width>1188</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-        <height>457</height>
+        <height>657</height>
         <name>EmbeddedContainer_9</name>
         <opi_file>va_opi_tabs/CAV6_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
-        <width>988</width>
+        <width>1188</width>
         <x>0</x>
         <y>0</y>
       </widget>
@@ -272,19 +272,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>457</height>
+      <height>657</height>
       <lock_children>true</lock_children>
       <name>CAV7</name>
       <transparent>true</transparent>
-      <width>988</width>
+      <width>1188</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-        <height>457</height>
+        <height>657</height>
         <name>EmbeddedContainer_10</name>
         <opi_file>va_opi_tabs/CAV7_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
-        <width>988</width>
+        <width>1188</width>
         <x>0</x>
         <y>0</y>
       </widget>
@@ -297,19 +297,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>457</height>
+      <height>657</height>
       <lock_children>true</lock_children>
       <name>CAV8</name>
       <transparent>true</transparent>
-      <width>988</width>
+      <width>1188</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-        <height>457</height>
+        <height>657</height>
         <name>EmbeddedContainer_11</name>
         <opi_file>va_opi_tabs/CAV8_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
-        <width>988</width>
+        <width>1188</width>
         <x>0</x>
         <y>0</y>
       </widget>
@@ -322,19 +322,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>457</height>
+      <height>657</height>
       <lock_children>true</lock_children>
       <name>DCH</name>
       <transparent>true</transparent>
-      <width>988</width>
+      <width>1188</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-        <height>457</height>
+        <height>657</height>
         <name>EmbeddedContainer_12</name>
         <opi_file>va_opi_tabs/DCH_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
-        <width>988</width>
+        <width>1188</width>
         <x>0</x>
         <y>0</y>
       </widget>
@@ -347,19 +347,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>457</height>
+      <height>657</height>
       <lock_children>true</lock_children>
       <name>DCV</name>
       <transparent>true</transparent>
-      <width>988</width>
+      <width>1188</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-        <height>457</height>
+        <height>657</height>
         <name>EmbeddedContainer_13</name>
         <opi_file>va_opi_tabs/DCV_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
-        <width>988</width>
+        <width>1188</width>
         <x>0</x>
         <y>0</y>
       </widget>
@@ -372,19 +372,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>457</height>
+      <height>657</height>
       <lock_children>true</lock_children>
       <name>DH</name>
       <transparent>true</transparent>
-      <width>988</width>
+      <width>1188</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-        <height>457</height>
+        <height>657</height>
         <name>EmbeddedContainer_14</name>
         <opi_file>va_opi_tabs/DH_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
-        <width>988</width>
+        <width>1188</width>
         <x>0</x>
         <y>0</y>
       </widget>
@@ -397,19 +397,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>457</height>
+      <height>657</height>
       <lock_children>true</lock_children>
       <name>PM</name>
       <transparent>true</transparent>
-      <width>988</width>
+      <width>1188</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-        <height>457</height>
+        <height>657</height>
         <name>EmbeddedContainer_15</name>
         <opi_file>va_opi_tabs/PM_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
-        <width>988</width>
+        <width>1188</width>
         <x>0</x>
         <y>0</y>
       </widget>
@@ -422,19 +422,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>457</height>
+      <height>657</height>
       <lock_children>true</lock_children>
       <name>QH</name>
       <transparent>true</transparent>
-      <width>988</width>
+      <width>1188</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-        <height>457</height>
+        <height>657</height>
         <name>EmbeddedContainer_16</name>
         <opi_file>va_opi_tabs/QH_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
-        <width>988</width>
+        <width>1188</width>
         <x>0</x>
         <y>0</y>
       </widget>
@@ -447,19 +447,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>457</height>
+      <height>657</height>
       <lock_children>true</lock_children>
       <name>QV</name>
       <transparent>true</transparent>
-      <width>988</width>
+      <width>1188</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-        <height>457</height>
+        <height>657</height>
         <name>EmbeddedContainer_17</name>
         <opi_file>va_opi_tabs/QV_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
-        <width>988</width>
+        <width>1188</width>
         <x>0</x>
         <y>0</y>
       </widget>
@@ -472,19 +472,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>457</height>
+      <height>657</height>
       <lock_children>true</lock_children>
       <name>S</name>
       <transparent>true</transparent>
-      <width>988</width>
+      <width>1188</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-        <height>457</height>
+        <height>657</height>
         <name>EmbeddedContainer_18</name>
         <opi_file>va_opi_tabs/S_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
-        <width>988</width>
+        <width>1188</width>
         <x>0</x>
         <y>0</y>
       </widget>
@@ -497,19 +497,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>457</height>
+      <height>657</height>
       <lock_children>true</lock_children>
       <name>SOL1</name>
       <transparent>true</transparent>
-      <width>988</width>
+      <width>1188</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-        <height>457</height>
+        <height>657</height>
         <name>EmbeddedContainer_19</name>
         <opi_file>va_opi_tabs/SOL1_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
-        <width>988</width>
+        <width>1188</width>
         <x>0</x>
         <y>0</y>
       </widget>
@@ -522,19 +522,19 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>457</height>
+      <height>657</height>
       <lock_children>true</lock_children>
       <name>SOL2</name>
       <transparent>true</transparent>
-      <width>988</width>
+      <width>1188</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-        <height>457</height>
+        <height>657</height>
         <name>EmbeddedContainer_20</name>
         <opi_file>va_opi_tabs/SOL2_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
-        <width>988</width>
+        <width>1188</width>
         <x>0</x>
         <y>0</y>
       </widget>
@@ -547,24 +547,24 @@
       <border_color>
         <color red="255" green="255" blue="255"/>
       </border_color>
-      <height>457</height>
+      <height>657</height>
       <lock_children>true</lock_children>
       <name>SOL3</name>
       <transparent>true</transparent>
-      <width>988</width>
+      <width>1188</width>
       <x>1</x>
       <y>1</y>
       <widget typeId="org.csstudio.opibuilder.widgets.linkingContainer" version="1.0.0">
-        <height>457</height>
+        <height>657</height>
         <name>EmbeddedContainer_21</name>
         <opi_file>va_opi_tabs/SOL3_tab.opi</opi_file>
         <resize_behaviour>3</resize_behaviour>
-        <width>988</width>
+        <width>1188</width>
         <x>0</x>
         <y>0</y>
       </widget>
     </widget>
-    <width>990</width>
+    <width>1190</width>
     <x>5</x>
     <y>5</y>
   </widget>

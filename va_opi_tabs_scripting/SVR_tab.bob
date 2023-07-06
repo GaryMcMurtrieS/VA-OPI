@@ -1,0 +1,200 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<display version="2.0.0">
+  <background_color>
+    <color red="255" green="255" blue="255" name="DISPLAY_BG"/>
+  </background_color>
+  <grid_visible>true</grid_visible>
+  <height>500</height>
+  <name>SVR</name>
+  <width>1000</width>
+  <x>0</x>
+  <y>0</y>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_0</name>
+    <text>BEAM</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>96.875</width>
+    <x>160</x>
+    <y>5</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_1</name>
+    <text>CHARGE</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>96.875</width>
+    <x>261.875</x>
+    <y>5</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_2</name>
+    <text>CNT</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>96.875</width>
+    <x>363.75</x>
+    <y>5</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_3</name>
+    <text>MpsStatus</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>96.875</width>
+    <x>465.625</x>
+    <y>5</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_4</name>
+    <text>NOISE</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>96.875</width>
+    <x>567.5</x>
+    <y>5</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_5</name>
+    <text>RATE</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>96.875</width>
+    <x>669.375</x>
+    <y>5</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_6</name>
+    <text>STATUS</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>96.875</width>
+    <x>771.25</x>
+    <y>5</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_7</name>
+    <text>RESET</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>96.875</width>
+    <x>873.125</x>
+    <y>5</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_8</name>
+    <text>SVR</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>35</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_0</name>
+    <pv_name>VA:SVR:BEAM</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>96.875</width>
+    <x>160</x>
+    <y>35</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_1</name>
+    <pv_name>VA:SVR:CHARGE</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>96.875</width>
+    <x>261.875</x>
+    <y>35</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_2</name>
+    <pv_name>VA:SVR:CNT</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>96.875</width>
+    <x>363.75</x>
+    <y>35</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_3</name>
+    <pv_name>VA:SVR:MpsStatus</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>96.875</width>
+    <x>465.625</x>
+    <y>35</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_4</name>
+    <pv_name>VA:SVR:NOISE</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>96.875</width>
+    <x>567.5</x>
+    <y>35</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_5</name>
+    <pv_name>VA:SVR:RATE</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>96.875</width>
+    <x>669.375</x>
+    <y>35</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_6</name>
+    <pv_name>VA:SVR:STATUS</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>96.875</width>
+    <x>771.25</x>
+    <y>35</y>
+  </widget>
+  <widget type="org.csstudio.opibuilder.widgets.MenuButton" version="2.0.0">
+    <height>25</height>
+    <name>MenuButton_0</name>
+    <width>96.875</width>
+    <x>873.125</x>
+    <y>35</y>
+  </widget>
+</display>

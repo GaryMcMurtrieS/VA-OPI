@@ -4,40 +4,41 @@
     <color red="255" green="255" blue="255" name="DISPLAY_BG"/>
   </background_color>
   <grid_visible>true</grid_visible>
-  <height>500</height>
+  <height>700</height>
   <name>Graphs</name>
-  <width>1000</width>
+  <width>1200</width>
   <x>0</x>
   <y>0</y>
   <widget type="xyplot" version="2.0.0">
     <x_axis>
       <title>Position of Device (m)</title>
-      <autoscale>0</autoscale>
-      <minimum>100</minimum>
-      <maximum>True</maximum>
+      <autoscale>True</autoscale>
+      <minimum>0</minimum>
+      <maximum>100</maximum>
     </x_axis>
     <y_axes>
       <y_axis>
         <title>Value Reading (m)</title>
-        <autoscale>-0.01</autoscale>
-        <minimum>0.01</minimum>
-        <maximum>False</maximum>
+        <autoscale>False</autoscale>
+        <minimum>-0.01</minimum>
+        <maximum>0.01</maximum>
       </y_axis>
       <y_axis>
         <title>Value Reading (degrees)</title>
-        <autoscale>-300</autoscale>
-        <minimum>300</minimum>
-        <maximum>False</maximum>
+        <autoscale>False</autoscale>
+        <minimum>-300</minimum>
+        <maximum>300</maximum>
       </y_axis>
       <y_axis>
         <title>Value Reading (MeV)</title>
-        <autoscale>-30</autoscale>
-        <minimum>30</minimum>
-        <maximum>False</maximum>
+        <autoscale>False</autoscale>
+        <minimum>-30</minimum>
+        <maximum>30</maximum>
       </y_axis>
     </y_axes>
-    <height>500</height>
+    <height>600</height>
     <name>XYGraph_0</name>
+    <show_toolbar>true</show_toolbar>
     <traces>
       <trace>
         <name>X_RD</name>
@@ -72,7 +73,7 @@
         <trace_type>5</trace_type>
       </trace>
     </traces>
-    <width>800</width>
+    <width>1100</width>
     <x>5</x>
     <y>5</y>
   </widget>

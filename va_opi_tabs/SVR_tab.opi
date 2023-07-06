@@ -4,10 +4,10 @@
   <background_color>
     <color red="255" green="255" blue="255" name="DISPLAY_BG"/>
   </background_color>
-  <height>500</height>
+  <height>700</height>
   <name>SVR</name>
   <show_grid>true</show_grid>
-  <width>1000</width>
+  <width>1200</width>
   <x>0</x>
   <y>0</y>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -16,7 +16,7 @@
     <name>Label_0</name>
     <text>BEAM</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.42857142857143</width>
+    <width>140.0</width>
     <x>160</x>
     <y>5</y>
   </widget>
@@ -26,8 +26,8 @@
     <name>Label_1</name>
     <text>CHARGE</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.42857142857143</width>
-    <x>276.42857142857144</x>
+    <width>140.0</width>
+    <x>305.0</x>
     <y>5</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -36,8 +36,8 @@
     <name>Label_2</name>
     <text>CNT</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.42857142857143</width>
-    <x>392.8571428571429</x>
+    <width>140.0</width>
+    <x>450.0</x>
     <y>5</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -46,8 +46,8 @@
     <name>Label_3</name>
     <text>MpsStatus</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.42857142857143</width>
-    <x>509.28571428571433</x>
+    <width>140.0</width>
+    <x>595.0</x>
     <y>5</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -56,8 +56,8 @@
     <name>Label_4</name>
     <text>NOISE</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.42857142857143</width>
-    <x>625.7142857142858</x>
+    <width>140.0</width>
+    <x>740.0</x>
     <y>5</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -66,8 +66,8 @@
     <name>Label_5</name>
     <text>RATE</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.42857142857143</width>
-    <x>742.1428571428572</x>
+    <width>140.0</width>
+    <x>885.0</x>
     <y>5</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -76,8 +76,8 @@
     <name>Label_6</name>
     <text>STATUS</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.42857142857143</width>
-    <x>858.5714285714287</x>
+    <width>140.0</width>
+    <x>1030.0</x>
     <y>5</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -99,7 +99,7 @@
     <name>TextEntry_0</name>
     <pv_name>VA:SVR:BEAM</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.42857142857143</width>
+    <width>140.0</width>
     <x>160</x>
     <y>35</y>
   </widget>
@@ -112,8 +112,8 @@
     <name>TextEntry_1</name>
     <pv_name>VA:SVR:CHARGE</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.42857142857143</width>
-    <x>276.42857142857144</x>
+    <width>140.0</width>
+    <x>305.0</x>
     <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
@@ -125,8 +125,8 @@
     <name>TextEntry_2</name>
     <pv_name>VA:SVR:CNT</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.42857142857143</width>
-    <x>392.8571428571429</x>
+    <width>140.0</width>
+    <x>450.0</x>
     <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
@@ -138,8 +138,8 @@
     <name>TextEntry_3</name>
     <pv_name>VA:SVR:MpsStatus</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.42857142857143</width>
-    <x>509.28571428571433</x>
+    <width>140.0</width>
+    <x>595.0</x>
     <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
@@ -151,8 +151,8 @@
     <name>TextEntry_4</name>
     <pv_name>VA:SVR:NOISE</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.42857142857143</width>
-    <x>625.7142857142858</x>
+    <width>140.0</width>
+    <x>740.0</x>
     <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
@@ -164,8 +164,8 @@
     <name>TextEntry_5</name>
     <pv_name>VA:SVR:RATE</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.42857142857143</width>
-    <x>742.1428571428572</x>
+    <width>140.0</width>
+    <x>885.0</x>
     <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
@@ -177,8 +177,8 @@
     <name>TextEntry_6</name>
     <pv_name>VA:SVR:STATUS</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>111.42857142857143</width>
-    <x>858.5714285714287</x>
+    <width>140.0</width>
+    <x>1030.0</x>
     <y>35</y>
   </widget>
 </display>

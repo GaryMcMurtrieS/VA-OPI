@@ -1,0 +1,812 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<display typeId="org.csstudio.opibuilder.Display" version="1.0.0">
+  <auto_zoom_to_fit_all>false</auto_zoom_to_fit_all>
+  <background_color>
+    <color red="255" green="255" blue="255" name="DISPLAY_BG"/>
+  </background_color>
+  <height>500</height>
+  <name>SOL3</name>
+  <show_grid>true</show_grid>
+  <width>1000</width>
+  <x>0</x>
+  <y>0</y>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_522</name>
+    <text>I_CSET</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>160</x>
+    <y>5</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_523</name>
+    <text>I_RD</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>363.75</x>
+    <y>5</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_524</name>
+    <text>I_RSET</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>567.5</x>
+    <y>5</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_525</name>
+    <text>RESET</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>771.25</x>
+    <y>5</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_526</name>
+    <text>LS1_CB01:SOL3_D1275</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>35</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_441</name>
+    <pv_name>VA:LS1_CB01:SOL3_D1275:I_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>160</x>
+    <y>35</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_1252</name>
+    <pv_name>VA:LS1_CB01:SOL3_D1275:I_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>363.75</x>
+    <y>35</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_1253</name>
+    <pv_name>VA:LS1_CB01:SOL3_D1275:I_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>567.5</x>
+    <y>35</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.MenuButton" version="1.0.0">
+    <height>25</height>
+    <label>VA:LS1_CB01:SOL3_D1275:I_CSET</label>
+    <name>MenuButton_406</name>
+    <width>198.75</width>
+    <x>771.25</x>
+    <y>35</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_527</name>
+    <text>LS1_CB02:SOL3_D1339</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>65</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_442</name>
+    <pv_name>VA:LS1_CB02:SOL3_D1339:I_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>160</x>
+    <y>65</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_1254</name>
+    <pv_name>VA:LS1_CB02:SOL3_D1339:I_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>363.75</x>
+    <y>65</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_1255</name>
+    <pv_name>VA:LS1_CB02:SOL3_D1339:I_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>567.5</x>
+    <y>65</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.MenuButton" version="1.0.0">
+    <height>25</height>
+    <label>VA:LS1_CB02:SOL3_D1339:I_CSET</label>
+    <name>MenuButton_407</name>
+    <width>198.75</width>
+    <x>771.25</x>
+    <y>65</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_528</name>
+    <text>LS1_CB03:SOL3_D1403</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>95</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_443</name>
+    <pv_name>VA:LS1_CB03:SOL3_D1403:I_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>160</x>
+    <y>95</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_1256</name>
+    <pv_name>VA:LS1_CB03:SOL3_D1403:I_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>363.75</x>
+    <y>95</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_1257</name>
+    <pv_name>VA:LS1_CB03:SOL3_D1403:I_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>567.5</x>
+    <y>95</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.MenuButton" version="1.0.0">
+    <height>25</height>
+    <label>VA:LS1_CB03:SOL3_D1403:I_CSET</label>
+    <name>MenuButton_408</name>
+    <width>198.75</width>
+    <x>771.25</x>
+    <y>95</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_529</name>
+    <text>LS1_CB04:SOL3_D1466</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>125</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_444</name>
+    <pv_name>VA:LS1_CB04:SOL3_D1466:I_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>160</x>
+    <y>125</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_1258</name>
+    <pv_name>VA:LS1_CB04:SOL3_D1466:I_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>363.75</x>
+    <y>125</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_1259</name>
+    <pv_name>VA:LS1_CB04:SOL3_D1466:I_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>567.5</x>
+    <y>125</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.MenuButton" version="1.0.0">
+    <height>25</height>
+    <label>VA:LS1_CB04:SOL3_D1466:I_CSET</label>
+    <name>MenuButton_409</name>
+    <width>198.75</width>
+    <x>771.25</x>
+    <y>125</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_530</name>
+    <text>LS1_CB05:SOL3_D1530</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>155</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_445</name>
+    <pv_name>VA:LS1_CB05:SOL3_D1530:I_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>160</x>
+    <y>155</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_1260</name>
+    <pv_name>VA:LS1_CB05:SOL3_D1530:I_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>363.75</x>
+    <y>155</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_1261</name>
+    <pv_name>VA:LS1_CB05:SOL3_D1530:I_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>567.5</x>
+    <y>155</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.MenuButton" version="1.0.0">
+    <height>25</height>
+    <label>VA:LS1_CB05:SOL3_D1530:I_CSET</label>
+    <name>MenuButton_410</name>
+    <width>198.75</width>
+    <x>771.25</x>
+    <y>155</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_531</name>
+    <text>LS1_CB06:SOL3_D1594</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>185</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_446</name>
+    <pv_name>VA:LS1_CB06:SOL3_D1594:I_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>160</x>
+    <y>185</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_1262</name>
+    <pv_name>VA:LS1_CB06:SOL3_D1594:I_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>363.75</x>
+    <y>185</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_1263</name>
+    <pv_name>VA:LS1_CB06:SOL3_D1594:I_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>567.5</x>
+    <y>185</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.MenuButton" version="1.0.0">
+    <height>25</height>
+    <label>VA:LS1_CB06:SOL3_D1594:I_CSET</label>
+    <name>MenuButton_411</name>
+    <width>198.75</width>
+    <x>771.25</x>
+    <y>185</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_532</name>
+    <text>LS1_CB07:SOL3_D1657</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>215</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_447</name>
+    <pv_name>VA:LS1_CB07:SOL3_D1657:I_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>160</x>
+    <y>215</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_1264</name>
+    <pv_name>VA:LS1_CB07:SOL3_D1657:I_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>363.75</x>
+    <y>215</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_1265</name>
+    <pv_name>VA:LS1_CB07:SOL3_D1657:I_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>567.5</x>
+    <y>215</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.MenuButton" version="1.0.0">
+    <height>25</height>
+    <label>VA:LS1_CB07:SOL3_D1657:I_CSET</label>
+    <name>MenuButton_412</name>
+    <width>198.75</width>
+    <x>771.25</x>
+    <y>215</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_533</name>
+    <text>LS1_CB08:SOL3_D1721</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>245</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_448</name>
+    <pv_name>VA:LS1_CB08:SOL3_D1721:I_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>160</x>
+    <y>245</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_1266</name>
+    <pv_name>VA:LS1_CB08:SOL3_D1721:I_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>363.75</x>
+    <y>245</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_1267</name>
+    <pv_name>VA:LS1_CB08:SOL3_D1721:I_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>567.5</x>
+    <y>245</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.MenuButton" version="1.0.0">
+    <height>25</height>
+    <label>VA:LS1_CB08:SOL3_D1721:I_CSET</label>
+    <name>MenuButton_413</name>
+    <width>198.75</width>
+    <x>771.25</x>
+    <y>245</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_534</name>
+    <text>LS1_CB09:SOL3_D1785</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>275</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_449</name>
+    <pv_name>VA:LS1_CB09:SOL3_D1785:I_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>160</x>
+    <y>275</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_1268</name>
+    <pv_name>VA:LS1_CB09:SOL3_D1785:I_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>363.75</x>
+    <y>275</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_1269</name>
+    <pv_name>VA:LS1_CB09:SOL3_D1785:I_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>567.5</x>
+    <y>275</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.MenuButton" version="1.0.0">
+    <height>25</height>
+    <label>VA:LS1_CB09:SOL3_D1785:I_CSET</label>
+    <name>MenuButton_414</name>
+    <width>198.75</width>
+    <x>771.25</x>
+    <y>275</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_535</name>
+    <text>LS1_CB10:SOL3_D1849</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>305</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_450</name>
+    <pv_name>VA:LS1_CB10:SOL3_D1849:I_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>160</x>
+    <y>305</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_1270</name>
+    <pv_name>VA:LS1_CB10:SOL3_D1849:I_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>363.75</x>
+    <y>305</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_1271</name>
+    <pv_name>VA:LS1_CB10:SOL3_D1849:I_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>567.5</x>
+    <y>305</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.MenuButton" version="1.0.0">
+    <height>25</height>
+    <label>VA:LS1_CB10:SOL3_D1849:I_CSET</label>
+    <name>MenuButton_415</name>
+    <width>198.75</width>
+    <x>771.25</x>
+    <y>305</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_536</name>
+    <text>LS1_CB11:SOL3_D1912</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>335</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_451</name>
+    <pv_name>VA:LS1_CB11:SOL3_D1912:I_CSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>160</x>
+    <y>335</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_1272</name>
+    <pv_name>VA:LS1_CB11:SOL3_D1912:I_RD</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>363.75</x>
+    <y>335</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>1</horizontal_alignment>
+    <name>TextUpdate_1273</name>
+    <pv_name>VA:LS1_CB11:SOL3_D1912:I_RSET</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>198.75</width>
+    <x>567.5</x>
+    <y>335</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.MenuButton" version="1.0.0">
+    <height>25</height>
+    <label>VA:LS1_CB11:SOL3_D1912:I_CSET</label>
+    <name>MenuButton_416</name>
+    <width>198.75</width>
+    <x>771.25</x>
+    <y>335</y>
+  </widget>
+</display>

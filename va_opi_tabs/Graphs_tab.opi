@@ -4,10 +4,10 @@
   <background_color>
     <color red="255" green="255" blue="255" name="DISPLAY_BG"/>
   </background_color>
-  <height>500</height>
+  <height>700</height>
   <name>Graphs</name>
   <show_grid>true</show_grid>
-  <width>1000</width>
+  <width>1200</width>
   <x>0</x>
   <y>0</y>
   <widget typeId="org.csstudio.opibuilder.widgets.xyGraph" version="1.0.0">
@@ -27,9 +27,9 @@
     <axis_3_minimum>-30</axis_3_minimum>
     <axis_3_y_axis>true</axis_3_y_axis>
     <axis_count>4</axis_count>
-    <height>500</height>
+    <height>600</height>
     <name>XYGraph_0</name>
-    <show_toolbar>false</show_toolbar>
+    <show_toolbar>true</show_toolbar>
     <trace_0_concatenate_data>false</trace_0_concatenate_data>
     <trace_0_line_width>5</trace_0_line_width>
     <trace_0_name>X_RD</trace_0_name>
@@ -59,7 +59,7 @@
     <trace_3_y_axis_index>3</trace_3_y_axis_index>
     <trace_3_y_pv>VA:LS1FS1:BPM_ALL:ENG_RD</trace_3_y_pv>
     <trace_count>4</trace_count>
-    <width>800</width>
+    <width>1100</width>
     <x>5</x>
     <y>5</y>
   </widget>

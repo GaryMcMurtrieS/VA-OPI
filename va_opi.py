@@ -31,7 +31,7 @@ def main():
     screen.add_child(tab_container)
 
     # Create all the OPIs for the embedded containers
-    device_types = va_opi_tabs.create_embeds()
+    device_types = va_opi_tabs.create_embeds(TAB_FOLDER)
 
     # Creates a tab for each type of monitor
     initial_tabs = ["SVR", "Graphs"]
