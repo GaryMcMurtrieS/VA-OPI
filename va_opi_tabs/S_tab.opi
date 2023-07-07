@@ -12,7 +12,7 @@
   <y>0</y>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_463</name>
     <text>B3_CSET</text>
     <vertical_alignment>1</vertical_alignment>
@@ -22,7 +22,7 @@
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_464</name>
     <text>B3_RD</text>
     <vertical_alignment>1</vertical_alignment>
@@ -32,7 +32,7 @@
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_465</name>
     <text>B3_RSET</text>
     <vertical_alignment>1</vertical_alignment>
@@ -55,7 +55,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_411</name>
     <pv_name>VA:FS1_BBS:S_D2419:B3_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -74,7 +74,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1192</name>
     <pv_name>VA:FS1_BBS:S_D2419:B3_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -93,7 +93,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1193</name>
     <pv_name>VA:FS1_BBS:S_D2419:B3_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -116,7 +116,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_412</name>
     <pv_name>VA:FS1_BBS:S_D2469:B3_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -135,7 +135,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1194</name>
     <pv_name>VA:FS1_BBS:S_D2469:B3_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -154,7 +154,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1195</name>
     <pv_name>VA:FS1_BBS:S_D2469:B3_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>

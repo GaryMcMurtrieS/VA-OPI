@@ -8,17 +8,11 @@
 
 ### To-do
 - Add functionality to restore historic data
-- Align text to left or right for variables
-- Change axis label color
 - Change what tooltips show
 - Display historic data in read only boxes
-- Fix Graph tab scrolling
 - Fix tabs horizontal scrollbar
-- Input and set
-- Make Graph wider
+- Input and set for archive data
 - OPI Creating and using local variables
-- Stagger graphs Vertically
 - Time-Travel Mode (Use Rules for TextUpdate boxes)
-- Transparency for graph color
 
 https://github.com/users/zhangt58/projects/1

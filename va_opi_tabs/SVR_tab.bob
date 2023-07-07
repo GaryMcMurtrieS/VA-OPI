@@ -11,7 +11,7 @@
   <y>0</y>
   <widget type="label" version="2.0.0">
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_0</name>
     <text>BEAM</text>
     <vertical_alignment>1</vertical_alignment>
@@ -21,7 +21,7 @@
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_1</name>
     <text>CHARGE</text>
     <vertical_alignment>1</vertical_alignment>
@@ -31,7 +31,7 @@
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_2</name>
     <text>CNT</text>
     <vertical_alignment>1</vertical_alignment>
@@ -41,7 +41,7 @@
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_3</name>
     <text>MpsStatus</text>
     <vertical_alignment>1</vertical_alignment>
@@ -51,7 +51,7 @@
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_4</name>
     <text>NOISE</text>
     <vertical_alignment>1</vertical_alignment>
@@ -61,7 +61,7 @@
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_5</name>
     <text>RATE</text>
     <vertical_alignment>1</vertical_alignment>
@@ -71,7 +71,7 @@
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_6</name>
     <text>STATUS</text>
     <vertical_alignment>1</vertical_alignment>
@@ -94,7 +94,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_0</name>
     <pv_name>VA:SVR:BEAM</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -107,7 +107,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_1</name>
     <pv_name>VA:SVR:CHARGE</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -120,7 +120,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_2</name>
     <pv_name>VA:SVR:CNT</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -133,7 +133,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_3</name>
     <pv_name>VA:SVR:MpsStatus</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -146,7 +146,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_4</name>
     <pv_name>VA:SVR:NOISE</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -159,7 +159,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_5</name>
     <pv_name>VA:SVR:RATE</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -172,7 +172,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_6</name>
     <pv_name>VA:SVR:STATUS</pv_name>
     <vertical_alignment>1</vertical_alignment>

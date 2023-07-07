@@ -12,7 +12,7 @@
   <y>0</y>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_8</name>
     <text>ENG_RD</text>
     <vertical_alignment>1</vertical_alignment>
@@ -22,7 +22,7 @@
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_9</name>
     <text>PHA_RD</text>
     <vertical_alignment>1</vertical_alignment>
@@ -32,7 +32,7 @@
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_10</name>
     <text>X_RD</text>
     <vertical_alignment>1</vertical_alignment>
@@ -42,7 +42,7 @@
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_11</name>
     <text>Y_RD</text>
     <vertical_alignment>1</vertical_alignment>
@@ -71,7 +71,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_0</name>
     <pv_name>VA:FS1_BBS:BPM_D2421:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -90,7 +90,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1</name>
     <pv_name>VA:FS1_BBS:BPM_D2421:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -109,7 +109,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_2</name>
     <pv_name>VA:FS1_BBS:BPM_D2421:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -128,7 +128,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_3</name>
     <pv_name>VA:FS1_BBS:BPM_D2421:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -157,7 +157,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_4</name>
     <pv_name>VA:FS1_BBS:BPM_D2466:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -176,7 +176,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_5</name>
     <pv_name>VA:FS1_BBS:BPM_D2466:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -195,7 +195,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_6</name>
     <pv_name>VA:FS1_BBS:BPM_D2466:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -214,7 +214,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_7</name>
     <pv_name>VA:FS1_BBS:BPM_D2466:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -243,7 +243,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_8</name>
     <pv_name>VA:FS1_BMS:BPM_D2502:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -262,7 +262,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_9</name>
     <pv_name>VA:FS1_BMS:BPM_D2502:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -281,7 +281,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_10</name>
     <pv_name>VA:FS1_BMS:BPM_D2502:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -300,7 +300,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_11</name>
     <pv_name>VA:FS1_BMS:BPM_D2502:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -329,7 +329,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_12</name>
     <pv_name>VA:FS1_BMS:BPM_D2537:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -348,7 +348,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_13</name>
     <pv_name>VA:FS1_BMS:BPM_D2537:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -367,7 +367,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_14</name>
     <pv_name>VA:FS1_BMS:BPM_D2537:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -386,7 +386,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_15</name>
     <pv_name>VA:FS1_BMS:BPM_D2537:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -415,7 +415,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_16</name>
     <pv_name>VA:FS1_BMS:BPM_D2587:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -434,7 +434,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_17</name>
     <pv_name>VA:FS1_BMS:BPM_D2587:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -453,7 +453,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_18</name>
     <pv_name>VA:FS1_BMS:BPM_D2587:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -472,7 +472,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_19</name>
     <pv_name>VA:FS1_BMS:BPM_D2587:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -501,7 +501,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_20</name>
     <pv_name>VA:FS1_BMS:BPM_D2600:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -520,7 +520,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_21</name>
     <pv_name>VA:FS1_BMS:BPM_D2600:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -539,7 +539,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_22</name>
     <pv_name>VA:FS1_BMS:BPM_D2600:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -558,7 +558,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_23</name>
     <pv_name>VA:FS1_BMS:BPM_D2600:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -587,7 +587,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_24</name>
     <pv_name>VA:FS1_BMS:BPM_D2665:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -606,7 +606,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_25</name>
     <pv_name>VA:FS1_BMS:BPM_D2665:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -625,7 +625,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_26</name>
     <pv_name>VA:FS1_BMS:BPM_D2665:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -644,7 +644,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_27</name>
     <pv_name>VA:FS1_BMS:BPM_D2665:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -673,7 +673,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_28</name>
     <pv_name>VA:FS1_BMS:BPM_D2690:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -692,7 +692,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_29</name>
     <pv_name>VA:FS1_BMS:BPM_D2690:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -711,7 +711,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_30</name>
     <pv_name>VA:FS1_BMS:BPM_D2690:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -730,7 +730,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_31</name>
     <pv_name>VA:FS1_BMS:BPM_D2690:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -759,7 +759,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_32</name>
     <pv_name>VA:FS1_BMS:BPM_D2702:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -778,7 +778,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_33</name>
     <pv_name>VA:FS1_BMS:BPM_D2702:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -797,7 +797,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_34</name>
     <pv_name>VA:FS1_BMS:BPM_D2702:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -816,7 +816,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_35</name>
     <pv_name>VA:FS1_BMS:BPM_D2702:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -845,7 +845,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_36</name>
     <pv_name>VA:FS1_CSS:BPM_D2212:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -864,7 +864,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_37</name>
     <pv_name>VA:FS1_CSS:BPM_D2212:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -883,7 +883,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_38</name>
     <pv_name>VA:FS1_CSS:BPM_D2212:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -902,7 +902,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_39</name>
     <pv_name>VA:FS1_CSS:BPM_D2212:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -931,7 +931,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_40</name>
     <pv_name>VA:FS1_CSS:BPM_D2223:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -950,7 +950,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_41</name>
     <pv_name>VA:FS1_CSS:BPM_D2223:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -969,7 +969,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_42</name>
     <pv_name>VA:FS1_CSS:BPM_D2223:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -988,7 +988,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_43</name>
     <pv_name>VA:FS1_CSS:BPM_D2223:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1017,7 +1017,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_44</name>
     <pv_name>VA:FS1_CSS:BPM_D2248:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1036,7 +1036,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_45</name>
     <pv_name>VA:FS1_CSS:BPM_D2248:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1055,7 +1055,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_46</name>
     <pv_name>VA:FS1_CSS:BPM_D2248:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1074,7 +1074,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_47</name>
     <pv_name>VA:FS1_CSS:BPM_D2248:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1103,7 +1103,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_48</name>
     <pv_name>VA:FS1_CSS:BPM_D2278:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1122,7 +1122,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_49</name>
     <pv_name>VA:FS1_CSS:BPM_D2278:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1141,7 +1141,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_50</name>
     <pv_name>VA:FS1_CSS:BPM_D2278:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1160,7 +1160,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_51</name>
     <pv_name>VA:FS1_CSS:BPM_D2278:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1189,7 +1189,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_52</name>
     <pv_name>VA:FS1_CSS:BPM_D2313:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1208,7 +1208,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_53</name>
     <pv_name>VA:FS1_CSS:BPM_D2313:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1227,7 +1227,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_54</name>
     <pv_name>VA:FS1_CSS:BPM_D2313:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1246,7 +1246,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_55</name>
     <pv_name>VA:FS1_CSS:BPM_D2313:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1275,7 +1275,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_56</name>
     <pv_name>VA:FS1_CSS:BPM_D2369:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1294,7 +1294,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_57</name>
     <pv_name>VA:FS1_CSS:BPM_D2369:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1313,7 +1313,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_58</name>
     <pv_name>VA:FS1_CSS:BPM_D2369:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1332,7 +1332,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_59</name>
     <pv_name>VA:FS1_CSS:BPM_D2369:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1361,7 +1361,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_60</name>
     <pv_name>VA:FS1_CSS:BPM_D2383:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1380,7 +1380,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_61</name>
     <pv_name>VA:FS1_CSS:BPM_D2383:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1399,7 +1399,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_62</name>
     <pv_name>VA:FS1_CSS:BPM_D2383:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1418,7 +1418,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_63</name>
     <pv_name>VA:FS1_CSS:BPM_D2383:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1447,7 +1447,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_64</name>
     <pv_name>VA:LS1_BTS:BPM_D1967:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1466,7 +1466,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_65</name>
     <pv_name>VA:LS1_BTS:BPM_D1967:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1485,7 +1485,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_66</name>
     <pv_name>VA:LS1_BTS:BPM_D1967:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1504,7 +1504,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_67</name>
     <pv_name>VA:LS1_BTS:BPM_D1967:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1533,7 +1533,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_68</name>
     <pv_name>VA:LS1_BTS:BPM_D1980:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1552,7 +1552,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_69</name>
     <pv_name>VA:LS1_BTS:BPM_D1980:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1571,7 +1571,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_70</name>
     <pv_name>VA:LS1_BTS:BPM_D1980:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1590,7 +1590,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_71</name>
     <pv_name>VA:LS1_BTS:BPM_D1980:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1619,7 +1619,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_72</name>
     <pv_name>VA:LS1_BTS:BPM_D2027:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1638,7 +1638,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_73</name>
     <pv_name>VA:LS1_BTS:BPM_D2027:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1657,7 +1657,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_74</name>
     <pv_name>VA:LS1_BTS:BPM_D2027:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1676,7 +1676,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_75</name>
     <pv_name>VA:LS1_BTS:BPM_D2027:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1705,7 +1705,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_76</name>
     <pv_name>VA:LS1_BTS:BPM_D2054:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1724,7 +1724,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_77</name>
     <pv_name>VA:LS1_BTS:BPM_D2054:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1743,7 +1743,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_78</name>
     <pv_name>VA:LS1_BTS:BPM_D2054:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1762,7 +1762,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_79</name>
     <pv_name>VA:LS1_BTS:BPM_D2054:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1791,7 +1791,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_80</name>
     <pv_name>VA:LS1_BTS:BPM_D2116:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1810,7 +1810,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_81</name>
     <pv_name>VA:LS1_BTS:BPM_D2116:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1829,7 +1829,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_82</name>
     <pv_name>VA:LS1_BTS:BPM_D2116:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1848,7 +1848,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_83</name>
     <pv_name>VA:LS1_BTS:BPM_D2116:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1877,7 +1877,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_84</name>
     <pv_name>VA:LS1_BTS:BPM_D2130:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1896,7 +1896,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_85</name>
     <pv_name>VA:LS1_BTS:BPM_D2130:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1915,7 +1915,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_86</name>
     <pv_name>VA:LS1_BTS:BPM_D2130:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1934,7 +1934,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_87</name>
     <pv_name>VA:LS1_BTS:BPM_D2130:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1963,7 +1963,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_88</name>
     <pv_name>VA:LS1_CA01:BPM_D1129:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1982,7 +1982,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_89</name>
     <pv_name>VA:LS1_CA01:BPM_D1129:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2001,7 +2001,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_90</name>
     <pv_name>VA:LS1_CA01:BPM_D1129:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2020,7 +2020,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_91</name>
     <pv_name>VA:LS1_CA01:BPM_D1129:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2049,7 +2049,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_92</name>
     <pv_name>VA:LS1_CA01:BPM_D1144:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2068,7 +2068,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_93</name>
     <pv_name>VA:LS1_CA01:BPM_D1144:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2087,7 +2087,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_94</name>
     <pv_name>VA:LS1_CA01:BPM_D1144:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2106,7 +2106,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_95</name>
     <pv_name>VA:LS1_CA01:BPM_D1144:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2135,7 +2135,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_96</name>
     <pv_name>VA:LS1_CA02:BPM_D1163:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2154,7 +2154,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_97</name>
     <pv_name>VA:LS1_CA02:BPM_D1163:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2173,7 +2173,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_98</name>
     <pv_name>VA:LS1_CA02:BPM_D1163:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2192,7 +2192,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_99</name>
     <pv_name>VA:LS1_CA02:BPM_D1163:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2221,7 +2221,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_100</name>
     <pv_name>VA:LS1_CA02:BPM_D1177:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2240,7 +2240,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_101</name>
     <pv_name>VA:LS1_CA02:BPM_D1177:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2259,7 +2259,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_102</name>
     <pv_name>VA:LS1_CA02:BPM_D1177:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2278,7 +2278,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_103</name>
     <pv_name>VA:LS1_CA02:BPM_D1177:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2307,7 +2307,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_104</name>
     <pv_name>VA:LS1_CA03:BPM_D1196:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2326,7 +2326,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_105</name>
     <pv_name>VA:LS1_CA03:BPM_D1196:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2345,7 +2345,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_106</name>
     <pv_name>VA:LS1_CA03:BPM_D1196:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2364,7 +2364,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_107</name>
     <pv_name>VA:LS1_CA03:BPM_D1196:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2393,7 +2393,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_108</name>
     <pv_name>VA:LS1_CA03:BPM_D1211:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2412,7 +2412,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_109</name>
     <pv_name>VA:LS1_CA03:BPM_D1211:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2431,7 +2431,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_110</name>
     <pv_name>VA:LS1_CA03:BPM_D1211:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2450,7 +2450,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_111</name>
     <pv_name>VA:LS1_CA03:BPM_D1211:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2479,7 +2479,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_112</name>
     <pv_name>VA:LS1_CB01:BPM_D1231:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2498,7 +2498,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_113</name>
     <pv_name>VA:LS1_CB01:BPM_D1231:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2517,7 +2517,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_114</name>
     <pv_name>VA:LS1_CB01:BPM_D1231:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2536,7 +2536,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_115</name>
     <pv_name>VA:LS1_CB01:BPM_D1231:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2565,7 +2565,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_116</name>
     <pv_name>VA:LS1_CB01:BPM_D1251:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2584,7 +2584,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_117</name>
     <pv_name>VA:LS1_CB01:BPM_D1251:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2603,7 +2603,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_118</name>
     <pv_name>VA:LS1_CB01:BPM_D1251:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2622,7 +2622,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_119</name>
     <pv_name>VA:LS1_CB01:BPM_D1251:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2651,7 +2651,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_120</name>
     <pv_name>VA:LS1_CB01:BPM_D1271:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2670,7 +2670,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_121</name>
     <pv_name>VA:LS1_CB01:BPM_D1271:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2689,7 +2689,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_122</name>
     <pv_name>VA:LS1_CB01:BPM_D1271:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2708,7 +2708,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_123</name>
     <pv_name>VA:LS1_CB01:BPM_D1271:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2737,7 +2737,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_124</name>
     <pv_name>VA:LS1_CB02:BPM_D1295:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2756,7 +2756,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_125</name>
     <pv_name>VA:LS1_CB02:BPM_D1295:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2775,7 +2775,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_126</name>
     <pv_name>VA:LS1_CB02:BPM_D1295:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2794,7 +2794,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_127</name>
     <pv_name>VA:LS1_CB02:BPM_D1295:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2823,7 +2823,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_128</name>
     <pv_name>VA:LS1_CB02:BPM_D1315:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2842,7 +2842,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_129</name>
     <pv_name>VA:LS1_CB02:BPM_D1315:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2861,7 +2861,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_130</name>
     <pv_name>VA:LS1_CB02:BPM_D1315:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2880,7 +2880,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_131</name>
     <pv_name>VA:LS1_CB02:BPM_D1315:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2909,7 +2909,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_132</name>
     <pv_name>VA:LS1_CB02:BPM_D1335:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2928,7 +2928,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_133</name>
     <pv_name>VA:LS1_CB02:BPM_D1335:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2947,7 +2947,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_134</name>
     <pv_name>VA:LS1_CB02:BPM_D1335:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2966,7 +2966,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_135</name>
     <pv_name>VA:LS1_CB02:BPM_D1335:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -2995,7 +2995,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_136</name>
     <pv_name>VA:LS1_CB03:BPM_D1359:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3014,7 +3014,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_137</name>
     <pv_name>VA:LS1_CB03:BPM_D1359:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3033,7 +3033,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_138</name>
     <pv_name>VA:LS1_CB03:BPM_D1359:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3052,7 +3052,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_139</name>
     <pv_name>VA:LS1_CB03:BPM_D1359:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3081,7 +3081,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_140</name>
     <pv_name>VA:LS1_CB03:BPM_D1379:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3100,7 +3100,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_141</name>
     <pv_name>VA:LS1_CB03:BPM_D1379:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3119,7 +3119,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_142</name>
     <pv_name>VA:LS1_CB03:BPM_D1379:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3138,7 +3138,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_143</name>
     <pv_name>VA:LS1_CB03:BPM_D1379:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3167,7 +3167,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_144</name>
     <pv_name>VA:LS1_CB03:BPM_D1399:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3186,7 +3186,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_145</name>
     <pv_name>VA:LS1_CB03:BPM_D1399:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3205,7 +3205,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_146</name>
     <pv_name>VA:LS1_CB03:BPM_D1399:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3224,7 +3224,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_147</name>
     <pv_name>VA:LS1_CB03:BPM_D1399:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3253,7 +3253,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_148</name>
     <pv_name>VA:LS1_CB04:BPM_D1423:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3272,7 +3272,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_149</name>
     <pv_name>VA:LS1_CB04:BPM_D1423:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3291,7 +3291,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_150</name>
     <pv_name>VA:LS1_CB04:BPM_D1423:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3310,7 +3310,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_151</name>
     <pv_name>VA:LS1_CB04:BPM_D1423:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3339,7 +3339,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_152</name>
     <pv_name>VA:LS1_CB04:BPM_D1442:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3358,7 +3358,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_153</name>
     <pv_name>VA:LS1_CB04:BPM_D1442:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3377,7 +3377,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_154</name>
     <pv_name>VA:LS1_CB04:BPM_D1442:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3396,7 +3396,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_155</name>
     <pv_name>VA:LS1_CB04:BPM_D1442:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3425,7 +3425,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_156</name>
     <pv_name>VA:LS1_CB04:BPM_D1462:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3444,7 +3444,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_157</name>
     <pv_name>VA:LS1_CB04:BPM_D1462:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3463,7 +3463,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_158</name>
     <pv_name>VA:LS1_CB04:BPM_D1462:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3482,7 +3482,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_159</name>
     <pv_name>VA:LS1_CB04:BPM_D1462:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3511,7 +3511,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_160</name>
     <pv_name>VA:LS1_CB05:BPM_D1486:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3530,7 +3530,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_161</name>
     <pv_name>VA:LS1_CB05:BPM_D1486:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3549,7 +3549,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_162</name>
     <pv_name>VA:LS1_CB05:BPM_D1486:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3568,7 +3568,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_163</name>
     <pv_name>VA:LS1_CB05:BPM_D1486:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3597,7 +3597,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_164</name>
     <pv_name>VA:LS1_CB05:BPM_D1506:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3616,7 +3616,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_165</name>
     <pv_name>VA:LS1_CB05:BPM_D1506:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3635,7 +3635,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_166</name>
     <pv_name>VA:LS1_CB05:BPM_D1506:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3654,7 +3654,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_167</name>
     <pv_name>VA:LS1_CB05:BPM_D1506:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3683,7 +3683,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_168</name>
     <pv_name>VA:LS1_CB05:BPM_D1526:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3702,7 +3702,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_169</name>
     <pv_name>VA:LS1_CB05:BPM_D1526:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3721,7 +3721,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_170</name>
     <pv_name>VA:LS1_CB05:BPM_D1526:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3740,7 +3740,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_171</name>
     <pv_name>VA:LS1_CB05:BPM_D1526:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3769,7 +3769,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_172</name>
     <pv_name>VA:LS1_CB06:BPM_D1550:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3788,7 +3788,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_173</name>
     <pv_name>VA:LS1_CB06:BPM_D1550:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3807,7 +3807,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_174</name>
     <pv_name>VA:LS1_CB06:BPM_D1550:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3826,7 +3826,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_175</name>
     <pv_name>VA:LS1_CB06:BPM_D1550:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3855,7 +3855,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_176</name>
     <pv_name>VA:LS1_CB06:BPM_D1570:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3874,7 +3874,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_177</name>
     <pv_name>VA:LS1_CB06:BPM_D1570:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3893,7 +3893,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_178</name>
     <pv_name>VA:LS1_CB06:BPM_D1570:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3912,7 +3912,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_179</name>
     <pv_name>VA:LS1_CB06:BPM_D1570:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3941,7 +3941,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_180</name>
     <pv_name>VA:LS1_CB06:BPM_D1590:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3960,7 +3960,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_181</name>
     <pv_name>VA:LS1_CB06:BPM_D1590:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3979,7 +3979,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_182</name>
     <pv_name>VA:LS1_CB06:BPM_D1590:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -3998,7 +3998,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_183</name>
     <pv_name>VA:LS1_CB06:BPM_D1590:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4027,7 +4027,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_184</name>
     <pv_name>VA:LS1_CB07:BPM_D1614:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4046,7 +4046,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_185</name>
     <pv_name>VA:LS1_CB07:BPM_D1614:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4065,7 +4065,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_186</name>
     <pv_name>VA:LS1_CB07:BPM_D1614:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4084,7 +4084,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_187</name>
     <pv_name>VA:LS1_CB07:BPM_D1614:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4113,7 +4113,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_188</name>
     <pv_name>VA:LS1_CB07:BPM_D1634:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4132,7 +4132,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_189</name>
     <pv_name>VA:LS1_CB07:BPM_D1634:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4151,7 +4151,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_190</name>
     <pv_name>VA:LS1_CB07:BPM_D1634:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4170,7 +4170,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_191</name>
     <pv_name>VA:LS1_CB07:BPM_D1634:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4199,7 +4199,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_192</name>
     <pv_name>VA:LS1_CB07:BPM_D1654:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4218,7 +4218,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_193</name>
     <pv_name>VA:LS1_CB07:BPM_D1654:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4237,7 +4237,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_194</name>
     <pv_name>VA:LS1_CB07:BPM_D1654:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4256,7 +4256,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_195</name>
     <pv_name>VA:LS1_CB07:BPM_D1654:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4285,7 +4285,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_196</name>
     <pv_name>VA:LS1_CB08:BPM_D1677:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4304,7 +4304,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_197</name>
     <pv_name>VA:LS1_CB08:BPM_D1677:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4323,7 +4323,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_198</name>
     <pv_name>VA:LS1_CB08:BPM_D1677:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4342,7 +4342,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_199</name>
     <pv_name>VA:LS1_CB08:BPM_D1677:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4371,7 +4371,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_200</name>
     <pv_name>VA:LS1_CB08:BPM_D1697:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4390,7 +4390,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_201</name>
     <pv_name>VA:LS1_CB08:BPM_D1697:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4409,7 +4409,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_202</name>
     <pv_name>VA:LS1_CB08:BPM_D1697:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4428,7 +4428,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_203</name>
     <pv_name>VA:LS1_CB08:BPM_D1697:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4457,7 +4457,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_204</name>
     <pv_name>VA:LS1_CB08:BPM_D1717:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4476,7 +4476,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_205</name>
     <pv_name>VA:LS1_CB08:BPM_D1717:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4495,7 +4495,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_206</name>
     <pv_name>VA:LS1_CB08:BPM_D1717:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4514,7 +4514,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_207</name>
     <pv_name>VA:LS1_CB08:BPM_D1717:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4543,7 +4543,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_208</name>
     <pv_name>VA:LS1_CB09:BPM_D1741:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4562,7 +4562,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_209</name>
     <pv_name>VA:LS1_CB09:BPM_D1741:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4581,7 +4581,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_210</name>
     <pv_name>VA:LS1_CB09:BPM_D1741:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4600,7 +4600,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_211</name>
     <pv_name>VA:LS1_CB09:BPM_D1741:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4629,7 +4629,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_212</name>
     <pv_name>VA:LS1_CB09:BPM_D1761:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4648,7 +4648,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_213</name>
     <pv_name>VA:LS1_CB09:BPM_D1761:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4667,7 +4667,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_214</name>
     <pv_name>VA:LS1_CB09:BPM_D1761:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4686,7 +4686,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_215</name>
     <pv_name>VA:LS1_CB09:BPM_D1761:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4715,7 +4715,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_216</name>
     <pv_name>VA:LS1_CB09:BPM_D1781:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4734,7 +4734,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_217</name>
     <pv_name>VA:LS1_CB09:BPM_D1781:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4753,7 +4753,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_218</name>
     <pv_name>VA:LS1_CB09:BPM_D1781:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4772,7 +4772,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_219</name>
     <pv_name>VA:LS1_CB09:BPM_D1781:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4801,7 +4801,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_220</name>
     <pv_name>VA:LS1_CB10:BPM_D1805:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4820,7 +4820,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_221</name>
     <pv_name>VA:LS1_CB10:BPM_D1805:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4839,7 +4839,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_222</name>
     <pv_name>VA:LS1_CB10:BPM_D1805:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4858,7 +4858,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_223</name>
     <pv_name>VA:LS1_CB10:BPM_D1805:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4887,7 +4887,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_224</name>
     <pv_name>VA:LS1_CB10:BPM_D1825:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4906,7 +4906,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_225</name>
     <pv_name>VA:LS1_CB10:BPM_D1825:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4925,7 +4925,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_226</name>
     <pv_name>VA:LS1_CB10:BPM_D1825:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4944,7 +4944,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_227</name>
     <pv_name>VA:LS1_CB10:BPM_D1825:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4973,7 +4973,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_228</name>
     <pv_name>VA:LS1_CB10:BPM_D1845:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -4992,7 +4992,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_229</name>
     <pv_name>VA:LS1_CB10:BPM_D1845:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5011,7 +5011,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_230</name>
     <pv_name>VA:LS1_CB10:BPM_D1845:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5030,7 +5030,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_231</name>
     <pv_name>VA:LS1_CB10:BPM_D1845:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5059,7 +5059,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_232</name>
     <pv_name>VA:LS1_CB11:BPM_D1869:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5078,7 +5078,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_233</name>
     <pv_name>VA:LS1_CB11:BPM_D1869:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5097,7 +5097,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_234</name>
     <pv_name>VA:LS1_CB11:BPM_D1869:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5116,7 +5116,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_235</name>
     <pv_name>VA:LS1_CB11:BPM_D1869:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5145,7 +5145,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_236</name>
     <pv_name>VA:LS1_CB11:BPM_D1889:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5164,7 +5164,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_237</name>
     <pv_name>VA:LS1_CB11:BPM_D1889:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5183,7 +5183,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_238</name>
     <pv_name>VA:LS1_CB11:BPM_D1889:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5202,7 +5202,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_239</name>
     <pv_name>VA:LS1_CB11:BPM_D1889:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5231,7 +5231,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_240</name>
     <pv_name>VA:LS1_CB11:BPM_D1909:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5250,7 +5250,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_241</name>
     <pv_name>VA:LS1_CB11:BPM_D1909:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5269,7 +5269,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_242</name>
     <pv_name>VA:LS1_CB11:BPM_D1909:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5288,7 +5288,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_243</name>
     <pv_name>VA:LS1_CB11:BPM_D1909:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5317,7 +5317,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_244</name>
     <pv_name>VA:LS1_WA01:BPM_D1155:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5336,7 +5336,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_245</name>
     <pv_name>VA:LS1_WA01:BPM_D1155:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5355,7 +5355,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_246</name>
     <pv_name>VA:LS1_WA01:BPM_D1155:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5374,7 +5374,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_247</name>
     <pv_name>VA:LS1_WA01:BPM_D1155:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5403,7 +5403,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_248</name>
     <pv_name>VA:LS1_WA02:BPM_D1188:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5422,7 +5422,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_249</name>
     <pv_name>VA:LS1_WA02:BPM_D1188:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5441,7 +5441,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_250</name>
     <pv_name>VA:LS1_WA02:BPM_D1188:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5460,7 +5460,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_251</name>
     <pv_name>VA:LS1_WA02:BPM_D1188:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5489,7 +5489,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_252</name>
     <pv_name>VA:LS1_WA03:BPM_D1222:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5508,7 +5508,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_253</name>
     <pv_name>VA:LS1_WA03:BPM_D1222:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5527,7 +5527,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_254</name>
     <pv_name>VA:LS1_WA03:BPM_D1222:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5546,7 +5546,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_255</name>
     <pv_name>VA:LS1_WA03:BPM_D1222:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5575,7 +5575,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_256</name>
     <pv_name>VA:LS1_WB01:BPM_D1286:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5594,7 +5594,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_257</name>
     <pv_name>VA:LS1_WB01:BPM_D1286:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5613,7 +5613,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_258</name>
     <pv_name>VA:LS1_WB01:BPM_D1286:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5632,7 +5632,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_259</name>
     <pv_name>VA:LS1_WB01:BPM_D1286:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5661,7 +5661,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_260</name>
     <pv_name>VA:LS1_WB02:BPM_D1350:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5680,7 +5680,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_261</name>
     <pv_name>VA:LS1_WB02:BPM_D1350:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5699,7 +5699,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_262</name>
     <pv_name>VA:LS1_WB02:BPM_D1350:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5718,7 +5718,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_263</name>
     <pv_name>VA:LS1_WB02:BPM_D1350:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5747,7 +5747,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_264</name>
     <pv_name>VA:LS1_WB03:BPM_D1413:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5766,7 +5766,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_265</name>
     <pv_name>VA:LS1_WB03:BPM_D1413:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5785,7 +5785,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_266</name>
     <pv_name>VA:LS1_WB03:BPM_D1413:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5804,7 +5804,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_267</name>
     <pv_name>VA:LS1_WB03:BPM_D1413:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5833,7 +5833,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_268</name>
     <pv_name>VA:LS1_WB04:BPM_D1477:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5852,7 +5852,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_269</name>
     <pv_name>VA:LS1_WB04:BPM_D1477:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5871,7 +5871,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_270</name>
     <pv_name>VA:LS1_WB04:BPM_D1477:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5890,7 +5890,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_271</name>
     <pv_name>VA:LS1_WB04:BPM_D1477:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5919,7 +5919,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_272</name>
     <pv_name>VA:LS1_WB05:BPM_D1541:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5938,7 +5938,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_273</name>
     <pv_name>VA:LS1_WB05:BPM_D1541:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5957,7 +5957,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_274</name>
     <pv_name>VA:LS1_WB05:BPM_D1541:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -5976,7 +5976,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_275</name>
     <pv_name>VA:LS1_WB05:BPM_D1541:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6005,7 +6005,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_276</name>
     <pv_name>VA:LS1_WB06:BPM_D1604:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6024,7 +6024,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_277</name>
     <pv_name>VA:LS1_WB06:BPM_D1604:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6043,7 +6043,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_278</name>
     <pv_name>VA:LS1_WB06:BPM_D1604:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6062,7 +6062,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_279</name>
     <pv_name>VA:LS1_WB06:BPM_D1604:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6091,7 +6091,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_280</name>
     <pv_name>VA:LS1_WB07:BPM_D1668:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6110,7 +6110,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_281</name>
     <pv_name>VA:LS1_WB07:BPM_D1668:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6129,7 +6129,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_282</name>
     <pv_name>VA:LS1_WB07:BPM_D1668:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6148,7 +6148,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_283</name>
     <pv_name>VA:LS1_WB07:BPM_D1668:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6177,7 +6177,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_284</name>
     <pv_name>VA:LS1_WB08:BPM_D1732:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6196,7 +6196,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_285</name>
     <pv_name>VA:LS1_WB08:BPM_D1732:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6215,7 +6215,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_286</name>
     <pv_name>VA:LS1_WB08:BPM_D1732:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6234,7 +6234,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_287</name>
     <pv_name>VA:LS1_WB08:BPM_D1732:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6263,7 +6263,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_288</name>
     <pv_name>VA:LS1_WB09:BPM_D1796:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6282,7 +6282,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_289</name>
     <pv_name>VA:LS1_WB09:BPM_D1796:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6301,7 +6301,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_290</name>
     <pv_name>VA:LS1_WB09:BPM_D1796:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6320,7 +6320,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_291</name>
     <pv_name>VA:LS1_WB09:BPM_D1796:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6349,7 +6349,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_292</name>
     <pv_name>VA:LS1_WB10:BPM_D1859:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6368,7 +6368,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_293</name>
     <pv_name>VA:LS1_WB10:BPM_D1859:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6387,7 +6387,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_294</name>
     <pv_name>VA:LS1_WB10:BPM_D1859:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6406,7 +6406,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_295</name>
     <pv_name>VA:LS1_WB10:BPM_D1859:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6435,7 +6435,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_296</name>
     <pv_name>VA:LS1_WB11:BPM_D1923:ENG_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6454,7 +6454,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_297</name>
     <pv_name>VA:LS1_WB11:BPM_D1923:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6473,7 +6473,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_298</name>
     <pv_name>VA:LS1_WB11:BPM_D1923:X_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -6492,7 +6492,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_299</name>
     <pv_name>VA:LS1_WB11:BPM_D1923:Y_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>

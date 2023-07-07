@@ -12,7 +12,7 @@
   <y>0</y>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_442</name>
     <text>I_CSET</text>
     <vertical_alignment>1</vertical_alignment>
@@ -22,7 +22,7 @@
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_443</name>
     <text>I_RD</text>
     <vertical_alignment>1</vertical_alignment>
@@ -32,7 +32,7 @@
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_444</name>
     <text>I_RSET</text>
     <vertical_alignment>1</vertical_alignment>
@@ -55,7 +55,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_393</name>
     <pv_name>VA:FS1_BBS:QV_D2424:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -74,7 +74,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1156</name>
     <pv_name>VA:FS1_BBS:QV_D2424:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -93,7 +93,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1157</name>
     <pv_name>VA:FS1_BBS:QV_D2424:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -116,7 +116,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_394</name>
     <pv_name>VA:FS1_BBS:QV_D2463:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -135,7 +135,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1158</name>
     <pv_name>VA:FS1_BBS:QV_D2463:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -154,7 +154,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1159</name>
     <pv_name>VA:FS1_BBS:QV_D2463:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -177,7 +177,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_395</name>
     <pv_name>VA:FS1_BMS:QV_D2511:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -196,7 +196,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1160</name>
     <pv_name>VA:FS1_BMS:QV_D2511:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -215,7 +215,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1161</name>
     <pv_name>VA:FS1_BMS:QV_D2511:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -238,7 +238,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_396</name>
     <pv_name>VA:FS1_BMS:QV_D2539:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -257,7 +257,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1162</name>
     <pv_name>VA:FS1_BMS:QV_D2539:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -276,7 +276,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1163</name>
     <pv_name>VA:FS1_BMS:QV_D2539:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -299,7 +299,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_397</name>
     <pv_name>VA:FS1_BMS:QV_D2590:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -318,7 +318,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1164</name>
     <pv_name>VA:FS1_BMS:QV_D2590:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -337,7 +337,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1165</name>
     <pv_name>VA:FS1_BMS:QV_D2590:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -360,7 +360,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_398</name>
     <pv_name>VA:FS1_BMS:QV_D2654:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -379,7 +379,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1166</name>
     <pv_name>VA:FS1_BMS:QV_D2654:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -398,7 +398,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1167</name>
     <pv_name>VA:FS1_BMS:QV_D2654:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -421,7 +421,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_399</name>
     <pv_name>VA:FS1_BMS:QV_D2693:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -440,7 +440,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1168</name>
     <pv_name>VA:FS1_BMS:QV_D2693:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -459,7 +459,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1169</name>
     <pv_name>VA:FS1_BMS:QV_D2693:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -482,7 +482,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_400</name>
     <pv_name>VA:FS1_CSS:QV_D2202:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -501,7 +501,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1170</name>
     <pv_name>VA:FS1_CSS:QV_D2202:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -520,7 +520,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1171</name>
     <pv_name>VA:FS1_CSS:QV_D2202:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -543,7 +543,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_401</name>
     <pv_name>VA:FS1_CSS:QV_D2220:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -562,7 +562,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1172</name>
     <pv_name>VA:FS1_CSS:QV_D2220:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -581,7 +581,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1173</name>
     <pv_name>VA:FS1_CSS:QV_D2220:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -604,7 +604,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_402</name>
     <pv_name>VA:FS1_CSS:QV_D2254:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -623,7 +623,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1174</name>
     <pv_name>VA:FS1_CSS:QV_D2254:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -642,7 +642,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1175</name>
     <pv_name>VA:FS1_CSS:QV_D2254:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -665,7 +665,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_403</name>
     <pv_name>VA:FS1_CSS:QV_D2272:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -684,7 +684,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1176</name>
     <pv_name>VA:FS1_CSS:QV_D2272:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -703,7 +703,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1177</name>
     <pv_name>VA:FS1_CSS:QV_D2272:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -726,7 +726,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_404</name>
     <pv_name>VA:FS1_CSS:QV_D2372:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -745,7 +745,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1178</name>
     <pv_name>VA:FS1_CSS:QV_D2372:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -764,7 +764,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1179</name>
     <pv_name>VA:FS1_CSS:QV_D2372:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -787,7 +787,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_405</name>
     <pv_name>VA:LS1_BTS:QV_D1950:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -806,7 +806,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1180</name>
     <pv_name>VA:LS1_BTS:QV_D1950:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -825,7 +825,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1181</name>
     <pv_name>VA:LS1_BTS:QV_D1950:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -848,7 +848,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_406</name>
     <pv_name>VA:LS1_BTS:QV_D1976:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -867,7 +867,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1182</name>
     <pv_name>VA:LS1_BTS:QV_D1976:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -886,7 +886,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1183</name>
     <pv_name>VA:LS1_BTS:QV_D1976:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -909,7 +909,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_407</name>
     <pv_name>VA:LS1_BTS:QV_D2013:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -928,7 +928,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1184</name>
     <pv_name>VA:LS1_BTS:QV_D2013:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -947,7 +947,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1185</name>
     <pv_name>VA:LS1_BTS:QV_D2013:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -970,7 +970,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_408</name>
     <pv_name>VA:LS1_BTS:QV_D2042:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -989,7 +989,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1186</name>
     <pv_name>VA:LS1_BTS:QV_D2042:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1008,7 +1008,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1187</name>
     <pv_name>VA:LS1_BTS:QV_D2042:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1031,7 +1031,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_409</name>
     <pv_name>VA:LS1_BTS:QV_D2066:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1050,7 +1050,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1188</name>
     <pv_name>VA:LS1_BTS:QV_D2066:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1069,7 +1069,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1189</name>
     <pv_name>VA:LS1_BTS:QV_D2066:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1092,7 +1092,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_410</name>
     <pv_name>VA:LS1_BTS:QV_D2118:I_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1111,7 +1111,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1190</name>
     <pv_name>VA:LS1_BTS:QV_D2118:I_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -1130,7 +1130,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1191</name>
     <pv_name>VA:LS1_BTS:QV_D2118:I_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>

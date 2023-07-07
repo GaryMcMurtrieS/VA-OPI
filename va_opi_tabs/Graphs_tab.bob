@@ -12,28 +12,37 @@
   <widget type="xyplot" version="2.0.0">
     <x_axis>
       <title>Position of Device (m)</title>
-      <autoscale>True</autoscale>
+      <autoscale>False</autoscale>
       <minimum>0</minimum>
-      <maximum>100</maximum>
+      <maximum>160</maximum>
     </x_axis>
     <y_axes>
       <y_axis>
         <title>Value Reading (m)</title>
         <autoscale>False</autoscale>
-        <minimum>-0.01</minimum>
-        <maximum>0.01</maximum>
+        <minimum>-0.032</minimum>
+        <maximum>0.007</maximum>
+        <color>
+          <color red="234" green="67" blue="53"/>
+        </color>
       </y_axis>
       <y_axis>
         <title>Value Reading (degrees)</title>
         <autoscale>False</autoscale>
-        <minimum>-300</minimum>
-        <maximum>300</maximum>
+        <minimum>-600</minimum>
+        <maximum>600</maximum>
+        <color>
+          <color red="251" green="188" blue="5"/>
+        </color>
       </y_axis>
       <y_axis>
         <title>Value Reading (MeV)</title>
         <autoscale>False</autoscale>
-        <minimum>-30</minimum>
-        <maximum>30</maximum>
+        <minimum>-1</minimum>
+        <maximum>60</maximum>
+        <color>
+          <color red="69" green="168" blue="83"/>
+        </color>
       </y_axis>
     </y_axes>
     <height>600</height>
@@ -47,6 +56,9 @@
         <axis>0</axis>
         <line_width>5</line_width>
         <trace_type>5</trace_type>
+        <color>
+          <color red="234" green="67" blue="53" alpha="128"/>
+        </color>
       </trace>
       <trace>
         <name>Y_RD</name>
@@ -55,6 +67,9 @@
         <axis>0</axis>
         <line_width>5</line_width>
         <trace_type>5</trace_type>
+        <color>
+          <color red="66" green="133" blue="244" alpha="128"/>
+        </color>
       </trace>
       <trace>
         <name>PHA_RD</name>
@@ -63,6 +78,9 @@
         <axis>1</axis>
         <line_width>5</line_width>
         <trace_type>5</trace_type>
+        <color>
+          <color red="251" green="188" blue="5" alpha="128"/>
+        </color>
       </trace>
       <trace>
         <name>ENG_RD</name>
@@ -71,6 +89,9 @@
         <axis>2</axis>
         <line_width>5</line_width>
         <trace_type>5</trace_type>
+        <color>
+          <color red="69" green="168" blue="83" alpha="128"/>
+        </color>
       </trace>
     </traces>
     <width>1100</width>

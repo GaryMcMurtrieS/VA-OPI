@@ -11,7 +11,7 @@
   <y>0</y>
   <widget type="label" version="2.0.0">
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_87</name>
     <text>AMPL_CSET</text>
     <vertical_alignment>1</vertical_alignment>
@@ -21,7 +21,7 @@
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_88</name>
     <text>AMPL_RD</text>
     <vertical_alignment>1</vertical_alignment>
@@ -31,7 +31,7 @@
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_89</name>
     <text>AMPL_RSET</text>
     <vertical_alignment>1</vertical_alignment>
@@ -41,7 +41,7 @@
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_90</name>
     <text>PHA_CSET</text>
     <vertical_alignment>1</vertical_alignment>
@@ -51,7 +51,7 @@
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_91</name>
     <text>PHA_RD</text>
     <vertical_alignment>1</vertical_alignment>
@@ -61,7 +61,7 @@
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_92</name>
     <text>PHA_RSET</text>
     <vertical_alignment>1</vertical_alignment>
@@ -84,7 +84,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_7</name>
     <pv_name>VA:FS1_MGB01:CAV_D2320:AMPL_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -102,7 +102,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_300</name>
     <pv_name>VA:FS1_MGB01:CAV_D2320:AMPL_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -120,7 +120,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_301</name>
     <pv_name>VA:FS1_MGB01:CAV_D2320:AMPL_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -133,7 +133,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_8</name>
     <pv_name>VA:FS1_MGB01:CAV_D2320:PHA_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -151,7 +151,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_302</name>
     <pv_name>VA:FS1_MGB01:CAV_D2320:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -169,7 +169,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_303</name>
     <pv_name>VA:FS1_MGB01:CAV_D2320:PHA_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -192,7 +192,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_9</name>
     <pv_name>VA:FS1_MGB01:CAV_D2323:AMPL_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -210,7 +210,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_304</name>
     <pv_name>VA:FS1_MGB01:CAV_D2323:AMPL_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -228,7 +228,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_305</name>
     <pv_name>VA:FS1_MGB01:CAV_D2323:AMPL_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -241,7 +241,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_10</name>
     <pv_name>VA:FS1_MGB01:CAV_D2323:PHA_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -259,7 +259,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_306</name>
     <pv_name>VA:FS1_MGB01:CAV_D2323:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -277,7 +277,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_307</name>
     <pv_name>VA:FS1_MGB01:CAV_D2323:PHA_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -300,7 +300,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_11</name>
     <pv_name>VA:FS1_MGB01:CAV_D2327:AMPL_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -318,7 +318,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_308</name>
     <pv_name>VA:FS1_MGB01:CAV_D2327:AMPL_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -336,7 +336,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_309</name>
     <pv_name>VA:FS1_MGB01:CAV_D2327:AMPL_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -349,7 +349,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_12</name>
     <pv_name>VA:FS1_MGB01:CAV_D2327:PHA_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -367,7 +367,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_310</name>
     <pv_name>VA:FS1_MGB01:CAV_D2327:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -385,7 +385,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_311</name>
     <pv_name>VA:FS1_MGB01:CAV_D2327:PHA_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -408,7 +408,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_13</name>
     <pv_name>VA:FS1_MGB01:CAV_D2330:AMPL_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -426,7 +426,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_312</name>
     <pv_name>VA:FS1_MGB01:CAV_D2330:AMPL_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -444,7 +444,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_313</name>
     <pv_name>VA:FS1_MGB01:CAV_D2330:AMPL_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -457,7 +457,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_14</name>
     <pv_name>VA:FS1_MGB01:CAV_D2330:PHA_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -475,7 +475,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_314</name>
     <pv_name>VA:FS1_MGB01:CAV_D2330:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -493,7 +493,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_315</name>
     <pv_name>VA:FS1_MGB01:CAV_D2330:PHA_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -516,7 +516,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_15</name>
     <pv_name>VA:FS1_MGB02:CAV_D2606:AMPL_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -534,7 +534,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_316</name>
     <pv_name>VA:FS1_MGB02:CAV_D2606:AMPL_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -552,7 +552,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_317</name>
     <pv_name>VA:FS1_MGB02:CAV_D2606:AMPL_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -565,7 +565,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_16</name>
     <pv_name>VA:FS1_MGB02:CAV_D2606:PHA_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -583,7 +583,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_318</name>
     <pv_name>VA:FS1_MGB02:CAV_D2606:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -601,7 +601,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_319</name>
     <pv_name>VA:FS1_MGB02:CAV_D2606:PHA_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -624,7 +624,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_17</name>
     <pv_name>VA:FS1_MGB02:CAV_D2609:AMPL_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -642,7 +642,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_320</name>
     <pv_name>VA:FS1_MGB02:CAV_D2609:AMPL_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -660,7 +660,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_321</name>
     <pv_name>VA:FS1_MGB02:CAV_D2609:AMPL_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -673,7 +673,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_18</name>
     <pv_name>VA:FS1_MGB02:CAV_D2609:PHA_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -691,7 +691,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_322</name>
     <pv_name>VA:FS1_MGB02:CAV_D2609:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -709,7 +709,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_323</name>
     <pv_name>VA:FS1_MGB02:CAV_D2609:PHA_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -732,7 +732,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_19</name>
     <pv_name>VA:FS1_MGB02:CAV_D2613:AMPL_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -750,7 +750,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_324</name>
     <pv_name>VA:FS1_MGB02:CAV_D2613:AMPL_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -768,7 +768,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_325</name>
     <pv_name>VA:FS1_MGB02:CAV_D2613:AMPL_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -781,7 +781,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_20</name>
     <pv_name>VA:FS1_MGB02:CAV_D2613:PHA_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -799,7 +799,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_326</name>
     <pv_name>VA:FS1_MGB02:CAV_D2613:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -817,7 +817,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_327</name>
     <pv_name>VA:FS1_MGB02:CAV_D2613:PHA_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -840,7 +840,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_21</name>
     <pv_name>VA:FS1_MGB02:CAV_D2616:AMPL_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -858,7 +858,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_328</name>
     <pv_name>VA:FS1_MGB02:CAV_D2616:AMPL_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -876,7 +876,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_329</name>
     <pv_name>VA:FS1_MGB02:CAV_D2616:AMPL_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -889,7 +889,7 @@
       <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
     </background_color>
     <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_22</name>
     <pv_name>VA:FS1_MGB02:CAV_D2616:PHA_CSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -907,7 +907,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_330</name>
     <pv_name>VA:FS1_MGB02:CAV_D2616:PHA_RD</pv_name>
     <vertical_alignment>1</vertical_alignment>
@@ -925,7 +925,7 @@
       <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
     </border_color>
     <height>25</height>
-    <horizontal_alignment>1</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_331</name>
     <pv_name>VA:FS1_MGB02:CAV_D2616:PHA_RSET</pv_name>
     <vertical_alignment>1</vertical_alignment>
