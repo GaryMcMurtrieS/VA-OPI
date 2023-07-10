@@ -79,6 +79,7 @@ def create_svr_tab(folder_path, svr_data):
     """Creates the OPI for SVR data, which is different because of how the data is stored."""
     # OPI to render to
     opi = Display(SCREEN_WIDTH, SCREEN_HEIGHT, "SVR")
+    opi.add_scale_options()
 
     # Create column labels
     column_width, column_names = create_columns_and_get_width(svr_data, opi)
@@ -97,6 +98,7 @@ def create_graphs_tab(folder_path):
     """Creates the OPI for the XY Graphs with BPM data"""
     # OPI to render to
     opi = Display(SCREEN_WIDTH, SCREEN_HEIGHT, "Graphs")
+    opi.add_scale_options()
 
     # Creates the graph and sets x axis title
     graph = widgets.XYGraph(HORIZONTAL_GAP, VERTICAL_GAP, GRAPH_WIDTH, GRAPH_HEIGHT)
@@ -104,14 +106,14 @@ def create_graphs_tab(folder_path):
     graph.set_axis_scale(0, 160, 0)
 
     # Adding traces for x and y readbacks
-    graph.add_trace('VA:LS1FS1:BPM_ALL:POS_RD',
-                    "VA:LS1FS1:BPM_ALL:X_RD",
+    graph.add_trace("VA:LS1FS1:BPM_ALL:X_RD",
+                    "VA:LS1FS1:BPM_ALL:POS_RD",
                     legend="X_RD",
                     line_width=GRAPH_LINE_WIDTH,
                     trace_color=Colors.RED)
 
-    graph.add_trace('VA:LS1FS1:BPM_ALL:POS_RD',
-                    "VA:LS1FS1:BPM_ALL:Y_RD",
+    graph.add_trace("VA:LS1FS1:BPM_ALL:Y_RD",
+                    "VA:LS1FS1:BPM_ALL:POS_RD",
                     legend="Y_RD",
                     line_width=GRAPH_LINE_WIDTH,
                     trace_color=Colors.BLUE)
@@ -123,11 +125,11 @@ def create_graphs_tab(folder_path):
 
     # Adding trace for PHA readback
     graph.add_y_axis()
-    graph.add_trace('VA:LS1FS1:BPM_ALL:POS_RD',
-                    "VA:LS1FS1:BPM_ALL:PHA_RD",
+    graph.add_trace("VA:LS1FS1:BPM_ALL:PHA_RD",
+                    "VA:LS1FS1:BPM_ALL:POS_RD",
                     legend="PHA_RD",
                     line_width=GRAPH_LINE_WIDTH,
-                    y_axis=2,
+                    y_axis=1,
                     trace_color=Colors.YELLOW)
 
     # Setting y axis for PHA readbacks
@@ -137,11 +139,11 @@ def create_graphs_tab(folder_path):
 
     # Adding trace for ENG readback
     graph.add_y_axis()
-    graph.add_trace('VA:LS1FS1:BPM_ALL:POS_RD',
-                    "VA:LS1FS1:BPM_ALL:ENG_RD",
+    graph.add_trace("VA:LS1FS1:BPM_ALL:ENG_RD",
+                    "VA:LS1FS1:BPM_ALL:POS_RD",
                     legend="ENG_RD",
                     line_width=GRAPH_LINE_WIDTH,
-                    y_axis=3,
+                    y_axis=2,
                     trace_color=Colors.GREEN)
 
     # Setting y axis for ENG readbacks
@@ -160,6 +162,7 @@ def create_tab_widget(folder_path, filtered_pvs, device_type):
     """Creates the OPI that goes into a given tab"""
     # OPI to render to
     opi = Display(SCREEN_WIDTH, SCREEN_HEIGHT, device_type)
+    opi.add_scale_options()
 
     # Create column labels
     column_width, column_names = create_columns_and_get_width(filtered_pvs, opi)

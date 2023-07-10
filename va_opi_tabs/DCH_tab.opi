@@ -1,5 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <display typeId="org.csstudio.opibuilder.Display" version="1.0.0">
+  <auto_scale_widgets>
+    <min_width>-1</min_width>
+    <min_height>-1</min_height>
+    <auto_scale_widgets>false</auto_scale_widgets>
+  </auto_scale_widgets>
   <auto_zoom_to_fit_all>false</auto_zoom_to_fit_all>
   <background_color>
     <color red="255" green="255" blue="255" name="DISPLAY_BG"/>

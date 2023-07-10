@@ -28,13 +28,13 @@ def create_graph():
     graph.set_axis_title("Position of Device (m)", 0)
 
     # Adding traces for x and y readbacks
-    graph.add_trace('VA:LS1FS1:BPM_ALL:POS_RD',
-                    "VA:LS1FS1:BPM_ALL:X_RD",
+    graph.add_trace("VA:LS1FS1:BPM_ALL:X_RD",
+                    "VA:LS1FS1:BPM_ALL:POS_RD",
                     legend="X_RD",
                     line_width=GRAPH_LINE_WIDTH)
 
-    graph.add_trace('VA:LS1FS1:BPM_ALL:POS_RD',
-                    "VA:LS1FS1:BPM_ALL:Y_RD",
+    graph.add_trace("VA:LS1FS1:BPM_ALL:Y_RD",
+                    "VA:LS1FS1:BPM_ALL:POS_RD",
                     legend="Y_RD",
                     line_width=GRAPH_LINE_WIDTH)
 

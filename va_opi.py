@@ -23,6 +23,7 @@ def main():
     """Creates the tab container that holds all the embedded containers as tabs"""
     # Sets up screen
     screen = Display(SCREEN_WIDTH, SCREEN_HEIGHT, "LS1FS1 Virtual Accelerator")
+    screen.add_scale_options()
 
     # Creates the tab container to hold all the various monitors
     tab_container = widgets.TabbedContainer(HORIZONTAL_GAP, VERTICAL_GAP,
