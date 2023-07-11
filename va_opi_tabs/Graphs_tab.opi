@@ -20,28 +20,41 @@
     <axis_0_axis_title>Position of Device (m)</axis_0_axis_title>
     <axis_0_maximum>160</axis_0_maximum>
     <axis_0_minimum>0</axis_0_minimum>
+    <axis_0_show_grid>false</axis_0_show_grid>
     <axis_1_auto_scale>false</axis_1_auto_scale>
     <axis_1_axis_color>
       <color red="234" green="67" blue="53"/>
     </axis_1_axis_color>
     <axis_1_axis_title>Value Reading (m)</axis_1_axis_title>
+    <axis_1_grid_color>
+      <color red="234" green="67" blue="53"/>
+    </axis_1_grid_color>
     <axis_1_maximum>0.007</axis_1_maximum>
     <axis_1_minimum>-0.032</axis_1_minimum>
+    <axis_1_show_grid>false</axis_1_show_grid>
     <axis_2_auto_scale>false</axis_2_auto_scale>
     <axis_2_axis_color>
       <color red="251" green="188" blue="5"/>
     </axis_2_axis_color>
     <axis_2_axis_title>Value Reading (degrees)</axis_2_axis_title>
+    <axis_2_grid_color>
+      <color red="251" green="188" blue="5"/>
+    </axis_2_grid_color>
     <axis_2_maximum>600</axis_2_maximum>
     <axis_2_minimum>-600</axis_2_minimum>
+    <axis_2_show_grid>false</axis_2_show_grid>
     <axis_2_y_axis>true</axis_2_y_axis>
     <axis_3_auto_scale>false</axis_3_auto_scale>
     <axis_3_axis_color>
       <color red="69" green="168" blue="83"/>
     </axis_3_axis_color>
     <axis_3_axis_title>Value Reading (MeV)</axis_3_axis_title>
+    <axis_3_grid_color>
+      <color red="69" green="168" blue="83"/>
+    </axis_3_grid_color>
     <axis_3_maximum>60</axis_3_maximum>
     <axis_3_minimum>-1</axis_3_minimum>
+    <axis_3_show_grid>false</axis_3_show_grid>
     <axis_3_y_axis>true</axis_3_y_axis>
     <axis_count>4</axis_count>
     <height>600</height>

@@ -103,6 +103,7 @@ def create_graphs_tab(folder_path):
     # Creates the graph and sets x axis title
     graph = widgets.XYGraph(HORIZONTAL_GAP, VERTICAL_GAP, GRAPH_WIDTH, GRAPH_HEIGHT)
     graph.set_axis_title("Position of Device (m)", 0)
+    graph.set_axis_grid(False, 0)
     graph.set_axis_scale(0, 160, 0)
 
     # Adding traces for x and y readbacks
@@ -120,6 +121,7 @@ def create_graphs_tab(folder_path):
 
     # Setting y axis for pos readbacks
     graph.set_axis_title("Value Reading (m)", 1)
+    graph.set_axis_grid(False, 1)
     graph.set_axis_scale(-0.032, 0.007, 1)
     graph.set_axis_color(Colors.RED, 1)
 
@@ -134,6 +136,7 @@ def create_graphs_tab(folder_path):
 
     # Setting y axis for PHA readbacks
     graph.set_axis_title("Value Reading (degrees)", 2)
+    graph.set_axis_grid(False, 2)
     graph.set_axis_scale(-600, 600, 2)
     graph.set_axis_color(Colors.YELLOW, 2)
 
@@ -148,6 +151,7 @@ def create_graphs_tab(folder_path):
 
     # Setting y axis for ENG readbacks
     graph.set_axis_title("Value Reading (MeV)", 3)
+    graph.set_axis_grid(False, 3)
     graph.set_axis_scale(-1, 60, 3)
     graph.set_axis_color(Colors.GREEN, 3)
 

@@ -19,7 +19,7 @@
     <axis_count>2</axis_count>
     <height>500</height>
     <name>XYGraph_0</name>
-    <show_toolbar>false</show_toolbar>
+    <show_toolbar>true</show_toolbar>
     <trace_0_concatenate_data>false</trace_0_concatenate_data>
     <trace_0_line_width>5</trace_0_line_width>
     <trace_0_name>X_RD</trace_0_name>

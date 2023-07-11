@@ -15,6 +15,7 @@
       <autoscale>False</autoscale>
       <minimum>0</minimum>
       <maximum>160</maximum>
+      <show_grid>False</show_grid>
     </x_axis>
     <y_axes>
       <y_axis>
@@ -22,6 +23,7 @@
         <autoscale>False</autoscale>
         <minimum>-0.032</minimum>
         <maximum>0.007</maximum>
+        <show_grid>False</show_grid>
         <color>
           <color red="234" green="67" blue="53"/>
         </color>
@@ -31,6 +33,7 @@
         <autoscale>False</autoscale>
         <minimum>-600</minimum>
         <maximum>600</maximum>
+        <show_grid>False</show_grid>
         <color>
           <color red="251" green="188" blue="5"/>
         </color>
@@ -40,6 +43,7 @@
         <autoscale>False</autoscale>
         <minimum>-1</minimum>
         <maximum>60</maximum>
+        <show_grid>False</show_grid>
         <color>
           <color red="69" green="168" blue="83"/>
         </color>
