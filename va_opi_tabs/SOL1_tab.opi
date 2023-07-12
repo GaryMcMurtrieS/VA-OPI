@@ -15,6 +15,23 @@
   <width>1200</width>
   <x>0</x>
   <y>0</y>
+  <widget typeId="org.csstudio.opibuilder.widgets.BoolButton" version="1.0.0">
+    <effect_3d>true</effect_3d>
+    <height>25</height>
+    <name>ToggleButton_17</name>
+    <off_label>Time Travel On</off_label>
+    <on_label>Time Travel Off</on_label>
+    <push_action_index>0</push_action_index>
+    <pv_name>loc://time_travel</pv_name>
+    <released_action_index>1</released_action_index>
+    <show_boolean_label>true</show_boolean_label>
+    <show_led>false</show_led>
+    <square_button>true</square_button>
+    <toggle_button>true</toggle_button>
+    <width>150</width>
+    <x>5</x>
+    <y>5</y>
+  </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
@@ -23,7 +40,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
-    <y>5</y>
+    <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -33,7 +50,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
-    <y>5</y>
+    <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -43,7 +60,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
-    <y>5</y>
+    <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -53,7 +70,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <background_color>
@@ -66,7 +83,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -85,7 +102,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -104,7 +121,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -114,7 +131,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
-    <y>65</y>
+    <y>95</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <background_color>
@@ -127,7 +144,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
-    <y>65</y>
+    <y>95</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -146,7 +163,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
-    <y>65</y>
+    <y>95</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -165,7 +182,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
-    <y>65</y>
+    <y>95</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -175,7 +192,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
-    <y>95</y>
+    <y>125</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <background_color>
@@ -188,7 +205,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
-    <y>95</y>
+    <y>125</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -207,7 +224,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
-    <y>95</y>
+    <y>125</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -226,7 +243,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
-    <y>95</y>
+    <y>125</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -236,7 +253,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
-    <y>125</y>
+    <y>155</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <background_color>
@@ -249,7 +266,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
-    <y>125</y>
+    <y>155</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -268,7 +285,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
-    <y>125</y>
+    <y>155</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -287,7 +304,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
-    <y>125</y>
+    <y>155</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -297,7 +314,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
-    <y>155</y>
+    <y>185</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <background_color>
@@ -310,7 +327,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
-    <y>155</y>
+    <y>185</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -329,7 +346,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
-    <y>155</y>
+    <y>185</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -348,7 +365,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
-    <y>155</y>
+    <y>185</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -358,7 +375,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
-    <y>185</y>
+    <y>215</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <background_color>
@@ -371,7 +388,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
-    <y>185</y>
+    <y>215</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -390,7 +407,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
-    <y>185</y>
+    <y>215</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -409,7 +426,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
-    <y>185</y>
+    <y>215</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -419,7 +436,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
-    <y>215</y>
+    <y>245</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <background_color>
@@ -432,7 +449,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
-    <y>215</y>
+    <y>245</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -451,7 +468,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
-    <y>215</y>
+    <y>245</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -470,7 +487,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
-    <y>215</y>
+    <y>245</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -480,7 +497,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
-    <y>245</y>
+    <y>275</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <background_color>
@@ -493,7 +510,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
-    <y>245</y>
+    <y>275</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -512,7 +529,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
-    <y>245</y>
+    <y>275</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -531,7 +548,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
-    <y>245</y>
+    <y>275</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -541,7 +558,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
-    <y>275</y>
+    <y>305</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <background_color>
@@ -554,7 +571,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
-    <y>275</y>
+    <y>305</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -573,7 +590,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
-    <y>275</y>
+    <y>305</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -592,7 +609,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
-    <y>275</y>
+    <y>305</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -602,7 +619,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
-    <y>305</y>
+    <y>335</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <background_color>
@@ -615,7 +632,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
-    <y>305</y>
+    <y>335</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -634,7 +651,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
-    <y>305</y>
+    <y>335</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -653,7 +670,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
-    <y>305</y>
+    <y>335</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -663,7 +680,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
-    <y>335</y>
+    <y>365</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <background_color>
@@ -676,7 +693,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
-    <y>335</y>
+    <y>365</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -695,7 +712,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
-    <y>335</y>
+    <y>365</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -714,7 +731,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
-    <y>335</y>
+    <y>365</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -724,7 +741,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
-    <y>365</y>
+    <y>395</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <background_color>
@@ -737,7 +754,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
-    <y>365</y>
+    <y>395</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -756,7 +773,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
-    <y>365</y>
+    <y>395</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -775,7 +792,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
-    <y>365</y>
+    <y>395</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -785,7 +802,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
-    <y>395</y>
+    <y>425</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <background_color>
@@ -798,7 +815,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
-    <y>395</y>
+    <y>425</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -817,7 +834,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
-    <y>395</y>
+    <y>425</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -836,7 +853,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
-    <y>395</y>
+    <y>425</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -846,7 +863,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
-    <y>425</y>
+    <y>455</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <background_color>
@@ -859,7 +876,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
-    <y>425</y>
+    <y>455</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -878,7 +895,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
-    <y>425</y>
+    <y>455</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -897,6 +914,6 @@
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
-    <y>425</y>
+    <y>455</y>
   </widget>
 </display>

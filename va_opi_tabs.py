@@ -34,7 +34,14 @@ class Colors:
     GREEN = Color((69, 168, 83), alpha=COLOR_ALPHA)
 
 
-def create_columns_and_get_width(filtered_pvs, tab_widget):
+def create_time_travel_control_row(tab_widget, y_0):
+    """Creates the control row for the time travel mode"""
+    tab_widget.add_child(
+        widgets.ToggleButton(HORIZONTAL_GAP, y_0, NAME_WIDTH, WIDGET_HEIGHT, "Time Travel On",
+                             "Time Travel Off", "loc://time_travel"))
+
+
+def create_columns_and_get_width(filtered_pvs, tab_widget, y_0):
     """Creates column labels for the given tab"""
     # Gets and sorts all column names
     column_names = sorted(filtered_pvs["Variable Identifier"].unique())
@@ -45,7 +52,7 @@ def create_columns_and_get_width(filtered_pvs, tab_widget):
     x_0 = HORIZONTAL_GAP + NAME_WIDTH + HORIZONTAL_GAP
 
     for column_name in column_names:
-        column_label = widgets.Label(x_0, VERTICAL_GAP, column_width, WIDGET_HEIGHT, column_name)
+        column_label = widgets.Label(x_0, y_0, column_width, WIDGET_HEIGHT, column_name)
         column_label.horizontal_alignment = widgets.HAlign.RIGHT
         tab_widget.add_child(column_label)
 
@@ -82,7 +89,7 @@ def create_svr_tab(folder_path, svr_data):
     opi.add_scale_options()
 
     # Create column labels
-    column_width, column_names = create_columns_and_get_width(svr_data, opi)
+    column_width, column_names = create_columns_and_get_width(svr_data, opi, VERTICAL_GAP)
 
     # Once we have all the device names, we loop through and add a row for each of them
     create_widget_row(opi, "VA:SVR", column_names, column_width,
@@ -168,8 +175,14 @@ def create_tab_widget(folder_path, filtered_pvs, device_type):
     opi = Display(SCREEN_WIDTH, SCREEN_HEIGHT, device_type)
     opi.add_scale_options()
 
+    y_0 = VERTICAL_GAP
+
+    create_time_travel_control_row(opi, y_0)
+    y_0 += WIDGET_HEIGHT + VERTICAL_GAP
+
     # Create column labels
-    column_width, column_names = create_columns_and_get_width(filtered_pvs, opi)
+    column_width, column_names = create_columns_and_get_width(filtered_pvs, opi, y_0)
+    y_0 += WIDGET_HEIGHT + VERTICAL_GAP
 
     # Get all the devices names with that type
     device_names = sorted((filtered_pvs["System Identifier"] + ':' + filtered_pvs["Location"] +
@@ -177,8 +190,6 @@ def create_tab_widget(folder_path, filtered_pvs, device_type):
                            filtered_pvs["Device Type"] + '_' + filtered_pvs["Position"]).unique())
 
     # Once we have all the device names, we loop through and add a row for each of them
-    y_0 = VERTICAL_GAP + WIDGET_HEIGHT + VERTICAL_GAP
-
     for device in device_names:
         create_widget_row(opi, device, column_names, column_width, y_0)
         y_0 += WIDGET_HEIGHT + VERTICAL_GAP
