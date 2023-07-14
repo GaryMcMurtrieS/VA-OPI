@@ -9,6 +9,31 @@
   <width>1200</width>
   <x>0</x>
   <y>0</y>
+  <widget type="action_button" version="2.0.0">
+    <actions>
+      <action type="write_pv">
+        <pv_name>loc://$(DID)_trigger_SVR(0)</pv_name>
+        <description></description>
+        <value>1</value>
+      </action>
+    </actions>
+    <height>25</height>
+    <name>ActionButton_0</name>
+    <text>Pull Data</text>
+    <width>150</width>
+    <x>5</x>
+    <y>5</y>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <height>25</height>
+    <name>ToggleButton_0</name>
+    <off_label>Time Travel Off</off_label>
+    <on_label>Time Travel On</on_label>
+    <pv_name>loc://$(DID)_time_travel_SVR(0)</pv_name>
+    <width>150</width>
+    <x>160</x>
+    <y>5</y>
+  </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
@@ -17,7 +42,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>160</x>
-    <y>5</y>
+    <y>35</y>
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
@@ -27,7 +52,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>305.0</x>
-    <y>5</y>
+    <y>35</y>
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
@@ -37,7 +62,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>450.0</x>
-    <y>5</y>
+    <y>35</y>
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
@@ -47,7 +72,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>595.0</x>
-    <y>5</y>
+    <y>35</y>
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
@@ -57,7 +82,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>740.0</x>
-    <y>5</y>
+    <y>35</y>
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
@@ -67,7 +92,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>885.0</x>
-    <y>5</y>
+    <y>35</y>
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
@@ -77,7 +102,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>1030.0</x>
-    <y>5</y>
+    <y>35</y>
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
@@ -87,7 +112,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget type="textentry" version="2.0.0">
     <background_color>
@@ -96,11 +121,22 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_0</name>
-    <pv_name>VA:SVR:BEAM</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:SVR:BEAM</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>160</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget type="textentry" version="2.0.0">
     <background_color>
@@ -109,11 +145,22 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_1</name>
-    <pv_name>VA:SVR:CHARGE</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:SVR:CHARGE</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>305.0</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget type="textentry" version="2.0.0">
     <background_color>
@@ -122,11 +169,22 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_2</name>
-    <pv_name>VA:SVR:CNT</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:SVR:CNT</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>450.0</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget type="textentry" version="2.0.0">
     <background_color>
@@ -135,11 +193,22 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_3</name>
-    <pv_name>VA:SVR:MpsStatus</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:SVR:MpsStatus</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>595.0</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget type="textentry" version="2.0.0">
     <background_color>
@@ -148,11 +217,22 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_4</name>
-    <pv_name>VA:SVR:NOISE</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:SVR:NOISE</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>740.0</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget type="textentry" version="2.0.0">
     <background_color>
@@ -161,11 +241,22 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_5</name>
-    <pv_name>VA:SVR:RATE</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:SVR:RATE</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>885.0</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget type="textentry" version="2.0.0">
     <background_color>
@@ -174,10 +265,21 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_6</name>
-    <pv_name>VA:SVR:STATUS</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:SVR:STATUS</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>1030.0</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
 </display>

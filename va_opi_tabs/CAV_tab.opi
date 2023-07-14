@@ -15,21 +15,66 @@
   <width>1200</width>
   <x>0</x>
   <y>0</y>
+  <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="1.0.0">
+    <actions hook="true" hook_all="false">
+      <action type="WRITE_PV">
+        <pv_name>loc://$(DID)_trigger_CAV(0)</pv_name>
+        <description></description>
+        <value>1</value>
+        <timeout>10</timeout>
+      </action>
+    </actions>
+    <height>25</height>
+    <name>ActionButton_2</name>
+    <scripts>
+      <path pathString="EmbeddedPy" checkConnect="true" sfe="True" seoe="false">
+        <scriptName>pull_data_script</scriptName>
+        <scriptText><![CDATA["""Script that pulls historic data to display on screen"""
+
+# import pandas as pd
+# from archappl.client import ArchiverDataClient
+from org.csstudio.opibuilder.scriptUtil import PVUtil
+
+# client = ArchiverDataClient()
+# client.url = 'http://127.0.0.1:17665'
+
+# pvs_x = ['VA:LS1_CB01:BPM_D1251:X_RD', 'VA:LS1_CB01:BPM_D1271:X_RD']
+# pvs_y = ['VA:LS1_CB01:BPM_D1251:Y_RD', 'VA:LS1_CB01:BPM_D1271:Y_RD']
+
+# TIMESTAMP = '2023-06-05T13:04:08.000000-04:00'
+
+# data_x = client.get_data_at_time(pvs_x, TIMESTAMP)
+# data_y = client.get_data_at_time(pvs_y, TIMESTAMP)
+
+# data_x.update(data_y)
+# # dataframe = pd.DataFrame.from_dict(data_x).T
+# # dataframe.to_csv('data_from_archiver.csv')
+
+pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></scriptText>
+        <pv trig="True">loc://$(DID)_trigger_CAV(0)</pv>
+        <pv trig="False">loc://test_var(0)</pv>
+      </path>
+    </scripts>
+    <text>Pull Data</text>
+    <width>150</width>
+    <x>5</x>
+    <y>5</y>
+  </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.BoolButton" version="1.0.0">
     <effect_3d>true</effect_3d>
     <height>25</height>
-    <name>ToggleButton_1</name>
-    <off_label>Time Travel On</off_label>
-    <on_label>Time Travel Off</on_label>
+    <name>ToggleButton_2</name>
+    <off_label>Time Travel Off</off_label>
+    <on_label>Time Travel On</on_label>
     <push_action_index>0</push_action_index>
-    <pv_name>loc://time_travel</pv_name>
+    <pv_name>loc://$(DID)_time_travel_CAV(0)</pv_name>
     <released_action_index>1</released_action_index>
     <show_boolean_label>true</show_boolean_label>
     <show_led>false</show_led>
     <square_button>true</square_button>
     <toggle_button>true</toggle_button>
     <width>150</width>
-    <x>5</x>
+    <x>160</x>
     <y>5</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -109,7 +154,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_7</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2320:AMPL_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2320:AMPL_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>160</x>
@@ -128,7 +184,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_300</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2320:AMPL_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2320:AMPL_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>329.16666666666663</x>
@@ -147,7 +214,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_301</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2320:AMPL_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2320:AMPL_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>498.33333333333326</x>
@@ -160,7 +238,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_8</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2320:PHA_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2320:PHA_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>667.4999999999999</x>
@@ -179,7 +268,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_302</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2320:PHA_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2320:PHA_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>836.6666666666665</x>
@@ -198,7 +298,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_303</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2320:PHA_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2320:PHA_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>1005.8333333333331</x>
@@ -221,7 +332,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_9</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2323:AMPL_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2323:AMPL_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>160</x>
@@ -240,7 +362,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_304</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2323:AMPL_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2323:AMPL_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>329.16666666666663</x>
@@ -259,7 +392,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_305</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2323:AMPL_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2323:AMPL_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>498.33333333333326</x>
@@ -272,7 +416,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_10</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2323:PHA_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2323:PHA_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>667.4999999999999</x>
@@ -291,7 +446,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_306</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2323:PHA_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2323:PHA_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>836.6666666666665</x>
@@ -310,7 +476,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_307</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2323:PHA_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2323:PHA_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>1005.8333333333331</x>
@@ -333,7 +510,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_11</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2327:AMPL_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2327:AMPL_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>160</x>
@@ -352,7 +540,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_308</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2327:AMPL_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2327:AMPL_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>329.16666666666663</x>
@@ -371,7 +570,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_309</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2327:AMPL_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2327:AMPL_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>498.33333333333326</x>
@@ -384,7 +594,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_12</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2327:PHA_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2327:PHA_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>667.4999999999999</x>
@@ -403,7 +624,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_310</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2327:PHA_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2327:PHA_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>836.6666666666665</x>
@@ -422,7 +654,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_311</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2327:PHA_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2327:PHA_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>1005.8333333333331</x>
@@ -445,7 +688,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_13</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2330:AMPL_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2330:AMPL_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>160</x>
@@ -464,7 +718,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_312</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2330:AMPL_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2330:AMPL_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>329.16666666666663</x>
@@ -483,7 +748,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_313</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2330:AMPL_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2330:AMPL_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>498.33333333333326</x>
@@ -496,7 +772,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_14</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2330:PHA_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2330:PHA_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>667.4999999999999</x>
@@ -515,7 +802,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_314</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2330:PHA_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2330:PHA_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>836.6666666666665</x>
@@ -534,7 +832,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_315</name>
-    <pv_name>VA:FS1_MGB01:CAV_D2330:PHA_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2330:PHA_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>1005.8333333333331</x>
@@ -557,7 +866,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_15</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2606:AMPL_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2606:AMPL_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>160</x>
@@ -576,7 +896,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_316</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2606:AMPL_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2606:AMPL_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>329.16666666666663</x>
@@ -595,7 +926,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_317</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2606:AMPL_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2606:AMPL_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>498.33333333333326</x>
@@ -608,7 +950,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_16</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2606:PHA_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2606:PHA_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>667.4999999999999</x>
@@ -627,7 +980,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_318</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2606:PHA_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2606:PHA_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>836.6666666666665</x>
@@ -646,7 +1010,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_319</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2606:PHA_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2606:PHA_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>1005.8333333333331</x>
@@ -669,7 +1044,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_17</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2609:AMPL_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2609:AMPL_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>160</x>
@@ -688,7 +1074,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_320</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2609:AMPL_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2609:AMPL_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>329.16666666666663</x>
@@ -707,7 +1104,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_321</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2609:AMPL_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2609:AMPL_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>498.33333333333326</x>
@@ -720,7 +1128,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_18</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2609:PHA_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2609:PHA_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>667.4999999999999</x>
@@ -739,7 +1158,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_322</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2609:PHA_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2609:PHA_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>836.6666666666665</x>
@@ -758,7 +1188,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_323</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2609:PHA_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2609:PHA_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>1005.8333333333331</x>
@@ -781,7 +1222,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_19</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2613:AMPL_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2613:AMPL_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>160</x>
@@ -800,7 +1252,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_324</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2613:AMPL_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2613:AMPL_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>329.16666666666663</x>
@@ -819,7 +1282,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_325</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2613:AMPL_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2613:AMPL_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>498.33333333333326</x>
@@ -832,7 +1306,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_20</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2613:PHA_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2613:PHA_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>667.4999999999999</x>
@@ -851,7 +1336,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_326</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2613:PHA_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2613:PHA_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>836.6666666666665</x>
@@ -870,7 +1366,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_327</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2613:PHA_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2613:PHA_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>1005.8333333333331</x>
@@ -893,7 +1400,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_21</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2616:AMPL_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2616:AMPL_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>160</x>
@@ -912,7 +1430,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_328</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2616:AMPL_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2616:AMPL_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>329.16666666666663</x>
@@ -931,7 +1460,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_329</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2616:AMPL_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2616:AMPL_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>498.33333333333326</x>
@@ -944,7 +1484,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_22</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2616:PHA_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2616:PHA_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>667.4999999999999</x>
@@ -963,7 +1514,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_330</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2616:PHA_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2616:PHA_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>836.6666666666665</x>
@@ -982,7 +1544,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_331</name>
-    <pv_name>VA:FS1_MGB02:CAV_D2616:PHA_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2616:PHA_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>1005.8333333333331</x>

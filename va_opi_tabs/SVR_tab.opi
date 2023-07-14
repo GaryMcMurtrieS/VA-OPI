@@ -15,6 +15,68 @@
   <width>1200</width>
   <x>0</x>
   <y>0</y>
+  <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="1.0.0">
+    <actions hook="true" hook_all="false">
+      <action type="WRITE_PV">
+        <pv_name>loc://$(DID)_trigger_SVR(0)</pv_name>
+        <description></description>
+        <value>1</value>
+        <timeout>10</timeout>
+      </action>
+    </actions>
+    <height>25</height>
+    <name>ActionButton_0</name>
+    <scripts>
+      <path pathString="EmbeddedPy" checkConnect="true" sfe="True" seoe="false">
+        <scriptName>pull_data_script</scriptName>
+        <scriptText><![CDATA["""Script that pulls historic data to display on screen"""
+
+# import pandas as pd
+# from archappl.client import ArchiverDataClient
+from org.csstudio.opibuilder.scriptUtil import PVUtil
+
+# client = ArchiverDataClient()
+# client.url = 'http://127.0.0.1:17665'
+
+# pvs_x = ['VA:LS1_CB01:BPM_D1251:X_RD', 'VA:LS1_CB01:BPM_D1271:X_RD']
+# pvs_y = ['VA:LS1_CB01:BPM_D1251:Y_RD', 'VA:LS1_CB01:BPM_D1271:Y_RD']
+
+# TIMESTAMP = '2023-06-05T13:04:08.000000-04:00'
+
+# data_x = client.get_data_at_time(pvs_x, TIMESTAMP)
+# data_y = client.get_data_at_time(pvs_y, TIMESTAMP)
+
+# data_x.update(data_y)
+# # dataframe = pd.DataFrame.from_dict(data_x).T
+# # dataframe.to_csv('data_from_archiver.csv')
+
+pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></scriptText>
+        <pv trig="True">loc://$(DID)_trigger_SVR(0)</pv>
+        <pv trig="False">loc://test_var(0)</pv>
+      </path>
+    </scripts>
+    <text>Pull Data</text>
+    <width>150</width>
+    <x>5</x>
+    <y>5</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.BoolButton" version="1.0.0">
+    <effect_3d>true</effect_3d>
+    <height>25</height>
+    <name>ToggleButton_0</name>
+    <off_label>Time Travel Off</off_label>
+    <on_label>Time Travel On</on_label>
+    <push_action_index>0</push_action_index>
+    <pv_name>loc://$(DID)_time_travel_SVR(0)</pv_name>
+    <released_action_index>1</released_action_index>
+    <show_boolean_label>true</show_boolean_label>
+    <show_led>false</show_led>
+    <square_button>true</square_button>
+    <toggle_button>true</toggle_button>
+    <width>150</width>
+    <x>160</x>
+    <y>5</y>
+  </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
@@ -23,7 +85,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>160</x>
-    <y>5</y>
+    <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -33,7 +95,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>305.0</x>
-    <y>5</y>
+    <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -43,7 +105,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>450.0</x>
-    <y>5</y>
+    <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -53,7 +115,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>595.0</x>
-    <y>5</y>
+    <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -63,7 +125,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>740.0</x>
-    <y>5</y>
+    <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -73,7 +135,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>885.0</x>
-    <y>5</y>
+    <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -83,7 +145,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>1030.0</x>
-    <y>5</y>
+    <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -93,7 +155,7 @@
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <background_color>
@@ -102,11 +164,22 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_0</name>
-    <pv_name>VA:SVR:BEAM</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_SVR</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:SVR:BEAM</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>160</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <background_color>
@@ -115,11 +188,22 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_1</name>
-    <pv_name>VA:SVR:CHARGE</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_SVR</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:SVR:CHARGE</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>305.0</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <background_color>
@@ -128,11 +212,22 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_2</name>
-    <pv_name>VA:SVR:CNT</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_SVR</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:SVR:CNT</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>450.0</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <background_color>
@@ -141,11 +236,22 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_3</name>
-    <pv_name>VA:SVR:MpsStatus</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_SVR</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:SVR:MpsStatus</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>595.0</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <background_color>
@@ -154,11 +260,22 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_4</name>
-    <pv_name>VA:SVR:NOISE</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_SVR</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:SVR:NOISE</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>740.0</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <background_color>
@@ -167,11 +284,22 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_5</name>
-    <pv_name>VA:SVR:RATE</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_SVR</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:SVR:RATE</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>885.0</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <background_color>
@@ -180,10 +308,21 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_6</name>
-    <pv_name>VA:SVR:STATUS</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_SVR</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:SVR:STATUS</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
     <x>1030.0</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
 </display>

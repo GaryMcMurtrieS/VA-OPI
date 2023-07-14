@@ -3,7 +3,9 @@
 import pandas as pd
 from opigen import Renderer, widgets
 from opigen.contrib import Display, TextEntry, TextUpdate
+from opigen.opimodel import rules
 from opigen.opimodel.colors import Color
+from opigen.opimodel.scripts import Script
 
 # Variables to control widget positioning
 FILENAME = "va_opi"
@@ -34,14 +36,29 @@ class Colors:
     GREEN = Color((69, 168, 83), alpha=COLOR_ALPHA)
 
 
-def create_time_travel_control_row(tab_widget, y_0):
+def create_time_travel_control_row(parent_widget, device_type, y_0):
     """Creates the control row for the time travel mode"""
-    tab_widget.add_child(
-        widgets.ToggleButton(HORIZONTAL_GAP, y_0, NAME_WIDTH, WIDGET_HEIGHT, "Time Travel On",
-                             "Time Travel Off", "loc://time_travel"))
+    x_0 = HORIZONTAL_GAP
+
+    pull_button = widgets.ActionButton(x_0, y_0, NAME_WIDTH, WIDGET_HEIGHT, "Pull Data")
+    pull_button.add_write_pv(f"loc://$(DID)_trigger_{device_type}(0)", 1)
+
+    pull_script = Script("pull_data_script.py", skip_first_execution=True)
+    pull_script.add_pv(f"loc://$(DID)_trigger_{device_type}(0)", True)
+    pull_script.add_pv("loc://test_var(0)", False)
+
+    pull_button.add_script(pull_script)
+
+    parent_widget.add_child(pull_button)
+
+    x_0 += NAME_WIDTH + HORIZONTAL_GAP
+
+    parent_widget.add_child(
+        widgets.ToggleButton(x_0, y_0, NAME_WIDTH, WIDGET_HEIGHT, "Time Travel On",
+                             "Time Travel Off", f"loc://$(DID)_time_travel_{device_type}(0)"))
 
 
-def create_columns_and_get_width(filtered_pvs, tab_widget, y_0):
+def create_columns_and_get_width(filtered_pvs, parent_widget, y_0):
     """Creates column labels for the given tab"""
     # Gets and sorts all column names
     column_names = sorted(filtered_pvs["Variable Identifier"].unique())
@@ -54,18 +71,18 @@ def create_columns_and_get_width(filtered_pvs, tab_widget, y_0):
     for column_name in column_names:
         column_label = widgets.Label(x_0, y_0, column_width, WIDGET_HEIGHT, column_name)
         column_label.horizontal_alignment = widgets.HAlign.RIGHT
-        tab_widget.add_child(column_label)
+        parent_widget.add_child(column_label)
 
         x_0 += column_width + HORIZONTAL_GAP
 
     return column_width, column_names
 
 
-def create_widget_row(tab_widget, device, column_names, column_width, y_0):
+def create_widget_row(parent_widget, device, device_type, column_names, column_width, y_0):
     """Creates a row of widgets for a given device"""
     # Label for the devices name
     device_label = widgets.Label(HORIZONTAL_GAP, y_0, NAME_WIDTH, WIDGET_HEIGHT, device[3:])
-    tab_widget.add_child(device_label)
+    parent_widget.add_child(device_label)
 
     x_0 = HORIZONTAL_GAP + NAME_WIDTH + HORIZONTAL_GAP
 
@@ -75,9 +92,15 @@ def create_widget_row(tab_widget, device, column_names, column_width, y_0):
     for parameter in column_names:
         process_variable = device + ':' + parameter
         parameter_output = (TextEntry if parameter.endswith("CSET") or device.endswith("SVR") else
-                            TextUpdate)(x_0, y_0, column_width, WIDGET_HEIGHT, process_variable)
+                            TextUpdate)(x_0, y_0, column_width, WIDGET_HEIGHT, "")
         parameter_output.horizontal_alignment = widgets.HAlign.RIGHT
-        tab_widget.add_child(parameter_output)
+
+        parameter_output.add_rule(
+            rules.SelectionRule("pv_name", f"loc://$(DID)_time_travel_{device_type}",
+                                "Time Travel Rule", [(0, process_variable),
+                                                     (1, "loc://test_var(0)")]))
+
+        parent_widget.add_child(parameter_output)
 
         x_0 += column_width + HORIZONTAL_GAP
 
@@ -88,12 +111,19 @@ def create_svr_tab(folder_path, svr_data):
     opi = Display(SCREEN_WIDTH, SCREEN_HEIGHT, "SVR")
     opi.add_scale_options()
 
+    # Sets initial y value for the first widget row
+    y_0 = VERTICAL_GAP
+
+    # Adds the time-travel row to the current tab
+    create_time_travel_control_row(opi, "SVR", y_0)
+    y_0 += WIDGET_HEIGHT + VERTICAL_GAP
+
     # Create column labels
-    column_width, column_names = create_columns_and_get_width(svr_data, opi, VERTICAL_GAP)
+    column_width, column_names = create_columns_and_get_width(svr_data, opi, y_0)
+    y_0 += WIDGET_HEIGHT + VERTICAL_GAP
 
     # Once we have all the device names, we loop through and add a row for each of them
-    create_widget_row(opi, "VA:SVR", column_names, column_width,
-                      VERTICAL_GAP + WIDGET_HEIGHT + VERTICAL_GAP)
+    create_widget_row(opi, "VA:SVR", "SVR", column_names, column_width, y_0)
 
     # Outputs to file
     opi_renderer = Renderer(opi)
@@ -175,9 +205,11 @@ def create_tab_widget(folder_path, filtered_pvs, device_type):
     opi = Display(SCREEN_WIDTH, SCREEN_HEIGHT, device_type)
     opi.add_scale_options()
 
+    # Sets initial y value for the first widget row
     y_0 = VERTICAL_GAP
 
-    create_time_travel_control_row(opi, y_0)
+    # Adds the time-travel row to the current tab
+    create_time_travel_control_row(opi, device_type, y_0)
     y_0 += WIDGET_HEIGHT + VERTICAL_GAP
 
     # Create column labels
@@ -191,7 +223,7 @@ def create_tab_widget(folder_path, filtered_pvs, device_type):
 
     # Once we have all the device names, we loop through and add a row for each of them
     for device in device_names:
-        create_widget_row(opi, device, column_names, column_width, y_0)
+        create_widget_row(opi, device, device_type, column_names, column_width, y_0)
         y_0 += WIDGET_HEIGHT + VERTICAL_GAP
 
     # Outputs to file

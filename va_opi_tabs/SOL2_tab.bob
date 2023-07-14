@@ -9,14 +9,29 @@
   <width>1200</width>
   <x>0</x>
   <y>0</y>
-  <widget type="bool_button" version="2.0.0">
+  <widget type="action_button" version="2.0.0">
+    <actions>
+      <action type="write_pv">
+        <pv_name>loc://$(DID)_trigger_SOL2(0)</pv_name>
+        <description></description>
+        <value>1</value>
+      </action>
+    </actions>
     <height>25</height>
-    <name>ToggleButton_18</name>
-    <off_label>Time Travel On</off_label>
-    <on_label>Time Travel Off</on_label>
-    <pv_name>loc://time_travel</pv_name>
+    <name>ActionButton_19</name>
+    <text>Pull Data</text>
     <width>150</width>
     <x>5</x>
+    <y>5</y>
+  </widget>
+  <widget type="bool_button" version="2.0.0">
+    <height>25</height>
+    <name>ToggleButton_19</name>
+    <off_label>Time Travel Off</off_label>
+    <on_label>Time Travel On</on_label>
+    <pv_name>loc://$(DID)_time_travel_SOL2(0)</pv_name>
+    <width>150</width>
+    <x>160</x>
     <y>5</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -66,7 +81,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_427</name>
-    <pv_name>VA:LS1_CA01:SOL2_D1146:I_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CA01:SOL2_D1146:I_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
@@ -84,7 +110,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1224</name>
-    <pv_name>VA:LS1_CA01:SOL2_D1146:I_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CA01:SOL2_D1146:I_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
@@ -102,7 +139,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1225</name>
-    <pv_name>VA:LS1_CA01:SOL2_D1146:I_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CA01:SOL2_D1146:I_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
@@ -125,7 +173,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_428</name>
-    <pv_name>VA:LS1_CA02:SOL2_D1180:I_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CA02:SOL2_D1180:I_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
@@ -143,7 +202,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1226</name>
-    <pv_name>VA:LS1_CA02:SOL2_D1180:I_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CA02:SOL2_D1180:I_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
@@ -161,7 +231,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1227</name>
-    <pv_name>VA:LS1_CA02:SOL2_D1180:I_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CA02:SOL2_D1180:I_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
@@ -184,7 +265,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_429</name>
-    <pv_name>VA:LS1_CA03:SOL2_D1214:I_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CA03:SOL2_D1214:I_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
@@ -202,7 +294,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1228</name>
-    <pv_name>VA:LS1_CA03:SOL2_D1214:I_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CA03:SOL2_D1214:I_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
@@ -220,7 +323,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1229</name>
-    <pv_name>VA:LS1_CA03:SOL2_D1214:I_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CA03:SOL2_D1214:I_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
@@ -243,7 +357,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_430</name>
-    <pv_name>VA:LS1_CB01:SOL2_D1255:I_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB01:SOL2_D1255:I_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
@@ -261,7 +386,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1230</name>
-    <pv_name>VA:LS1_CB01:SOL2_D1255:I_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB01:SOL2_D1255:I_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
@@ -279,7 +415,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1231</name>
-    <pv_name>VA:LS1_CB01:SOL2_D1255:I_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB01:SOL2_D1255:I_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
@@ -302,7 +449,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_431</name>
-    <pv_name>VA:LS1_CB02:SOL2_D1319:I_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB02:SOL2_D1319:I_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
@@ -320,7 +478,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1232</name>
-    <pv_name>VA:LS1_CB02:SOL2_D1319:I_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB02:SOL2_D1319:I_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
@@ -338,7 +507,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1233</name>
-    <pv_name>VA:LS1_CB02:SOL2_D1319:I_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB02:SOL2_D1319:I_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
@@ -361,7 +541,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_432</name>
-    <pv_name>VA:LS1_CB03:SOL2_D1383:I_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB03:SOL2_D1383:I_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
@@ -379,7 +570,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1234</name>
-    <pv_name>VA:LS1_CB03:SOL2_D1383:I_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB03:SOL2_D1383:I_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
@@ -397,7 +599,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1235</name>
-    <pv_name>VA:LS1_CB03:SOL2_D1383:I_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB03:SOL2_D1383:I_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
@@ -420,7 +633,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_433</name>
-    <pv_name>VA:LS1_CB04:SOL2_D1446:I_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB04:SOL2_D1446:I_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
@@ -438,7 +662,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1236</name>
-    <pv_name>VA:LS1_CB04:SOL2_D1446:I_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB04:SOL2_D1446:I_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
@@ -456,7 +691,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1237</name>
-    <pv_name>VA:LS1_CB04:SOL2_D1446:I_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB04:SOL2_D1446:I_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
@@ -479,7 +725,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_434</name>
-    <pv_name>VA:LS1_CB05:SOL2_D1510:I_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB05:SOL2_D1510:I_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
@@ -497,7 +754,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1238</name>
-    <pv_name>VA:LS1_CB05:SOL2_D1510:I_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB05:SOL2_D1510:I_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
@@ -515,7 +783,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1239</name>
-    <pv_name>VA:LS1_CB05:SOL2_D1510:I_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB05:SOL2_D1510:I_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
@@ -538,7 +817,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_435</name>
-    <pv_name>VA:LS1_CB06:SOL2_D1574:I_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB06:SOL2_D1574:I_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
@@ -556,7 +846,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1240</name>
-    <pv_name>VA:LS1_CB06:SOL2_D1574:I_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB06:SOL2_D1574:I_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
@@ -574,7 +875,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1241</name>
-    <pv_name>VA:LS1_CB06:SOL2_D1574:I_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB06:SOL2_D1574:I_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
@@ -597,7 +909,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_436</name>
-    <pv_name>VA:LS1_CB07:SOL2_D1637:I_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB07:SOL2_D1637:I_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
@@ -615,7 +938,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1242</name>
-    <pv_name>VA:LS1_CB07:SOL2_D1637:I_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB07:SOL2_D1637:I_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
@@ -633,7 +967,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1243</name>
-    <pv_name>VA:LS1_CB07:SOL2_D1637:I_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB07:SOL2_D1637:I_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
@@ -656,7 +1001,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_437</name>
-    <pv_name>VA:LS1_CB08:SOL2_D1701:I_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB08:SOL2_D1701:I_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
@@ -674,7 +1030,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1244</name>
-    <pv_name>VA:LS1_CB08:SOL2_D1701:I_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB08:SOL2_D1701:I_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
@@ -692,7 +1059,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1245</name>
-    <pv_name>VA:LS1_CB08:SOL2_D1701:I_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB08:SOL2_D1701:I_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
@@ -715,7 +1093,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_438</name>
-    <pv_name>VA:LS1_CB09:SOL2_D1765:I_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB09:SOL2_D1765:I_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
@@ -733,7 +1122,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1246</name>
-    <pv_name>VA:LS1_CB09:SOL2_D1765:I_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB09:SOL2_D1765:I_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
@@ -751,7 +1151,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1247</name>
-    <pv_name>VA:LS1_CB09:SOL2_D1765:I_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB09:SOL2_D1765:I_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
@@ -774,7 +1185,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_439</name>
-    <pv_name>VA:LS1_CB10:SOL2_D1829:I_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB10:SOL2_D1829:I_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
@@ -792,7 +1214,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1248</name>
-    <pv_name>VA:LS1_CB10:SOL2_D1829:I_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB10:SOL2_D1829:I_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
@@ -810,7 +1243,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1249</name>
-    <pv_name>VA:LS1_CB10:SOL2_D1829:I_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB10:SOL2_D1829:I_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>
@@ -833,7 +1277,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_440</name>
-    <pv_name>VA:LS1_CB11:SOL2_D1892:I_CSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB11:SOL2_D1892:I_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>160</x>
@@ -851,7 +1306,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1250</name>
-    <pv_name>VA:LS1_CB11:SOL2_D1892:I_RD</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB11:SOL2_D1892:I_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>498.3333333333333</x>
@@ -869,7 +1335,18 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1251</name>
-    <pv_name>VA:LS1_CB11:SOL2_D1892:I_RSET</pv_name>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SOL2</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB11:SOL2_D1892:I_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://test_var(0)</value>
+        </exp>
+      </rule>
+    </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
     <x>836.6666666666666</x>

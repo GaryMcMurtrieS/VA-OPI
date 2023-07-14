@@ -11,9 +11,7 @@
 - Add functionality to restore historic data
 - Change XYGraph to be more generic and have bar graph in Contrib
 - Display historic data in read only boxes
-- Fix tabs horizontal scrollbar
 - Input and set for archive data
-- OPI Creating and using local variables
 - Time-Travel Mode (Use Rules for TextUpdate boxes)
 
 https://github.com/users/zhangt58/projects/1
