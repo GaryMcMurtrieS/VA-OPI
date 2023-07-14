@@ -14,4 +14,30 @@
 - Input and set for archive data
 - Time-Travel Mode (Use Rules for TextUpdate boxes)
 
+Use subproccess.run to invoke external scripts?
+
+
+
+javapython
+
+run external script
+
+
+cpython
+
+create dataframe
+save to csv / return dataframe
+
+command line tools
+
+dump out dictionary? - serialize to json string
+
+
+jpython
+
+import data?
+read data from file?
+import dictionary / json
+
+
 https://github.com/users/zhangt58/projects/1

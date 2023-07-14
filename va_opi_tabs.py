@@ -43,7 +43,7 @@ def create_time_travel_control_row(parent_widget, device_type, y_0):
     pull_button = widgets.ActionButton(x_0, y_0, NAME_WIDTH, WIDGET_HEIGHT, "Pull Data")
     pull_button.add_write_pv(f"loc://$(DID)_trigger_{device_type}(0)", 1)
 
-    pull_script = Script("pull_data_script.py", skip_first_execution=True)
+    pull_script = Script("pull_data_script.py")
     pull_script.add_pv(f"loc://$(DID)_trigger_{device_type}(0)", True)
     pull_script.add_pv("loc://test_var(0)", False)
 

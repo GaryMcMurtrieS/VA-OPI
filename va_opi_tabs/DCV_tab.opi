@@ -27,7 +27,7 @@
     <height>25</height>
     <name>ActionButton_12</name>
     <scripts>
-      <path pathString="EmbeddedPy" checkConnect="true" sfe="True" seoe="false">
+      <path pathString="EmbeddedPy" checkConnect="true" sfe="false" seoe="false">
         <scriptName>pull_data_script</scriptName>
         <scriptText><![CDATA["""Script that pulls historic data to display on screen"""
 
