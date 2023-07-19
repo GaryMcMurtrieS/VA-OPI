@@ -1,22 +1,55 @@
-"""Script that pulls historic data to display on screen"""
+"""Script that is run when data is requested to be pulled."""
 
-# import pandas as pd
-# from archappl.client import ArchiverDataClient
+import java.io.BufferedReader
+import java.io.InputStreamReader
+from java.lang import ProcessBuilder
 from org.csstudio.opibuilder.scriptUtil import PVUtil
+from java.io import File
+from java.io import FileReader
 
-# client = ArchiverDataClient()
-# client.url = 'http://127.0.0.1:17665'
+# Define the command to get the current time in seconds using the `date` utility
+command = [
+    "pyarchappl-get", "--pv VA:LS1_WA02:BPM_D1188:ENG_RD", "--from 2023-07-07T15:00:20.00-04:00",
+    "--to 2023-07-07T15:10:20.00-04:00", "--url http://127.0.0.1:17665"
+]
 
-# pvs_x = ['VA:LS1_CB01:BPM_D1251:X_RD', 'VA:LS1_CB01:BPM_D1271:X_RD']
-# pvs_y = ['VA:LS1_CB01:BPM_D1251:Y_RD', 'VA:LS1_CB01:BPM_D1271:Y_RD']
+# Create a ProcessBuilder
+process_builder = ProcessBuilder(["echo", "3"])
 
-# TIMESTAMP = '2023-06-05T13:04:08.000000-04:00'
+# Start the process
+process = process_builder.start()
 
-# data_x = client.get_data_at_time(pvs_x, TIMESTAMP)
-# data_y = client.get_data_at_time(pvs_y, TIMESTAMP)
+# Wait for the process to finish
+process.waitFor()
 
-# data_x.update(data_y)
-# # dataframe = pd.DataFrame.from_dict(data_x).T
-# # dataframe.to_csv('data_from_archiver.csv')
+# # Open the output file
+# file = File("archive_data.csv")
+# file_reader = FileReader(file)
+# buffered_reader = BufferedReader(file_reader)
 
-pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)
+# # Read all lines from the output and find the last non-empty line
+# last_line = None
+# line = buffered_reader.readLine()
+# while line is not None:
+#     if line.strip():  # if line is not empty
+#         last_line = line
+#     line = buffered_reader.readLine()
+
+# # Close the file
+# buffered_reader.close()
+
+# # Extract the last value
+# if last_line is not None:
+#     external_value = last_line.split(",")[-1]  # get the last element from the split line
+
+# Get the output stream of the process
+output_stream = process.getInputStream()
+
+# Create a BufferedReader for the output stream
+reader = java.io.BufferedReader(java.io.InputStreamReader(output_stream))
+
+# Read the output from the process
+external_value = reader.readLine()
+
+# Set the PV value
+pvs[2].setValue(external_value)

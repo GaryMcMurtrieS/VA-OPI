@@ -14,6 +14,10 @@
 - Input and set for archive data
 - Time-Travel Mode (Use Rules for TextUpdate boxes)
 
+Resample?
+
+Noise PV does not change until you change it
+
 Use subproccess.run to invoke external scripts?
 
 

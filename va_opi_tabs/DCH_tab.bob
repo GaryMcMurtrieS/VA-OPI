@@ -9,6 +9,16 @@
   <width>1200</width>
   <x>0</x>
   <y>0</y>
+  <widget type="textentry" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_250</name>
+    <pv_name>loc://time("2023-07-18T13:07:28+00:00")</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>180</width>
+    <x>5</x>
+    <y>5</y>
+  </widget>
   <widget type="action_button" version="2.0.0">
     <actions>
       <action type="write_pv">
@@ -21,35 +31,70 @@
     <name>ActionButton_11</name>
     <scripts>
       <script file="EmbeddedPy">
-        <text><![CDATA["""Script that pulls historic data to display on screen"""
+        <text><![CDATA["""Script that is run when data is requested to be pulled."""
 
-# import pandas as pd
-# from archappl.client import ArchiverDataClient
+import java.io.BufferedReader
+import java.io.InputStreamReader
+from java.lang import ProcessBuilder
 from org.csstudio.opibuilder.scriptUtil import PVUtil
+from java.io import File
+from java.io import FileReader
 
-# client = ArchiverDataClient()
-# client.url = 'http://127.0.0.1:17665'
+# Define the command to get the current time in seconds using the `date` utility
+command = [
+    "pyarchappl-get", "--pv VA:LS1_WA02:BPM_D1188:ENG_RD", "--from 2023-07-07T15:00:20.00-04:00",
+    "--to 2023-07-07T15:10:20.00-04:00", "--url http://127.0.0.1:17665"
+]
 
-# pvs_x = ['VA:LS1_CB01:BPM_D1251:X_RD', 'VA:LS1_CB01:BPM_D1271:X_RD']
-# pvs_y = ['VA:LS1_CB01:BPM_D1251:Y_RD', 'VA:LS1_CB01:BPM_D1271:Y_RD']
+# Create a ProcessBuilder
+process_builder = ProcessBuilder(["echo", "3"])
 
-# TIMESTAMP = '2023-06-05T13:04:08.000000-04:00'
+# Start the process
+process = process_builder.start()
 
-# data_x = client.get_data_at_time(pvs_x, TIMESTAMP)
-# data_y = client.get_data_at_time(pvs_y, TIMESTAMP)
+# Wait for the process to finish
+process.waitFor()
 
-# data_x.update(data_y)
-# # dataframe = pd.DataFrame.from_dict(data_x).T
-# # dataframe.to_csv('data_from_archiver.csv')
+# # Open the output file
+# file = File("archive_data.csv")
+# file_reader = FileReader(file)
+# buffered_reader = BufferedReader(file_reader)
 
-pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
+# # Read all lines from the output and find the last non-empty line
+# last_line = None
+# line = buffered_reader.readLine()
+# while line is not None:
+#     if line.strip():  # if line is not empty
+#         last_line = line
+#     line = buffered_reader.readLine()
+
+# # Close the file
+# buffered_reader.close()
+
+# # Extract the last value
+# if last_line is not None:
+#     external_value = last_line.split(",")[-1]  # get the last element from the split line
+
+# Get the output stream of the process
+output_stream = process.getInputStream()
+
+# Create a BufferedReader for the output stream
+reader = java.io.BufferedReader(java.io.InputStreamReader(output_stream))
+
+# Read the output from the process
+external_value = reader.readLine()
+
+# Set the PV value
+pvs[2].setValue(external_value)
+]]></text>
         <pv_name trigger="True">loc://$(DID)_trigger_DCH(0)</pv_name>
+        <pv_name trigger="False">loc://time</pv_name>
         <pv_name trigger="False">loc://test_var(0)</pv_name>
       </script>
     </scripts>
     <text>Pull Data</text>
     <width>150</width>
-    <x>5</x>
+    <x>190</x>
     <y>5</y>
   </widget>
   <widget type="bool_button" version="2.0.0">
@@ -59,7 +104,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     <on_label>Time Travel On</on_label>
     <pv_name>loc://$(DID)_time_travel_DCH(0)</pv_name>
     <width>150</width>
-    <x>160</x>
+    <x>345</x>
     <y>5</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -108,7 +153,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_239</name>
+    <name>TextEntry_251</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -200,7 +245,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_240</name>
+    <name>TextEntry_252</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -292,7 +337,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_241</name>
+    <name>TextEntry_253</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -384,7 +429,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_242</name>
+    <name>TextEntry_254</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -476,7 +521,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_243</name>
+    <name>TextEntry_255</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -568,7 +613,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_244</name>
+    <name>TextEntry_256</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -660,7 +705,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_245</name>
+    <name>TextEntry_257</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -752,7 +797,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_246</name>
+    <name>TextEntry_258</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -844,7 +889,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_247</name>
+    <name>TextEntry_259</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -936,7 +981,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_248</name>
+    <name>TextEntry_260</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1028,7 +1073,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_249</name>
+    <name>TextEntry_261</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1120,7 +1165,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_250</name>
+    <name>TextEntry_262</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1212,7 +1257,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_251</name>
+    <name>TextEntry_263</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1304,7 +1349,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_252</name>
+    <name>TextEntry_264</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1396,7 +1441,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_253</name>
+    <name>TextEntry_265</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1488,7 +1533,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_254</name>
+    <name>TextEntry_266</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1580,7 +1625,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_255</name>
+    <name>TextEntry_267</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1672,7 +1717,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_256</name>
+    <name>TextEntry_268</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1764,7 +1809,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_257</name>
+    <name>TextEntry_269</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1856,7 +1901,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_258</name>
+    <name>TextEntry_270</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1948,7 +1993,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_259</name>
+    <name>TextEntry_271</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -2040,7 +2085,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_260</name>
+    <name>TextEntry_272</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -2132,7 +2177,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_261</name>
+    <name>TextEntry_273</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -2224,7 +2269,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_262</name>
+    <name>TextEntry_274</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -2316,7 +2361,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_263</name>
+    <name>TextEntry_275</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -2408,7 +2453,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_264</name>
+    <name>TextEntry_276</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -2500,7 +2545,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_265</name>
+    <name>TextEntry_277</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -2592,7 +2637,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_266</name>
+    <name>TextEntry_278</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -2684,7 +2729,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_267</name>
+    <name>TextEntry_279</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -2776,7 +2821,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_268</name>
+    <name>TextEntry_280</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -2868,7 +2913,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_269</name>
+    <name>TextEntry_281</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -2960,7 +3005,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_270</name>
+    <name>TextEntry_282</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -3052,7 +3097,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_271</name>
+    <name>TextEntry_283</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -3144,7 +3189,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_272</name>
+    <name>TextEntry_284</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -3236,7 +3281,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_273</name>
+    <name>TextEntry_285</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -3328,7 +3373,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_274</name>
+    <name>TextEntry_286</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -3420,7 +3465,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_275</name>
+    <name>TextEntry_287</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -3512,7 +3557,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_276</name>
+    <name>TextEntry_288</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -3604,7 +3649,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_277</name>
+    <name>TextEntry_289</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -3696,7 +3741,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_278</name>
+    <name>TextEntry_290</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -3788,7 +3833,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_279</name>
+    <name>TextEntry_291</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -3880,7 +3925,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_280</name>
+    <name>TextEntry_292</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -3972,7 +4017,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_281</name>
+    <name>TextEntry_293</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -4064,7 +4109,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_282</name>
+    <name>TextEntry_294</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -4156,7 +4201,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_283</name>
+    <name>TextEntry_295</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -4248,7 +4293,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_284</name>
+    <name>TextEntry_296</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -4340,7 +4385,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_285</name>
+    <name>TextEntry_297</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -4432,7 +4477,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_286</name>
+    <name>TextEntry_298</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -4524,7 +4569,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_287</name>
+    <name>TextEntry_299</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -4616,7 +4661,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_288</name>
+    <name>TextEntry_300</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -4708,7 +4753,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_289</name>
+    <name>TextEntry_301</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -4800,7 +4845,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_290</name>
+    <name>TextEntry_302</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -4892,7 +4937,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_291</name>
+    <name>TextEntry_303</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -4984,7 +5029,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_292</name>
+    <name>TextEntry_304</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -5076,7 +5121,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_293</name>
+    <name>TextEntry_305</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -5168,7 +5213,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_294</name>
+    <name>TextEntry_306</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -5260,7 +5305,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_295</name>
+    <name>TextEntry_307</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -5352,7 +5397,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_296</name>
+    <name>TextEntry_308</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -5444,7 +5489,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_297</name>
+    <name>TextEntry_309</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -5536,7 +5581,7 @@ pvs[1].setValue(PVUtil.getDouble(pvs[1]) + 1)]]></text>
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_298</name>
+    <name>TextEntry_310</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
