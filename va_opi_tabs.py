@@ -42,8 +42,10 @@ def create_time_travel_control_row(parent_widget, device_type, y_0):
     """Creates the control row for the time travel mode"""
     x_0 = HORIZONTAL_GAP
 
+    # Default timestamp that will be used for archive data retrieval
+    default_time = "2023-07-07T15:00:00.00-04:00"
     timestamp_entry = widgets.TextEntry(x_0, y_0, TIME_ENTRY_WIDTH, WIDGET_HEIGHT,
-                                        'loc://time("2023-07-18T13:07:28+00:00")')
+                                        f'loc://time("{default_time}")')
     parent_widget.add_child(timestamp_entry)
 
     x_0 += TIME_ENTRY_WIDTH + HORIZONTAL_GAP
@@ -53,7 +55,7 @@ def create_time_travel_control_row(parent_widget, device_type, y_0):
 
     pull_script = Script("pull_data_script.py")
     pull_script.add_pv(f"loc://$(DID)_trigger_{device_type}(0)", True)
-    pull_script.add_pv("loc://time", False)
+    pull_script.add_pv("loc://time", True)
     pull_script.add_pv("loc://test_var(0)", False)
 
     pull_button.add_script(pull_script)

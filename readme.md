@@ -8,40 +8,22 @@
 
 ### To-do
 
+- Add button to view data in pop-up window - CS-Studio Array?
 - Add functionality to restore historic data
+- Add indicator whether all data has been imported correctly
+- Add set data button
 - Change XYGraph to be more generic and have bar graph in Contrib
 - Display historic data in read only boxes
+- Display timestamp of when data was changed
 - Input and set for archive data
+- Side-by-Side view for Historic and modern data
 - Time-Travel Mode (Use Rules for TextUpdate boxes)
+- Use temp file to store data
 
 Resample?
 
-Noise PV does not change until you change it
-
-Use subproccess.run to invoke external scripts?
-
-
-
-javapython
-
-run external script
-
-
-cpython
-
-create dataframe
-save to csv / return dataframe
-
-command line tools
-
-dump out dictionary? - serialize to json string
-
-
-jpython
-
-import data?
-read data from file?
-import dictionary / json
-
-
 https://github.com/users/zhangt58/projects/1
+
+Alright, I have a more complex issue I need help with.
+
+This script works great as a proof of concept, but I need to expand it substantially. In my code, I have several tabs, where each tab has a separate button that runs a script. Each script needs to not pull just one PV, but an entire LIST of PVs, and set a bunch of PVs to have those values. How can I accomplish this?
