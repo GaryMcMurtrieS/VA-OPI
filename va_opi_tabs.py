@@ -38,14 +38,14 @@ class Colors:
     GREEN = Color((69, 168, 83), alpha=COLOR_ALPHA)
 
 
-def create_time_travel_control_row(parent_widget, device_type, y_0):
+def create_time_travel_control_row(parent_widget, device_type, filtered_pvs, y_0):
     """Creates the control row for the time travel mode"""
     x_0 = HORIZONTAL_GAP
 
     # Default timestamp that will be used for archive data retrieval
     default_time = "2023-07-07T15:00:00.00-04:00"
     timestamp_entry = widgets.TextEntry(x_0, y_0, TIME_ENTRY_WIDTH, WIDGET_HEIGHT,
-                                        f'loc://time("{default_time}")')
+                                        f'loc://time_{device_type}("{default_time}")')
     parent_widget.add_child(timestamp_entry)
 
     x_0 += TIME_ENTRY_WIDTH + HORIZONTAL_GAP
@@ -55,8 +55,16 @@ def create_time_travel_control_row(parent_widget, device_type, y_0):
 
     pull_script = Script("pull_data_script.py")
     pull_script.add_pv(f"loc://$(DID)_trigger_{device_type}(0)", True)
-    pull_script.add_pv("loc://time", True)
-    pull_script.add_pv("loc://test_var(0)", False)
+    pull_script.add_pv(f"loc://time_{device_type}", True)
+    pull_script.add_pv("loc://command", False)
+
+    pvs = list(filtered_pvs["System Identifier"] + ':' + filtered_pvs["Location"] + '_' +
+               filtered_pvs["Managing Device"] + ':' + filtered_pvs["Device Type"] + '_' +
+               filtered_pvs["Position"] + ':' + filtered_pvs["Variable Identifier"])
+
+    for process_variable in pvs:
+        pull_script.add_pv(f"loc://time_travel_{process_variable}", False)
+        pull_script.add_pv(process_variable, False)
 
     pull_button.add_script(pull_script)
 
@@ -67,6 +75,11 @@ def create_time_travel_control_row(parent_widget, device_type, y_0):
     parent_widget.add_child(
         widgets.ToggleButton(x_0, y_0, NAME_WIDTH, WIDGET_HEIGHT, "Time Travel On",
                              "Time Travel Off", f"loc://$(DID)_time_travel_{device_type}(0)"))
+
+    x_0 += NAME_WIDTH + HORIZONTAL_GAP
+
+    parent_widget.add_child(
+        widgets.TextEntry(x_0, y_0, TIME_ENTRY_WIDTH * 2, WIDGET_HEIGHT, "loc://command"))
 
 
 def create_columns_and_get_width(filtered_pvs, parent_widget, y_0):
@@ -108,8 +121,9 @@ def create_widget_row(parent_widget, device, device_type, column_names, column_w
 
         parameter_output.add_rule(
             rules.SelectionRule("pv_name", f"loc://$(DID)_time_travel_{device_type}",
-                                "Time Travel Rule", [(0, process_variable),
-                                                     (1, "loc://test_var(0)")]))
+                                "Time Travel Rule",
+                                [(0, process_variable),
+                                 (1, f"loc://time_travel_{process_variable}(-1)")]))
 
         parent_widget.add_child(parameter_output)
 
@@ -126,7 +140,7 @@ def create_svr_tab(folder_path, svr_data):
     y_0 = VERTICAL_GAP
 
     # Adds the time-travel row to the current tab
-    create_time_travel_control_row(opi, "SVR", y_0)
+    # create_time_travel_control_row(opi, "SVR", svr_data, y_0)
     y_0 += WIDGET_HEIGHT + VERTICAL_GAP
 
     # Create column labels
@@ -220,7 +234,7 @@ def create_tab_widget(folder_path, filtered_pvs, device_type):
     y_0 = VERTICAL_GAP
 
     # Adds the time-travel row to the current tab
-    create_time_travel_control_row(opi, device_type, y_0)
+    create_time_travel_control_row(opi, device_type, filtered_pvs, y_0)
     y_0 += WIDGET_HEIGHT + VERTICAL_GAP
 
     # Create column labels

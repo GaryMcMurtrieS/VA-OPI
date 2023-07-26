@@ -26,4 +26,4 @@ https://github.com/users/zhangt58/projects/1
 
 Alright, I have a more complex issue I need help with.
 
-This script works great as a proof of concept, but I need to expand it substantially. In my code, I have several tabs, where each tab has a separate button that runs a script. Each script needs to not pull just one PV, but an entire LIST of PVs, and set a bunch of PVs to have those values. How can I accomplish this?
+This script works great as a proof of concept, but I need to expand it substantially. In my code, I have several tabs, where each tab has a separate button that runs a script. Each script needs to not pull just one PV, but an entire LIST of PVs, and set a bunch of PVs to have those values. In my code, I either need to dynamically create a unique script for each tab that has the right PVs, or have some methods of reading in the PV list that that tab needs to use and update. How should I go about doing this?

@@ -12,8 +12,8 @@
   <widget type="textentry" version="2.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>TextEntry_204</name>
-    <pv_name>loc://time("2023-07-07T15:00:00.00-04:00")</pv_name>
+    <name>TextEntry_211</name>
+    <pv_name>loc://time_CAV7("2023-07-07T15:00:00.00-04:00")</pv_name>
     <vertical_alignment>1</vertical_alignment>
     <width>180</width>
     <x>5</x>
@@ -28,15 +28,14 @@
       </action>
     </actions>
     <height>25</height>
-    <name>ActionButton_9</name>
+    <name>ActionButton_8</name>
     <scripts>
       <script file="EmbeddedPy">
         <text><![CDATA["""Script that is run when data is requested to be pulled."""
 
 import datetime
-import os
 import subprocess
-import tempfile
+from tempfile import NamedTemporaryFile as TempFile
 
 from org.csstudio.opibuilder.scriptUtil import PVUtil
 
@@ -49,13 +48,24 @@ time_end = (datetime.datetime.strptime(time_start[:-6], '%Y-%m-%dT%H:%M:%S.%f') 
 # Necessary to get pyarchappl to function properly
 unset_command = "unset PYTHONPATH"
 
-# Create a temporary file to hold the data
-with tempfile.NamedTemporaryFile() as output_file:
-    # Define the command to get the current time in seconds using the `date` utility
+# Gets the list of PVs from a local PV
+pv_list = []
+for pv in pvs[2:]:
+    if str(pv).startswith("VA:"):
+        pv_list.append(pv)
+
+# Create a temporary file to hold the archival data
+with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
+    # Main command that actually pulls the historic data
     archappl_command = [
-        "pyarchappl-get", "--pv VA:FS1_BBS:BPM_D2421:PHA_RD", "--output {}".format(output_file),
+        "pyarchappl-get", "--output {}".format(temp_archive_data_file.name),
         "--from {}".format(time_start), "--to {}".format(time_end), "--url http://127.0.0.1:17665"
     ]
+
+    for pv in pv_list:
+        archappl_command.append("--pv {}".format(pv))
+
+    pvs[2].setValue(" ".join(archappl_command))
 
     # Combine the unset command with your actual command
     full_command = unset_command + "; " + " ".join(archappl_command)
@@ -65,22 +75,158 @@ with tempfile.NamedTemporaryFile() as output_file:
     process.wait()
 
     # Read the data from the CSV file
-    with open(output_file) as csvfile:
+    with open(temp_archive_data_file.name) as csvfile:
         # Skip the header line
-        next(csvfile)
+        next(csvfile, None)
         # Read the second line from the CSV file
-        second_line = csvfile.readline()
-        # Split the second line on comma (`,`), assuming the value is in the second column
-        _, external_value = second_line.strip().split(',')
-        # Strip any leading/trailing spaces from the extracted value
-        external_value = external_value.strip()
+        second_line = next(csvfile, None)
+        if second_line:
+            # Split the second line on comma (`,`), assuming the value is in the second column
+            values = second_line.strip().split(',')[1:]  # Exclude the timestamp from the values
+            for i, value in enumerate(values):
+                # Set the PV value to its corresponding index
+                pvs[i * 2 + 3].setValue(value.strip())
 
-# Set the PV value
-pvs[2].setValue(external_value)
+        else:
+            # Handle the case where the CSV file is empty or doesn't contain data
+            for i in range(len(pvs[3:])):
+                pvs[i * 2 + 3].setValue("No Historic Data Found")
 ]]></text>
         <pv_name trigger="True">loc://$(DID)_trigger_CAV7(0)</pv_name>
-        <pv_name trigger="True">loc://time</pv_name>
-        <pv_name trigger="False">loc://test_var(0)</pv_name>
+        <pv_name trigger="True">loc://time_CAV7</pv_name>
+        <pv_name trigger="False">loc://command</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB01:CAV7_D1269:PHA_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB01:CAV7_D1269:PHA_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB01:CAV7_D1269:AMPL_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB01:CAV7_D1269:AMPL_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB02:CAV7_D1333:PHA_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB02:CAV7_D1333:PHA_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB02:CAV7_D1333:AMPL_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB02:CAV7_D1333:AMPL_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB03:CAV7_D1396:PHA_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB03:CAV7_D1396:PHA_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB03:CAV7_D1396:AMPL_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB03:CAV7_D1396:AMPL_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB04:CAV7_D1460:PHA_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB04:CAV7_D1460:PHA_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB04:CAV7_D1460:AMPL_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB04:CAV7_D1460:AMPL_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB05:CAV7_D1524:PHA_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB05:CAV7_D1524:PHA_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB05:CAV7_D1524:AMPL_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB05:CAV7_D1524:AMPL_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB06:CAV7_D1587:PHA_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB06:CAV7_D1587:PHA_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB06:CAV7_D1587:AMPL_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB06:CAV7_D1587:AMPL_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB07:CAV7_D1651:PHA_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB07:CAV7_D1651:PHA_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB07:CAV7_D1651:AMPL_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB07:CAV7_D1651:AMPL_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB08:CAV7_D1715:PHA_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB08:CAV7_D1715:PHA_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB08:CAV7_D1715:AMPL_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB08:CAV7_D1715:AMPL_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB09:CAV7_D1779:PHA_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB09:CAV7_D1779:PHA_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB09:CAV7_D1779:AMPL_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB09:CAV7_D1779:AMPL_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB10:CAV7_D1842:PHA_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB10:CAV7_D1842:PHA_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB10:CAV7_D1842:AMPL_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB10:CAV7_D1842:AMPL_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB11:CAV7_D1906:PHA_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB11:CAV7_D1906:PHA_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB11:CAV7_D1906:AMPL_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB11:CAV7_D1906:AMPL_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB01:CAV7_D1269:PHA_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB01:CAV7_D1269:PHA_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB01:CAV7_D1269:PHA_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB01:CAV7_D1269:PHA_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB01:CAV7_D1269:AMPL_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB01:CAV7_D1269:AMPL_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB01:CAV7_D1269:AMPL_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB01:CAV7_D1269:AMPL_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB02:CAV7_D1333:PHA_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB02:CAV7_D1333:PHA_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB02:CAV7_D1333:PHA_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB02:CAV7_D1333:PHA_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB02:CAV7_D1333:AMPL_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB02:CAV7_D1333:AMPL_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB02:CAV7_D1333:AMPL_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB02:CAV7_D1333:AMPL_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB03:CAV7_D1396:PHA_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB03:CAV7_D1396:PHA_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB03:CAV7_D1396:PHA_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB03:CAV7_D1396:PHA_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB03:CAV7_D1396:AMPL_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB03:CAV7_D1396:AMPL_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB03:CAV7_D1396:AMPL_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB03:CAV7_D1396:AMPL_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB04:CAV7_D1460:PHA_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB04:CAV7_D1460:PHA_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB04:CAV7_D1460:PHA_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB04:CAV7_D1460:PHA_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB04:CAV7_D1460:AMPL_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB04:CAV7_D1460:AMPL_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB04:CAV7_D1460:AMPL_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB04:CAV7_D1460:AMPL_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB05:CAV7_D1524:PHA_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB05:CAV7_D1524:PHA_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB05:CAV7_D1524:PHA_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB05:CAV7_D1524:PHA_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB05:CAV7_D1524:AMPL_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB05:CAV7_D1524:AMPL_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB05:CAV7_D1524:AMPL_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB05:CAV7_D1524:AMPL_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB06:CAV7_D1587:PHA_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB06:CAV7_D1587:PHA_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB06:CAV7_D1587:PHA_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB06:CAV7_D1587:PHA_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB06:CAV7_D1587:AMPL_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB06:CAV7_D1587:AMPL_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB06:CAV7_D1587:AMPL_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB06:CAV7_D1587:AMPL_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB07:CAV7_D1651:PHA_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB07:CAV7_D1651:PHA_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB07:CAV7_D1651:PHA_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB07:CAV7_D1651:PHA_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB07:CAV7_D1651:AMPL_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB07:CAV7_D1651:AMPL_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB07:CAV7_D1651:AMPL_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB07:CAV7_D1651:AMPL_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB08:CAV7_D1715:PHA_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB08:CAV7_D1715:PHA_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB08:CAV7_D1715:PHA_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB08:CAV7_D1715:PHA_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB08:CAV7_D1715:AMPL_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB08:CAV7_D1715:AMPL_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB08:CAV7_D1715:AMPL_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB08:CAV7_D1715:AMPL_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB09:CAV7_D1779:PHA_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB09:CAV7_D1779:PHA_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB09:CAV7_D1779:PHA_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB09:CAV7_D1779:PHA_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB09:CAV7_D1779:AMPL_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB09:CAV7_D1779:AMPL_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB09:CAV7_D1779:AMPL_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB09:CAV7_D1779:AMPL_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB10:CAV7_D1842:PHA_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB10:CAV7_D1842:PHA_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB10:CAV7_D1842:PHA_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB10:CAV7_D1842:PHA_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB10:CAV7_D1842:AMPL_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB10:CAV7_D1842:AMPL_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB10:CAV7_D1842:AMPL_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB10:CAV7_D1842:AMPL_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB11:CAV7_D1906:PHA_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB11:CAV7_D1906:PHA_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB11:CAV7_D1906:PHA_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB11:CAV7_D1906:PHA_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB11:CAV7_D1906:AMPL_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB11:CAV7_D1906:AMPL_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_CB11:CAV7_D1906:AMPL_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB11:CAV7_D1906:AMPL_RD</pv_name>
       </script>
     </scripts>
     <text>Pull Data</text>
@@ -90,12 +236,22 @@ pvs[2].setValue(external_value)
   </widget>
   <widget type="bool_button" version="2.0.0">
     <height>25</height>
-    <name>ToggleButton_9</name>
+    <name>ToggleButton_8</name>
     <off_label>Time Travel Off</off_label>
     <on_label>Time Travel On</on_label>
     <pv_name>loc://$(DID)_time_travel_CAV7(0)</pv_name>
     <width>150</width>
     <x>345</x>
+    <y>5</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_212</name>
+    <pv_name>loc://command</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>360</width>
+    <x>500</x>
     <y>5</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -174,7 +330,7 @@ pvs[2].setValue(external_value)
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_205</name>
+    <name>TextEntry_213</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -183,7 +339,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB01:CAV7_D1269:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB01:CAV7_D1269:AMPL_CSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -212,7 +368,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB01:CAV7_D1269:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB01:CAV7_D1269:AMPL_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -241,7 +397,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB01:CAV7_D1269:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB01:CAV7_D1269:AMPL_RSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -256,7 +412,7 @@ pvs[2].setValue(external_value)
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_206</name>
+    <name>TextEntry_214</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -265,7 +421,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB01:CAV7_D1269:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB01:CAV7_D1269:PHA_CSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -294,7 +450,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB01:CAV7_D1269:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB01:CAV7_D1269:PHA_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -323,7 +479,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB01:CAV7_D1269:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB01:CAV7_D1269:PHA_RSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -348,7 +504,7 @@ pvs[2].setValue(external_value)
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_207</name>
+    <name>TextEntry_215</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -357,7 +513,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB02:CAV7_D1333:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB02:CAV7_D1333:AMPL_CSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -386,7 +542,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB02:CAV7_D1333:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB02:CAV7_D1333:AMPL_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -415,7 +571,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB02:CAV7_D1333:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB02:CAV7_D1333:AMPL_RSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -430,7 +586,7 @@ pvs[2].setValue(external_value)
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_208</name>
+    <name>TextEntry_216</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -439,7 +595,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB02:CAV7_D1333:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB02:CAV7_D1333:PHA_CSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -468,7 +624,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB02:CAV7_D1333:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB02:CAV7_D1333:PHA_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -497,7 +653,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB02:CAV7_D1333:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB02:CAV7_D1333:PHA_RSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -522,7 +678,7 @@ pvs[2].setValue(external_value)
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_209</name>
+    <name>TextEntry_217</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -531,7 +687,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB03:CAV7_D1396:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB03:CAV7_D1396:AMPL_CSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -560,7 +716,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB03:CAV7_D1396:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB03:CAV7_D1396:AMPL_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -589,7 +745,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB03:CAV7_D1396:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB03:CAV7_D1396:AMPL_RSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -604,7 +760,7 @@ pvs[2].setValue(external_value)
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_210</name>
+    <name>TextEntry_218</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -613,7 +769,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB03:CAV7_D1396:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB03:CAV7_D1396:PHA_CSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -642,7 +798,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB03:CAV7_D1396:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB03:CAV7_D1396:PHA_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -671,7 +827,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB03:CAV7_D1396:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB03:CAV7_D1396:PHA_RSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -696,7 +852,7 @@ pvs[2].setValue(external_value)
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_211</name>
+    <name>TextEntry_219</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -705,7 +861,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB04:CAV7_D1460:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB04:CAV7_D1460:AMPL_CSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -734,7 +890,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB04:CAV7_D1460:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB04:CAV7_D1460:AMPL_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -763,7 +919,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB04:CAV7_D1460:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB04:CAV7_D1460:AMPL_RSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -778,7 +934,7 @@ pvs[2].setValue(external_value)
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_212</name>
+    <name>TextEntry_220</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -787,7 +943,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB04:CAV7_D1460:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB04:CAV7_D1460:PHA_CSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -816,7 +972,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB04:CAV7_D1460:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB04:CAV7_D1460:PHA_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -845,7 +1001,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB04:CAV7_D1460:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB04:CAV7_D1460:PHA_RSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -870,7 +1026,7 @@ pvs[2].setValue(external_value)
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_213</name>
+    <name>TextEntry_221</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -879,7 +1035,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB05:CAV7_D1524:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB05:CAV7_D1524:AMPL_CSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -908,7 +1064,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB05:CAV7_D1524:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB05:CAV7_D1524:AMPL_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -937,7 +1093,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB05:CAV7_D1524:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB05:CAV7_D1524:AMPL_RSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -952,7 +1108,7 @@ pvs[2].setValue(external_value)
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_214</name>
+    <name>TextEntry_222</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -961,7 +1117,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB05:CAV7_D1524:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB05:CAV7_D1524:PHA_CSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -990,7 +1146,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB05:CAV7_D1524:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB05:CAV7_D1524:PHA_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1019,7 +1175,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB05:CAV7_D1524:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB05:CAV7_D1524:PHA_RSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1044,7 +1200,7 @@ pvs[2].setValue(external_value)
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_215</name>
+    <name>TextEntry_223</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1053,7 +1209,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB06:CAV7_D1587:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB06:CAV7_D1587:AMPL_CSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1082,7 +1238,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB06:CAV7_D1587:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB06:CAV7_D1587:AMPL_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1111,7 +1267,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB06:CAV7_D1587:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB06:CAV7_D1587:AMPL_RSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1126,7 +1282,7 @@ pvs[2].setValue(external_value)
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_216</name>
+    <name>TextEntry_224</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1135,7 +1291,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB06:CAV7_D1587:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB06:CAV7_D1587:PHA_CSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1164,7 +1320,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB06:CAV7_D1587:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB06:CAV7_D1587:PHA_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1193,7 +1349,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB06:CAV7_D1587:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB06:CAV7_D1587:PHA_RSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1218,7 +1374,7 @@ pvs[2].setValue(external_value)
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_217</name>
+    <name>TextEntry_225</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1227,7 +1383,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB07:CAV7_D1651:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB07:CAV7_D1651:AMPL_CSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1256,7 +1412,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB07:CAV7_D1651:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB07:CAV7_D1651:AMPL_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1285,7 +1441,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB07:CAV7_D1651:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB07:CAV7_D1651:AMPL_RSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1300,7 +1456,7 @@ pvs[2].setValue(external_value)
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_218</name>
+    <name>TextEntry_226</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1309,7 +1465,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB07:CAV7_D1651:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB07:CAV7_D1651:PHA_CSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1338,7 +1494,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB07:CAV7_D1651:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB07:CAV7_D1651:PHA_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1367,7 +1523,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB07:CAV7_D1651:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB07:CAV7_D1651:PHA_RSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1392,7 +1548,7 @@ pvs[2].setValue(external_value)
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_219</name>
+    <name>TextEntry_227</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1401,7 +1557,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB08:CAV7_D1715:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB08:CAV7_D1715:AMPL_CSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1430,7 +1586,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB08:CAV7_D1715:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB08:CAV7_D1715:AMPL_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1459,7 +1615,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB08:CAV7_D1715:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB08:CAV7_D1715:AMPL_RSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1474,7 +1630,7 @@ pvs[2].setValue(external_value)
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_220</name>
+    <name>TextEntry_228</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1483,7 +1639,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB08:CAV7_D1715:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB08:CAV7_D1715:PHA_CSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1512,7 +1668,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB08:CAV7_D1715:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB08:CAV7_D1715:PHA_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1541,7 +1697,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB08:CAV7_D1715:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB08:CAV7_D1715:PHA_RSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1566,7 +1722,7 @@ pvs[2].setValue(external_value)
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_221</name>
+    <name>TextEntry_229</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1575,7 +1731,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB09:CAV7_D1779:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB09:CAV7_D1779:AMPL_CSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1604,7 +1760,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB09:CAV7_D1779:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB09:CAV7_D1779:AMPL_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1633,7 +1789,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB09:CAV7_D1779:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB09:CAV7_D1779:AMPL_RSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1648,7 +1804,7 @@ pvs[2].setValue(external_value)
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_222</name>
+    <name>TextEntry_230</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1657,7 +1813,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB09:CAV7_D1779:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB09:CAV7_D1779:PHA_CSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1686,7 +1842,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB09:CAV7_D1779:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB09:CAV7_D1779:PHA_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1715,7 +1871,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB09:CAV7_D1779:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB09:CAV7_D1779:PHA_RSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1740,7 +1896,7 @@ pvs[2].setValue(external_value)
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_223</name>
+    <name>TextEntry_231</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1749,7 +1905,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB10:CAV7_D1842:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB10:CAV7_D1842:AMPL_CSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1778,7 +1934,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB10:CAV7_D1842:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB10:CAV7_D1842:AMPL_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1807,7 +1963,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB10:CAV7_D1842:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB10:CAV7_D1842:AMPL_RSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1822,7 +1978,7 @@ pvs[2].setValue(external_value)
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_224</name>
+    <name>TextEntry_232</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1831,7 +1987,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB10:CAV7_D1842:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB10:CAV7_D1842:PHA_CSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1860,7 +2016,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB10:CAV7_D1842:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB10:CAV7_D1842:PHA_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1889,7 +2045,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB10:CAV7_D1842:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB10:CAV7_D1842:PHA_RSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1914,7 +2070,7 @@ pvs[2].setValue(external_value)
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_225</name>
+    <name>TextEntry_233</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1923,7 +2079,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB11:CAV7_D1906:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB11:CAV7_D1906:AMPL_CSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1952,7 +2108,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB11:CAV7_D1906:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB11:CAV7_D1906:AMPL_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1981,7 +2137,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB11:CAV7_D1906:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB11:CAV7_D1906:AMPL_RSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1996,7 +2152,7 @@ pvs[2].setValue(external_value)
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_226</name>
+    <name>TextEntry_234</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -2005,7 +2161,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB11:CAV7_D1906:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB11:CAV7_D1906:PHA_CSET(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2034,7 +2190,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB11:CAV7_D1906:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB11:CAV7_D1906:PHA_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2063,7 +2219,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_CB11:CAV7_D1906:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_CB11:CAV7_D1906:PHA_RSET(-1)</value>
         </exp>
       </rule>
     </rules>

@@ -12,8 +12,8 @@
   <widget type="textentry" version="2.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>TextEntry_385</name>
-    <pv_name>loc://time("2023-07-07T15:00:00.00-04:00")</pv_name>
+    <name>TextEntry_397</name>
+    <pv_name>loc://time_PM("2023-07-07T15:00:00.00-04:00")</pv_name>
     <vertical_alignment>1</vertical_alignment>
     <width>180</width>
     <x>5</x>
@@ -28,15 +28,14 @@
       </action>
     </actions>
     <height>25</height>
-    <name>ActionButton_14</name>
+    <name>ActionButton_13</name>
     <scripts>
       <script file="EmbeddedPy">
         <text><![CDATA["""Script that is run when data is requested to be pulled."""
 
 import datetime
-import os
 import subprocess
-import tempfile
+from tempfile import NamedTemporaryFile as TempFile
 
 from org.csstudio.opibuilder.scriptUtil import PVUtil
 
@@ -49,13 +48,24 @@ time_end = (datetime.datetime.strptime(time_start[:-6], '%Y-%m-%dT%H:%M:%S.%f') 
 # Necessary to get pyarchappl to function properly
 unset_command = "unset PYTHONPATH"
 
-# Create a temporary file to hold the data
-with tempfile.NamedTemporaryFile() as output_file:
-    # Define the command to get the current time in seconds using the `date` utility
+# Gets the list of PVs from a local PV
+pv_list = []
+for pv in pvs[2:]:
+    if str(pv).startswith("VA:"):
+        pv_list.append(pv)
+
+# Create a temporary file to hold the archival data
+with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
+    # Main command that actually pulls the historic data
     archappl_command = [
-        "pyarchappl-get", "--pv VA:FS1_BBS:BPM_D2421:PHA_RD", "--output {}".format(output_file),
+        "pyarchappl-get", "--output {}".format(temp_archive_data_file.name),
         "--from {}".format(time_start), "--to {}".format(time_end), "--url http://127.0.0.1:17665"
     ]
+
+    for pv in pv_list:
+        archappl_command.append("--pv {}".format(pv))
+
+    pvs[2].setValue(" ".join(archappl_command))
 
     # Combine the unset command with your actual command
     full_command = unset_command + "; " + " ".join(archappl_command)
@@ -65,22 +75,194 @@ with tempfile.NamedTemporaryFile() as output_file:
     process.wait()
 
     # Read the data from the CSV file
-    with open(output_file) as csvfile:
+    with open(temp_archive_data_file.name) as csvfile:
         # Skip the header line
-        next(csvfile)
+        next(csvfile, None)
         # Read the second line from the CSV file
-        second_line = csvfile.readline()
-        # Split the second line on comma (`,`), assuming the value is in the second column
-        _, external_value = second_line.strip().split(',')
-        # Strip any leading/trailing spaces from the extracted value
-        external_value = external_value.strip()
+        second_line = next(csvfile, None)
+        if second_line:
+            # Split the second line on comma (`,`), assuming the value is in the second column
+            values = second_line.strip().split(',')[1:]  # Exclude the timestamp from the values
+            for i, value in enumerate(values):
+                # Set the PV value to its corresponding index
+                pvs[i * 2 + 3].setValue(value.strip())
 
-# Set the PV value
-pvs[2].setValue(external_value)
+        else:
+            # Handle the case where the CSV file is empty or doesn't contain data
+            for i in range(len(pvs[3:])):
+                pvs[i * 2 + 3].setValue("No Historic Data Found")
 ]]></text>
         <pv_name trigger="True">loc://$(DID)_trigger_PM(0)</pv_name>
-        <pv_name trigger="True">loc://time</pv_name>
-        <pv_name trigger="False">loc://test_var(0)</pv_name>
+        <pv_name trigger="True">loc://time_PM</pv_name>
+        <pv_name trigger="False">loc://command</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:PM_D2056:XCEN_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:PM_D2056:XCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:PM_D2056:YCEN_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:PM_D2056:YCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:PM_D2056:XY_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:PM_D2056:XY_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:PM_D2056:XRMS_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:PM_D2056:XRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:PM_D2056:YRMS_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:PM_D2056:YRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:PM_D2056:XYRMS_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:PM_D2056:XYRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:PM_D2056:CXY_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:PM_D2056:CXY_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:PM_D2131:XCEN_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:PM_D2131:XCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:PM_D2131:YCEN_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:PM_D2131:YCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:PM_D2131:XY_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:PM_D2131:XY_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:PM_D2131:XRMS_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:PM_D2131:XRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:PM_D2131:YRMS_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:PM_D2131:YRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:PM_D2131:XYRMS_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:PM_D2131:XYRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:PM_D2131:CXY_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:PM_D2131:CXY_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2198:XCEN_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2198:XCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2198:YCEN_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2198:YCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2198:XY_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2198:XY_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2198:XRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2198:XRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2198:YRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2198:YRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2198:XYRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2198:XYRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2198:CXY_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2198:CXY_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2225:XCEN_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2225:XCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2225:YCEN_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2225:YCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2225:XY_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2225:XY_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2225:XRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2225:XRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2225:YRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2225:YRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2225:XYRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2225:XYRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2225:CXY_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2225:CXY_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2249:XCEN_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2249:XCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2249:YCEN_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2249:YCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2249:XY_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2249:XY_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2249:XRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2249:XRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2249:YRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2249:YRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2249:XYRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2249:XYRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2249:CXY_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2249:CXY_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2315:XCEN_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2315:XCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2315:YCEN_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2315:YCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2315:XY_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2315:XY_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2315:XRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2315:XRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2315:YRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2315:YRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2315:XYRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2315:XYRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2315:CXY_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2315:CXY_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2385:XCEN_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2385:XCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2385:YCEN_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2385:YCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2385:XY_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2385:XY_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2385:XRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2385:XRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2385:YRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2385:YRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2385:XYRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2385:XYRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:PM_D2385:CXY_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:PM_D2385:CXY_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:PM_D2444:XCEN_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BBS:PM_D2444:XCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:PM_D2444:YCEN_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BBS:PM_D2444:YCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:PM_D2444:XY_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BBS:PM_D2444:XY_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:PM_D2444:XRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BBS:PM_D2444:XRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:PM_D2444:YRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BBS:PM_D2444:YRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:PM_D2444:XYRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BBS:PM_D2444:XYRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:PM_D2444:CXY_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BBS:PM_D2444:CXY_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:PM_D2482:XCEN_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BBS:PM_D2482:XCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:PM_D2482:YCEN_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BBS:PM_D2482:YCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:PM_D2482:XY_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BBS:PM_D2482:XY_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:PM_D2482:XRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BBS:PM_D2482:XRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:PM_D2482:YRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BBS:PM_D2482:YRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:PM_D2482:XYRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BBS:PM_D2482:XYRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:PM_D2482:CXY_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BBS:PM_D2482:CXY_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:PM_D2504:XCEN_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:PM_D2504:XCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:PM_D2504:YCEN_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:PM_D2504:YCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:PM_D2504:XY_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:PM_D2504:XY_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:PM_D2504:XRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:PM_D2504:XRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:PM_D2504:YRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:PM_D2504:YRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:PM_D2504:XYRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:PM_D2504:XYRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:PM_D2504:CXY_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:PM_D2504:CXY_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:PM_D2602:XCEN_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:PM_D2602:XCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:PM_D2602:YCEN_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:PM_D2602:YCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:PM_D2602:XY_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:PM_D2602:XY_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:PM_D2602:XRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:PM_D2602:XRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:PM_D2602:YRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:PM_D2602:YRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:PM_D2602:XYRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:PM_D2602:XYRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:PM_D2602:CXY_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:PM_D2602:CXY_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:PM_D2703:XCEN_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:PM_D2703:XCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:PM_D2703:YCEN_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:PM_D2703:YCEN_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:PM_D2703:XY_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:PM_D2703:XY_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:PM_D2703:XRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:PM_D2703:XRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:PM_D2703:YRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:PM_D2703:YRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:PM_D2703:XYRMS_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:PM_D2703:XYRMS_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:PM_D2703:CXY_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:PM_D2703:CXY_RD</pv_name>
       </script>
     </scripts>
     <text>Pull Data</text>
@@ -90,12 +272,22 @@ pvs[2].setValue(external_value)
   </widget>
   <widget type="bool_button" version="2.0.0">
     <height>25</height>
-    <name>ToggleButton_14</name>
+    <name>ToggleButton_13</name>
     <off_label>Time Travel Off</off_label>
     <on_label>Time Travel On</on_label>
     <pv_name>loc://$(DID)_time_travel_PM(0)</pv_name>
     <width>150</width>
     <x>345</x>
+    <y>5</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextEntry_398</name>
+    <pv_name>loc://command</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>360</width>
+    <x>500</x>
     <y>5</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -198,7 +390,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BBS:PM_D2444:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2444:CXY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -227,7 +419,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BBS:PM_D2444:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2444:XCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -256,7 +448,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BBS:PM_D2444:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2444:XRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -285,7 +477,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BBS:PM_D2444:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2444:XYRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -314,7 +506,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BBS:PM_D2444:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2444:XY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -343,7 +535,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BBS:PM_D2444:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2444:YCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -372,7 +564,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BBS:PM_D2444:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2444:YRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -411,7 +603,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BBS:PM_D2482:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2482:CXY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -440,7 +632,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BBS:PM_D2482:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2482:XCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -469,7 +661,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BBS:PM_D2482:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2482:XRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -498,7 +690,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BBS:PM_D2482:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2482:XYRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -527,7 +719,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BBS:PM_D2482:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2482:XY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -556,7 +748,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BBS:PM_D2482:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2482:YCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -585,7 +777,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BBS:PM_D2482:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2482:YRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -624,7 +816,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BMS:PM_D2504:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2504:CXY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -653,7 +845,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BMS:PM_D2504:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2504:XCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -682,7 +874,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BMS:PM_D2504:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2504:XRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -711,7 +903,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BMS:PM_D2504:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2504:XYRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -740,7 +932,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BMS:PM_D2504:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2504:XY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -769,7 +961,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BMS:PM_D2504:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2504:YCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -798,7 +990,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BMS:PM_D2504:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2504:YRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -837,7 +1029,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BMS:PM_D2602:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2602:CXY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -866,7 +1058,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BMS:PM_D2602:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2602:XCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -895,7 +1087,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BMS:PM_D2602:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2602:XRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -924,7 +1116,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BMS:PM_D2602:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2602:XYRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -953,7 +1145,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BMS:PM_D2602:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2602:XY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -982,7 +1174,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BMS:PM_D2602:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2602:YCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1011,7 +1203,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BMS:PM_D2602:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2602:YRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1050,7 +1242,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BMS:PM_D2703:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2703:CXY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1079,7 +1271,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BMS:PM_D2703:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2703:XCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1108,7 +1300,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BMS:PM_D2703:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2703:XRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1137,7 +1329,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BMS:PM_D2703:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2703:XYRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1166,7 +1358,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BMS:PM_D2703:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2703:XY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1195,7 +1387,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BMS:PM_D2703:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2703:YCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1224,7 +1416,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_BMS:PM_D2703:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2703:YRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1263,7 +1455,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2198:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2198:CXY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1292,7 +1484,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2198:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2198:XCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1321,7 +1513,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2198:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2198:XRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1350,7 +1542,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2198:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2198:XYRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1379,7 +1571,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2198:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2198:XY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1408,7 +1600,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2198:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2198:YCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1437,7 +1629,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2198:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2198:YRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1476,7 +1668,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2225:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2225:CXY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1505,7 +1697,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2225:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2225:XCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1534,7 +1726,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2225:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2225:XRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1563,7 +1755,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2225:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2225:XYRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1592,7 +1784,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2225:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2225:XY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1621,7 +1813,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2225:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2225:YCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1650,7 +1842,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2225:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2225:YRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1689,7 +1881,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2249:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2249:CXY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1718,7 +1910,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2249:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2249:XCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1747,7 +1939,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2249:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2249:XRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1776,7 +1968,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2249:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2249:XYRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1805,7 +1997,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2249:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2249:XY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1834,7 +2026,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2249:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2249:YCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1863,7 +2055,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2249:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2249:YRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1902,7 +2094,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2315:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2315:CXY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1931,7 +2123,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2315:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2315:XCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1960,7 +2152,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2315:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2315:XRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -1989,7 +2181,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2315:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2315:XYRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2018,7 +2210,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2315:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2315:XY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2047,7 +2239,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2315:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2315:YCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2076,7 +2268,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2315:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2315:YRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2115,7 +2307,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2385:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2385:CXY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2144,7 +2336,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2385:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2385:XCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2173,7 +2365,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2385:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2385:XRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2202,7 +2394,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2385:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2385:XYRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2231,7 +2423,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2385:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2385:XY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2260,7 +2452,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2385:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2385:YCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2289,7 +2481,7 @@ pvs[2].setValue(external_value)
           <value>VA:FS1_CSS:PM_D2385:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2385:YRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2328,7 +2520,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_BTS:PM_D2056:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2056:CXY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2357,7 +2549,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_BTS:PM_D2056:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2056:XCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2386,7 +2578,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_BTS:PM_D2056:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2056:XRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2415,7 +2607,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_BTS:PM_D2056:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2056:XYRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2444,7 +2636,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_BTS:PM_D2056:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2056:XY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2473,7 +2665,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_BTS:PM_D2056:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2056:YCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2502,7 +2694,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_BTS:PM_D2056:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2056:YRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2541,7 +2733,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_BTS:PM_D2131:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2131:CXY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2570,7 +2762,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_BTS:PM_D2131:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2131:XCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2599,7 +2791,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_BTS:PM_D2131:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2131:XRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2628,7 +2820,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_BTS:PM_D2131:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2131:XYRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2657,7 +2849,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_BTS:PM_D2131:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2131:XY_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2686,7 +2878,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_BTS:PM_D2131:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2131:YCEN_RD(-1)</value>
         </exp>
       </rule>
     </rules>
@@ -2715,7 +2907,7 @@ pvs[2].setValue(external_value)
           <value>VA:LS1_BTS:PM_D2131:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://test_var(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2131:YRMS_RD(-1)</value>
         </exp>
       </rule>
     </rules>
