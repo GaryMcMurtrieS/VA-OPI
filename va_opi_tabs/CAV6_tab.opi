@@ -18,7 +18,7 @@
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>TextEntry_187</name>
+    <name>TextEntry_180</name>
     <pv_name>loc://time_CAV6("2023-07-07T15:00:00.00-04:00")</pv_name>
     <vertical_alignment>1</vertical_alignment>
     <width>180</width>
@@ -47,193 +47,127 @@ from tempfile import NamedTemporaryFile as TempFile
 
 from org.csstudio.opibuilder.scriptUtil import PVUtil
 
-# Get the start and end times for when PV data should be pulled as a string
-time_start = PVUtil.getString(pvs[1])
-time_end = (datetime.datetime.strptime(time_start[:-6], '%Y-%m-%dT%H:%M:%S.%f') +
-            datetime.timedelta(minutes=15)).isoformat() + time_start[-6:]
+if PVUtil.getDouble(pvs[2]) == 1:
+    # Get the start and end times for when PV data should be pulled as a string
+    time_start = PVUtil.getString(pvs[1])
+    time_end = (datetime.datetime.strptime(time_start[:-6], '%Y-%m-%dT%H:%M:%S.%f') +
+                datetime.timedelta(minutes=15)).isoformat() + time_start[-6:]
 
-# Command to unset pythonpath
-# Necessary to get pyarchappl to function properly
-unset_command = "unset PYTHONPATH"
+    # Necessary to get pyarchappl to function properly
+    unset_command = "unset PYTHONPATH"
 
-# Gets the list of PVs from a local PV
-pv_list = []
-for pv in pvs[2:]:
-    if str(pv).startswith("VA:"):
-        pv_list.append(pv)
+    pv_list = [str(pv) for pv in pvs[2:]]
 
-# Create a temporary file to hold the archival data
-with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
-    # Main command that actually pulls the historic data
-    archappl_command = [
-        "pyarchappl-get", "--output {}".format(temp_archive_data_file.name),
-        "--from {}".format(time_start), "--to {}".format(time_end), "--url http://127.0.0.1:17665"
-    ]
+    # Create a temporary file to hold the archival data
+    with TempFile() as temp_archive_file:
+        archive_file = temp_archive_file.name
 
+        # Command that actually pulls the historic data
+        archappl_command = [
+            "pyarchappl-get", "--url http://127.0.0.1:17665", "--output {}".format(archive_file),
+            "--from {}".format(time_start), "--to {}".format(time_end)
+        ] + ["--pv {}".format(pv) for pv in pv_list]
+
+        # Combine the unset command with actual command
+        full_command = unset_command + "; " + " ".join(archappl_command)
+
+        # Run the command
+        process = subprocess.Popen(full_command, shell=True)
+        process.wait()
+
+        # Read the data from the output file
+        with open(archive_file) as archive_csv:
+            archived_pvs = next(archive_csv).strip().split(',')[1:]  # Excluding time
+
+            # Create a dict for all PVs that were archived
+            archived_data = {pv: None for pv in archived_pvs}
+
+            for row in archive_csv:
+                archived_values = row.strip().split(',')[
+                    1:]  # Exclude the timestamp from the values
+
+                # Iterate over the values and their corresponding PVs
+                for archived_value, archived_pv in zip(archived_values, archived_pvs):
+                    # If the value in the dict is None and this value is not an empty string, write
+                    # it to the dict
+                    if archived_data[archived_pv] is None and archived_value != "":
+                        archived_data[archived_pv] = archived_value
+
+    # After reading the entire CSV file, write values or "No Data Found" to PVs
     for pv in pv_list:
-        archappl_command.append("--pv {}".format(pv))
-
-    pvs[2].setValue(" ".join(archappl_command))
-
-    # Combine the unset command with your actual command
-    full_command = unset_command + "; " + " ".join(archappl_command)
-
-    # Run the command using subprocess.Popen
-    process = subprocess.Popen(full_command, shell=True)
-    process.wait()
-
-    # Read the data from the CSV file
-    with open(temp_archive_data_file.name) as csvfile:
-        # Skip the header line
-        next(csvfile, None)
-        # Read the second line from the CSV file
-        second_line = next(csvfile, None)
-        if second_line:
-            # Split the second line on comma (`,`), assuming the value is in the second column
-            values = second_line.strip().split(',')[1:]  # Exclude the timestamp from the values
-            for i, value in enumerate(values):
-                # Set the PV value to its corresponding index
-                pvs[i * 2 + 3].setValue(value.strip())
-
+        if pv in archived_data:
+            PVUtil.writePV("loc://time_travel_{}".format(pv), archived_data[pv])
         else:
-            # Handle the case where the CSV file is empty or doesn't contain data
-            for i in range(len(pvs[3:])):
-                pvs[i * 2 + 3].setValue("No Historic Data Found")
+            PVUtil.writePV("loc://time_travel_{}".format(pv), "No Data Found")
 ]]></scriptText>
         <pv trig="True">loc://$(DID)_trigger_CAV6(0)</pv>
         <pv trig="True">loc://time_CAV6</pv>
-        <pv trig="False">loc://command</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB01:CAV6_D1265:PHA_CSET</pv>
+        <pv trig="True">loc://$(DID)_time_travel_CAV6</pv>
         <pv trig="False">VA:LS1_CB01:CAV6_D1265:PHA_CSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB01:CAV6_D1265:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CB01:CAV6_D1265:AMPL_CSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB02:CAV6_D1329:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CB02:CAV6_D1329:PHA_CSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB02:CAV6_D1329:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CB02:CAV6_D1329:AMPL_CSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB03:CAV6_D1392:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CB03:CAV6_D1392:PHA_CSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB03:CAV6_D1392:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CB03:CAV6_D1392:AMPL_CSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB04:CAV6_D1456:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CB04:CAV6_D1456:PHA_CSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB04:CAV6_D1456:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CB04:CAV6_D1456:AMPL_CSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB05:CAV6_D1520:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CB05:CAV6_D1520:PHA_CSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB05:CAV6_D1520:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CB05:CAV6_D1520:AMPL_CSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB06:CAV6_D1583:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CB06:CAV6_D1583:PHA_CSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB06:CAV6_D1583:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CB06:CAV6_D1583:AMPL_CSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB07:CAV6_D1647:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CB07:CAV6_D1647:PHA_CSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB07:CAV6_D1647:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CB07:CAV6_D1647:AMPL_CSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB08:CAV6_D1711:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CB08:CAV6_D1711:PHA_CSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB08:CAV6_D1711:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CB08:CAV6_D1711:AMPL_CSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB09:CAV6_D1775:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CB09:CAV6_D1775:PHA_CSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB09:CAV6_D1775:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CB09:CAV6_D1775:AMPL_CSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB10:CAV6_D1838:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CB10:CAV6_D1838:PHA_CSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB10:CAV6_D1838:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CB10:CAV6_D1838:AMPL_CSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB11:CAV6_D1902:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CB11:CAV6_D1902:PHA_CSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB11:CAV6_D1902:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CB11:CAV6_D1902:AMPL_CSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB01:CAV6_D1265:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CB01:CAV6_D1265:PHA_RSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB01:CAV6_D1265:PHA_RD</pv>
         <pv trig="False">VA:LS1_CB01:CAV6_D1265:PHA_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB01:CAV6_D1265:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CB01:CAV6_D1265:AMPL_RSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB01:CAV6_D1265:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CB01:CAV6_D1265:AMPL_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB02:CAV6_D1329:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CB02:CAV6_D1329:PHA_RSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB02:CAV6_D1329:PHA_RD</pv>
         <pv trig="False">VA:LS1_CB02:CAV6_D1329:PHA_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB02:CAV6_D1329:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CB02:CAV6_D1329:AMPL_RSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB02:CAV6_D1329:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CB02:CAV6_D1329:AMPL_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB03:CAV6_D1392:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CB03:CAV6_D1392:PHA_RSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB03:CAV6_D1392:PHA_RD</pv>
         <pv trig="False">VA:LS1_CB03:CAV6_D1392:PHA_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB03:CAV6_D1392:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CB03:CAV6_D1392:AMPL_RSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB03:CAV6_D1392:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CB03:CAV6_D1392:AMPL_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB04:CAV6_D1456:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CB04:CAV6_D1456:PHA_RSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB04:CAV6_D1456:PHA_RD</pv>
         <pv trig="False">VA:LS1_CB04:CAV6_D1456:PHA_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB04:CAV6_D1456:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CB04:CAV6_D1456:AMPL_RSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB04:CAV6_D1456:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CB04:CAV6_D1456:AMPL_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB05:CAV6_D1520:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CB05:CAV6_D1520:PHA_RSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB05:CAV6_D1520:PHA_RD</pv>
         <pv trig="False">VA:LS1_CB05:CAV6_D1520:PHA_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB05:CAV6_D1520:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CB05:CAV6_D1520:AMPL_RSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB05:CAV6_D1520:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CB05:CAV6_D1520:AMPL_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB06:CAV6_D1583:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CB06:CAV6_D1583:PHA_RSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB06:CAV6_D1583:PHA_RD</pv>
         <pv trig="False">VA:LS1_CB06:CAV6_D1583:PHA_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB06:CAV6_D1583:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CB06:CAV6_D1583:AMPL_RSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB06:CAV6_D1583:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CB06:CAV6_D1583:AMPL_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB07:CAV6_D1647:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CB07:CAV6_D1647:PHA_RSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB07:CAV6_D1647:PHA_RD</pv>
         <pv trig="False">VA:LS1_CB07:CAV6_D1647:PHA_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB07:CAV6_D1647:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CB07:CAV6_D1647:AMPL_RSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB07:CAV6_D1647:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CB07:CAV6_D1647:AMPL_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB08:CAV6_D1711:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CB08:CAV6_D1711:PHA_RSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB08:CAV6_D1711:PHA_RD</pv>
         <pv trig="False">VA:LS1_CB08:CAV6_D1711:PHA_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB08:CAV6_D1711:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CB08:CAV6_D1711:AMPL_RSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB08:CAV6_D1711:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CB08:CAV6_D1711:AMPL_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB09:CAV6_D1775:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CB09:CAV6_D1775:PHA_RSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB09:CAV6_D1775:PHA_RD</pv>
         <pv trig="False">VA:LS1_CB09:CAV6_D1775:PHA_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB09:CAV6_D1775:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CB09:CAV6_D1775:AMPL_RSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB09:CAV6_D1775:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CB09:CAV6_D1775:AMPL_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB10:CAV6_D1838:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CB10:CAV6_D1838:PHA_RSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB10:CAV6_D1838:PHA_RD</pv>
         <pv trig="False">VA:LS1_CB10:CAV6_D1838:PHA_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB10:CAV6_D1838:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CB10:CAV6_D1838:AMPL_RSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB10:CAV6_D1838:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CB10:CAV6_D1838:AMPL_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB11:CAV6_D1902:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CB11:CAV6_D1902:PHA_RSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB11:CAV6_D1902:PHA_RD</pv>
         <pv trig="False">VA:LS1_CB11:CAV6_D1902:PHA_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB11:CAV6_D1902:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CB11:CAV6_D1902:AMPL_RSET</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_CB11:CAV6_D1902:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CB11:CAV6_D1902:AMPL_RD</pv>
       </path>
     </scripts>
@@ -257,16 +191,6 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     <toggle_button>true</toggle_button>
     <width>150</width>
     <x>345</x>
-    <y>5</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
-    <name>TextEntry_188</name>
-    <pv_name>loc://command</pv_name>
-    <vertical_alignment>1</vertical_alignment>
-    <width>360</width>
-    <x>500</x>
     <y>5</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -345,7 +269,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_189</name>
+    <name>TextEntry_181</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -354,7 +278,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB01:CAV6_D1265:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB01:CAV6_D1265:AMPL_CSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB01:CAV6_D1265:AMPL_CSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -384,7 +308,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB01:CAV6_D1265:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB01:CAV6_D1265:AMPL_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB01:CAV6_D1265:AMPL_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -414,7 +338,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB01:CAV6_D1265:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB01:CAV6_D1265:AMPL_RSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB01:CAV6_D1265:AMPL_RSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -429,7 +353,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_190</name>
+    <name>TextEntry_182</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -438,7 +362,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB01:CAV6_D1265:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB01:CAV6_D1265:PHA_CSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB01:CAV6_D1265:PHA_CSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -468,7 +392,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB01:CAV6_D1265:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB01:CAV6_D1265:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB01:CAV6_D1265:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -498,7 +422,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB01:CAV6_D1265:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB01:CAV6_D1265:PHA_RSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB01:CAV6_D1265:PHA_RSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -523,7 +447,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_191</name>
+    <name>TextEntry_183</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -532,7 +456,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB02:CAV6_D1329:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:CAV6_D1329:AMPL_CSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB02:CAV6_D1329:AMPL_CSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -562,7 +486,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB02:CAV6_D1329:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:CAV6_D1329:AMPL_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB02:CAV6_D1329:AMPL_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -592,7 +516,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB02:CAV6_D1329:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:CAV6_D1329:AMPL_RSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB02:CAV6_D1329:AMPL_RSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -607,7 +531,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_192</name>
+    <name>TextEntry_184</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -616,7 +540,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB02:CAV6_D1329:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:CAV6_D1329:PHA_CSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB02:CAV6_D1329:PHA_CSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -646,7 +570,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB02:CAV6_D1329:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:CAV6_D1329:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB02:CAV6_D1329:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -676,7 +600,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB02:CAV6_D1329:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:CAV6_D1329:PHA_RSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB02:CAV6_D1329:PHA_RSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -701,7 +625,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_193</name>
+    <name>TextEntry_185</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -710,7 +634,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB03:CAV6_D1392:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:CAV6_D1392:AMPL_CSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB03:CAV6_D1392:AMPL_CSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -740,7 +664,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB03:CAV6_D1392:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:CAV6_D1392:AMPL_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB03:CAV6_D1392:AMPL_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -770,7 +694,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB03:CAV6_D1392:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:CAV6_D1392:AMPL_RSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB03:CAV6_D1392:AMPL_RSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -785,7 +709,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_194</name>
+    <name>TextEntry_186</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -794,7 +718,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB03:CAV6_D1392:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:CAV6_D1392:PHA_CSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB03:CAV6_D1392:PHA_CSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -824,7 +748,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB03:CAV6_D1392:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:CAV6_D1392:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB03:CAV6_D1392:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -854,7 +778,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB03:CAV6_D1392:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:CAV6_D1392:PHA_RSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB03:CAV6_D1392:PHA_RSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -879,7 +803,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_195</name>
+    <name>TextEntry_187</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -888,7 +812,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB04:CAV6_D1456:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:CAV6_D1456:AMPL_CSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB04:CAV6_D1456:AMPL_CSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -918,7 +842,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB04:CAV6_D1456:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:CAV6_D1456:AMPL_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB04:CAV6_D1456:AMPL_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -948,7 +872,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB04:CAV6_D1456:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:CAV6_D1456:AMPL_RSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB04:CAV6_D1456:AMPL_RSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -963,7 +887,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_196</name>
+    <name>TextEntry_188</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -972,7 +896,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB04:CAV6_D1456:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:CAV6_D1456:PHA_CSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB04:CAV6_D1456:PHA_CSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1002,7 +926,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB04:CAV6_D1456:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:CAV6_D1456:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB04:CAV6_D1456:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1032,7 +956,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB04:CAV6_D1456:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:CAV6_D1456:PHA_RSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB04:CAV6_D1456:PHA_RSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1057,7 +981,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_197</name>
+    <name>TextEntry_189</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1066,7 +990,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB05:CAV6_D1520:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:CAV6_D1520:AMPL_CSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB05:CAV6_D1520:AMPL_CSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1096,7 +1020,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB05:CAV6_D1520:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:CAV6_D1520:AMPL_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB05:CAV6_D1520:AMPL_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1126,7 +1050,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB05:CAV6_D1520:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:CAV6_D1520:AMPL_RSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB05:CAV6_D1520:AMPL_RSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1141,7 +1065,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_198</name>
+    <name>TextEntry_190</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1150,7 +1074,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB05:CAV6_D1520:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:CAV6_D1520:PHA_CSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB05:CAV6_D1520:PHA_CSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1180,7 +1104,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB05:CAV6_D1520:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:CAV6_D1520:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB05:CAV6_D1520:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1210,7 +1134,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB05:CAV6_D1520:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:CAV6_D1520:PHA_RSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB05:CAV6_D1520:PHA_RSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1235,7 +1159,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_199</name>
+    <name>TextEntry_191</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1244,7 +1168,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB06:CAV6_D1583:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:CAV6_D1583:AMPL_CSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB06:CAV6_D1583:AMPL_CSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1274,7 +1198,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB06:CAV6_D1583:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:CAV6_D1583:AMPL_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB06:CAV6_D1583:AMPL_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1304,7 +1228,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB06:CAV6_D1583:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:CAV6_D1583:AMPL_RSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB06:CAV6_D1583:AMPL_RSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1319,7 +1243,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_200</name>
+    <name>TextEntry_192</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1328,7 +1252,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB06:CAV6_D1583:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:CAV6_D1583:PHA_CSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB06:CAV6_D1583:PHA_CSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1358,7 +1282,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB06:CAV6_D1583:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:CAV6_D1583:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB06:CAV6_D1583:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1388,7 +1312,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB06:CAV6_D1583:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:CAV6_D1583:PHA_RSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB06:CAV6_D1583:PHA_RSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1413,7 +1337,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_201</name>
+    <name>TextEntry_193</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1422,7 +1346,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB07:CAV6_D1647:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:CAV6_D1647:AMPL_CSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB07:CAV6_D1647:AMPL_CSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1452,7 +1376,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB07:CAV6_D1647:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:CAV6_D1647:AMPL_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB07:CAV6_D1647:AMPL_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1482,7 +1406,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB07:CAV6_D1647:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:CAV6_D1647:AMPL_RSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB07:CAV6_D1647:AMPL_RSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1497,7 +1421,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_202</name>
+    <name>TextEntry_194</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1506,7 +1430,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB07:CAV6_D1647:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:CAV6_D1647:PHA_CSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB07:CAV6_D1647:PHA_CSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1536,7 +1460,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB07:CAV6_D1647:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:CAV6_D1647:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB07:CAV6_D1647:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1566,7 +1490,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB07:CAV6_D1647:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:CAV6_D1647:PHA_RSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB07:CAV6_D1647:PHA_RSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1591,7 +1515,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_203</name>
+    <name>TextEntry_195</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1600,7 +1524,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB08:CAV6_D1711:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:CAV6_D1711:AMPL_CSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB08:CAV6_D1711:AMPL_CSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1630,7 +1554,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB08:CAV6_D1711:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:CAV6_D1711:AMPL_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB08:CAV6_D1711:AMPL_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1660,7 +1584,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB08:CAV6_D1711:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:CAV6_D1711:AMPL_RSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB08:CAV6_D1711:AMPL_RSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1675,7 +1599,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_204</name>
+    <name>TextEntry_196</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1684,7 +1608,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB08:CAV6_D1711:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:CAV6_D1711:PHA_CSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB08:CAV6_D1711:PHA_CSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1714,7 +1638,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB08:CAV6_D1711:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:CAV6_D1711:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB08:CAV6_D1711:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1744,7 +1668,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB08:CAV6_D1711:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:CAV6_D1711:PHA_RSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB08:CAV6_D1711:PHA_RSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1769,7 +1693,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_205</name>
+    <name>TextEntry_197</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1778,7 +1702,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB09:CAV6_D1775:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:CAV6_D1775:AMPL_CSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB09:CAV6_D1775:AMPL_CSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1808,7 +1732,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB09:CAV6_D1775:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:CAV6_D1775:AMPL_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB09:CAV6_D1775:AMPL_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1838,7 +1762,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB09:CAV6_D1775:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:CAV6_D1775:AMPL_RSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB09:CAV6_D1775:AMPL_RSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1853,7 +1777,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_206</name>
+    <name>TextEntry_198</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1862,7 +1786,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB09:CAV6_D1775:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:CAV6_D1775:PHA_CSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB09:CAV6_D1775:PHA_CSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1892,7 +1816,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB09:CAV6_D1775:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:CAV6_D1775:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB09:CAV6_D1775:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1922,7 +1846,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB09:CAV6_D1775:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:CAV6_D1775:PHA_RSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB09:CAV6_D1775:PHA_RSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1947,7 +1871,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_207</name>
+    <name>TextEntry_199</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -1956,7 +1880,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB10:CAV6_D1838:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:CAV6_D1838:AMPL_CSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB10:CAV6_D1838:AMPL_CSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1986,7 +1910,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB10:CAV6_D1838:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:CAV6_D1838:AMPL_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB10:CAV6_D1838:AMPL_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2016,7 +1940,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB10:CAV6_D1838:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:CAV6_D1838:AMPL_RSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB10:CAV6_D1838:AMPL_RSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2031,7 +1955,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_208</name>
+    <name>TextEntry_200</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -2040,7 +1964,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB10:CAV6_D1838:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:CAV6_D1838:PHA_CSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB10:CAV6_D1838:PHA_CSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2070,7 +1994,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB10:CAV6_D1838:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:CAV6_D1838:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB10:CAV6_D1838:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2100,7 +2024,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB10:CAV6_D1838:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:CAV6_D1838:PHA_RSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB10:CAV6_D1838:PHA_RSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2125,7 +2049,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_209</name>
+    <name>TextEntry_201</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -2134,7 +2058,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB11:CAV6_D1902:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:CAV6_D1902:AMPL_CSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB11:CAV6_D1902:AMPL_CSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2164,7 +2088,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB11:CAV6_D1902:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:CAV6_D1902:AMPL_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB11:CAV6_D1902:AMPL_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2194,7 +2118,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB11:CAV6_D1902:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:CAV6_D1902:AMPL_RSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB11:CAV6_D1902:AMPL_RSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2209,7 +2133,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_210</name>
+    <name>TextEntry_202</name>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
@@ -2218,7 +2142,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB11:CAV6_D1902:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:CAV6_D1902:PHA_CSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB11:CAV6_D1902:PHA_CSET(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2248,7 +2172,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB11:CAV6_D1902:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:CAV6_D1902:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB11:CAV6_D1902:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2278,7 +2202,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB11:CAV6_D1902:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:CAV6_D1902:PHA_RSET(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB11:CAV6_D1902:PHA_RSET(0)</value>
         </exp>
       </rule>
     </rules>

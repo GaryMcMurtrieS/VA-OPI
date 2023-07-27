@@ -44,42 +44,46 @@ def create_time_travel_control_row(parent_widget, device_type, filtered_pvs, y_0
 
     # Default timestamp that will be used for archive data retrieval
     default_time = "2023-07-07T15:00:00.00-04:00"
+
+    # Time entry box, used to choose when to pull data from
     timestamp_entry = widgets.TextEntry(x_0, y_0, TIME_ENTRY_WIDTH, WIDGET_HEIGHT,
                                         f'loc://time_{device_type}("{default_time}")')
     parent_widget.add_child(timestamp_entry)
 
     x_0 += TIME_ENTRY_WIDTH + HORIZONTAL_GAP
 
+    # Action button that pulls historic data and displays it
     pull_button = widgets.ActionButton(x_0, y_0, NAME_WIDTH, WIDGET_HEIGHT, "Pull Data")
     pull_button.add_write_pv(f"loc://$(DID)_trigger_{device_type}(0)", 1)
 
+    # Script that actually runs the command to pull the data
     pull_script = Script("pull_data_script.py")
-    pull_script.add_pv(f"loc://$(DID)_trigger_{device_type}(0)", True)
-    pull_script.add_pv(f"loc://time_{device_type}", True)
-    pull_script.add_pv("loc://command", False)
 
+    # Trigger PV that runs the script
+    pull_script.add_pv(f"loc://$(DID)_trigger_{device_type}(0)", True)
+
+    # PV that controls when to pull archival data from
+    pull_script.add_pv(f"loc://time_{device_type}", True)
+    pull_script.add_pv(f"loc://$(DID)_time_travel_{device_type}", True)
+
+    # Creates list of PVs that will have their archived data pulled
     pvs = list(filtered_pvs["System Identifier"] + ':' + filtered_pvs["Location"] + '_' +
                filtered_pvs["Managing Device"] + ':' + filtered_pvs["Device Type"] + '_' +
                filtered_pvs["Position"] + ':' + filtered_pvs["Variable Identifier"])
 
+    # Adds each of the pvs to the script
     for process_variable in pvs:
-        pull_script.add_pv(f"loc://time_travel_{process_variable}", False)
         pull_script.add_pv(process_variable, False)
 
     pull_button.add_script(pull_script)
-
     parent_widget.add_child(pull_button)
 
     x_0 += NAME_WIDTH + HORIZONTAL_GAP
 
+    # Time Travel Toggle button, toggles between time travel mode and current data
     parent_widget.add_child(
         widgets.ToggleButton(x_0, y_0, NAME_WIDTH, WIDGET_HEIGHT, "Time Travel On",
                              "Time Travel Off", f"loc://$(DID)_time_travel_{device_type}(0)"))
-
-    x_0 += NAME_WIDTH + HORIZONTAL_GAP
-
-    parent_widget.add_child(
-        widgets.TextEntry(x_0, y_0, TIME_ENTRY_WIDTH * 2, WIDGET_HEIGHT, "loc://command"))
 
 
 def create_columns_and_get_width(filtered_pvs, parent_widget, y_0):
@@ -123,7 +127,7 @@ def create_widget_row(parent_widget, device, device_type, column_names, column_w
             rules.SelectionRule("pv_name", f"loc://$(DID)_time_travel_{device_type}",
                                 "Time Travel Rule",
                                 [(0, process_variable),
-                                 (1, f"loc://time_travel_{process_variable}(-1)")]))
+                                 (1, f"loc://time_travel_{process_variable}(0)")]))
 
         parent_widget.add_child(parameter_output)
 

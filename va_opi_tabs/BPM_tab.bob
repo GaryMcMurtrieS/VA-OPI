@@ -39,661 +39,361 @@ from tempfile import NamedTemporaryFile as TempFile
 
 from org.csstudio.opibuilder.scriptUtil import PVUtil
 
-# Get the start and end times for when PV data should be pulled as a string
-time_start = PVUtil.getString(pvs[1])
-time_end = (datetime.datetime.strptime(time_start[:-6], '%Y-%m-%dT%H:%M:%S.%f') +
-            datetime.timedelta(minutes=15)).isoformat() + time_start[-6:]
+if PVUtil.getDouble(pvs[2]) == 1:
+    # Get the start and end times for when PV data should be pulled as a string
+    time_start = PVUtil.getString(pvs[1])
+    time_end = (datetime.datetime.strptime(time_start[:-6], '%Y-%m-%dT%H:%M:%S.%f') +
+                datetime.timedelta(minutes=15)).isoformat() + time_start[-6:]
 
-# Command to unset pythonpath
-# Necessary to get pyarchappl to function properly
-unset_command = "unset PYTHONPATH"
+    # Necessary to get pyarchappl to function properly
+    unset_command = "unset PYTHONPATH"
 
-# Gets the list of PVs from a local PV
-pv_list = []
-for pv in pvs[2:]:
-    if str(pv).startswith("VA:"):
-        pv_list.append(pv)
+    pv_list = [str(pv) for pv in pvs[2:]]
 
-# Create a temporary file to hold the archival data
-with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
-    # Main command that actually pulls the historic data
-    archappl_command = [
-        "pyarchappl-get", "--output {}".format(temp_archive_data_file.name),
-        "--from {}".format(time_start), "--to {}".format(time_end), "--url http://127.0.0.1:17665"
-    ]
+    # Create a temporary file to hold the archival data
+    with TempFile() as temp_archive_file:
+        archive_file = temp_archive_file.name
 
+        # Command that actually pulls the historic data
+        archappl_command = [
+            "pyarchappl-get", "--url http://127.0.0.1:17665", "--output {}".format(archive_file),
+            "--from {}".format(time_start), "--to {}".format(time_end)
+        ] + ["--pv {}".format(pv) for pv in pv_list]
+
+        # Combine the unset command with actual command
+        full_command = unset_command + "; " + " ".join(archappl_command)
+
+        # Run the command
+        process = subprocess.Popen(full_command, shell=True)
+        process.wait()
+
+        # Read the data from the output file
+        with open(archive_file) as archive_csv:
+            archived_pvs = next(archive_csv).strip().split(',')[1:]  # Excluding time
+
+            # Create a dict for all PVs that were archived
+            archived_data = {pv: None for pv in archived_pvs}
+
+            for row in archive_csv:
+                archived_values = row.strip().split(',')[
+                    1:]  # Exclude the timestamp from the values
+
+                # Iterate over the values and their corresponding PVs
+                for archived_value, archived_pv in zip(archived_values, archived_pvs):
+                    # If the value in the dict is None and this value is not an empty string, write
+                    # it to the dict
+                    if archived_data[archived_pv] is None and archived_value != "":
+                        archived_data[archived_pv] = archived_value
+
+    # After reading the entire CSV file, write values or "No Data Found" to PVs
     for pv in pv_list:
-        archappl_command.append("--pv {}".format(pv))
-
-    pvs[2].setValue(" ".join(archappl_command))
-
-    # Combine the unset command with your actual command
-    full_command = unset_command + "; " + " ".join(archappl_command)
-
-    # Run the command using subprocess.Popen
-    process = subprocess.Popen(full_command, shell=True)
-    process.wait()
-
-    # Read the data from the CSV file
-    with open(temp_archive_data_file.name) as csvfile:
-        # Skip the header line
-        next(csvfile, None)
-        # Read the second line from the CSV file
-        second_line = next(csvfile, None)
-        if second_line:
-            # Split the second line on comma (`,`), assuming the value is in the second column
-            values = second_line.strip().split(',')[1:]  # Exclude the timestamp from the values
-            for i, value in enumerate(values):
-                # Set the PV value to its corresponding index
-                pvs[i * 2 + 3].setValue(value.strip())
-
+        if pv in archived_data:
+            PVUtil.writePV("loc://time_travel_{}".format(pv), archived_data[pv])
         else:
-            # Handle the case where the CSV file is empty or doesn't contain data
-            for i in range(len(pvs[3:])):
-                pvs[i * 2 + 3].setValue("No Historic Data Found")
+            PVUtil.writePV("loc://time_travel_{}".format(pv), "No Data Found")
 ]]></text>
         <pv_name trigger="True">loc://$(DID)_trigger_BPM(0)</pv_name>
         <pv_name trigger="True">loc://time_BPM</pv_name>
-        <pv_name trigger="False">loc://command</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA01:BPM_D1129:X_RD</pv_name>
+        <pv_name trigger="True">loc://$(DID)_time_travel_BPM</pv_name>
         <pv_name trigger="False">VA:LS1_CA01:BPM_D1129:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA01:BPM_D1129:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CA01:BPM_D1129:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA01:BPM_D1129:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CA01:BPM_D1129:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA01:BPM_D1129:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CA01:BPM_D1129:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA01:BPM_D1144:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CA01:BPM_D1144:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA01:BPM_D1144:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CA01:BPM_D1144:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA01:BPM_D1144:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CA01:BPM_D1144:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA01:BPM_D1144:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CA01:BPM_D1144:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WA01:BPM_D1155:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WA01:BPM_D1155:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WA01:BPM_D1155:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WA01:BPM_D1155:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WA01:BPM_D1155:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WA01:BPM_D1155:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WA01:BPM_D1155:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WA01:BPM_D1155:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA02:BPM_D1163:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CA02:BPM_D1163:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA02:BPM_D1163:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CA02:BPM_D1163:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA02:BPM_D1163:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CA02:BPM_D1163:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA02:BPM_D1163:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CA02:BPM_D1163:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA02:BPM_D1177:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CA02:BPM_D1177:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA02:BPM_D1177:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CA02:BPM_D1177:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA02:BPM_D1177:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CA02:BPM_D1177:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA02:BPM_D1177:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CA02:BPM_D1177:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WA02:BPM_D1188:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WA02:BPM_D1188:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WA02:BPM_D1188:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WA02:BPM_D1188:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WA02:BPM_D1188:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WA02:BPM_D1188:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WA02:BPM_D1188:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WA02:BPM_D1188:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA03:BPM_D1196:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CA03:BPM_D1196:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA03:BPM_D1196:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CA03:BPM_D1196:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA03:BPM_D1196:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CA03:BPM_D1196:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA03:BPM_D1196:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CA03:BPM_D1196:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA03:BPM_D1211:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CA03:BPM_D1211:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA03:BPM_D1211:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CA03:BPM_D1211:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA03:BPM_D1211:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CA03:BPM_D1211:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CA03:BPM_D1211:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CA03:BPM_D1211:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WA03:BPM_D1222:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WA03:BPM_D1222:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WA03:BPM_D1222:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WA03:BPM_D1222:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WA03:BPM_D1222:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WA03:BPM_D1222:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WA03:BPM_D1222:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WA03:BPM_D1222:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB01:BPM_D1231:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB01:BPM_D1231:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB01:BPM_D1231:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB01:BPM_D1231:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB01:BPM_D1231:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB01:BPM_D1231:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB01:BPM_D1231:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB01:BPM_D1231:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB01:BPM_D1251:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB01:BPM_D1251:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB01:BPM_D1251:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB01:BPM_D1251:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB01:BPM_D1251:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB01:BPM_D1251:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB01:BPM_D1251:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB01:BPM_D1251:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB01:BPM_D1271:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB01:BPM_D1271:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB01:BPM_D1271:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB01:BPM_D1271:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB01:BPM_D1271:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB01:BPM_D1271:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB01:BPM_D1271:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB01:BPM_D1271:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB01:BPM_D1286:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB01:BPM_D1286:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB01:BPM_D1286:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB01:BPM_D1286:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB01:BPM_D1286:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB01:BPM_D1286:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB01:BPM_D1286:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB01:BPM_D1286:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB02:BPM_D1295:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB02:BPM_D1295:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB02:BPM_D1295:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB02:BPM_D1295:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB02:BPM_D1295:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB02:BPM_D1295:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB02:BPM_D1295:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB02:BPM_D1295:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB02:BPM_D1315:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB02:BPM_D1315:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB02:BPM_D1315:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB02:BPM_D1315:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB02:BPM_D1315:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB02:BPM_D1315:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB02:BPM_D1315:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB02:BPM_D1315:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB02:BPM_D1335:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB02:BPM_D1335:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB02:BPM_D1335:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB02:BPM_D1335:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB02:BPM_D1335:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB02:BPM_D1335:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB02:BPM_D1335:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB02:BPM_D1335:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB02:BPM_D1350:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB02:BPM_D1350:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB02:BPM_D1350:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB02:BPM_D1350:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB02:BPM_D1350:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB02:BPM_D1350:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB02:BPM_D1350:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB02:BPM_D1350:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB03:BPM_D1359:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB03:BPM_D1359:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB03:BPM_D1359:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB03:BPM_D1359:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB03:BPM_D1359:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB03:BPM_D1359:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB03:BPM_D1359:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB03:BPM_D1359:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB03:BPM_D1379:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB03:BPM_D1379:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB03:BPM_D1379:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB03:BPM_D1379:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB03:BPM_D1379:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB03:BPM_D1379:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB03:BPM_D1379:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB03:BPM_D1379:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB03:BPM_D1399:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB03:BPM_D1399:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB03:BPM_D1399:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB03:BPM_D1399:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB03:BPM_D1399:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB03:BPM_D1399:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB03:BPM_D1399:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB03:BPM_D1399:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB03:BPM_D1413:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB03:BPM_D1413:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB03:BPM_D1413:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB03:BPM_D1413:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB03:BPM_D1413:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB03:BPM_D1413:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB03:BPM_D1413:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB03:BPM_D1413:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB04:BPM_D1423:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB04:BPM_D1423:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB04:BPM_D1423:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB04:BPM_D1423:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB04:BPM_D1423:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB04:BPM_D1423:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB04:BPM_D1423:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB04:BPM_D1423:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB04:BPM_D1442:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB04:BPM_D1442:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB04:BPM_D1442:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB04:BPM_D1442:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB04:BPM_D1442:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB04:BPM_D1442:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB04:BPM_D1442:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB04:BPM_D1442:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB04:BPM_D1462:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB04:BPM_D1462:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB04:BPM_D1462:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB04:BPM_D1462:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB04:BPM_D1462:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB04:BPM_D1462:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB04:BPM_D1462:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB04:BPM_D1462:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB04:BPM_D1477:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB04:BPM_D1477:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB04:BPM_D1477:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB04:BPM_D1477:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB04:BPM_D1477:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB04:BPM_D1477:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB04:BPM_D1477:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB04:BPM_D1477:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB05:BPM_D1486:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB05:BPM_D1486:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB05:BPM_D1486:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB05:BPM_D1486:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB05:BPM_D1486:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB05:BPM_D1486:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB05:BPM_D1486:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB05:BPM_D1486:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB05:BPM_D1506:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB05:BPM_D1506:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB05:BPM_D1506:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB05:BPM_D1506:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB05:BPM_D1506:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB05:BPM_D1506:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB05:BPM_D1506:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB05:BPM_D1506:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB05:BPM_D1526:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB05:BPM_D1526:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB05:BPM_D1526:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB05:BPM_D1526:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB05:BPM_D1526:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB05:BPM_D1526:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB05:BPM_D1526:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB05:BPM_D1526:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB05:BPM_D1541:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB05:BPM_D1541:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB05:BPM_D1541:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB05:BPM_D1541:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB05:BPM_D1541:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB05:BPM_D1541:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB05:BPM_D1541:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB05:BPM_D1541:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB06:BPM_D1550:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB06:BPM_D1550:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB06:BPM_D1550:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB06:BPM_D1550:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB06:BPM_D1550:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB06:BPM_D1550:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB06:BPM_D1550:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB06:BPM_D1550:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB06:BPM_D1570:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB06:BPM_D1570:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB06:BPM_D1570:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB06:BPM_D1570:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB06:BPM_D1570:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB06:BPM_D1570:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB06:BPM_D1570:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB06:BPM_D1570:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB06:BPM_D1590:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB06:BPM_D1590:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB06:BPM_D1590:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB06:BPM_D1590:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB06:BPM_D1590:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB06:BPM_D1590:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB06:BPM_D1590:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB06:BPM_D1590:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB06:BPM_D1604:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB06:BPM_D1604:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB06:BPM_D1604:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB06:BPM_D1604:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB06:BPM_D1604:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB06:BPM_D1604:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB06:BPM_D1604:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB06:BPM_D1604:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB07:BPM_D1614:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB07:BPM_D1614:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB07:BPM_D1614:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB07:BPM_D1614:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB07:BPM_D1614:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB07:BPM_D1614:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB07:BPM_D1614:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB07:BPM_D1614:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB07:BPM_D1634:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB07:BPM_D1634:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB07:BPM_D1634:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB07:BPM_D1634:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB07:BPM_D1634:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB07:BPM_D1634:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB07:BPM_D1634:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB07:BPM_D1634:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB07:BPM_D1654:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB07:BPM_D1654:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB07:BPM_D1654:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB07:BPM_D1654:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB07:BPM_D1654:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB07:BPM_D1654:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB07:BPM_D1654:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB07:BPM_D1654:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB07:BPM_D1668:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB07:BPM_D1668:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB07:BPM_D1668:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB07:BPM_D1668:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB07:BPM_D1668:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB07:BPM_D1668:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB07:BPM_D1668:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB07:BPM_D1668:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB08:BPM_D1677:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB08:BPM_D1677:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB08:BPM_D1677:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB08:BPM_D1677:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB08:BPM_D1677:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB08:BPM_D1677:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB08:BPM_D1677:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB08:BPM_D1677:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB08:BPM_D1697:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB08:BPM_D1697:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB08:BPM_D1697:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB08:BPM_D1697:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB08:BPM_D1697:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB08:BPM_D1697:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB08:BPM_D1697:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB08:BPM_D1697:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB08:BPM_D1717:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB08:BPM_D1717:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB08:BPM_D1717:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB08:BPM_D1717:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB08:BPM_D1717:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB08:BPM_D1717:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB08:BPM_D1717:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB08:BPM_D1717:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB08:BPM_D1732:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB08:BPM_D1732:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB08:BPM_D1732:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB08:BPM_D1732:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB08:BPM_D1732:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB08:BPM_D1732:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB08:BPM_D1732:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB08:BPM_D1732:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB09:BPM_D1741:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB09:BPM_D1741:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB09:BPM_D1741:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB09:BPM_D1741:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB09:BPM_D1741:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB09:BPM_D1741:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB09:BPM_D1741:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB09:BPM_D1741:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB09:BPM_D1761:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB09:BPM_D1761:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB09:BPM_D1761:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB09:BPM_D1761:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB09:BPM_D1761:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB09:BPM_D1761:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB09:BPM_D1761:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB09:BPM_D1761:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB09:BPM_D1781:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB09:BPM_D1781:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB09:BPM_D1781:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB09:BPM_D1781:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB09:BPM_D1781:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB09:BPM_D1781:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB09:BPM_D1781:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB09:BPM_D1781:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB09:BPM_D1796:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB09:BPM_D1796:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB09:BPM_D1796:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB09:BPM_D1796:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB09:BPM_D1796:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB09:BPM_D1796:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB09:BPM_D1796:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB09:BPM_D1796:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB10:BPM_D1805:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB10:BPM_D1805:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB10:BPM_D1805:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB10:BPM_D1805:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB10:BPM_D1805:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB10:BPM_D1805:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB10:BPM_D1805:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB10:BPM_D1805:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB10:BPM_D1825:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB10:BPM_D1825:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB10:BPM_D1825:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB10:BPM_D1825:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB10:BPM_D1825:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB10:BPM_D1825:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB10:BPM_D1825:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB10:BPM_D1825:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB10:BPM_D1845:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB10:BPM_D1845:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB10:BPM_D1845:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB10:BPM_D1845:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB10:BPM_D1845:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB10:BPM_D1845:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB10:BPM_D1845:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB10:BPM_D1845:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB10:BPM_D1859:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB10:BPM_D1859:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB10:BPM_D1859:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB10:BPM_D1859:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB10:BPM_D1859:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB10:BPM_D1859:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB10:BPM_D1859:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB10:BPM_D1859:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB11:BPM_D1869:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB11:BPM_D1869:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB11:BPM_D1869:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB11:BPM_D1869:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB11:BPM_D1869:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB11:BPM_D1869:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB11:BPM_D1869:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB11:BPM_D1869:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB11:BPM_D1889:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB11:BPM_D1889:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB11:BPM_D1889:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB11:BPM_D1889:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB11:BPM_D1889:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB11:BPM_D1889:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB11:BPM_D1889:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB11:BPM_D1889:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB11:BPM_D1909:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB11:BPM_D1909:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB11:BPM_D1909:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB11:BPM_D1909:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB11:BPM_D1909:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB11:BPM_D1909:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_CB11:BPM_D1909:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_CB11:BPM_D1909:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB11:BPM_D1923:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB11:BPM_D1923:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB11:BPM_D1923:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB11:BPM_D1923:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB11:BPM_D1923:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB11:BPM_D1923:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_WB11:BPM_D1923:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_WB11:BPM_D1923:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D1967:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D1967:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D1967:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D1967:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D1967:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D1967:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D1967:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D1967:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D1980:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D1980:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D1980:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D1980:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D1980:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D1980:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D1980:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D1980:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D2027:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D2027:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D2027:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D2027:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D2027:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D2027:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D2027:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D2027:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D2054:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D2054:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D2054:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D2054:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D2054:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D2054:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D2054:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D2054:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D2116:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D2116:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D2116:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D2116:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D2116:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D2116:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D2116:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D2116:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D2130:X_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D2130:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D2130:Y_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D2130:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D2130:PHA_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D2130:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:BPM_D2130:ENG_RD</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:BPM_D2130:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2212:X_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2212:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2212:Y_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2212:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2212:PHA_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2212:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2212:ENG_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2212:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2223:X_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2223:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2223:Y_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2223:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2223:PHA_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2223:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2223:ENG_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2223:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2248:X_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2248:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2248:Y_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2248:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2248:PHA_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2248:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2248:ENG_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2248:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2278:X_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2278:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2278:Y_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2278:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2278:PHA_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2278:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2278:ENG_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2278:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2313:X_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2313:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2313:Y_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2313:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2313:PHA_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2313:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2313:ENG_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2313:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2369:X_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2369:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2369:Y_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2369:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2369:PHA_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2369:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2369:ENG_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2369:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2383:X_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2383:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2383:Y_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2383:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2383:PHA_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2383:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:BPM_D2383:ENG_RD</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:BPM_D2383:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:BPM_D2421:X_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:BPM_D2421:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:BPM_D2421:Y_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:BPM_D2421:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:BPM_D2421:PHA_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:BPM_D2421:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:BPM_D2421:ENG_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:BPM_D2421:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:BPM_D2466:X_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:BPM_D2466:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:BPM_D2466:Y_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:BPM_D2466:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:BPM_D2466:PHA_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:BPM_D2466:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:BPM_D2466:ENG_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:BPM_D2466:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2502:X_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2502:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2502:Y_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2502:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2502:PHA_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2502:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2502:ENG_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2502:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2537:X_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2537:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2537:Y_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2537:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2537:PHA_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2537:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2537:ENG_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2537:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2587:X_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2587:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2587:Y_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2587:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2587:PHA_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2587:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2587:ENG_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2587:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2600:X_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2600:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2600:Y_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2600:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2600:PHA_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2600:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2600:ENG_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2600:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2665:X_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2665:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2665:Y_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2665:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2665:PHA_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2665:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2665:ENG_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2665:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2690:X_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2690:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2690:Y_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2690:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2690:PHA_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2690:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2690:ENG_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2690:ENG_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2702:X_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2702:X_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2702:Y_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2702:Y_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2702:PHA_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2702:PHA_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:BPM_D2702:ENG_RD</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:BPM_D2702:ENG_RD</pv_name>
       </script>
     </scripts>
@@ -710,16 +410,6 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
     <pv_name>loc://$(DID)_time_travel_BPM(0)</pv_name>
     <width>150</width>
     <x>345</x>
-    <y>5</y>
-  </widget>
-  <widget type="textentry" version="2.0.0">
-    <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
-    <name>TextEntry_8</name>
-    <pv_name>loc://command</pv_name>
-    <vertical_alignment>1</vertical_alignment>
-    <width>360</width>
-    <x>500</x>
     <y>5</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -792,7 +482,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BBS:BPM_D2421:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:BPM_D2421:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BBS:BPM_D2421:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -821,7 +511,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BBS:BPM_D2421:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:BPM_D2421:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BBS:BPM_D2421:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -850,7 +540,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BBS:BPM_D2421:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:BPM_D2421:X_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BBS:BPM_D2421:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -879,7 +569,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BBS:BPM_D2421:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:BPM_D2421:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BBS:BPM_D2421:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -918,7 +608,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BBS:BPM_D2466:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:BPM_D2466:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BBS:BPM_D2466:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -947,7 +637,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BBS:BPM_D2466:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:BPM_D2466:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BBS:BPM_D2466:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -976,7 +666,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BBS:BPM_D2466:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:BPM_D2466:X_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BBS:BPM_D2466:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1005,7 +695,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BBS:BPM_D2466:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:BPM_D2466:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BBS:BPM_D2466:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1044,7 +734,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2502:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2502:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2502:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1073,7 +763,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2502:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2502:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2502:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1102,7 +792,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2502:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2502:X_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2502:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1131,7 +821,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2502:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2502:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2502:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1170,7 +860,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2537:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2537:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2537:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1199,7 +889,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2537:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2537:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2537:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1228,7 +918,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2537:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2537:X_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2537:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1257,7 +947,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2537:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2537:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2537:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1296,7 +986,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2587:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2587:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2587:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1325,7 +1015,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2587:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2587:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2587:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1354,7 +1044,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2587:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2587:X_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2587:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1383,7 +1073,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2587:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2587:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2587:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1422,7 +1112,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2600:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2600:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2600:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1451,7 +1141,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2600:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2600:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2600:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1480,7 +1170,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2600:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2600:X_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2600:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1509,7 +1199,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2600:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2600:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2600:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1548,7 +1238,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2665:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2665:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2665:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1577,7 +1267,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2665:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2665:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2665:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1606,7 +1296,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2665:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2665:X_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2665:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1635,7 +1325,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2665:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2665:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2665:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1674,7 +1364,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2690:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2690:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2690:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1703,7 +1393,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2690:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2690:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2690:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1732,7 +1422,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2690:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2690:X_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2690:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1761,7 +1451,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2690:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2690:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2690:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1800,7 +1490,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2702:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2702:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2702:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1829,7 +1519,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2702:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2702:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2702:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1858,7 +1548,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2702:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2702:X_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2702:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1887,7 +1577,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_BMS:BPM_D2702:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:BPM_D2702:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_BMS:BPM_D2702:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1926,7 +1616,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2212:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2212:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2212:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1955,7 +1645,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2212:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2212:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2212:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -1984,7 +1674,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2212:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2212:X_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2212:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2013,7 +1703,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2212:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2212:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2212:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2052,7 +1742,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2223:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2223:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2223:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2081,7 +1771,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2223:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2223:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2223:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2110,7 +1800,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2223:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2223:X_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2223:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2139,7 +1829,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2223:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2223:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2223:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2178,7 +1868,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2248:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2248:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2248:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2207,7 +1897,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2248:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2248:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2248:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2236,7 +1926,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2248:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2248:X_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2248:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2265,7 +1955,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2248:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2248:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2248:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2304,7 +1994,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2278:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2278:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2278:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2333,7 +2023,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2278:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2278:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2278:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2362,7 +2052,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2278:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2278:X_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2278:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2391,7 +2081,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2278:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2278:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2278:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2430,7 +2120,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2313:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2313:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2313:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2459,7 +2149,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2313:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2313:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2313:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2488,7 +2178,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2313:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2313:X_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2313:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2517,7 +2207,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2313:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2313:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2313:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2556,7 +2246,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2369:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2369:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2369:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2585,7 +2275,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2369:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2369:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2369:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2614,7 +2304,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2369:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2369:X_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2369:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2643,7 +2333,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2369:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2369:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2369:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2682,7 +2372,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2383:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2383:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2383:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2711,7 +2401,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2383:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2383:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2383:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2740,7 +2430,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2383:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2383:X_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2383:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2769,7 +2459,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:FS1_CSS:BPM_D2383:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:BPM_D2383:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:FS1_CSS:BPM_D2383:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2808,7 +2498,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D1967:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D1967:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D1967:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2837,7 +2527,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D1967:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D1967:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D1967:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2866,7 +2556,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D1967:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D1967:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D1967:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2895,7 +2585,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D1967:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D1967:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D1967:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2934,7 +2624,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D1980:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D1980:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D1980:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2963,7 +2653,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D1980:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D1980:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D1980:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -2992,7 +2682,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D1980:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D1980:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D1980:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3021,7 +2711,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D1980:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D1980:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D1980:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3060,7 +2750,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D2027:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D2027:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D2027:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3089,7 +2779,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D2027:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D2027:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D2027:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3118,7 +2808,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D2027:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D2027:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D2027:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3147,7 +2837,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D2027:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D2027:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D2027:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3186,7 +2876,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D2054:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D2054:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D2054:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3215,7 +2905,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D2054:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D2054:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D2054:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3244,7 +2934,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D2054:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D2054:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D2054:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3273,7 +2963,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D2054:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D2054:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D2054:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3312,7 +3002,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D2116:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D2116:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D2116:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3341,7 +3031,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D2116:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D2116:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D2116:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3370,7 +3060,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D2116:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D2116:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D2116:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3399,7 +3089,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D2116:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D2116:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D2116:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3438,7 +3128,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D2130:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D2130:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D2130:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3467,7 +3157,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D2130:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D2130:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D2130:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3496,7 +3186,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D2130:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D2130:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D2130:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3525,7 +3215,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_BTS:BPM_D2130:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:BPM_D2130:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_BTS:BPM_D2130:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3564,7 +3254,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA01:BPM_D1129:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA01:BPM_D1129:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA01:BPM_D1129:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3593,7 +3283,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA01:BPM_D1129:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA01:BPM_D1129:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA01:BPM_D1129:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3622,7 +3312,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA01:BPM_D1129:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA01:BPM_D1129:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA01:BPM_D1129:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3651,7 +3341,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA01:BPM_D1129:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA01:BPM_D1129:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA01:BPM_D1129:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3690,7 +3380,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA01:BPM_D1144:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA01:BPM_D1144:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA01:BPM_D1144:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3719,7 +3409,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA01:BPM_D1144:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA01:BPM_D1144:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA01:BPM_D1144:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3748,7 +3438,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA01:BPM_D1144:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA01:BPM_D1144:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA01:BPM_D1144:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3777,7 +3467,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA01:BPM_D1144:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA01:BPM_D1144:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA01:BPM_D1144:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3816,7 +3506,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA02:BPM_D1163:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA02:BPM_D1163:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA02:BPM_D1163:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3845,7 +3535,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA02:BPM_D1163:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA02:BPM_D1163:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA02:BPM_D1163:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3874,7 +3564,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA02:BPM_D1163:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA02:BPM_D1163:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA02:BPM_D1163:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3903,7 +3593,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA02:BPM_D1163:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA02:BPM_D1163:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA02:BPM_D1163:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3942,7 +3632,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA02:BPM_D1177:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA02:BPM_D1177:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA02:BPM_D1177:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -3971,7 +3661,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA02:BPM_D1177:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA02:BPM_D1177:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA02:BPM_D1177:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4000,7 +3690,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA02:BPM_D1177:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA02:BPM_D1177:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA02:BPM_D1177:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4029,7 +3719,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA02:BPM_D1177:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA02:BPM_D1177:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA02:BPM_D1177:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4068,7 +3758,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA03:BPM_D1196:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA03:BPM_D1196:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA03:BPM_D1196:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4097,7 +3787,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA03:BPM_D1196:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA03:BPM_D1196:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA03:BPM_D1196:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4126,7 +3816,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA03:BPM_D1196:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA03:BPM_D1196:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA03:BPM_D1196:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4155,7 +3845,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA03:BPM_D1196:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA03:BPM_D1196:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA03:BPM_D1196:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4194,7 +3884,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA03:BPM_D1211:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA03:BPM_D1211:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA03:BPM_D1211:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4223,7 +3913,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA03:BPM_D1211:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA03:BPM_D1211:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA03:BPM_D1211:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4252,7 +3942,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA03:BPM_D1211:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA03:BPM_D1211:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA03:BPM_D1211:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4281,7 +3971,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CA03:BPM_D1211:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CA03:BPM_D1211:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CA03:BPM_D1211:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4320,7 +4010,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB01:BPM_D1231:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB01:BPM_D1231:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB01:BPM_D1231:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4349,7 +4039,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB01:BPM_D1231:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB01:BPM_D1231:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB01:BPM_D1231:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4378,7 +4068,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB01:BPM_D1231:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB01:BPM_D1231:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB01:BPM_D1231:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4407,7 +4097,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB01:BPM_D1231:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB01:BPM_D1231:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB01:BPM_D1231:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4446,7 +4136,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB01:BPM_D1251:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB01:BPM_D1251:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB01:BPM_D1251:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4475,7 +4165,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB01:BPM_D1251:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB01:BPM_D1251:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB01:BPM_D1251:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4504,7 +4194,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB01:BPM_D1251:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB01:BPM_D1251:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB01:BPM_D1251:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4533,7 +4223,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB01:BPM_D1251:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB01:BPM_D1251:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB01:BPM_D1251:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4572,7 +4262,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB01:BPM_D1271:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB01:BPM_D1271:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB01:BPM_D1271:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4601,7 +4291,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB01:BPM_D1271:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB01:BPM_D1271:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB01:BPM_D1271:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4630,7 +4320,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB01:BPM_D1271:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB01:BPM_D1271:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB01:BPM_D1271:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4659,7 +4349,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB01:BPM_D1271:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB01:BPM_D1271:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB01:BPM_D1271:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4698,7 +4388,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB02:BPM_D1295:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:BPM_D1295:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB02:BPM_D1295:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4727,7 +4417,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB02:BPM_D1295:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:BPM_D1295:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB02:BPM_D1295:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4756,7 +4446,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB02:BPM_D1295:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:BPM_D1295:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB02:BPM_D1295:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4785,7 +4475,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB02:BPM_D1295:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:BPM_D1295:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB02:BPM_D1295:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4824,7 +4514,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB02:BPM_D1315:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:BPM_D1315:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB02:BPM_D1315:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4853,7 +4543,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB02:BPM_D1315:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:BPM_D1315:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB02:BPM_D1315:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4882,7 +4572,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB02:BPM_D1315:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:BPM_D1315:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB02:BPM_D1315:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4911,7 +4601,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB02:BPM_D1315:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:BPM_D1315:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB02:BPM_D1315:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4950,7 +4640,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB02:BPM_D1335:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:BPM_D1335:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB02:BPM_D1335:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -4979,7 +4669,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB02:BPM_D1335:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:BPM_D1335:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB02:BPM_D1335:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5008,7 +4698,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB02:BPM_D1335:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:BPM_D1335:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB02:BPM_D1335:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5037,7 +4727,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB02:BPM_D1335:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:BPM_D1335:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB02:BPM_D1335:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5076,7 +4766,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB03:BPM_D1359:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:BPM_D1359:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB03:BPM_D1359:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5105,7 +4795,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB03:BPM_D1359:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:BPM_D1359:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB03:BPM_D1359:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5134,7 +4824,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB03:BPM_D1359:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:BPM_D1359:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB03:BPM_D1359:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5163,7 +4853,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB03:BPM_D1359:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:BPM_D1359:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB03:BPM_D1359:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5202,7 +4892,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB03:BPM_D1379:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:BPM_D1379:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB03:BPM_D1379:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5231,7 +4921,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB03:BPM_D1379:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:BPM_D1379:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB03:BPM_D1379:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5260,7 +4950,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB03:BPM_D1379:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:BPM_D1379:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB03:BPM_D1379:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5289,7 +4979,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB03:BPM_D1379:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:BPM_D1379:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB03:BPM_D1379:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5328,7 +5018,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB03:BPM_D1399:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:BPM_D1399:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB03:BPM_D1399:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5357,7 +5047,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB03:BPM_D1399:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:BPM_D1399:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB03:BPM_D1399:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5386,7 +5076,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB03:BPM_D1399:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:BPM_D1399:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB03:BPM_D1399:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5415,7 +5105,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB03:BPM_D1399:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:BPM_D1399:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB03:BPM_D1399:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5454,7 +5144,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB04:BPM_D1423:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:BPM_D1423:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB04:BPM_D1423:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5483,7 +5173,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB04:BPM_D1423:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:BPM_D1423:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB04:BPM_D1423:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5512,7 +5202,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB04:BPM_D1423:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:BPM_D1423:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB04:BPM_D1423:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5541,7 +5231,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB04:BPM_D1423:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:BPM_D1423:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB04:BPM_D1423:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5580,7 +5270,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB04:BPM_D1442:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:BPM_D1442:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB04:BPM_D1442:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5609,7 +5299,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB04:BPM_D1442:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:BPM_D1442:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB04:BPM_D1442:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5638,7 +5328,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB04:BPM_D1442:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:BPM_D1442:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB04:BPM_D1442:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5667,7 +5357,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB04:BPM_D1442:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:BPM_D1442:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB04:BPM_D1442:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5706,7 +5396,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB04:BPM_D1462:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:BPM_D1462:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB04:BPM_D1462:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5735,7 +5425,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB04:BPM_D1462:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:BPM_D1462:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB04:BPM_D1462:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5764,7 +5454,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB04:BPM_D1462:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:BPM_D1462:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB04:BPM_D1462:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5793,7 +5483,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB04:BPM_D1462:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:BPM_D1462:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB04:BPM_D1462:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5832,7 +5522,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB05:BPM_D1486:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:BPM_D1486:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB05:BPM_D1486:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5861,7 +5551,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB05:BPM_D1486:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:BPM_D1486:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB05:BPM_D1486:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5890,7 +5580,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB05:BPM_D1486:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:BPM_D1486:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB05:BPM_D1486:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5919,7 +5609,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB05:BPM_D1486:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:BPM_D1486:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB05:BPM_D1486:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5958,7 +5648,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB05:BPM_D1506:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:BPM_D1506:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB05:BPM_D1506:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -5987,7 +5677,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB05:BPM_D1506:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:BPM_D1506:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB05:BPM_D1506:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6016,7 +5706,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB05:BPM_D1506:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:BPM_D1506:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB05:BPM_D1506:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6045,7 +5735,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB05:BPM_D1506:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:BPM_D1506:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB05:BPM_D1506:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6084,7 +5774,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB05:BPM_D1526:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:BPM_D1526:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB05:BPM_D1526:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6113,7 +5803,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB05:BPM_D1526:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:BPM_D1526:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB05:BPM_D1526:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6142,7 +5832,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB05:BPM_D1526:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:BPM_D1526:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB05:BPM_D1526:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6171,7 +5861,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB05:BPM_D1526:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:BPM_D1526:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB05:BPM_D1526:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6210,7 +5900,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB06:BPM_D1550:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:BPM_D1550:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB06:BPM_D1550:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6239,7 +5929,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB06:BPM_D1550:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:BPM_D1550:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB06:BPM_D1550:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6268,7 +5958,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB06:BPM_D1550:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:BPM_D1550:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB06:BPM_D1550:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6297,7 +5987,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB06:BPM_D1550:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:BPM_D1550:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB06:BPM_D1550:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6336,7 +6026,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB06:BPM_D1570:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:BPM_D1570:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB06:BPM_D1570:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6365,7 +6055,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB06:BPM_D1570:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:BPM_D1570:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB06:BPM_D1570:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6394,7 +6084,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB06:BPM_D1570:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:BPM_D1570:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB06:BPM_D1570:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6423,7 +6113,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB06:BPM_D1570:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:BPM_D1570:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB06:BPM_D1570:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6462,7 +6152,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB06:BPM_D1590:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:BPM_D1590:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB06:BPM_D1590:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6491,7 +6181,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB06:BPM_D1590:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:BPM_D1590:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB06:BPM_D1590:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6520,7 +6210,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB06:BPM_D1590:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:BPM_D1590:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB06:BPM_D1590:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6549,7 +6239,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB06:BPM_D1590:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:BPM_D1590:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB06:BPM_D1590:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6588,7 +6278,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB07:BPM_D1614:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:BPM_D1614:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB07:BPM_D1614:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6617,7 +6307,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB07:BPM_D1614:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:BPM_D1614:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB07:BPM_D1614:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6646,7 +6336,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB07:BPM_D1614:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:BPM_D1614:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB07:BPM_D1614:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6675,7 +6365,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB07:BPM_D1614:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:BPM_D1614:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB07:BPM_D1614:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6714,7 +6404,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB07:BPM_D1634:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:BPM_D1634:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB07:BPM_D1634:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6743,7 +6433,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB07:BPM_D1634:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:BPM_D1634:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB07:BPM_D1634:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6772,7 +6462,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB07:BPM_D1634:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:BPM_D1634:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB07:BPM_D1634:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6801,7 +6491,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB07:BPM_D1634:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:BPM_D1634:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB07:BPM_D1634:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6840,7 +6530,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB07:BPM_D1654:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:BPM_D1654:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB07:BPM_D1654:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6869,7 +6559,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB07:BPM_D1654:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:BPM_D1654:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB07:BPM_D1654:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6898,7 +6588,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB07:BPM_D1654:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:BPM_D1654:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB07:BPM_D1654:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6927,7 +6617,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB07:BPM_D1654:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:BPM_D1654:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB07:BPM_D1654:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6966,7 +6656,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB08:BPM_D1677:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:BPM_D1677:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB08:BPM_D1677:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -6995,7 +6685,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB08:BPM_D1677:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:BPM_D1677:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB08:BPM_D1677:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7024,7 +6714,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB08:BPM_D1677:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:BPM_D1677:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB08:BPM_D1677:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7053,7 +6743,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB08:BPM_D1677:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:BPM_D1677:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB08:BPM_D1677:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7092,7 +6782,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB08:BPM_D1697:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:BPM_D1697:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB08:BPM_D1697:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7121,7 +6811,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB08:BPM_D1697:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:BPM_D1697:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB08:BPM_D1697:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7150,7 +6840,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB08:BPM_D1697:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:BPM_D1697:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB08:BPM_D1697:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7179,7 +6869,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB08:BPM_D1697:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:BPM_D1697:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB08:BPM_D1697:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7218,7 +6908,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB08:BPM_D1717:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:BPM_D1717:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB08:BPM_D1717:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7247,7 +6937,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB08:BPM_D1717:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:BPM_D1717:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB08:BPM_D1717:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7276,7 +6966,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB08:BPM_D1717:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:BPM_D1717:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB08:BPM_D1717:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7305,7 +6995,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB08:BPM_D1717:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:BPM_D1717:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB08:BPM_D1717:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7344,7 +7034,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB09:BPM_D1741:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:BPM_D1741:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB09:BPM_D1741:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7373,7 +7063,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB09:BPM_D1741:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:BPM_D1741:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB09:BPM_D1741:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7402,7 +7092,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB09:BPM_D1741:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:BPM_D1741:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB09:BPM_D1741:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7431,7 +7121,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB09:BPM_D1741:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:BPM_D1741:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB09:BPM_D1741:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7470,7 +7160,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB09:BPM_D1761:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:BPM_D1761:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB09:BPM_D1761:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7499,7 +7189,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB09:BPM_D1761:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:BPM_D1761:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB09:BPM_D1761:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7528,7 +7218,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB09:BPM_D1761:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:BPM_D1761:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB09:BPM_D1761:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7557,7 +7247,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB09:BPM_D1761:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:BPM_D1761:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB09:BPM_D1761:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7596,7 +7286,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB09:BPM_D1781:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:BPM_D1781:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB09:BPM_D1781:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7625,7 +7315,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB09:BPM_D1781:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:BPM_D1781:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB09:BPM_D1781:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7654,7 +7344,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB09:BPM_D1781:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:BPM_D1781:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB09:BPM_D1781:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7683,7 +7373,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB09:BPM_D1781:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:BPM_D1781:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB09:BPM_D1781:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7722,7 +7412,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB10:BPM_D1805:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:BPM_D1805:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB10:BPM_D1805:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7751,7 +7441,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB10:BPM_D1805:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:BPM_D1805:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB10:BPM_D1805:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7780,7 +7470,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB10:BPM_D1805:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:BPM_D1805:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB10:BPM_D1805:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7809,7 +7499,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB10:BPM_D1805:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:BPM_D1805:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB10:BPM_D1805:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7848,7 +7538,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB10:BPM_D1825:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:BPM_D1825:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB10:BPM_D1825:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7877,7 +7567,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB10:BPM_D1825:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:BPM_D1825:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB10:BPM_D1825:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7906,7 +7596,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB10:BPM_D1825:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:BPM_D1825:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB10:BPM_D1825:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7935,7 +7625,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB10:BPM_D1825:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:BPM_D1825:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB10:BPM_D1825:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -7974,7 +7664,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB10:BPM_D1845:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:BPM_D1845:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB10:BPM_D1845:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8003,7 +7693,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB10:BPM_D1845:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:BPM_D1845:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB10:BPM_D1845:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8032,7 +7722,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB10:BPM_D1845:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:BPM_D1845:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB10:BPM_D1845:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8061,7 +7751,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB10:BPM_D1845:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:BPM_D1845:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB10:BPM_D1845:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8100,7 +7790,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB11:BPM_D1869:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:BPM_D1869:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB11:BPM_D1869:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8129,7 +7819,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB11:BPM_D1869:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:BPM_D1869:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB11:BPM_D1869:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8158,7 +7848,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB11:BPM_D1869:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:BPM_D1869:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB11:BPM_D1869:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8187,7 +7877,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB11:BPM_D1869:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:BPM_D1869:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB11:BPM_D1869:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8226,7 +7916,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB11:BPM_D1889:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:BPM_D1889:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB11:BPM_D1889:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8255,7 +7945,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB11:BPM_D1889:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:BPM_D1889:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB11:BPM_D1889:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8284,7 +7974,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB11:BPM_D1889:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:BPM_D1889:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB11:BPM_D1889:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8313,7 +8003,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB11:BPM_D1889:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:BPM_D1889:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB11:BPM_D1889:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8352,7 +8042,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB11:BPM_D1909:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:BPM_D1909:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB11:BPM_D1909:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8381,7 +8071,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB11:BPM_D1909:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:BPM_D1909:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB11:BPM_D1909:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8410,7 +8100,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB11:BPM_D1909:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:BPM_D1909:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB11:BPM_D1909:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8439,7 +8129,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_CB11:BPM_D1909:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:BPM_D1909:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_CB11:BPM_D1909:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8478,7 +8168,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WA01:BPM_D1155:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WA01:BPM_D1155:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WA01:BPM_D1155:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8507,7 +8197,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WA01:BPM_D1155:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WA01:BPM_D1155:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WA01:BPM_D1155:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8536,7 +8226,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WA01:BPM_D1155:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WA01:BPM_D1155:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WA01:BPM_D1155:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8565,7 +8255,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WA01:BPM_D1155:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WA01:BPM_D1155:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WA01:BPM_D1155:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8604,7 +8294,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WA02:BPM_D1188:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WA02:BPM_D1188:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WA02:BPM_D1188:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8633,7 +8323,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WA02:BPM_D1188:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WA02:BPM_D1188:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WA02:BPM_D1188:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8662,7 +8352,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WA02:BPM_D1188:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WA02:BPM_D1188:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WA02:BPM_D1188:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8691,7 +8381,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WA02:BPM_D1188:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WA02:BPM_D1188:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WA02:BPM_D1188:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8730,7 +8420,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WA03:BPM_D1222:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WA03:BPM_D1222:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WA03:BPM_D1222:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8759,7 +8449,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WA03:BPM_D1222:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WA03:BPM_D1222:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WA03:BPM_D1222:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8788,7 +8478,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WA03:BPM_D1222:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WA03:BPM_D1222:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WA03:BPM_D1222:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8817,7 +8507,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WA03:BPM_D1222:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WA03:BPM_D1222:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WA03:BPM_D1222:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8856,7 +8546,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB01:BPM_D1286:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB01:BPM_D1286:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB01:BPM_D1286:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8885,7 +8575,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB01:BPM_D1286:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB01:BPM_D1286:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB01:BPM_D1286:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8914,7 +8604,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB01:BPM_D1286:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB01:BPM_D1286:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB01:BPM_D1286:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8943,7 +8633,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB01:BPM_D1286:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB01:BPM_D1286:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB01:BPM_D1286:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -8982,7 +8672,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB02:BPM_D1350:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB02:BPM_D1350:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB02:BPM_D1350:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9011,7 +8701,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB02:BPM_D1350:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB02:BPM_D1350:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB02:BPM_D1350:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9040,7 +8730,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB02:BPM_D1350:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB02:BPM_D1350:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB02:BPM_D1350:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9069,7 +8759,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB02:BPM_D1350:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB02:BPM_D1350:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB02:BPM_D1350:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9108,7 +8798,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB03:BPM_D1413:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB03:BPM_D1413:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB03:BPM_D1413:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9137,7 +8827,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB03:BPM_D1413:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB03:BPM_D1413:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB03:BPM_D1413:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9166,7 +8856,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB03:BPM_D1413:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB03:BPM_D1413:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB03:BPM_D1413:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9195,7 +8885,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB03:BPM_D1413:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB03:BPM_D1413:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB03:BPM_D1413:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9234,7 +8924,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB04:BPM_D1477:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB04:BPM_D1477:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB04:BPM_D1477:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9263,7 +8953,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB04:BPM_D1477:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB04:BPM_D1477:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB04:BPM_D1477:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9292,7 +8982,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB04:BPM_D1477:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB04:BPM_D1477:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB04:BPM_D1477:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9321,7 +9011,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB04:BPM_D1477:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB04:BPM_D1477:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB04:BPM_D1477:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9360,7 +9050,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB05:BPM_D1541:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB05:BPM_D1541:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB05:BPM_D1541:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9389,7 +9079,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB05:BPM_D1541:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB05:BPM_D1541:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB05:BPM_D1541:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9418,7 +9108,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB05:BPM_D1541:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB05:BPM_D1541:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB05:BPM_D1541:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9447,7 +9137,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB05:BPM_D1541:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB05:BPM_D1541:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB05:BPM_D1541:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9486,7 +9176,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB06:BPM_D1604:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB06:BPM_D1604:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB06:BPM_D1604:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9515,7 +9205,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB06:BPM_D1604:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB06:BPM_D1604:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB06:BPM_D1604:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9544,7 +9234,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB06:BPM_D1604:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB06:BPM_D1604:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB06:BPM_D1604:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9573,7 +9263,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB06:BPM_D1604:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB06:BPM_D1604:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB06:BPM_D1604:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9612,7 +9302,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB07:BPM_D1668:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB07:BPM_D1668:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB07:BPM_D1668:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9641,7 +9331,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB07:BPM_D1668:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB07:BPM_D1668:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB07:BPM_D1668:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9670,7 +9360,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB07:BPM_D1668:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB07:BPM_D1668:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB07:BPM_D1668:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9699,7 +9389,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB07:BPM_D1668:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB07:BPM_D1668:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB07:BPM_D1668:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9738,7 +9428,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB08:BPM_D1732:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB08:BPM_D1732:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB08:BPM_D1732:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9767,7 +9457,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB08:BPM_D1732:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB08:BPM_D1732:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB08:BPM_D1732:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9796,7 +9486,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB08:BPM_D1732:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB08:BPM_D1732:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB08:BPM_D1732:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9825,7 +9515,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB08:BPM_D1732:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB08:BPM_D1732:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB08:BPM_D1732:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9864,7 +9554,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB09:BPM_D1796:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB09:BPM_D1796:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB09:BPM_D1796:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9893,7 +9583,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB09:BPM_D1796:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB09:BPM_D1796:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB09:BPM_D1796:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9922,7 +9612,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB09:BPM_D1796:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB09:BPM_D1796:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB09:BPM_D1796:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9951,7 +9641,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB09:BPM_D1796:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB09:BPM_D1796:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB09:BPM_D1796:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -9990,7 +9680,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB10:BPM_D1859:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB10:BPM_D1859:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB10:BPM_D1859:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -10019,7 +9709,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB10:BPM_D1859:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB10:BPM_D1859:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB10:BPM_D1859:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -10048,7 +9738,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB10:BPM_D1859:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB10:BPM_D1859:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB10:BPM_D1859:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -10077,7 +9767,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB10:BPM_D1859:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB10:BPM_D1859:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB10:BPM_D1859:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -10116,7 +9806,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB11:BPM_D1923:ENG_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB11:BPM_D1923:ENG_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB11:BPM_D1923:ENG_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -10145,7 +9835,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB11:BPM_D1923:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB11:BPM_D1923:PHA_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB11:BPM_D1923:PHA_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -10174,7 +9864,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB11:BPM_D1923:X_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB11:BPM_D1923:X_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB11:BPM_D1923:X_RD(0)</value>
         </exp>
       </rule>
     </rules>
@@ -10203,7 +9893,7 @@ with TempFile(delete=False, prefix="archivedata_") as temp_archive_data_file:
           <value>VA:LS1_WB11:BPM_D1923:Y_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_WB11:BPM_D1923:Y_RD(-1)</value>
+          <value>loc://time_travel_VA:LS1_WB11:BPM_D1923:Y_RD(0)</value>
         </exp>
       </rule>
     </rules>
