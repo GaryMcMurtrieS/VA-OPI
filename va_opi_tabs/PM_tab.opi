@@ -43,10 +43,13 @@
 
 import datetime
 import subprocess
-from tempfile import NamedTemporaryFile as TempFile
+from glob import glob
+from tempfile import NamedTemporaryFile as tempfile
 
+from java.lang import Thread
 from org.csstudio.opibuilder.scriptUtil import PVUtil
 
+# Only execute script if in time travel mode
 if PVUtil.getDouble(pvs[2]) == 1:
     # Get the start and end times for when PV data should be pulled as a string
     time_start = PVUtil.getString(pvs[1])
@@ -56,42 +59,50 @@ if PVUtil.getDouble(pvs[2]) == 1:
     # Necessary to get pyarchappl to function properly
     unset_command = "unset PYTHONPATH"
 
+    # List of PVs that we want to pull data for
     pv_list = [str(pv) for pv in pvs[2:]]
 
-    # Create a temporary file to hold the archival data
-    with TempFile() as temp_archive_file:
-        archive_file = temp_archive_file.name
+    # Prefix, used to check if we already ran the relevant archive command
+    prefix = "{}_{}_".format(time_start, str(pvs[0])[21:-3])
+    for char in "-:.":
+        prefix = prefix.replace(char, '')
 
-        # Command that actually pulls the historic data
-        archappl_command = [
-            "pyarchappl-get", "--url http://127.0.0.1:17665", "--output {}".format(archive_file),
-            "--from {}".format(time_start), "--to {}".format(time_end)
-        ] + ["--pv {}".format(pv) for pv in pv_list]
+    # Check if the archive file already exists
+    existing_files = glob('/tmp/{}*'.format(prefix))
+    archive_file = existing_files[0] if existing_files else None
 
-        # Combine the unset command with actual command
-        full_command = unset_command + "; " + " ".join(archappl_command)
+    # If no such file exists, create a new one
+    if not archive_file:
+        with tempfile(prefix=prefix, delete=False) as temp_archive_file:
+            archive_file = temp_archive_file.name
 
-        # Run the command
-        process = subprocess.Popen(full_command, shell=True)
-        process.wait()
+            # Command that actually pulls the historic data
+            archappl_command = [
+                "pyarchappl-get", "--from {}".format(time_start), "--to {}".format(time_end),
+                "--url http://127.0.0.1:17665", "--output {}".format(archive_file)
+            ] + ["--pv {}".format(pv) for pv in pv_list]
 
-        # Read the data from the output file
-        with open(archive_file) as archive_csv:
-            archived_pvs = next(archive_csv).strip().split(',')[1:]  # Excluding time
+            full_command = unset_command + "; " + " ".join(archappl_command)
 
-            # Create a dict for all PVs that were archived
-            archived_data = {pv: None for pv in archived_pvs}
+            process = subprocess.Popen(full_command, shell=True)
+            process.wait()
 
-            for row in archive_csv:
-                archived_values = row.strip().split(',')[
-                    1:]  # Exclude the timestamp from the values
+    # Read the data from the output file
+    with open(archive_file) as archive_csv:
+        archived_pvs = next(archive_csv).strip().split(',')[1:]
 
-                # Iterate over the values and their corresponding PVs
-                for archived_value, archived_pv in zip(archived_values, archived_pvs):
-                    # If the value in the dict is None and this value is not an empty string, write
-                    # it to the dict
-                    if archived_data[archived_pv] is None and archived_value != "":
-                        archived_data[archived_pv] = archived_value
+        # Create a dict for all PVs that were archived
+        archived_data = {pv: None for pv in archived_pvs}
+
+        for row in archive_csv:
+            archived_values = row.strip().split(',')[1:]
+
+            # Iterate over the values and their corresponding PVs
+            for archived_value, archived_pv in zip(archived_values, archived_pvs):
+                # If the value in the dict is None and this value is not an empty string, write
+                # it to the dict
+                if archived_data[archived_pv] is None and archived_value != "":
+                    archived_data[archived_pv] = archived_value
 
     # After reading the entire CSV file, write values or "No Data Found" to PVs
     for pv in pv_list:
@@ -99,6 +110,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
             PVUtil.writePV("loc://time_travel_{}".format(pv), archived_data[pv])
         else:
             PVUtil.writePV("loc://time_travel_{}".format(pv), "No Data Found")
+        Thread.sleep(10)  # Writing PVs too quickly can cause errors
 ]]></scriptText>
         <pv trig="True">loc://$(DID)_trigger_PM(0)</pv>
         <pv trig="True">loc://time_PM</pv>
@@ -312,7 +324,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BBS:PM_D2444:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:PM_D2444:CXY_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2444:CXY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -342,7 +354,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BBS:PM_D2444:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:PM_D2444:XCEN_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2444:XCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -372,7 +384,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BBS:PM_D2444:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:PM_D2444:XRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2444:XRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -402,7 +414,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BBS:PM_D2444:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:PM_D2444:XYRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2444:XYRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -432,7 +444,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BBS:PM_D2444:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:PM_D2444:XY_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2444:XY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -462,7 +474,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BBS:PM_D2444:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:PM_D2444:YCEN_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2444:YCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -492,7 +504,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BBS:PM_D2444:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:PM_D2444:YRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2444:YRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -532,7 +544,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BBS:PM_D2482:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:PM_D2482:CXY_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2482:CXY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -562,7 +574,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BBS:PM_D2482:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:PM_D2482:XCEN_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2482:XCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -592,7 +604,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BBS:PM_D2482:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:PM_D2482:XRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2482:XRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -622,7 +634,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BBS:PM_D2482:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:PM_D2482:XYRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2482:XYRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -652,7 +664,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BBS:PM_D2482:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:PM_D2482:XY_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2482:XY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -682,7 +694,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BBS:PM_D2482:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:PM_D2482:YCEN_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2482:YCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -712,7 +724,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BBS:PM_D2482:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:PM_D2482:YRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BBS:PM_D2482:YRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -752,7 +764,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BMS:PM_D2504:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:PM_D2504:CXY_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2504:CXY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -782,7 +794,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BMS:PM_D2504:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:PM_D2504:XCEN_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2504:XCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -812,7 +824,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BMS:PM_D2504:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:PM_D2504:XRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2504:XRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -842,7 +854,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BMS:PM_D2504:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:PM_D2504:XYRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2504:XYRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -872,7 +884,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BMS:PM_D2504:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:PM_D2504:XY_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2504:XY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -902,7 +914,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BMS:PM_D2504:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:PM_D2504:YCEN_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2504:YCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -932,7 +944,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BMS:PM_D2504:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:PM_D2504:YRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2504:YRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -972,7 +984,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BMS:PM_D2602:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:PM_D2602:CXY_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2602:CXY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1002,7 +1014,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BMS:PM_D2602:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:PM_D2602:XCEN_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2602:XCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1032,7 +1044,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BMS:PM_D2602:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:PM_D2602:XRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2602:XRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1062,7 +1074,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BMS:PM_D2602:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:PM_D2602:XYRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2602:XYRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1092,7 +1104,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BMS:PM_D2602:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:PM_D2602:XY_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2602:XY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1122,7 +1134,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BMS:PM_D2602:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:PM_D2602:YCEN_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2602:YCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1152,7 +1164,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BMS:PM_D2602:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:PM_D2602:YRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2602:YRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1192,7 +1204,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BMS:PM_D2703:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:PM_D2703:CXY_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2703:CXY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1222,7 +1234,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BMS:PM_D2703:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:PM_D2703:XCEN_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2703:XCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1252,7 +1264,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BMS:PM_D2703:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:PM_D2703:XRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2703:XRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1282,7 +1294,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BMS:PM_D2703:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:PM_D2703:XYRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2703:XYRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1312,7 +1324,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BMS:PM_D2703:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:PM_D2703:XY_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2703:XY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1342,7 +1354,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BMS:PM_D2703:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:PM_D2703:YCEN_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2703:YCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1372,7 +1384,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_BMS:PM_D2703:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BMS:PM_D2703:YRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_BMS:PM_D2703:YRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1412,7 +1424,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2198:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2198:CXY_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2198:CXY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1442,7 +1454,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2198:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2198:XCEN_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2198:XCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1472,7 +1484,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2198:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2198:XRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2198:XRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1502,7 +1514,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2198:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2198:XYRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2198:XYRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1532,7 +1544,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2198:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2198:XY_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2198:XY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1562,7 +1574,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2198:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2198:YCEN_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2198:YCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1592,7 +1604,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2198:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2198:YRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2198:YRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1632,7 +1644,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2225:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2225:CXY_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2225:CXY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1662,7 +1674,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2225:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2225:XCEN_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2225:XCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1692,7 +1704,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2225:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2225:XRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2225:XRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1722,7 +1734,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2225:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2225:XYRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2225:XYRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1752,7 +1764,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2225:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2225:XY_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2225:XY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1782,7 +1794,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2225:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2225:YCEN_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2225:YCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1812,7 +1824,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2225:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2225:YRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2225:YRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1852,7 +1864,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2249:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2249:CXY_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2249:CXY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1882,7 +1894,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2249:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2249:XCEN_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2249:XCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1912,7 +1924,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2249:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2249:XRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2249:XRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1942,7 +1954,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2249:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2249:XYRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2249:XYRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -1972,7 +1984,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2249:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2249:XY_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2249:XY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2002,7 +2014,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2249:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2249:YCEN_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2249:YCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2032,7 +2044,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2249:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2249:YRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2249:YRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2072,7 +2084,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2315:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2315:CXY_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2315:CXY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2102,7 +2114,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2315:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2315:XCEN_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2315:XCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2132,7 +2144,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2315:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2315:XRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2315:XRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2162,7 +2174,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2315:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2315:XYRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2315:XYRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2192,7 +2204,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2315:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2315:XY_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2315:XY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2222,7 +2234,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2315:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2315:YCEN_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2315:YCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2252,7 +2264,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2315:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2315:YRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2315:YRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2292,7 +2304,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2385:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2385:CXY_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2385:CXY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2322,7 +2334,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2385:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2385:XCEN_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2385:XCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2352,7 +2364,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2385:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2385:XRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2385:XRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2382,7 +2394,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2385:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2385:XYRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2385:XYRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2412,7 +2424,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2385:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2385:XY_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2385:XY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2442,7 +2454,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2385:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2385:YCEN_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2385:YCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2472,7 +2484,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:FS1_CSS:PM_D2385:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:PM_D2385:YRMS_RD(0)</value>
+          <value>loc://time_travel_VA:FS1_CSS:PM_D2385:YRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2512,7 +2524,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:LS1_BTS:PM_D2056:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:PM_D2056:CXY_RD(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2056:CXY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2542,7 +2554,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:LS1_BTS:PM_D2056:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:PM_D2056:XCEN_RD(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2056:XCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2572,7 +2584,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:LS1_BTS:PM_D2056:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:PM_D2056:XRMS_RD(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2056:XRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2602,7 +2614,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:LS1_BTS:PM_D2056:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:PM_D2056:XYRMS_RD(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2056:XYRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2632,7 +2644,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:LS1_BTS:PM_D2056:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:PM_D2056:XY_RD(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2056:XY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2662,7 +2674,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:LS1_BTS:PM_D2056:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:PM_D2056:YCEN_RD(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2056:YCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2692,7 +2704,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:LS1_BTS:PM_D2056:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:PM_D2056:YRMS_RD(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2056:YRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2732,7 +2744,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:LS1_BTS:PM_D2131:CXY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:PM_D2131:CXY_RD(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2131:CXY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2762,7 +2774,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:LS1_BTS:PM_D2131:XCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:PM_D2131:XCEN_RD(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2131:XCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2792,7 +2804,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:LS1_BTS:PM_D2131:XRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:PM_D2131:XRMS_RD(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2131:XRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2822,7 +2834,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:LS1_BTS:PM_D2131:XYRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:PM_D2131:XYRMS_RD(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2131:XYRMS_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2852,7 +2864,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:LS1_BTS:PM_D2131:XY_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:PM_D2131:XY_RD(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2131:XY_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2882,7 +2894,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:LS1_BTS:PM_D2131:YCEN_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:PM_D2131:YCEN_RD(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2131:YCEN_RD</value>
         </exp>
       </rule>
     </rules>
@@ -2912,7 +2924,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>VA:LS1_BTS:PM_D2131:YRMS_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_BTS:PM_D2131:YRMS_RD(0)</value>
+          <value>loc://time_travel_VA:LS1_BTS:PM_D2131:YRMS_RD</value>
         </exp>
       </rule>
     </rules>

@@ -110,7 +110,7 @@
           <value>VA:SVR:BEAM</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:SVR:BEAM(0)</value>
+          <value>loc://time_travel_VA:SVR:BEAM</value>
         </exp>
       </rule>
     </rules>
@@ -134,7 +134,7 @@
           <value>VA:SVR:CHARGE</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:SVR:CHARGE(0)</value>
+          <value>loc://time_travel_VA:SVR:CHARGE</value>
         </exp>
       </rule>
     </rules>
@@ -158,7 +158,7 @@
           <value>VA:SVR:CNT</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:SVR:CNT(0)</value>
+          <value>loc://time_travel_VA:SVR:CNT</value>
         </exp>
       </rule>
     </rules>
@@ -182,7 +182,7 @@
           <value>VA:SVR:MpsStatus</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:SVR:MpsStatus(0)</value>
+          <value>loc://time_travel_VA:SVR:MpsStatus</value>
         </exp>
       </rule>
     </rules>
@@ -206,7 +206,7 @@
           <value>VA:SVR:NOISE</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:SVR:NOISE(0)</value>
+          <value>loc://time_travel_VA:SVR:NOISE</value>
         </exp>
       </rule>
     </rules>
@@ -230,7 +230,7 @@
           <value>VA:SVR:RATE</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:SVR:RATE(0)</value>
+          <value>loc://time_travel_VA:SVR:RATE</value>
         </exp>
       </rule>
     </rules>
@@ -254,7 +254,7 @@
           <value>VA:SVR:STATUS</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:SVR:STATUS(0)</value>
+          <value>loc://time_travel_VA:SVR:STATUS</value>
         </exp>
       </rule>
     </rules>

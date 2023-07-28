@@ -127,7 +127,7 @@ def create_widget_row(parent_widget, device, device_type, column_names, column_w
             rules.SelectionRule("pv_name", f"loc://$(DID)_time_travel_{device_type}",
                                 "Time Travel Rule",
                                 [(0, process_variable),
-                                 (1, f"loc://time_travel_{process_variable}(0)")]))
+                                 (1, f"loc://time_travel_{process_variable}")]))
 
         parent_widget.add_child(parameter_output)
 
