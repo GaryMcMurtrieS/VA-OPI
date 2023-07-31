@@ -103,68 +103,66 @@ from org.csstudio.opibuilder.scriptUtil import PVUtil
 # pvs[1]: loc://time_{device_type}
 # pvs[2]: loc://$(DID)_time_travel_{device_type}", False)
 
-# Only execute script if in time travel mode
-if PVUtil.getDouble(pvs[2]) == 1:
-    # Get the start and end times for when PV data should be pulled as a string
-    time_start = PVUtil.getString(pvs[1])
-    time_end = (datetime.datetime.strptime(time_start[:-6], '%Y-%m-%dT%H:%M:%S.%f') +
-                datetime.timedelta(minutes=15)).isoformat() + time_start[-6:]
+# Get the start and end times for when PV data should be pulled as a string
+time_start = PVUtil.getString(pvs[1])
+time_end = (datetime.datetime.strptime(time_start[:-6], '%Y-%m-%dT%H:%M:%S.%f') +
+            datetime.timedelta(minutes=15)).isoformat() + time_start[-6:]
 
-    # Necessary to get pyarchappl to function properly
-    unset_command = "unset PYTHONPATH"
+# Necessary to get pyarchappl to function properly
+unset_command = "unset PYTHONPATH"
 
-    # Map each of the accelerator's PV to its local counterpart and create lists for both
-    accelerator_pv_list = [str(pv) for pv in pvs[3::2]]
-    local_pv_list = pvs[4::2]
+# Map each of the accelerator's PV to its local counterpart and create lists for both
+accelerator_pv_list = [str(pv) for pv in pvs[3::2]]
+local_pv_list = pvs[4::2]
 
-    # Prefix, used to check if we already ran the relevant archive command
-    prefix = "{}_{}_".format(time_start, str(pvs[0])[21:-3])
-    for char in "-:.":
-        prefix = prefix.replace(char, '')
+# Prefix, used to check if we already ran the relevant archive command
+prefix = "{}_{}_".format(time_start, str(pvs[0])[21:-3])
+for char in "-:.":
+    prefix = prefix.replace(char, '')
 
-    # Check if the archive file already exists
-    existing_files = glob('/tmp/{}*'.format(prefix))
-    archive_file = existing_files[0] if existing_files else None
+# Check if the archive file already exists
+existing_files = glob('/tmp/{}*'.format(prefix))
+archive_file = existing_files[0] if existing_files else None
 
-    # If no such file exists, create a new one
-    if not archive_file:
-        with tempfile(prefix=prefix, delete=False) as temp_archive_file:
-            archive_file = temp_archive_file.name
+# If no such file exists, create a new one
+if not archive_file:
+    with tempfile(prefix=prefix, delete=False) as temp_archive_file:
+        archive_file = temp_archive_file.name
 
-            # Command that actually pulls the historic data
-            archappl_command = [
-                "pyarchappl-get", "--from {}".format(time_start), "--to {}".format(time_end),
-                "--url http://127.0.0.1:17665", "--output {}".format(archive_file)
-            ] + ["--pv {}".format(pv) for pv in accelerator_pv_list]
+        # Command that actually pulls the historic data
+        archappl_command = [
+            "pyarchappl-get", "--from {}".format(time_start), "--to {}".format(time_end),
+            "--url http://127.0.0.1:17665", "--output {}".format(archive_file)
+        ] + ["--pv {}".format(pv) for pv in accelerator_pv_list]
 
-            full_command = unset_command + "; " + " ".join(archappl_command)
+        full_command = unset_command + "; " + " ".join(archappl_command)
 
-            process = subprocess.Popen(full_command, shell=True)
-            process.wait()
+        process = subprocess.Popen(full_command, shell=True)
+        process.wait()
 
-    # Read the data from the output file
-    with open(archive_file) as archive_csv:
-        archived_pvs = next(archive_csv).strip().split(',')[1:]
+# Read the data from the output file
+with open(archive_file) as archive_csv:
+    archived_pvs = next(archive_csv).strip().split(',')[1:]
 
-        # Create a dict for all PVs that were archived
-        archived_data = {pv: None for pv in archived_pvs}
+    # Create a dict for all PVs that were archived
+    archived_data = {pv: None for pv in archived_pvs}
 
-        for row in archive_csv:
-            archived_values = row.strip().split(',')[1:]
+    for row in archive_csv:
+        archived_values = row.strip().split(',')[1:]
 
-            # Iterate over the values and their corresponding PVs
-            for archived_value, archived_pv in zip(archived_values, archived_pvs):
-                # If the value in the dict is None and this value is not an empty string, write
-                # it to the dict
-                if archived_data[archived_pv] is None and archived_value != "":
-                    archived_data[archived_pv] = archived_value
+        # Iterate over the values and their corresponding PVs
+        for archived_value, archived_pv in zip(archived_values, archived_pvs):
+            # If the value in the dict is None and this value is not an empty string, write
+            # it to the dict
+            if archived_data[archived_pv] is None and archived_value != "":
+                archived_data[archived_pv] = archived_value
 
-    # After reading the entire CSV file, write values or "No Data Found" to PVs
-    for accelerator_pv, local_pv in zip(accelerator_pv_list, local_pv_list):
-        if accelerator_pv in archived_data:
-            local_pv.setValue(archived_data[accelerator_pv])
-        else:
-            local_pv.setValue("No Data Found!")
+# After reading the entire CSV file, write values or "No Data Found" to PVs
+for accelerator_pv, local_pv in zip(accelerator_pv_list, local_pv_list):
+    if accelerator_pv in archived_data:
+        local_pv.setValue(archived_data[accelerator_pv])
+    else:
+        local_pv.setValue("No Data Found!")
 ]]></text>
         <pv_name trigger="True">loc://$(DID)_trigger_DCH(0)</pv_name>
         <pv_name trigger="False">loc://time_DCH</pv_name>
@@ -614,6 +612,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_BBS:DCH_D2412:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -643,6 +654,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_BBS:DCH_D2412:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -670,6 +694,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:FS1_BBS:DCH_D2412:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -706,6 +743,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_BBS:DCH_D2476:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -735,6 +785,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_BBS:DCH_D2476:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -762,6 +825,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:FS1_BBS:DCH_D2476:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -798,6 +874,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_BMS:DCH_D2507:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -827,6 +916,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_BMS:DCH_D2507:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -854,6 +956,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:FS1_BMS:DCH_D2507:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -890,6 +1005,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_BMS:DCH_D2534:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -919,6 +1047,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_BMS:DCH_D2534:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -946,6 +1087,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:FS1_BMS:DCH_D2534:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -982,6 +1136,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_BMS:DCH_D2584:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -1011,6 +1178,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_BMS:DCH_D2584:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -1038,6 +1218,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:FS1_BMS:DCH_D2584:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -1074,6 +1267,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_BMS:DCH_D2640:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -1103,6 +1309,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_BMS:DCH_D2640:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -1130,6 +1349,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:FS1_BMS:DCH_D2640:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -1166,6 +1398,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_BMS:DCH_D2662:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -1195,6 +1440,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_BMS:DCH_D2662:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -1222,6 +1480,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:FS1_BMS:DCH_D2662:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -1258,6 +1529,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_BMS:DCH_D2688:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -1287,6 +1571,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_BMS:DCH_D2688:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -1314,6 +1611,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:FS1_BMS:DCH_D2688:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -1350,6 +1660,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_CSS:DCH_D2189:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -1379,6 +1702,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_CSS:DCH_D2189:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -1406,6 +1742,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:FS1_CSS:DCH_D2189:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -1442,6 +1791,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_CSS:DCH_D2210:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -1471,6 +1833,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_CSS:DCH_D2210:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -1498,6 +1873,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:FS1_CSS:DCH_D2210:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -1534,6 +1922,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_CSS:DCH_D2257:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -1563,6 +1964,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_CSS:DCH_D2257:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -1590,6 +2004,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:FS1_CSS:DCH_D2257:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -1626,6 +2053,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_CSS:DCH_D2276:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -1655,6 +2095,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_CSS:DCH_D2276:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -1682,6 +2135,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:FS1_CSS:DCH_D2276:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -1718,6 +2184,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_CSS:DCH_D2351:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -1747,6 +2226,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_CSS:DCH_D2351:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -1774,6 +2266,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:FS1_CSS:DCH_D2351:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -1810,6 +2315,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_CSS:DCH_D2367:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -1839,6 +2357,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_CSS:DCH_D2367:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -1866,6 +2397,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:FS1_CSS:DCH_D2367:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -1902,6 +2446,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_CSS:DCH_D2381:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -1931,6 +2488,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:FS1_CSS:DCH_D2381:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -1958,6 +2528,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:FS1_CSS:DCH_D2381:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -1994,6 +2577,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_BTS:DCH_D1937:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -2023,6 +2619,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_BTS:DCH_D1937:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -2050,6 +2659,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_BTS:DCH_D1937:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -2086,6 +2708,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_BTS:DCH_D1964:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -2115,6 +2750,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_BTS:DCH_D1964:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -2142,6 +2790,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_BTS:DCH_D1964:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -2178,6 +2839,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_BTS:DCH_D1997:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -2207,6 +2881,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_BTS:DCH_D1997:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -2234,6 +2921,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_BTS:DCH_D1997:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -2270,6 +2970,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_BTS:DCH_D2024:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -2299,6 +3012,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_BTS:DCH_D2024:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -2326,6 +3052,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_BTS:DCH_D2024:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -2362,6 +3101,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_BTS:DCH_D2061:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -2391,6 +3143,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_BTS:DCH_D2061:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -2418,6 +3183,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_BTS:DCH_D2061:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -2454,6 +3232,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_BTS:DCH_D2114:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -2483,6 +3274,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_BTS:DCH_D2114:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -2510,6 +3314,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_BTS:DCH_D2114:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -2546,6 +3363,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CA01:DCH_D1132:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -2575,6 +3405,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CA01:DCH_D1132:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -2602,6 +3445,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CA01:DCH_D1132:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -2638,6 +3494,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CA01:DCH_D1146:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -2667,6 +3536,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CA01:DCH_D1146:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -2694,6 +3576,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CA01:DCH_D1146:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -2730,6 +3625,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CA02:DCH_D1165:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -2759,6 +3667,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CA02:DCH_D1165:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -2786,6 +3707,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CA02:DCH_D1165:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -2822,6 +3756,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CA02:DCH_D1180:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -2851,6 +3798,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CA02:DCH_D1180:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -2878,6 +3838,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CA02:DCH_D1180:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -2914,6 +3887,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CA03:DCH_D1199:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -2943,6 +3929,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CA03:DCH_D1199:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -2970,6 +3969,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CA03:DCH_D1199:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -3006,6 +4018,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CA03:DCH_D1214:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -3035,6 +4060,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CA03:DCH_D1214:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -3062,6 +4100,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CA03:DCH_D1214:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -3098,6 +4149,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB01:DCH_D1235:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -3127,6 +4191,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB01:DCH_D1235:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -3154,6 +4231,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB01:DCH_D1235:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -3190,6 +4280,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB01:DCH_D1255:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -3219,6 +4322,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB01:DCH_D1255:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -3246,6 +4362,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB01:DCH_D1255:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -3282,6 +4411,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB01:DCH_D1275:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -3311,6 +4453,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB01:DCH_D1275:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -3338,6 +4493,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB01:DCH_D1275:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -3374,6 +4542,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB02:DCH_D1299:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -3403,6 +4584,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB02:DCH_D1299:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -3430,6 +4624,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB02:DCH_D1299:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -3466,6 +4673,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB02:DCH_D1319:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -3495,6 +4715,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB02:DCH_D1319:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -3522,6 +4755,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB02:DCH_D1319:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -3558,6 +4804,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB02:DCH_D1339:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -3587,6 +4846,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB02:DCH_D1339:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -3614,6 +4886,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB02:DCH_D1339:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -3650,6 +4935,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB03:DCH_D1363:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -3679,6 +4977,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB03:DCH_D1363:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -3706,6 +5017,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB03:DCH_D1363:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -3742,6 +5066,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB03:DCH_D1383:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -3771,6 +5108,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB03:DCH_D1383:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -3798,6 +5148,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB03:DCH_D1383:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -3834,6 +5197,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB03:DCH_D1403:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -3863,6 +5239,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB03:DCH_D1403:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -3890,6 +5279,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB03:DCH_D1403:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -3926,6 +5328,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB04:DCH_D1426:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -3955,6 +5370,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB04:DCH_D1426:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -3982,6 +5410,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB04:DCH_D1426:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -4018,6 +5459,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB04:DCH_D1446:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -4047,6 +5501,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB04:DCH_D1446:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -4074,6 +5541,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB04:DCH_D1446:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -4110,6 +5590,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB04:DCH_D1466:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -4139,6 +5632,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB04:DCH_D1466:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -4166,6 +5672,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB04:DCH_D1466:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -4202,6 +5721,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB05:DCH_D1490:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -4231,6 +5763,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB05:DCH_D1490:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -4258,6 +5803,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB05:DCH_D1490:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -4294,6 +5852,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB05:DCH_D1510:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -4323,6 +5894,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB05:DCH_D1510:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -4350,6 +5934,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB05:DCH_D1510:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -4386,6 +5983,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB05:DCH_D1530:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -4415,6 +6025,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB05:DCH_D1530:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -4442,6 +6065,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB05:DCH_D1530:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -4478,6 +6114,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB06:DCH_D1554:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -4507,6 +6156,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB06:DCH_D1554:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -4534,6 +6196,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB06:DCH_D1554:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -4570,6 +6245,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB06:DCH_D1574:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -4599,6 +6287,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB06:DCH_D1574:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -4626,6 +6327,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB06:DCH_D1574:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -4662,6 +6376,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB06:DCH_D1594:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -4691,6 +6418,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB06:DCH_D1594:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -4718,6 +6458,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB06:DCH_D1594:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -4754,6 +6507,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB07:DCH_D1618:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -4783,6 +6549,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB07:DCH_D1618:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -4810,6 +6589,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB07:DCH_D1618:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -4846,6 +6638,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB07:DCH_D1637:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -4875,6 +6680,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB07:DCH_D1637:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -4902,6 +6720,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB07:DCH_D1637:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -4938,6 +6769,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB07:DCH_D1657:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -4967,6 +6811,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB07:DCH_D1657:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -4994,6 +6851,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB07:DCH_D1657:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -5030,6 +6900,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB08:DCH_D1681:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -5059,6 +6942,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB08:DCH_D1681:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -5086,6 +6982,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB08:DCH_D1681:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -5122,6 +7031,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB08:DCH_D1701:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -5151,6 +7073,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB08:DCH_D1701:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -5178,6 +7113,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB08:DCH_D1701:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -5214,6 +7162,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB08:DCH_D1721:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -5243,6 +7204,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB08:DCH_D1721:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -5270,6 +7244,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB08:DCH_D1721:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -5306,6 +7293,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB09:DCH_D1745:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -5335,6 +7335,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB09:DCH_D1745:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -5362,6 +7375,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB09:DCH_D1745:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -5398,6 +7424,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB09:DCH_D1765:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -5427,6 +7466,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB09:DCH_D1765:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -5454,6 +7506,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB09:DCH_D1765:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -5490,6 +7555,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB09:DCH_D1785:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -5519,6 +7597,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB09:DCH_D1785:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -5546,6 +7637,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB09:DCH_D1785:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -5582,6 +7686,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB10:DCH_D1809:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -5611,6 +7728,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB10:DCH_D1809:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -5638,6 +7768,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB10:DCH_D1809:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -5674,6 +7817,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB10:DCH_D1829:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -5703,6 +7859,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB10:DCH_D1829:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -5730,6 +7899,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB10:DCH_D1829:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -5766,6 +7948,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB10:DCH_D1849:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -5795,6 +7990,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB10:DCH_D1849:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -5822,6 +8030,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB10:DCH_D1849:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -5858,6 +8079,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB11:DCH_D1872:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -5887,6 +8121,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB11:DCH_D1872:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -5914,6 +8161,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB11:DCH_D1872:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -5950,6 +8210,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB11:DCH_D1892:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -5979,6 +8252,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB11:DCH_D1892:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -6006,6 +8292,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB11:DCH_D1892:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -6042,6 +8341,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB11:DCH_D1912:I_CSET</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -6071,6 +8383,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
           <value>loc://time_travel_VA:LS1_CB11:DCH_D1912:I_RD</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -6098,6 +8423,19 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:LS1_CB11:DCH_D1912:I_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_DCH</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>

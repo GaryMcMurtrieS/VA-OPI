@@ -32,10 +32,12 @@ COLOR_ALPHA = 128
 
 class Colors:
     """Enumerator for graph colors"""
-    RED = Color((234, 67, 53), alpha=COLOR_ALPHA)
+    BLACK = Color((0, 0, 0))
     BLUE = Color((66, 133, 244), alpha=COLOR_ALPHA)
-    YELLOW = Color((251, 188, 5), alpha=COLOR_ALPHA)
+    DARK_BLUE = Color((3, 37, 126))
     GREEN = Color((69, 168, 83), alpha=COLOR_ALPHA)
+    RED = Color((234, 67, 53), alpha=COLOR_ALPHA)
+    YELLOW = Color((251, 188, 5), alpha=COLOR_ALPHA)
 
 
 def create_time_travel_control_row(parent_widget, device_type, filtered_pvs, y_0):
@@ -159,6 +161,11 @@ def create_widget_row(parent_widget, device, device_type, column_names, column_w
             rules.SelectionRule("pv_name", f"loc://$(DID)_time_travel_{device_type}",
                                 "Time Travel Rule", [(0, process_variable),
                                                      (1, f"loc://time_travel_{process_variable}")]))
+
+        parameter_output.add_rule(
+            rules.SelectionRule("foreground_color", f"loc://$(DID)_time_travel_{device_type}",
+                                "Time Travel Color Rule", [(0, Colors.BLACK),
+                                                           (1, Colors.DARK_BLUE)]))
 
         parent_widget.add_child(parameter_output)
 

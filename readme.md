@@ -23,7 +23,6 @@
 - Push button that opens text file with pulled data (either in seperate window or CS-Studio Array)
 - Show column units in header not values
 - Side-by-Side view for Historic and modern data
-- When in time travel, set text color to be blue
 
 Resample?
 

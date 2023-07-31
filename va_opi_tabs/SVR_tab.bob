@@ -107,6 +107,19 @@
           <value>loc://time_travel_VA:SVR:BEAM</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
@@ -129,6 +142,19 @@
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:SVR:CHARGE</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -155,6 +181,19 @@
           <value>loc://time_travel_VA:SVR:CNT</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
@@ -177,6 +216,19 @@
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:SVR:MpsStatus</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
@@ -203,6 +255,19 @@
           <value>loc://time_travel_VA:SVR:NOISE</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
@@ -227,6 +292,19 @@
           <value>loc://time_travel_VA:SVR:RATE</value>
         </exp>
       </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>140.0</width>
@@ -249,6 +327,19 @@
         </exp>
         <exp bool_exp="pv0 == 1">
           <value>loc://time_travel_VA:SVR:STATUS</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
         </exp>
       </rule>
     </rules>
