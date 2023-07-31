@@ -46,7 +46,6 @@ import subprocess
 from glob import glob
 from tempfile import NamedTemporaryFile as tempfile
 
-from java.lang import Thread
 from org.csstudio.opibuilder.scriptUtil import PVUtil
 
 # Only execute script if in time travel mode
@@ -59,8 +58,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     # Necessary to get pyarchappl to function properly
     unset_command = "unset PYTHONPATH"
 
-    # List of PVs that we want to pull data for
-    pv_list = [str(pv) for pv in pvs[2:]]
+    # Map each of the accelerator's PV to its local counterpart and create lists for both
+    accelerator_pv_list = [str(pv) for pv in pvs[3::2]]
+    local_pv_list = pvs[4::2]
 
     # Prefix, used to check if we already ran the relevant archive command
     prefix = "{}_{}_".format(time_start, str(pvs[0])[21:-3])
@@ -80,7 +80,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
             archappl_command = [
                 "pyarchappl-get", "--from {}".format(time_start), "--to {}".format(time_end),
                 "--url http://127.0.0.1:17665", "--output {}".format(archive_file)
-            ] + ["--pv {}".format(pv) for pv in pv_list]
+            ] + ["--pv {}".format(pv) for pv in accelerator_pv_list]
 
             full_command = unset_command + "; " + " ".join(archappl_command)
 
@@ -105,112 +105,207 @@ if PVUtil.getDouble(pvs[2]) == 1:
                     archived_data[archived_pv] = archived_value
 
     # After reading the entire CSV file, write values or "No Data Found" to PVs
-    for pv in pv_list:
-        if pv in archived_data:
-            PVUtil.writePV("loc://time_travel_{}".format(pv), archived_data[pv])
+    for accelerator_pv, local_pv in zip(accelerator_pv_list, local_pv_list):
+        if accelerator_pv in archived_data:
+            local_pv.setValue(archived_data[accelerator_pv])
         else:
-            PVUtil.writePV("loc://time_travel_{}".format(pv), "No Data Found")
-        Thread.sleep(10)  # Writing PVs too quickly can cause errors
+            local_pv.setValue("No Data Found!")
 ]]></scriptText>
         <pv trig="True">loc://$(DID)_trigger_CAV2(0)</pv>
         <pv trig="True">loc://time_CAV2</pv>
         <pv trig="True">loc://$(DID)_time_travel_CAV2</pv>
         <pv trig="False">VA:LS1_CA01:CAV2_D1136:PHA_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CA01:CAV2_D1136:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CA01:CAV2_D1136:AMPL_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CA01:CAV2_D1136:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CA02:CAV2_D1169:PHA_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CA02:CAV2_D1169:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CA02:CAV2_D1169:AMPL_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CA02:CAV2_D1169:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CA03:CAV2_D1203:PHA_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CA03:CAV2_D1203:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CA03:CAV2_D1203:AMPL_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CA03:CAV2_D1203:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CB01:CAV2_D1241:PHA_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB01:CAV2_D1241:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CB01:CAV2_D1241:AMPL_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB01:CAV2_D1241:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CB02:CAV2_D1305:PHA_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB02:CAV2_D1305:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CB02:CAV2_D1305:AMPL_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB02:CAV2_D1305:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CB03:CAV2_D1368:PHA_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB03:CAV2_D1368:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CB03:CAV2_D1368:AMPL_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB03:CAV2_D1368:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CB04:CAV2_D1432:PHA_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB04:CAV2_D1432:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CB04:CAV2_D1432:AMPL_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB04:CAV2_D1432:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CB05:CAV2_D1496:PHA_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB05:CAV2_D1496:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CB05:CAV2_D1496:AMPL_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB05:CAV2_D1496:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CB06:CAV2_D1560:PHA_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB06:CAV2_D1560:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CB06:CAV2_D1560:AMPL_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB06:CAV2_D1560:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CB07:CAV2_D1623:PHA_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB07:CAV2_D1623:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CB07:CAV2_D1623:AMPL_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB07:CAV2_D1623:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CB08:CAV2_D1687:PHA_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB08:CAV2_D1687:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CB08:CAV2_D1687:AMPL_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB08:CAV2_D1687:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CB09:CAV2_D1751:PHA_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB09:CAV2_D1751:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CB09:CAV2_D1751:AMPL_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB09:CAV2_D1751:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CB10:CAV2_D1814:PHA_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB10:CAV2_D1814:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CB10:CAV2_D1814:AMPL_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB10:CAV2_D1814:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CB11:CAV2_D1878:PHA_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB11:CAV2_D1878:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CB11:CAV2_D1878:AMPL_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB11:CAV2_D1878:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CH01:CAV2_D2089:PHA_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CH01:CAV2_D2089:PHA_CSET</pv>
         <pv trig="False">VA:LS1_CH01:CAV2_D2089:AMPL_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CH01:CAV2_D2089:AMPL_CSET</pv>
         <pv trig="False">VA:FS1_CH01:CAV2_D2141:PHA_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CH01:CAV2_D2141:PHA_CSET</pv>
         <pv trig="False">VA:FS1_CH01:CAV2_D2141:AMPL_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CH01:CAV2_D2141:AMPL_CSET</pv>
         <pv trig="False">VA:LS1_CA01:CAV2_D1136:PHA_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CA01:CAV2_D1136:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CA01:CAV2_D1136:PHA_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CA01:CAV2_D1136:PHA_RD</pv>
         <pv trig="False">VA:LS1_CA01:CAV2_D1136:AMPL_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CA01:CAV2_D1136:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CA01:CAV2_D1136:AMPL_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CA01:CAV2_D1136:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CA02:CAV2_D1169:PHA_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CA02:CAV2_D1169:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CA02:CAV2_D1169:PHA_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CA02:CAV2_D1169:PHA_RD</pv>
         <pv trig="False">VA:LS1_CA02:CAV2_D1169:AMPL_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CA02:CAV2_D1169:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CA02:CAV2_D1169:AMPL_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CA02:CAV2_D1169:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CA03:CAV2_D1203:PHA_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CA03:CAV2_D1203:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CA03:CAV2_D1203:PHA_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CA03:CAV2_D1203:PHA_RD</pv>
         <pv trig="False">VA:LS1_CA03:CAV2_D1203:AMPL_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CA03:CAV2_D1203:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CA03:CAV2_D1203:AMPL_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CA03:CAV2_D1203:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CB01:CAV2_D1241:PHA_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB01:CAV2_D1241:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CB01:CAV2_D1241:PHA_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB01:CAV2_D1241:PHA_RD</pv>
         <pv trig="False">VA:LS1_CB01:CAV2_D1241:AMPL_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB01:CAV2_D1241:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CB01:CAV2_D1241:AMPL_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB01:CAV2_D1241:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CB02:CAV2_D1305:PHA_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB02:CAV2_D1305:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CB02:CAV2_D1305:PHA_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB02:CAV2_D1305:PHA_RD</pv>
         <pv trig="False">VA:LS1_CB02:CAV2_D1305:AMPL_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB02:CAV2_D1305:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CB02:CAV2_D1305:AMPL_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB02:CAV2_D1305:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CB03:CAV2_D1368:PHA_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB03:CAV2_D1368:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CB03:CAV2_D1368:PHA_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB03:CAV2_D1368:PHA_RD</pv>
         <pv trig="False">VA:LS1_CB03:CAV2_D1368:AMPL_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB03:CAV2_D1368:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CB03:CAV2_D1368:AMPL_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB03:CAV2_D1368:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CB04:CAV2_D1432:PHA_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB04:CAV2_D1432:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CB04:CAV2_D1432:PHA_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB04:CAV2_D1432:PHA_RD</pv>
         <pv trig="False">VA:LS1_CB04:CAV2_D1432:AMPL_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB04:CAV2_D1432:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CB04:CAV2_D1432:AMPL_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB04:CAV2_D1432:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CB05:CAV2_D1496:PHA_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB05:CAV2_D1496:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CB05:CAV2_D1496:PHA_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB05:CAV2_D1496:PHA_RD</pv>
         <pv trig="False">VA:LS1_CB05:CAV2_D1496:AMPL_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB05:CAV2_D1496:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CB05:CAV2_D1496:AMPL_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB05:CAV2_D1496:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CB06:CAV2_D1560:PHA_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB06:CAV2_D1560:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CB06:CAV2_D1560:PHA_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB06:CAV2_D1560:PHA_RD</pv>
         <pv trig="False">VA:LS1_CB06:CAV2_D1560:AMPL_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB06:CAV2_D1560:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CB06:CAV2_D1560:AMPL_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB06:CAV2_D1560:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CB07:CAV2_D1623:PHA_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB07:CAV2_D1623:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CB07:CAV2_D1623:PHA_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB07:CAV2_D1623:PHA_RD</pv>
         <pv trig="False">VA:LS1_CB07:CAV2_D1623:AMPL_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB07:CAV2_D1623:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CB07:CAV2_D1623:AMPL_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB07:CAV2_D1623:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CB08:CAV2_D1687:PHA_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB08:CAV2_D1687:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CB08:CAV2_D1687:PHA_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB08:CAV2_D1687:PHA_RD</pv>
         <pv trig="False">VA:LS1_CB08:CAV2_D1687:AMPL_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB08:CAV2_D1687:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CB08:CAV2_D1687:AMPL_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB08:CAV2_D1687:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CB09:CAV2_D1751:PHA_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB09:CAV2_D1751:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CB09:CAV2_D1751:PHA_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB09:CAV2_D1751:PHA_RD</pv>
         <pv trig="False">VA:LS1_CB09:CAV2_D1751:AMPL_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB09:CAV2_D1751:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CB09:CAV2_D1751:AMPL_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB09:CAV2_D1751:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CB10:CAV2_D1814:PHA_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB10:CAV2_D1814:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CB10:CAV2_D1814:PHA_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB10:CAV2_D1814:PHA_RD</pv>
         <pv trig="False">VA:LS1_CB10:CAV2_D1814:AMPL_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB10:CAV2_D1814:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CB10:CAV2_D1814:AMPL_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB10:CAV2_D1814:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CB11:CAV2_D1878:PHA_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB11:CAV2_D1878:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CB11:CAV2_D1878:PHA_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB11:CAV2_D1878:PHA_RD</pv>
         <pv trig="False">VA:LS1_CB11:CAV2_D1878:AMPL_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB11:CAV2_D1878:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CB11:CAV2_D1878:AMPL_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CB11:CAV2_D1878:AMPL_RD</pv>
         <pv trig="False">VA:LS1_CH01:CAV2_D2089:PHA_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CH01:CAV2_D2089:PHA_RSET</pv>
         <pv trig="False">VA:LS1_CH01:CAV2_D2089:PHA_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CH01:CAV2_D2089:PHA_RD</pv>
         <pv trig="False">VA:LS1_CH01:CAV2_D2089:AMPL_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CH01:CAV2_D2089:AMPL_RSET</pv>
         <pv trig="False">VA:LS1_CH01:CAV2_D2089:AMPL_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_CH01:CAV2_D2089:AMPL_RD</pv>
         <pv trig="False">VA:FS1_CH01:CAV2_D2141:PHA_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CH01:CAV2_D2141:PHA_RSET</pv>
         <pv trig="False">VA:FS1_CH01:CAV2_D2141:PHA_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CH01:CAV2_D2141:PHA_RD</pv>
         <pv trig="False">VA:FS1_CH01:CAV2_D2141:AMPL_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CH01:CAV2_D2141:AMPL_RSET</pv>
         <pv trig="False">VA:FS1_CH01:CAV2_D2141:AMPL_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CH01:CAV2_D2141:AMPL_RD</pv>
       </path>
     </scripts>
     <text>Pull Data</text>

@@ -46,7 +46,6 @@ import subprocess
 from glob import glob
 from tempfile import NamedTemporaryFile as tempfile
 
-from java.lang import Thread
 from org.csstudio.opibuilder.scriptUtil import PVUtil
 
 # Only execute script if in time travel mode
@@ -59,8 +58,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     # Necessary to get pyarchappl to function properly
     unset_command = "unset PYTHONPATH"
 
-    # List of PVs that we want to pull data for
-    pv_list = [str(pv) for pv in pvs[2:]]
+    # Map each of the accelerator's PV to its local counterpart and create lists for both
+    accelerator_pv_list = [str(pv) for pv in pvs[3::2]]
+    local_pv_list = pvs[4::2]
 
     # Prefix, used to check if we already ran the relevant archive command
     prefix = "{}_{}_".format(time_start, str(pvs[0])[21:-3])
@@ -80,7 +80,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
             archappl_command = [
                 "pyarchappl-get", "--from {}".format(time_start), "--to {}".format(time_end),
                 "--url http://127.0.0.1:17665", "--output {}".format(archive_file)
-            ] + ["--pv {}".format(pv) for pv in pv_list]
+            ] + ["--pv {}".format(pv) for pv in accelerator_pv_list]
 
             full_command = unset_command + "; " + " ".join(archappl_command)
 
@@ -105,70 +105,123 @@ if PVUtil.getDouble(pvs[2]) == 1:
                     archived_data[archived_pv] = archived_value
 
     # After reading the entire CSV file, write values or "No Data Found" to PVs
-    for pv in pv_list:
-        if pv in archived_data:
-            PVUtil.writePV("loc://time_travel_{}".format(pv), archived_data[pv])
+    for accelerator_pv, local_pv in zip(accelerator_pv_list, local_pv_list):
+        if accelerator_pv in archived_data:
+            local_pv.setValue(archived_data[accelerator_pv])
         else:
-            PVUtil.writePV("loc://time_travel_{}".format(pv), "No Data Found")
-        Thread.sleep(10)  # Writing PVs too quickly can cause errors
+            local_pv.setValue("No Data Found!")
 ]]></scriptText>
         <pv trig="True">loc://$(DID)_trigger_QV(0)</pv>
         <pv trig="True">loc://time_QV</pv>
         <pv trig="True">loc://$(DID)_time_travel_QV</pv>
         <pv trig="False">VA:LS1_BTS:QV_D1950:I_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:QV_D1950:I_CSET</pv>
         <pv trig="False">VA:LS1_BTS:QV_D1976:I_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:QV_D1976:I_CSET</pv>
         <pv trig="False">VA:LS1_BTS:QV_D2013:I_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:QV_D2013:I_CSET</pv>
         <pv trig="False">VA:LS1_BTS:QV_D2042:I_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:QV_D2042:I_CSET</pv>
         <pv trig="False">VA:LS1_BTS:QV_D2066:I_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:QV_D2066:I_CSET</pv>
         <pv trig="False">VA:LS1_BTS:QV_D2118:I_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:QV_D2118:I_CSET</pv>
         <pv trig="False">VA:FS1_CSS:QV_D2202:I_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:QV_D2202:I_CSET</pv>
         <pv trig="False">VA:FS1_CSS:QV_D2220:I_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:QV_D2220:I_CSET</pv>
         <pv trig="False">VA:FS1_CSS:QV_D2254:I_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:QV_D2254:I_CSET</pv>
         <pv trig="False">VA:FS1_CSS:QV_D2272:I_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:QV_D2272:I_CSET</pv>
         <pv trig="False">VA:FS1_CSS:QV_D2372:I_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:QV_D2372:I_CSET</pv>
         <pv trig="False">VA:FS1_BBS:QV_D2424:I_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BBS:QV_D2424:I_CSET</pv>
         <pv trig="False">VA:FS1_BBS:QV_D2463:I_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BBS:QV_D2463:I_CSET</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2511:I_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:QV_D2511:I_CSET</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2539:I_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:QV_D2539:I_CSET</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2590:I_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:QV_D2590:I_CSET</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2654:I_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:QV_D2654:I_CSET</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2693:I_CSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:QV_D2693:I_CSET</pv>
         <pv trig="False">VA:LS1_BTS:QV_D1950:I_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:QV_D1950:I_RSET</pv>
         <pv trig="False">VA:LS1_BTS:QV_D1950:I_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:QV_D1950:I_RD</pv>
         <pv trig="False">VA:LS1_BTS:QV_D1976:I_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:QV_D1976:I_RSET</pv>
         <pv trig="False">VA:LS1_BTS:QV_D1976:I_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:QV_D1976:I_RD</pv>
         <pv trig="False">VA:LS1_BTS:QV_D2013:I_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:QV_D2013:I_RSET</pv>
         <pv trig="False">VA:LS1_BTS:QV_D2013:I_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:QV_D2013:I_RD</pv>
         <pv trig="False">VA:LS1_BTS:QV_D2042:I_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:QV_D2042:I_RSET</pv>
         <pv trig="False">VA:LS1_BTS:QV_D2042:I_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:QV_D2042:I_RD</pv>
         <pv trig="False">VA:LS1_BTS:QV_D2066:I_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:QV_D2066:I_RSET</pv>
         <pv trig="False">VA:LS1_BTS:QV_D2066:I_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:QV_D2066:I_RD</pv>
         <pv trig="False">VA:LS1_BTS:QV_D2118:I_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:QV_D2118:I_RSET</pv>
         <pv trig="False">VA:LS1_BTS:QV_D2118:I_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:QV_D2118:I_RD</pv>
         <pv trig="False">VA:FS1_CSS:QV_D2202:I_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:QV_D2202:I_RSET</pv>
         <pv trig="False">VA:FS1_CSS:QV_D2202:I_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:QV_D2202:I_RD</pv>
         <pv trig="False">VA:FS1_CSS:QV_D2220:I_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:QV_D2220:I_RSET</pv>
         <pv trig="False">VA:FS1_CSS:QV_D2220:I_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:QV_D2220:I_RD</pv>
         <pv trig="False">VA:FS1_CSS:QV_D2254:I_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:QV_D2254:I_RSET</pv>
         <pv trig="False">VA:FS1_CSS:QV_D2254:I_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:QV_D2254:I_RD</pv>
         <pv trig="False">VA:FS1_CSS:QV_D2272:I_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:QV_D2272:I_RSET</pv>
         <pv trig="False">VA:FS1_CSS:QV_D2272:I_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:QV_D2272:I_RD</pv>
         <pv trig="False">VA:FS1_CSS:QV_D2372:I_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:QV_D2372:I_RSET</pv>
         <pv trig="False">VA:FS1_CSS:QV_D2372:I_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:QV_D2372:I_RD</pv>
         <pv trig="False">VA:FS1_BBS:QV_D2424:I_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BBS:QV_D2424:I_RSET</pv>
         <pv trig="False">VA:FS1_BBS:QV_D2424:I_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BBS:QV_D2424:I_RD</pv>
         <pv trig="False">VA:FS1_BBS:QV_D2463:I_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BBS:QV_D2463:I_RSET</pv>
         <pv trig="False">VA:FS1_BBS:QV_D2463:I_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BBS:QV_D2463:I_RD</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2511:I_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:QV_D2511:I_RSET</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2511:I_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:QV_D2511:I_RD</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2539:I_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:QV_D2539:I_RSET</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2539:I_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:QV_D2539:I_RD</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2590:I_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:QV_D2590:I_RSET</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2590:I_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:QV_D2590:I_RD</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2654:I_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:QV_D2654:I_RSET</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2654:I_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:QV_D2654:I_RD</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2693:I_RSET</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:QV_D2693:I_RSET</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2693:I_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:QV_D2693:I_RD</pv>
       </path>
     </scripts>
     <text>Pull Data</text>

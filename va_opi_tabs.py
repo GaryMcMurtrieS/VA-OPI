@@ -74,6 +74,7 @@ def create_time_travel_control_row(parent_widget, device_type, filtered_pvs, y_0
     # Adds each of the pvs to the script
     for process_variable in pvs:
         pull_script.add_pv(process_variable, False)
+        pull_script.add_pv(f"loc://time_travel_{process_variable}", False)
 
     pull_button.add_script(pull_script)
     parent_widget.add_child(pull_button)
@@ -125,9 +126,8 @@ def create_widget_row(parent_widget, device, device_type, column_names, column_w
 
         parameter_output.add_rule(
             rules.SelectionRule("pv_name", f"loc://$(DID)_time_travel_{device_type}",
-                                "Time Travel Rule",
-                                [(0, process_variable),
-                                 (1, f"loc://time_travel_{process_variable}")]))
+                                "Time Travel Rule", [(0, process_variable),
+                                                     (1, f"loc://time_travel_{process_variable}")]))
 
         parent_widget.add_child(parameter_output)
 
