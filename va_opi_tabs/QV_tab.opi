@@ -15,6 +15,73 @@
   <width>1200</width>
   <x>0</x>
   <y>0</y>
+  <widget typeId="org.csstudio.opibuilder.widgets.BoolButton" version="1.0.0">
+    <effect_3d>true</effect_3d>
+    <height>25</height>
+    <name>ToggleButton_15</name>
+    <off_label>Time Travel Off</off_label>
+    <on_label>Time Travel On</on_label>
+    <push_action_index>0</push_action_index>
+    <pv_name>loc://$(DID)_time_travel_QV(0)</pv_name>
+    <released_action_index>1</released_action_index>
+    <show_boolean_label>true</show_boolean_label>
+    <show_led>false</show_led>
+    <square_button>true</square_button>
+    <toggle_button>true</toggle_button>
+    <width>150</width>
+    <x>5</x>
+    <y>5</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
+    <height>25</height>
+    <name>Led_15</name>
+    <pv_name>loc://time_led_QV(0)</pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Toggle Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_QV</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>sim://const(0)</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_led_QV</value>
+        </exp>
+      </rule>
+    </rules>
+    <scripts>
+      <path pathString="EmbeddedPy" checkConnect="true" sfe="false" seoe="false">
+        <scriptName>timestamp_led_script.py</scriptName>
+        <scriptText><![CDATA["""Script that controls the LED to display whether timestamp matches displayed data."""
+
+from org.csstudio.opibuilder.scriptUtil import PVUtil
+
+# pvs[0]: loc://time_led_{device_type}
+# pvs[1]: loc://time_{device_type}
+# pvs[2]: loc://$(DID)_trigger_{device_type}(0)
+# pvs[3]: loc://internal_state_{device_type}
+
+# The trigger has been updated
+current_timestamp = PVUtil.getString(pvs[1])
+saved_timestamp = PVUtil.getString(pvs[3])
+
+# If the timestamp matches the saved one, turn LED on
+if saved_timestamp == current_timestamp:
+    pvs[0].setValue(1)
+
+# If the timestamp is different, turn LED off and update the saved timestamp
+else:
+    pvs[0].setValue(0)
+    pvs[3].setValue(current_timestamp)
+]]></scriptText>
+        <pv trig="False">loc://time_led_QV</pv>
+        <pv trig="True">loc://time_QV</pv>
+        <pv trig="True">loc://$(DID)_trigger_QV(0)</pv>
+        <pv trig="False">loc://internal_state_QV(-1)</pv>
+      </path>
+    </scripts>
+    <width>25</width>
+    <x>160</x>
+    <y>5</y>
+  </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
@@ -22,7 +89,7 @@
     <pv_name>loc://time_QV("2023-07-07T15:00:00.00-04:00")</pv_name>
     <vertical_alignment>1</vertical_alignment>
     <width>180</width>
-    <x>5</x>
+    <x>190</x>
     <y>5</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="1.0.0">
@@ -35,7 +102,7 @@
       </action>
     </actions>
     <height>25</height>
-    <name>ActionButton_15</name>
+    <name>ActionButton_30</name>
     <scripts>
       <path pathString="EmbeddedPy" checkConnect="true" sfe="false" seoe="false">
         <scriptName>pull_data_script.py</scriptName>
@@ -47,6 +114,10 @@ from glob import glob
 from tempfile import NamedTemporaryFile as tempfile
 
 from org.csstudio.opibuilder.scriptUtil import PVUtil
+
+# pvs[0]: loc://$(DID)_trigger_{device_type}
+# pvs[1]: loc://time_{device_type}
+# pvs[2]: loc://$(DID)_time_travel_{device_type}", False)
 
 # Only execute script if in time travel mode
 if PVUtil.getDouble(pvs[2]) == 1:
@@ -112,8 +183,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
             local_pv.setValue("No Data Found!")
 ]]></scriptText>
         <pv trig="True">loc://$(DID)_trigger_QV(0)</pv>
-        <pv trig="True">loc://time_QV</pv>
-        <pv trig="True">loc://$(DID)_time_travel_QV</pv>
+        <pv trig="False">loc://time_QV</pv>
+        <pv trig="False">loc://$(DID)_time_travel_QV</pv>
         <pv trig="False">VA:LS1_BTS:QV_D1950:I_CSET</pv>
         <pv trig="False">loc://time_travel_VA:LS1_BTS:QV_D1950:I_CSET</pv>
         <pv trig="False">VA:LS1_BTS:QV_D1976:I_CSET</pv>
@@ -226,24 +297,28 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </scripts>
     <text>Pull Data</text>
     <width>150</width>
-    <x>190</x>
+    <x>375</x>
     <y>5</y>
   </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.BoolButton" version="1.0.0">
-    <effect_3d>true</effect_3d>
+  <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="1.0.0">
     <height>25</height>
-    <name>ToggleButton_15</name>
-    <off_label>Time Travel Off</off_label>
-    <on_label>Time Travel On</on_label>
-    <push_action_index>0</push_action_index>
-    <pv_name>loc://$(DID)_time_travel_QV(0)</pv_name>
-    <released_action_index>1</released_action_index>
-    <show_boolean_label>true</show_boolean_label>
-    <show_led>false</show_led>
-    <square_button>true</square_button>
-    <toggle_button>true</toggle_button>
+    <name>ActionButton_31</name>
+    <scripts>
+      <path pathString="EmbeddedPy" checkConnect="true" sfe="false" seoe="false">
+        <scriptName>set_data_script.py</scriptName>
+        <scriptText><![CDATA["""Script that is run when PVs are being set to historic data."""
+
+from org.csstudio.opibuilder.scriptUtil import PVUtil
+
+# Only execute script if in time travel mode
+if PVUtil.getDouble(pvs[2]) == 1:
+    pass
+]]></scriptText>
+      </path>
+    </scripts>
+    <text>Set Data</text>
     <width>150</width>
-    <x>345</x>
+    <x>530</x>
     <y>5</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">

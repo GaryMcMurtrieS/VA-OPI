@@ -7,6 +7,10 @@ from tempfile import NamedTemporaryFile as tempfile
 
 from org.csstudio.opibuilder.scriptUtil import PVUtil
 
+# pvs[0]: loc://$(DID)_trigger_{device_type}
+# pvs[1]: loc://time_{device_type}
+# pvs[2]: loc://$(DID)_time_travel_{device_type}", False)
+
 # Only execute script if in time travel mode
 if PVUtil.getDouble(pvs[2]) == 1:
     # Get the start and end times for when PV data should be pulled as a string

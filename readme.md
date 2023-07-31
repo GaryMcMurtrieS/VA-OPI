@@ -8,22 +8,23 @@
 
 ### To-do
 
+- Add additional label for number of PVs that were successfully retrieved
 - Add button to view data in pop-up window - CS-Studio Array?
-- Add functionality to restore historic data
 - Add indicator whether all data has been imported correctly
 - Add set data button
+- Change precision of displays to fixed value (5)
 - Change XYGraph to be more generic and have bar graph in Contrib
 - Display historic data in read only boxes
 - Display timestamp of when data was changed
 - Input and set for archive data
+- LED **with label** that is green when currently displayed time travel data matches the timestamp
+- Manually set fonts for boxes
+- Merge CAV and SOL tabs
+- Push button that opens text file with pulled data (either in seperate window or CS-Studio Array)
+- Show column units in header not values
 - Side-by-Side view for Historic and modern data
-- Time-Travel Mode (Use Rules for TextUpdate boxes)
-- Use temp file to store data
+- When in time travel, set text color to be blue
 
 Resample?
 
 https://github.com/users/zhangt58/projects/1
-
-Alright, I have a more complex issue I need help with.
-
-This script works great as a proof of concept, but I need to expand it substantially. In my code, I have several tabs, where each tab has a separate button that runs a script. Each script needs to not pull just one PV, but an entire LIST of PVs, and set a bunch of PVs to have those values. In my code, I either need to dynamically create a unique script for each tab that has the right PVs, or have some methods of reading in the PV list that that tab needs to use and update. How should I go about doing this?
