@@ -1,4 +1,4 @@
-""" For each tab in the VA OPI, creates an OPI that is embedded into that tab """
+"""Creates the time-travel controls for a given tab."""
 
 from opigen import widgets
 from opigen.opimodel import rules

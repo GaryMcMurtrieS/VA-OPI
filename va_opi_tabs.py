@@ -1,11 +1,11 @@
 """ For each tab in the VA OPI, creates an OPI that is embedded into that tab """
 
+import re
+
 import pandas as pd
 from opigen import Renderer, widgets
 from opigen.contrib import Display, TextEntry, TextUpdate
 from opigen.opimodel import rules
-from opigen.opimodel.colors import Color
-from opigen.opimodel.scripts import Script
 
 from time_travel_control import Colors, create_time_travel_control_row
 
@@ -223,10 +223,14 @@ def create_embeds(folder_path=TAB_FOLDER_PATH):
     create_graphs_tab(folder_path)
 
     # Creates an OPI for each type of device
-    device_types = sorted(pv_data["Device Type"].unique())
+    # This regex merges tabs together - SOL, SOL1 & SOL2 get merged
+    pv_data["Base Device Type"] = pv_data["Device Type"].apply(
+        lambda dt: re.match(r'\D*', dt).group())
+    device_types = sorted(pv_data["Base Device Type"].unique())
+
     for device_type in device_types:
         # Filters data to only data on that tab
-        filtered_pvs = pv_data[pv_data["Device Type"] == device_type]
+        filtered_pvs = pv_data[pv_data["Base Device Type"] == device_type]
         # Creates, fills, and outputs the OPI for that device type
         create_tab_widget(folder_path, filtered_pvs, device_type)
 

@@ -15,7 +15,6 @@
 - Display timestamp of when data was changed
 - Input and set for archive data
 - Manually set fonts for boxes
-- Merge CAV and SOL tabs
 - Push button that opens text file with pulled data (either in seperate window or CS-Studio Array)
 - Show column units in header not values
 - Side-by-Side view for Historic and modern data

@@ -118,214 +118,6 @@
         </children>
       </tab>
       <tab>
-        <name>CAV1</name>
-        <children>
-          <widget type="group" version="2.0.0">
-            <style>3</style>
-            <foreground_color>
-              <color red="255" green="255" blue="255"/>
-            </foreground_color>
-            <height>657</height>
-            <name>CAV1</name>
-            <transparent>true</transparent>
-            <width>1188</width>
-            <x>1</x>
-            <y>1</y>
-            <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/CAV1_tab.opi</file>
-              <height>657</height>
-              <name>EmbeddedContainer_4</name>
-              <resize>0</resize>
-              <width>1188</width>
-              <x>0</x>
-              <y>0</y>
-            </widget>
-          </widget>
-        </children>
-      </tab>
-      <tab>
-        <name>CAV2</name>
-        <children>
-          <widget type="group" version="2.0.0">
-            <style>3</style>
-            <foreground_color>
-              <color red="255" green="255" blue="255"/>
-            </foreground_color>
-            <height>657</height>
-            <name>CAV2</name>
-            <transparent>true</transparent>
-            <width>1188</width>
-            <x>1</x>
-            <y>1</y>
-            <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/CAV2_tab.opi</file>
-              <height>657</height>
-              <name>EmbeddedContainer_5</name>
-              <resize>0</resize>
-              <width>1188</width>
-              <x>0</x>
-              <y>0</y>
-            </widget>
-          </widget>
-        </children>
-      </tab>
-      <tab>
-        <name>CAV3</name>
-        <children>
-          <widget type="group" version="2.0.0">
-            <style>3</style>
-            <foreground_color>
-              <color red="255" green="255" blue="255"/>
-            </foreground_color>
-            <height>657</height>
-            <name>CAV3</name>
-            <transparent>true</transparent>
-            <width>1188</width>
-            <x>1</x>
-            <y>1</y>
-            <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/CAV3_tab.opi</file>
-              <height>657</height>
-              <name>EmbeddedContainer_6</name>
-              <resize>0</resize>
-              <width>1188</width>
-              <x>0</x>
-              <y>0</y>
-            </widget>
-          </widget>
-        </children>
-      </tab>
-      <tab>
-        <name>CAV4</name>
-        <children>
-          <widget type="group" version="2.0.0">
-            <style>3</style>
-            <foreground_color>
-              <color red="255" green="255" blue="255"/>
-            </foreground_color>
-            <height>657</height>
-            <name>CAV4</name>
-            <transparent>true</transparent>
-            <width>1188</width>
-            <x>1</x>
-            <y>1</y>
-            <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/CAV4_tab.opi</file>
-              <height>657</height>
-              <name>EmbeddedContainer_7</name>
-              <resize>0</resize>
-              <width>1188</width>
-              <x>0</x>
-              <y>0</y>
-            </widget>
-          </widget>
-        </children>
-      </tab>
-      <tab>
-        <name>CAV5</name>
-        <children>
-          <widget type="group" version="2.0.0">
-            <style>3</style>
-            <foreground_color>
-              <color red="255" green="255" blue="255"/>
-            </foreground_color>
-            <height>657</height>
-            <name>CAV5</name>
-            <transparent>true</transparent>
-            <width>1188</width>
-            <x>1</x>
-            <y>1</y>
-            <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/CAV5_tab.opi</file>
-              <height>657</height>
-              <name>EmbeddedContainer_8</name>
-              <resize>0</resize>
-              <width>1188</width>
-              <x>0</x>
-              <y>0</y>
-            </widget>
-          </widget>
-        </children>
-      </tab>
-      <tab>
-        <name>CAV6</name>
-        <children>
-          <widget type="group" version="2.0.0">
-            <style>3</style>
-            <foreground_color>
-              <color red="255" green="255" blue="255"/>
-            </foreground_color>
-            <height>657</height>
-            <name>CAV6</name>
-            <transparent>true</transparent>
-            <width>1188</width>
-            <x>1</x>
-            <y>1</y>
-            <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/CAV6_tab.opi</file>
-              <height>657</height>
-              <name>EmbeddedContainer_9</name>
-              <resize>0</resize>
-              <width>1188</width>
-              <x>0</x>
-              <y>0</y>
-            </widget>
-          </widget>
-        </children>
-      </tab>
-      <tab>
-        <name>CAV7</name>
-        <children>
-          <widget type="group" version="2.0.0">
-            <style>3</style>
-            <foreground_color>
-              <color red="255" green="255" blue="255"/>
-            </foreground_color>
-            <height>657</height>
-            <name>CAV7</name>
-            <transparent>true</transparent>
-            <width>1188</width>
-            <x>1</x>
-            <y>1</y>
-            <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/CAV7_tab.opi</file>
-              <height>657</height>
-              <name>EmbeddedContainer_10</name>
-              <resize>0</resize>
-              <width>1188</width>
-              <x>0</x>
-              <y>0</y>
-            </widget>
-          </widget>
-        </children>
-      </tab>
-      <tab>
-        <name>CAV8</name>
-        <children>
-          <widget type="group" version="2.0.0">
-            <style>3</style>
-            <foreground_color>
-              <color red="255" green="255" blue="255"/>
-            </foreground_color>
-            <height>657</height>
-            <name>CAV8</name>
-            <transparent>true</transparent>
-            <width>1188</width>
-            <x>1</x>
-            <y>1</y>
-            <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/CAV8_tab.opi</file>
-              <height>657</height>
-              <name>EmbeddedContainer_11</name>
-              <resize>0</resize>
-              <width>1188</width>
-              <x>0</x>
-              <y>0</y>
-            </widget>
-          </widget>
-        </children>
-      </tab>
-      <tab>
         <name>DCH</name>
         <children>
           <widget type="group" version="2.0.0">
@@ -342,7 +134,7 @@
             <widget type="embedded" version="2.0.0">
               <file>va_opi_tabs/DCH_tab.opi</file>
               <height>657</height>
-              <name>EmbeddedContainer_12</name>
+              <name>EmbeddedContainer_4</name>
               <resize>0</resize>
               <width>1188</width>
               <x>0</x>
@@ -368,7 +160,7 @@
             <widget type="embedded" version="2.0.0">
               <file>va_opi_tabs/DCV_tab.opi</file>
               <height>657</height>
-              <name>EmbeddedContainer_13</name>
+              <name>EmbeddedContainer_5</name>
               <resize>0</resize>
               <width>1188</width>
               <x>0</x>
@@ -394,7 +186,7 @@
             <widget type="embedded" version="2.0.0">
               <file>va_opi_tabs/DH_tab.opi</file>
               <height>657</height>
-              <name>EmbeddedContainer_14</name>
+              <name>EmbeddedContainer_6</name>
               <resize>0</resize>
               <width>1188</width>
               <x>0</x>
@@ -420,7 +212,7 @@
             <widget type="embedded" version="2.0.0">
               <file>va_opi_tabs/PM_tab.opi</file>
               <height>657</height>
-              <name>EmbeddedContainer_15</name>
+              <name>EmbeddedContainer_7</name>
               <resize>0</resize>
               <width>1188</width>
               <x>0</x>
@@ -446,7 +238,7 @@
             <widget type="embedded" version="2.0.0">
               <file>va_opi_tabs/QH_tab.opi</file>
               <height>657</height>
-              <name>EmbeddedContainer_16</name>
+              <name>EmbeddedContainer_8</name>
               <resize>0</resize>
               <width>1188</width>
               <x>0</x>
@@ -472,7 +264,7 @@
             <widget type="embedded" version="2.0.0">
               <file>va_opi_tabs/QV_tab.opi</file>
               <height>657</height>
-              <name>EmbeddedContainer_17</name>
+              <name>EmbeddedContainer_9</name>
               <resize>0</resize>
               <width>1188</width>
               <x>0</x>
@@ -498,7 +290,7 @@
             <widget type="embedded" version="2.0.0">
               <file>va_opi_tabs/S_tab.opi</file>
               <height>657</height>
-              <name>EmbeddedContainer_18</name>
+              <name>EmbeddedContainer_10</name>
               <resize>0</resize>
               <width>1188</width>
               <x>0</x>
@@ -508,7 +300,7 @@
         </children>
       </tab>
       <tab>
-        <name>SOL1</name>
+        <name>SOL</name>
         <children>
           <widget type="group" version="2.0.0">
             <style>3</style>
@@ -516,67 +308,15 @@
               <color red="255" green="255" blue="255"/>
             </foreground_color>
             <height>657</height>
-            <name>SOL1</name>
+            <name>SOL</name>
             <transparent>true</transparent>
             <width>1188</width>
             <x>1</x>
             <y>1</y>
             <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/SOL1_tab.opi</file>
+              <file>va_opi_tabs/SOL_tab.opi</file>
               <height>657</height>
-              <name>EmbeddedContainer_19</name>
-              <resize>0</resize>
-              <width>1188</width>
-              <x>0</x>
-              <y>0</y>
-            </widget>
-          </widget>
-        </children>
-      </tab>
-      <tab>
-        <name>SOL2</name>
-        <children>
-          <widget type="group" version="2.0.0">
-            <style>3</style>
-            <foreground_color>
-              <color red="255" green="255" blue="255"/>
-            </foreground_color>
-            <height>657</height>
-            <name>SOL2</name>
-            <transparent>true</transparent>
-            <width>1188</width>
-            <x>1</x>
-            <y>1</y>
-            <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/SOL2_tab.opi</file>
-              <height>657</height>
-              <name>EmbeddedContainer_20</name>
-              <resize>0</resize>
-              <width>1188</width>
-              <x>0</x>
-              <y>0</y>
-            </widget>
-          </widget>
-        </children>
-      </tab>
-      <tab>
-        <name>SOL3</name>
-        <children>
-          <widget type="group" version="2.0.0">
-            <style>3</style>
-            <foreground_color>
-              <color red="255" green="255" blue="255"/>
-            </foreground_color>
-            <height>657</height>
-            <name>SOL3</name>
-            <transparent>true</transparent>
-            <width>1188</width>
-            <x>1</x>
-            <y>1</y>
-            <widget type="embedded" version="2.0.0">
-              <file>va_opi_tabs/SOL3_tab.opi</file>
-              <height>657</height>
-              <name>EmbeddedContainer_21</name>
+              <name>EmbeddedContainer_11</name>
               <resize>0</resize>
               <width>1188</width>
               <x>0</x>

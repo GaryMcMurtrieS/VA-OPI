@@ -18,7 +18,7 @@
   <widget typeId="org.csstudio.opibuilder.widgets.BoolButton" version="1.0.0">
     <effect_3d>true</effect_3d>
     <height>25</height>
-    <name>ToggleButton_10</name>
+    <name>ToggleButton_2</name>
     <off_label>Time Travel Off</off_label>
     <on_label>Time Travel On</on_label>
     <push_action_index>0</push_action_index>
@@ -34,7 +34,7 @@
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <height>25</height>
-    <name>Led_10</name>
+    <name>Led_2</name>
     <pv_name>loc://time_led_DCH(0)</pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Toggle Rule" out_exp="false">
@@ -92,7 +92,7 @@ else:
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>TextEntry_249</name>
+    <name>TextEntry_241</name>
     <pv_name>loc://time_DCH("2023-07-07T15:00:00.00-04:00")</pv_name>
     <vertical_alignment>1</vertical_alignment>
     <width>180</width>
@@ -109,7 +109,7 @@ else:
       </action>
     </actions>
     <height>25</height>
-    <name>ActionButton_20</name>
+    <name>ActionButton_4</name>
     <scripts>
       <path pathString="EmbeddedPy" checkConnect="true" sfe="false" seoe="false">
         <scriptName>pull_data_script.py</scriptName>
@@ -580,7 +580,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="1.0.0">
     <height>25</height>
-    <name>ActionButton_21</name>
+    <name>ActionButton_5</name>
     <scripts>
       <path pathString="EmbeddedPy" checkConnect="true" sfe="false" seoe="false">
         <scriptName>set_data_script.py</scriptName>
@@ -602,7 +602,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>TextUpdate_774</name>
+    <name>TextUpdate_766</name>
     <pv_name>loc://debug_message_DCH("Initialization Complete.")</pv_name>
     <vertical_alignment>1</vertical_alignment>
     <width>675</width>
@@ -612,7 +612,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>Label_257</name>
+    <name>Label_209</name>
     <text>I_CSET</text>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -622,7 +622,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>Label_258</name>
+    <name>Label_210</name>
     <text>I_RD</text>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -632,7 +632,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>Label_259</name>
+    <name>Label_211</name>
     <text>I_RSET</text>
     <vertical_alignment>1</vertical_alignment>
     <width>333.3333333333333</width>
@@ -642,7 +642,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_260</name>
+    <name>Label_212</name>
     <text>FS1_BBS:DCH_D2412</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -655,7 +655,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_250</name>
+    <name>TextEntry_242</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -700,7 +700,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_775</name>
+    <name>TextUpdate_767</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -745,7 +745,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_776</name>
+    <name>TextUpdate_768</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -781,7 +781,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_261</name>
+    <name>Label_213</name>
     <text>FS1_BBS:DCH_D2476</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -794,7 +794,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_251</name>
+    <name>TextEntry_243</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -839,7 +839,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_777</name>
+    <name>TextUpdate_769</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -884,7 +884,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_778</name>
+    <name>TextUpdate_770</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -920,7 +920,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_262</name>
+    <name>Label_214</name>
     <text>FS1_BMS:DCH_D2507</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -933,7 +933,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_252</name>
+    <name>TextEntry_244</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -978,7 +978,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_779</name>
+    <name>TextUpdate_771</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1023,7 +1023,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_780</name>
+    <name>TextUpdate_772</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1059,7 +1059,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_263</name>
+    <name>Label_215</name>
     <text>FS1_BMS:DCH_D2534</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -1072,7 +1072,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_253</name>
+    <name>TextEntry_245</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1117,7 +1117,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_781</name>
+    <name>TextUpdate_773</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1162,7 +1162,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_782</name>
+    <name>TextUpdate_774</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1198,7 +1198,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_264</name>
+    <name>Label_216</name>
     <text>FS1_BMS:DCH_D2584</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -1211,7 +1211,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_254</name>
+    <name>TextEntry_246</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1256,7 +1256,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_783</name>
+    <name>TextUpdate_775</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1301,7 +1301,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_784</name>
+    <name>TextUpdate_776</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1337,7 +1337,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_265</name>
+    <name>Label_217</name>
     <text>FS1_BMS:DCH_D2640</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -1350,7 +1350,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_255</name>
+    <name>TextEntry_247</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1395,7 +1395,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_785</name>
+    <name>TextUpdate_777</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1440,7 +1440,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_786</name>
+    <name>TextUpdate_778</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1476,7 +1476,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_266</name>
+    <name>Label_218</name>
     <text>FS1_BMS:DCH_D2662</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -1489,7 +1489,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_256</name>
+    <name>TextEntry_248</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1534,7 +1534,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_787</name>
+    <name>TextUpdate_779</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1579,7 +1579,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_788</name>
+    <name>TextUpdate_780</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1615,7 +1615,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_267</name>
+    <name>Label_219</name>
     <text>FS1_BMS:DCH_D2688</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -1628,7 +1628,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_257</name>
+    <name>TextEntry_249</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1673,7 +1673,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_789</name>
+    <name>TextUpdate_781</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1718,7 +1718,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_790</name>
+    <name>TextUpdate_782</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1754,7 +1754,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_268</name>
+    <name>Label_220</name>
     <text>FS1_CSS:DCH_D2189</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -1767,7 +1767,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_258</name>
+    <name>TextEntry_250</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1812,7 +1812,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_791</name>
+    <name>TextUpdate_783</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1857,7 +1857,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_792</name>
+    <name>TextUpdate_784</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1893,7 +1893,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_269</name>
+    <name>Label_221</name>
     <text>FS1_CSS:DCH_D2210</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -1906,7 +1906,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_259</name>
+    <name>TextEntry_251</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1951,7 +1951,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_793</name>
+    <name>TextUpdate_785</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1996,7 +1996,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_794</name>
+    <name>TextUpdate_786</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2032,7 +2032,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_270</name>
+    <name>Label_222</name>
     <text>FS1_CSS:DCH_D2257</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -2045,7 +2045,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_260</name>
+    <name>TextEntry_252</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2090,7 +2090,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_795</name>
+    <name>TextUpdate_787</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2135,7 +2135,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_796</name>
+    <name>TextUpdate_788</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2171,7 +2171,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_271</name>
+    <name>Label_223</name>
     <text>FS1_CSS:DCH_D2276</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -2184,7 +2184,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_261</name>
+    <name>TextEntry_253</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2229,7 +2229,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_797</name>
+    <name>TextUpdate_789</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2274,7 +2274,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_798</name>
+    <name>TextUpdate_790</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2310,7 +2310,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_272</name>
+    <name>Label_224</name>
     <text>FS1_CSS:DCH_D2351</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -2323,7 +2323,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_262</name>
+    <name>TextEntry_254</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2368,7 +2368,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_799</name>
+    <name>TextUpdate_791</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2413,7 +2413,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_800</name>
+    <name>TextUpdate_792</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2449,7 +2449,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_273</name>
+    <name>Label_225</name>
     <text>FS1_CSS:DCH_D2367</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -2462,7 +2462,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_263</name>
+    <name>TextEntry_255</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2507,7 +2507,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_801</name>
+    <name>TextUpdate_793</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2552,7 +2552,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_802</name>
+    <name>TextUpdate_794</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2588,7 +2588,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_274</name>
+    <name>Label_226</name>
     <text>FS1_CSS:DCH_D2381</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -2601,7 +2601,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_264</name>
+    <name>TextEntry_256</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2646,7 +2646,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_803</name>
+    <name>TextUpdate_795</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2691,7 +2691,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_804</name>
+    <name>TextUpdate_796</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2727,7 +2727,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_275</name>
+    <name>Label_227</name>
     <text>LS1_BTS:DCH_D1937</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -2740,7 +2740,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_265</name>
+    <name>TextEntry_257</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2785,7 +2785,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_805</name>
+    <name>TextUpdate_797</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2830,7 +2830,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_806</name>
+    <name>TextUpdate_798</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2866,7 +2866,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_276</name>
+    <name>Label_228</name>
     <text>LS1_BTS:DCH_D1964</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -2879,7 +2879,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_266</name>
+    <name>TextEntry_258</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2924,7 +2924,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_807</name>
+    <name>TextUpdate_799</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2969,7 +2969,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_808</name>
+    <name>TextUpdate_800</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3005,7 +3005,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_277</name>
+    <name>Label_229</name>
     <text>LS1_BTS:DCH_D1997</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -3018,7 +3018,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_267</name>
+    <name>TextEntry_259</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3063,7 +3063,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_809</name>
+    <name>TextUpdate_801</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3108,7 +3108,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_810</name>
+    <name>TextUpdate_802</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3144,7 +3144,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_278</name>
+    <name>Label_230</name>
     <text>LS1_BTS:DCH_D2024</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -3157,7 +3157,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_268</name>
+    <name>TextEntry_260</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3202,7 +3202,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_811</name>
+    <name>TextUpdate_803</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3247,7 +3247,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_812</name>
+    <name>TextUpdate_804</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3283,7 +3283,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_279</name>
+    <name>Label_231</name>
     <text>LS1_BTS:DCH_D2061</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -3296,7 +3296,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_269</name>
+    <name>TextEntry_261</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3341,7 +3341,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_813</name>
+    <name>TextUpdate_805</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3386,7 +3386,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_814</name>
+    <name>TextUpdate_806</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3422,7 +3422,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_280</name>
+    <name>Label_232</name>
     <text>LS1_BTS:DCH_D2114</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -3435,7 +3435,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_270</name>
+    <name>TextEntry_262</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3480,7 +3480,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_815</name>
+    <name>TextUpdate_807</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3525,7 +3525,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_816</name>
+    <name>TextUpdate_808</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3561,7 +3561,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_281</name>
+    <name>Label_233</name>
     <text>LS1_CA01:DCH_D1132</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -3574,7 +3574,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_271</name>
+    <name>TextEntry_263</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3619,7 +3619,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_817</name>
+    <name>TextUpdate_809</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3664,7 +3664,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_818</name>
+    <name>TextUpdate_810</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3700,7 +3700,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_282</name>
+    <name>Label_234</name>
     <text>LS1_CA01:DCH_D1146</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -3713,7 +3713,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_272</name>
+    <name>TextEntry_264</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3758,7 +3758,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_819</name>
+    <name>TextUpdate_811</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3803,7 +3803,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_820</name>
+    <name>TextUpdate_812</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3839,7 +3839,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_283</name>
+    <name>Label_235</name>
     <text>LS1_CA02:DCH_D1165</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -3852,7 +3852,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_273</name>
+    <name>TextEntry_265</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3897,7 +3897,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_821</name>
+    <name>TextUpdate_813</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3942,7 +3942,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_822</name>
+    <name>TextUpdate_814</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3978,7 +3978,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_284</name>
+    <name>Label_236</name>
     <text>LS1_CA02:DCH_D1180</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -3991,7 +3991,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_274</name>
+    <name>TextEntry_266</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4036,7 +4036,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_823</name>
+    <name>TextUpdate_815</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4081,7 +4081,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_824</name>
+    <name>TextUpdate_816</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4117,7 +4117,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_285</name>
+    <name>Label_237</name>
     <text>LS1_CA03:DCH_D1199</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -4130,7 +4130,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_275</name>
+    <name>TextEntry_267</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4175,7 +4175,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_825</name>
+    <name>TextUpdate_817</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4220,7 +4220,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_826</name>
+    <name>TextUpdate_818</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4256,7 +4256,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_286</name>
+    <name>Label_238</name>
     <text>LS1_CA03:DCH_D1214</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -4269,7 +4269,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_276</name>
+    <name>TextEntry_268</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4314,7 +4314,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_827</name>
+    <name>TextUpdate_819</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4359,7 +4359,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_828</name>
+    <name>TextUpdate_820</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4395,7 +4395,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_287</name>
+    <name>Label_239</name>
     <text>LS1_CB01:DCH_D1235</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -4408,7 +4408,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_277</name>
+    <name>TextEntry_269</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4453,7 +4453,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_829</name>
+    <name>TextUpdate_821</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4498,7 +4498,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_830</name>
+    <name>TextUpdate_822</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4534,7 +4534,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_288</name>
+    <name>Label_240</name>
     <text>LS1_CB01:DCH_D1255</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -4547,7 +4547,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_278</name>
+    <name>TextEntry_270</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4592,7 +4592,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_831</name>
+    <name>TextUpdate_823</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4637,7 +4637,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_832</name>
+    <name>TextUpdate_824</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4673,7 +4673,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_289</name>
+    <name>Label_241</name>
     <text>LS1_CB01:DCH_D1275</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -4686,7 +4686,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_279</name>
+    <name>TextEntry_271</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4731,7 +4731,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_833</name>
+    <name>TextUpdate_825</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4776,7 +4776,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_834</name>
+    <name>TextUpdate_826</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4812,7 +4812,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_290</name>
+    <name>Label_242</name>
     <text>LS1_CB02:DCH_D1299</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -4825,7 +4825,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_280</name>
+    <name>TextEntry_272</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4870,7 +4870,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_835</name>
+    <name>TextUpdate_827</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4915,7 +4915,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_836</name>
+    <name>TextUpdate_828</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4951,7 +4951,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_291</name>
+    <name>Label_243</name>
     <text>LS1_CB02:DCH_D1319</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -4964,7 +4964,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_281</name>
+    <name>TextEntry_273</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -5009,7 +5009,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_837</name>
+    <name>TextUpdate_829</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -5054,7 +5054,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_838</name>
+    <name>TextUpdate_830</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -5090,7 +5090,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_292</name>
+    <name>Label_244</name>
     <text>LS1_CB02:DCH_D1339</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -5103,7 +5103,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_282</name>
+    <name>TextEntry_274</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -5148,7 +5148,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_839</name>
+    <name>TextUpdate_831</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -5193,7 +5193,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_840</name>
+    <name>TextUpdate_832</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -5229,7 +5229,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_293</name>
+    <name>Label_245</name>
     <text>LS1_CB03:DCH_D1363</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -5242,7 +5242,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_283</name>
+    <name>TextEntry_275</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -5287,7 +5287,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_841</name>
+    <name>TextUpdate_833</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -5332,7 +5332,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_842</name>
+    <name>TextUpdate_834</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -5368,7 +5368,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_294</name>
+    <name>Label_246</name>
     <text>LS1_CB03:DCH_D1383</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -5381,7 +5381,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_284</name>
+    <name>TextEntry_276</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -5426,7 +5426,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_843</name>
+    <name>TextUpdate_835</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -5471,7 +5471,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_844</name>
+    <name>TextUpdate_836</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -5507,7 +5507,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_295</name>
+    <name>Label_247</name>
     <text>LS1_CB03:DCH_D1403</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -5520,7 +5520,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_285</name>
+    <name>TextEntry_277</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -5565,7 +5565,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_845</name>
+    <name>TextUpdate_837</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -5610,7 +5610,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_846</name>
+    <name>TextUpdate_838</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -5646,7 +5646,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_296</name>
+    <name>Label_248</name>
     <text>LS1_CB04:DCH_D1426</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -5659,7 +5659,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_286</name>
+    <name>TextEntry_278</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -5704,7 +5704,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_847</name>
+    <name>TextUpdate_839</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -5749,7 +5749,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_848</name>
+    <name>TextUpdate_840</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -5785,7 +5785,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_297</name>
+    <name>Label_249</name>
     <text>LS1_CB04:DCH_D1446</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -5798,7 +5798,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_287</name>
+    <name>TextEntry_279</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -5843,7 +5843,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_849</name>
+    <name>TextUpdate_841</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -5888,7 +5888,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_850</name>
+    <name>TextUpdate_842</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -5924,7 +5924,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_298</name>
+    <name>Label_250</name>
     <text>LS1_CB04:DCH_D1466</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -5937,7 +5937,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_288</name>
+    <name>TextEntry_280</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -5982,7 +5982,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_851</name>
+    <name>TextUpdate_843</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -6027,7 +6027,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_852</name>
+    <name>TextUpdate_844</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -6063,7 +6063,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_299</name>
+    <name>Label_251</name>
     <text>LS1_CB05:DCH_D1490</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -6076,7 +6076,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_289</name>
+    <name>TextEntry_281</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -6121,7 +6121,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_853</name>
+    <name>TextUpdate_845</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -6166,7 +6166,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_854</name>
+    <name>TextUpdate_846</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -6202,7 +6202,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_300</name>
+    <name>Label_252</name>
     <text>LS1_CB05:DCH_D1510</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -6215,7 +6215,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_290</name>
+    <name>TextEntry_282</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -6260,7 +6260,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_855</name>
+    <name>TextUpdate_847</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -6305,7 +6305,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_856</name>
+    <name>TextUpdate_848</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -6341,7 +6341,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_301</name>
+    <name>Label_253</name>
     <text>LS1_CB05:DCH_D1530</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -6354,7 +6354,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_291</name>
+    <name>TextEntry_283</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -6399,7 +6399,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_857</name>
+    <name>TextUpdate_849</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -6444,7 +6444,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_858</name>
+    <name>TextUpdate_850</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -6480,7 +6480,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_302</name>
+    <name>Label_254</name>
     <text>LS1_CB06:DCH_D1554</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -6493,7 +6493,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_292</name>
+    <name>TextEntry_284</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -6538,7 +6538,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_859</name>
+    <name>TextUpdate_851</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -6583,7 +6583,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_860</name>
+    <name>TextUpdate_852</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -6619,7 +6619,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_303</name>
+    <name>Label_255</name>
     <text>LS1_CB06:DCH_D1574</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -6632,7 +6632,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_293</name>
+    <name>TextEntry_285</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -6677,7 +6677,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_861</name>
+    <name>TextUpdate_853</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -6722,7 +6722,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_862</name>
+    <name>TextUpdate_854</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -6758,7 +6758,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_304</name>
+    <name>Label_256</name>
     <text>LS1_CB06:DCH_D1594</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -6771,7 +6771,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_294</name>
+    <name>TextEntry_286</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -6816,7 +6816,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_863</name>
+    <name>TextUpdate_855</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -6861,7 +6861,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_864</name>
+    <name>TextUpdate_856</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -6897,7 +6897,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_305</name>
+    <name>Label_257</name>
     <text>LS1_CB07:DCH_D1618</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -6910,7 +6910,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_295</name>
+    <name>TextEntry_287</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -6955,7 +6955,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_865</name>
+    <name>TextUpdate_857</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -7000,7 +7000,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_866</name>
+    <name>TextUpdate_858</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -7036,7 +7036,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_306</name>
+    <name>Label_258</name>
     <text>LS1_CB07:DCH_D1637</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -7049,7 +7049,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_296</name>
+    <name>TextEntry_288</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -7094,7 +7094,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_867</name>
+    <name>TextUpdate_859</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -7139,7 +7139,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_868</name>
+    <name>TextUpdate_860</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -7175,7 +7175,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_307</name>
+    <name>Label_259</name>
     <text>LS1_CB07:DCH_D1657</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -7188,7 +7188,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_297</name>
+    <name>TextEntry_289</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -7233,7 +7233,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_869</name>
+    <name>TextUpdate_861</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -7278,7 +7278,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_870</name>
+    <name>TextUpdate_862</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -7314,7 +7314,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_308</name>
+    <name>Label_260</name>
     <text>LS1_CB08:DCH_D1681</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -7327,7 +7327,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_298</name>
+    <name>TextEntry_290</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -7372,7 +7372,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_871</name>
+    <name>TextUpdate_863</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -7417,7 +7417,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_872</name>
+    <name>TextUpdate_864</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -7453,7 +7453,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_309</name>
+    <name>Label_261</name>
     <text>LS1_CB08:DCH_D1701</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -7466,7 +7466,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_299</name>
+    <name>TextEntry_291</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -7511,7 +7511,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_873</name>
+    <name>TextUpdate_865</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -7556,7 +7556,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_874</name>
+    <name>TextUpdate_866</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -7592,7 +7592,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_310</name>
+    <name>Label_262</name>
     <text>LS1_CB08:DCH_D1721</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -7605,7 +7605,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_300</name>
+    <name>TextEntry_292</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -7650,7 +7650,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_875</name>
+    <name>TextUpdate_867</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -7695,7 +7695,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_876</name>
+    <name>TextUpdate_868</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -7731,7 +7731,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_311</name>
+    <name>Label_263</name>
     <text>LS1_CB09:DCH_D1745</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -7744,7 +7744,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_301</name>
+    <name>TextEntry_293</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -7789,7 +7789,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_877</name>
+    <name>TextUpdate_869</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -7834,7 +7834,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_878</name>
+    <name>TextUpdate_870</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -7870,7 +7870,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_312</name>
+    <name>Label_264</name>
     <text>LS1_CB09:DCH_D1765</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -7883,7 +7883,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_302</name>
+    <name>TextEntry_294</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -7928,7 +7928,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_879</name>
+    <name>TextUpdate_871</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -7973,7 +7973,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_880</name>
+    <name>TextUpdate_872</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -8009,7 +8009,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_313</name>
+    <name>Label_265</name>
     <text>LS1_CB09:DCH_D1785</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -8022,7 +8022,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_303</name>
+    <name>TextEntry_295</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -8067,7 +8067,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_881</name>
+    <name>TextUpdate_873</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -8112,7 +8112,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_882</name>
+    <name>TextUpdate_874</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -8148,7 +8148,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_314</name>
+    <name>Label_266</name>
     <text>LS1_CB10:DCH_D1809</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -8161,7 +8161,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_304</name>
+    <name>TextEntry_296</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -8206,7 +8206,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_883</name>
+    <name>TextUpdate_875</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -8251,7 +8251,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_884</name>
+    <name>TextUpdate_876</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -8287,7 +8287,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_315</name>
+    <name>Label_267</name>
     <text>LS1_CB10:DCH_D1829</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -8300,7 +8300,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_305</name>
+    <name>TextEntry_297</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -8345,7 +8345,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_885</name>
+    <name>TextUpdate_877</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -8390,7 +8390,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_886</name>
+    <name>TextUpdate_878</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -8426,7 +8426,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_316</name>
+    <name>Label_268</name>
     <text>LS1_CB10:DCH_D1849</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -8439,7 +8439,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_306</name>
+    <name>TextEntry_298</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -8484,7 +8484,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_887</name>
+    <name>TextUpdate_879</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -8529,7 +8529,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_888</name>
+    <name>TextUpdate_880</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -8565,7 +8565,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_317</name>
+    <name>Label_269</name>
     <text>LS1_CB11:DCH_D1872</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -8578,7 +8578,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_307</name>
+    <name>TextEntry_299</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -8623,7 +8623,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_889</name>
+    <name>TextUpdate_881</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -8668,7 +8668,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_890</name>
+    <name>TextUpdate_882</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -8704,7 +8704,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_318</name>
+    <name>Label_270</name>
     <text>LS1_CB11:DCH_D1892</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -8717,7 +8717,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_308</name>
+    <name>TextEntry_300</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -8762,7 +8762,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_891</name>
+    <name>TextUpdate_883</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -8807,7 +8807,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_892</name>
+    <name>TextUpdate_884</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -8843,7 +8843,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_319</name>
+    <name>Label_271</name>
     <text>LS1_CB11:DCH_D1912</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
@@ -8856,7 +8856,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_309</name>
+    <name>TextEntry_301</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -8901,7 +8901,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_893</name>
+    <name>TextUpdate_885</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -8946,7 +8946,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_894</name>
+    <name>TextUpdate_886</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
