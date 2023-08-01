@@ -25,12 +25,12 @@
     <pv_name>loc://time_led_CAV8(0)</pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Toggle Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>sim://const(0)</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_led_CAV8</value>
+          <value>loc://time_led_CAV8(0)</value>
         </exp>
       </rule>
     </rules>
@@ -44,6 +44,8 @@ from org.csstudio.opibuilder.scriptUtil import PVUtil
 # pvs[1]: loc://time_{device_type}
 # pvs[2]: loc://$(DID)_trigger_{device_type}(0)
 # pvs[3]: loc://internal_state_{device_type}
+# pvs[4]: loc://$(DID)_time_travel_{device_type}
+# pvs[5]: loc://debug_message_{device_type}
 
 # The trigger has been updated
 current_timestamp = PVUtil.getString(pvs[1])
@@ -51,17 +53,22 @@ saved_timestamp = PVUtil.getString(pvs[3])
 
 # If the timestamp matches the saved one, turn LED on
 if saved_timestamp == current_timestamp:
-    pvs[0].setValue(1)
+    if PVUtil.getDouble(pvs[4]) == 1:
+        pvs[0].setValue(1)
 
 # If the timestamp is different, turn LED off and update the saved timestamp
 else:
-    pvs[0].setValue(0)
-    pvs[3].setValue(current_timestamp)
+    if PVUtil.getDouble(pvs[4]) == 1:
+        pvs[0].setValue(0)
+        pvs[3].setValue(current_timestamp)
+    pvs[5].setValue('WARNING: Timestamp does not match time travel data!')
 ]]></text>
-        <pv_name trigger="False">loc://time_led_CAV8</pv_name>
-        <pv_name trigger="True">loc://time_CAV8</pv_name>
+        <pv_name trigger="False">loc://time_led_CAV8(0)</pv_name>
+        <pv_name trigger="True">loc://time_CAV8("2023-07-07T15:00:00.00-04:00")</pv_name>
         <pv_name trigger="True">loc://$(DID)_trigger_CAV8(0)</pv_name>
-        <pv_name trigger="False">loc://internal_state_CAV8(-1)</pv_name>
+        <pv_name trigger="False">loc://internal_state_CAV8("2023-07-07T15:00:00.00-04:00")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <pv_name trigger="False">loc://debug_message_CAV8</pv_name>
       </script>
     </scripts>
     <width>25</width>
@@ -101,72 +108,93 @@ from org.csstudio.opibuilder.scriptUtil import PVUtil
 
 # pvs[0]: loc://$(DID)_trigger_{device_type}
 # pvs[1]: loc://time_{device_type}
-# pvs[2]: loc://$(DID)_time_travel_{device_type}", False)
+# pvs[2]: loc://$(DID)_time_travel_{device_type}"
+# pvs[3]: loc://debug_message_{device_type}
 
-# Get the start and end times for when PV data should be pulled as a string
-time_start = PVUtil.getString(pvs[1])
-time_end = (datetime.datetime.strptime(time_start[:-6], '%Y-%m-%dT%H:%M:%S.%f') +
-            datetime.timedelta(minutes=15)).isoformat() + time_start[-6:]
+PV_START = 4
 
-# Necessary to get pyarchappl to function properly
-unset_command = "unset PYTHONPATH"
+# Only execute script if in time travel mode
+if PVUtil.getDouble(pvs[2]) == 1:
+    # Get the start and end times for when PV data should be pulled as a string
+    time_start = PVUtil.getString(pvs[1])
+    time_end = (datetime.datetime.strptime(time_start[:-6], '%Y-%m-%dT%H:%M:%S.%f') +
+                datetime.timedelta(minutes=15)).isoformat() + time_start[-6:]
 
-# Map each of the accelerator's PV to its local counterpart and create lists for both
-accelerator_pv_list = [str(pv) for pv in pvs[3::2]]
-local_pv_list = pvs[4::2]
+    # Necessary to get pyarchappl to function properly
+    unset_command = "unset PYTHONPATH"
 
-# Prefix, used to check if we already ran the relevant archive command
-prefix = "{}_{}_".format(time_start, str(pvs[0])[21:-3])
-for char in "-:.":
-    prefix = prefix.replace(char, '')
+    # Map each of the accelerator's PV to its local counterpart and create lists for both
+    accelerator_pv_list = [str(pv) for pv in pvs[PV_START::2]]
+    local_pv_list = pvs[PV_START + 1::2]
 
-# Check if the archive file already exists
-existing_files = glob('/tmp/{}*'.format(prefix))
-archive_file = existing_files[0] if existing_files else None
+    # Prefix, used to check if we already ran the relevant archive command
+    prefix = "{}_{}_".format(time_start, str(pvs[0])[21:-3])
+    for char in "-:.":
+        prefix = prefix.replace(char, '')
 
-# If no such file exists, create a new one
-if not archive_file:
-    with tempfile(prefix=prefix, delete=False) as temp_archive_file:
-        archive_file = temp_archive_file.name
+    # Check if the archive file already exists
+    existing_files = glob('/tmp/{}*'.format(prefix))
+    archive_file = existing_files[0] if existing_files else None
 
-        # Command that actually pulls the historic data
-        archappl_command = [
-            "pyarchappl-get", "--from {}".format(time_start), "--to {}".format(time_end),
-            "--url http://127.0.0.1:17665", "--output {}".format(archive_file)
-        ] + ["--pv {}".format(pv) for pv in accelerator_pv_list]
+    # If no such file exists, create a new one
+    if not archive_file:
+        with tempfile(prefix=prefix, delete=False) as temp_archive_file:
+            archive_file = temp_archive_file.name
 
-        full_command = unset_command + "; " + " ".join(archappl_command)
+            # Command that actually pulls the historic data
+            archappl_command = [
+                "pyarchappl-get", "--from {}".format(time_start), "--to {}".format(time_end),
+                "--url http://127.0.0.1:17665", "--output {}".format(archive_file)
+            ] + ["--pv {}".format(pv) for pv in accelerator_pv_list]
 
-        process = subprocess.Popen(full_command, shell=True)
-        process.wait()
+            full_command = unset_command + "; " + " ".join(archappl_command)
 
-# Read the data from the output file
-with open(archive_file) as archive_csv:
-    archived_pvs = next(archive_csv).strip().split(',')[1:]
+            process = subprocess.Popen(full_command, shell=True)
+            process.wait()
 
-    # Create a dict for all PVs that were archived
-    archived_data = {pv: None for pv in archived_pvs}
+    # Read the data from the output file
+    with open(archive_file) as archive_csv:
+        # Check if the file is not empty
+        first_line = archive_csv.readline()
+        if first_line:
+            archived_pvs = first_line.strip().split(',')[1:]
 
-    for row in archive_csv:
-        archived_values = row.strip().split(',')[1:]
+            # Create a dict for all PVs that were archived
+            archived_data = {pv: None for pv in archived_pvs}
 
-        # Iterate over the values and their corresponding PVs
-        for archived_value, archived_pv in zip(archived_values, archived_pvs):
-            # If the value in the dict is None and this value is not an empty string, write
-            # it to the dict
-            if archived_data[archived_pv] is None and archived_value != "":
-                archived_data[archived_pv] = archived_value
+            for row in archive_csv:
+                archived_values = row.strip().split(',')[1:]
 
-# After reading the entire CSV file, write values or "No Data Found" to PVs
-for accelerator_pv, local_pv in zip(accelerator_pv_list, local_pv_list):
-    if accelerator_pv in archived_data:
-        local_pv.setValue(archived_data[accelerator_pv])
-    else:
-        local_pv.setValue("No Data Found!")
+                # Iterate over the values and their corresponding PVs
+                for archived_value, archived_pv in zip(archived_values, archived_pvs):
+                    # If the value in the dict is None and this value is not an empty string, write
+                    # it to the dict
+                    if archived_data[archived_pv] is None and archived_value != "":
+                        archived_data[archived_pv] = archived_value
+
+            # Count of the found and missing PVs
+            found_count = 0
+            missing_count = 0
+
+            # After reading the entire CSV file, write values or "No Data Found" to PVs
+            for accelerator_pv, local_pv in zip(accelerator_pv_list, local_pv_list):
+                if accelerator_pv in archived_data:
+                    local_pv.setValue(archived_data[accelerator_pv])
+                    found_count += 1
+                else:
+                    local_pv.setValue('No Data Found!')
+                    missing_count += 1
+
+            pvs[3].setValue('Data pulled. {} PV(s) loaded, {} PV(s) missing.'.format(
+                found_count, missing_count))
+
+        else:
+            pvs[3].setValue('No Archive Data Found!')
 ]]></text>
         <pv_name trigger="True">loc://$(DID)_trigger_CAV8(0)</pv_name>
-        <pv_name trigger="False">loc://time_CAV8</pv_name>
-        <pv_name trigger="False">loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name trigger="False">loc://time_CAV8("2023-07-07T15:00:00.00-04:00")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <pv_name trigger="False">loc://debug_message_CAV8</pv_name>
         <pv_name trigger="False">VA:LS1_CB01:CAV8_D1281:PHA_CSET</pv_name>
         <pv_name trigger="False">loc://time_travel_VA:LS1_CB01:CAV8_D1281:PHA_CSET</pv_name>
         <pv_name trigger="False">VA:LS1_CB01:CAV8_D1281:AMPL_CSET</pv_name>
@@ -326,6 +354,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <x>530</x>
     <y>5</y>
   </widget>
+  <widget type="textupdate" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextUpdate_729</name>
+    <pv_name>loc://debug_message_CAV8("Initialization Complete.")</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>675</width>
+    <x>5</x>
+    <y>35</y>
+  </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
@@ -334,7 +372,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>160</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
@@ -344,7 +382,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>329.16666666666663</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
@@ -354,7 +392,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>498.33333333333326</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
@@ -364,7 +402,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>667.4999999999999</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
@@ -374,7 +412,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>836.6666666666665</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
@@ -384,7 +422,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>1005.8333333333331</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget type="label" version="2.0.0">
     <height>25</height>
@@ -394,7 +432,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
-    <y>65</y>
+    <y>95</y>
   </widget>
   <widget type="textentry" version="2.0.0">
     <background_color>
@@ -403,10 +441,11 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_227</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:LS1_CB01:CAV8_D1281:AMPL_CSET</value>
         </exp>
@@ -415,259 +454,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>160</x>
-    <y>65</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_720</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB01:CAV8_D1281:AMPL_RD</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB01:CAV8_D1281:AMPL_RD</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>329.16666666666663</x>
-    <y>65</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_721</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB01:CAV8_D1281:AMPL_RSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB01:CAV8_D1281:AMPL_RSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>498.33333333333326</x>
-    <y>65</y>
-  </widget>
-  <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_228</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB01:CAV8_D1281:PHA_CSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB01:CAV8_D1281:PHA_CSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>667.4999999999999</x>
-    <y>65</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_722</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB01:CAV8_D1281:PHA_RD</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB01:CAV8_D1281:PHA_RD</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>836.6666666666665</x>
-    <y>65</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_723</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB01:CAV8_D1281:PHA_RSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB01:CAV8_D1281:PHA_RSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>1005.8333333333331</x>
-    <y>65</y>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_247</name>
-    <text>LS1_CB02:CAV8_D1345</text>
-    <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>5</x>
-    <y>95</y>
-  </widget>
-  <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_229</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB02:CAV8_D1345:AMPL_CSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:CAV8_D1345:AMPL_CSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -684,379 +471,6 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <width>164.16666666666666</width>
     <x>160</x>
     <y>95</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_724</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB02:CAV8_D1345:AMPL_RD</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:CAV8_D1345:AMPL_RD</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>329.16666666666663</x>
-    <y>95</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_725</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB02:CAV8_D1345:AMPL_RSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:CAV8_D1345:AMPL_RSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>498.33333333333326</x>
-    <y>95</y>
-  </widget>
-  <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_230</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB02:CAV8_D1345:PHA_CSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:CAV8_D1345:PHA_CSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>667.4999999999999</x>
-    <y>95</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_726</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB02:CAV8_D1345:PHA_RD</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:CAV8_D1345:PHA_RD</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>836.6666666666665</x>
-    <y>95</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_727</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB02:CAV8_D1345:PHA_RSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB02:CAV8_D1345:PHA_RSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>1005.8333333333331</x>
-    <y>95</y>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_248</name>
-    <text>LS1_CB03:CAV8_D1408</text>
-    <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>5</x>
-    <y>125</y>
-  </widget>
-  <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_231</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB03:CAV8_D1408:AMPL_CSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:CAV8_D1408:AMPL_CSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>160</x>
-    <y>125</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_728</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB03:CAV8_D1408:AMPL_RD</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:CAV8_D1408:AMPL_RD</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>329.16666666666663</x>
-    <y>125</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_729</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB03:CAV8_D1408:AMPL_RSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:CAV8_D1408:AMPL_RSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>498.33333333333326</x>
-    <y>125</y>
-  </widget>
-  <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_232</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB03:CAV8_D1408:PHA_CSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:CAV8_D1408:PHA_CSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>667.4999999999999</x>
-    <y>125</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <background_color>
@@ -1070,19 +484,20 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_730</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB03:CAV8_D1408:PHA_RD</value>
+          <value>VA:LS1_CB01:CAV8_D1281:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:CAV8_D1408:PHA_RD</value>
+          <value>loc://time_travel_VA:LS1_CB01:CAV8_D1281:AMPL_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -1097,8 +512,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
-    <x>836.6666666666665</x>
-    <y>125</y>
+    <x>329.16666666666663</x>
+    <y>95</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <background_color>
@@ -1112,19 +527,402 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_731</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB03:CAV8_D1408:PHA_RSET</value>
+          <value>VA:LS1_CB01:CAV8_D1281:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB03:CAV8_D1408:PHA_RSET</value>
+          <value>loc://time_travel_VA:LS1_CB01:CAV8_D1281:AMPL_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>498.33333333333326</x>
+    <y>95</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextEntry_228</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB01:CAV8_D1281:PHA_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB01:CAV8_D1281:PHA_CSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>667.4999999999999</x>
+    <y>95</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_732</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB01:CAV8_D1281:PHA_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB01:CAV8_D1281:PHA_RD</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>836.6666666666665</x>
+    <y>95</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_733</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB01:CAV8_D1281:PHA_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB01:CAV8_D1281:PHA_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>1005.8333333333331</x>
+    <y>95</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_247</name>
+    <text>LS1_CB02:CAV8_D1345</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>125</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextEntry_229</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB02:CAV8_D1345:AMPL_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB02:CAV8_D1345:AMPL_CSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>160</x>
+    <y>125</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_734</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB02:CAV8_D1345:AMPL_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB02:CAV8_D1345:AMPL_RD</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>329.16666666666663</x>
+    <y>125</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_735</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB02:CAV8_D1345:AMPL_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB02:CAV8_D1345:AMPL_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>498.33333333333326</x>
+    <y>125</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextEntry_230</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB02:CAV8_D1345:PHA_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB02:CAV8_D1345:PHA_CSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>667.4999999999999</x>
+    <y>125</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_736</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB02:CAV8_D1345:PHA_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB02:CAV8_D1345:PHA_RD</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>836.6666666666665</x>
+    <y>125</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_737</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB02:CAV8_D1345:PHA_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB02:CAV8_D1345:PHA_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -1145,8 +943,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget type="label" version="2.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_249</name>
-    <text>LS1_CB04:CAV8_D1472</text>
+    <name>Label_248</name>
+    <text>LS1_CB03:CAV8_D1408</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
@@ -1158,20 +956,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_233</name>
+    <name>TextEntry_231</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB04:CAV8_D1472:AMPL_CSET</value>
+          <value>VA:LS1_CB03:CAV8_D1408:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:CAV8_D1472:AMPL_CSET</value>
+          <value>loc://time_travel_VA:LS1_CB03:CAV8_D1408:AMPL_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -1188,379 +987,6 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <width>164.16666666666666</width>
     <x>160</x>
     <y>155</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_732</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB04:CAV8_D1472:AMPL_RD</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:CAV8_D1472:AMPL_RD</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>329.16666666666663</x>
-    <y>155</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_733</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB04:CAV8_D1472:AMPL_RSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:CAV8_D1472:AMPL_RSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>498.33333333333326</x>
-    <y>155</y>
-  </widget>
-  <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_234</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB04:CAV8_D1472:PHA_CSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:CAV8_D1472:PHA_CSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>667.4999999999999</x>
-    <y>155</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_734</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB04:CAV8_D1472:PHA_RD</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:CAV8_D1472:PHA_RD</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>836.6666666666665</x>
-    <y>155</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_735</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB04:CAV8_D1472:PHA_RSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB04:CAV8_D1472:PHA_RSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>1005.8333333333331</x>
-    <y>155</y>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_250</name>
-    <text>LS1_CB05:CAV8_D1536</text>
-    <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>5</x>
-    <y>185</y>
-  </widget>
-  <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_235</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB05:CAV8_D1536:AMPL_CSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:CAV8_D1536:AMPL_CSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>160</x>
-    <y>185</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_736</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB05:CAV8_D1536:AMPL_RD</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:CAV8_D1536:AMPL_RD</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>329.16666666666663</x>
-    <y>185</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_737</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB05:CAV8_D1536:AMPL_RSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:CAV8_D1536:AMPL_RSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>498.33333333333326</x>
-    <y>185</y>
-  </widget>
-  <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_236</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB05:CAV8_D1536:PHA_CSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:CAV8_D1536:PHA_CSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>667.4999999999999</x>
-    <y>185</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <background_color>
@@ -1574,19 +1000,20 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_738</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB05:CAV8_D1536:PHA_RD</value>
+          <value>VA:LS1_CB03:CAV8_D1408:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:CAV8_D1536:PHA_RD</value>
+          <value>loc://time_travel_VA:LS1_CB03:CAV8_D1408:AMPL_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -1601,8 +1028,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
-    <x>836.6666666666665</x>
-    <y>185</y>
+    <x>329.16666666666663</x>
+    <y>155</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <background_color>
@@ -1616,19 +1043,402 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_739</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB05:CAV8_D1536:PHA_RSET</value>
+          <value>VA:LS1_CB03:CAV8_D1408:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB05:CAV8_D1536:PHA_RSET</value>
+          <value>loc://time_travel_VA:LS1_CB03:CAV8_D1408:AMPL_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>498.33333333333326</x>
+    <y>155</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextEntry_232</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB03:CAV8_D1408:PHA_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB03:CAV8_D1408:PHA_CSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>667.4999999999999</x>
+    <y>155</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_740</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB03:CAV8_D1408:PHA_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB03:CAV8_D1408:PHA_RD</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>836.6666666666665</x>
+    <y>155</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_741</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB03:CAV8_D1408:PHA_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB03:CAV8_D1408:PHA_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>1005.8333333333331</x>
+    <y>155</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_249</name>
+    <text>LS1_CB04:CAV8_D1472</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>185</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextEntry_233</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB04:CAV8_D1472:AMPL_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB04:CAV8_D1472:AMPL_CSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>160</x>
+    <y>185</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_742</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB04:CAV8_D1472:AMPL_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB04:CAV8_D1472:AMPL_RD</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>329.16666666666663</x>
+    <y>185</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_743</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB04:CAV8_D1472:AMPL_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB04:CAV8_D1472:AMPL_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>498.33333333333326</x>
+    <y>185</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextEntry_234</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB04:CAV8_D1472:PHA_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB04:CAV8_D1472:PHA_CSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>667.4999999999999</x>
+    <y>185</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_744</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB04:CAV8_D1472:PHA_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB04:CAV8_D1472:PHA_RD</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>836.6666666666665</x>
+    <y>185</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_745</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB04:CAV8_D1472:PHA_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB04:CAV8_D1472:PHA_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -1649,8 +1459,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget type="label" version="2.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_251</name>
-    <text>LS1_CB06:CAV8_D1599</text>
+    <name>Label_250</name>
+    <text>LS1_CB05:CAV8_D1536</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
@@ -1662,20 +1472,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_237</name>
+    <name>TextEntry_235</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB06:CAV8_D1599:AMPL_CSET</value>
+          <value>VA:LS1_CB05:CAV8_D1536:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:CAV8_D1599:AMPL_CSET</value>
+          <value>loc://time_travel_VA:LS1_CB05:CAV8_D1536:AMPL_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -1692,379 +1503,6 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <width>164.16666666666666</width>
     <x>160</x>
     <y>215</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_740</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB06:CAV8_D1599:AMPL_RD</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:CAV8_D1599:AMPL_RD</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>329.16666666666663</x>
-    <y>215</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_741</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB06:CAV8_D1599:AMPL_RSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:CAV8_D1599:AMPL_RSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>498.33333333333326</x>
-    <y>215</y>
-  </widget>
-  <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_238</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB06:CAV8_D1599:PHA_CSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:CAV8_D1599:PHA_CSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>667.4999999999999</x>
-    <y>215</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_742</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB06:CAV8_D1599:PHA_RD</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:CAV8_D1599:PHA_RD</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>836.6666666666665</x>
-    <y>215</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_743</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB06:CAV8_D1599:PHA_RSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB06:CAV8_D1599:PHA_RSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>1005.8333333333331</x>
-    <y>215</y>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_252</name>
-    <text>LS1_CB07:CAV8_D1663</text>
-    <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>5</x>
-    <y>245</y>
-  </widget>
-  <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_239</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB07:CAV8_D1663:AMPL_CSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:CAV8_D1663:AMPL_CSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>160</x>
-    <y>245</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_744</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB07:CAV8_D1663:AMPL_RD</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:CAV8_D1663:AMPL_RD</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>329.16666666666663</x>
-    <y>245</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_745</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB07:CAV8_D1663:AMPL_RSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:CAV8_D1663:AMPL_RSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>498.33333333333326</x>
-    <y>245</y>
-  </widget>
-  <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_240</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB07:CAV8_D1663:PHA_CSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:CAV8_D1663:PHA_CSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>667.4999999999999</x>
-    <y>245</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <background_color>
@@ -2078,19 +1516,20 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_746</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB07:CAV8_D1663:PHA_RD</value>
+          <value>VA:LS1_CB05:CAV8_D1536:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:CAV8_D1663:PHA_RD</value>
+          <value>loc://time_travel_VA:LS1_CB05:CAV8_D1536:AMPL_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -2105,8 +1544,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
-    <x>836.6666666666665</x>
-    <y>245</y>
+    <x>329.16666666666663</x>
+    <y>215</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <background_color>
@@ -2120,19 +1559,402 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_747</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB07:CAV8_D1663:PHA_RSET</value>
+          <value>VA:LS1_CB05:CAV8_D1536:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB07:CAV8_D1663:PHA_RSET</value>
+          <value>loc://time_travel_VA:LS1_CB05:CAV8_D1536:AMPL_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>498.33333333333326</x>
+    <y>215</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextEntry_236</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB05:CAV8_D1536:PHA_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB05:CAV8_D1536:PHA_CSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>667.4999999999999</x>
+    <y>215</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_748</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB05:CAV8_D1536:PHA_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB05:CAV8_D1536:PHA_RD</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>836.6666666666665</x>
+    <y>215</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_749</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB05:CAV8_D1536:PHA_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB05:CAV8_D1536:PHA_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>1005.8333333333331</x>
+    <y>215</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_251</name>
+    <text>LS1_CB06:CAV8_D1599</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>245</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextEntry_237</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB06:CAV8_D1599:AMPL_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB06:CAV8_D1599:AMPL_CSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>160</x>
+    <y>245</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_750</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB06:CAV8_D1599:AMPL_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB06:CAV8_D1599:AMPL_RD</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>329.16666666666663</x>
+    <y>245</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_751</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB06:CAV8_D1599:AMPL_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB06:CAV8_D1599:AMPL_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>498.33333333333326</x>
+    <y>245</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextEntry_238</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB06:CAV8_D1599:PHA_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB06:CAV8_D1599:PHA_CSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>667.4999999999999</x>
+    <y>245</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_752</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB06:CAV8_D1599:PHA_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB06:CAV8_D1599:PHA_RD</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>836.6666666666665</x>
+    <y>245</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_753</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB06:CAV8_D1599:PHA_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB06:CAV8_D1599:PHA_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -2153,8 +1975,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget type="label" version="2.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_253</name>
-    <text>LS1_CB08:CAV8_D1727</text>
+    <name>Label_252</name>
+    <text>LS1_CB07:CAV8_D1663</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
@@ -2166,20 +1988,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_241</name>
+    <name>TextEntry_239</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB08:CAV8_D1727:AMPL_CSET</value>
+          <value>VA:LS1_CB07:CAV8_D1663:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:CAV8_D1727:AMPL_CSET</value>
+          <value>loc://time_travel_VA:LS1_CB07:CAV8_D1663:AMPL_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -2196,379 +2019,6 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <width>164.16666666666666</width>
     <x>160</x>
     <y>275</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_748</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB08:CAV8_D1727:AMPL_RD</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:CAV8_D1727:AMPL_RD</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>329.16666666666663</x>
-    <y>275</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_749</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB08:CAV8_D1727:AMPL_RSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:CAV8_D1727:AMPL_RSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>498.33333333333326</x>
-    <y>275</y>
-  </widget>
-  <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_242</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB08:CAV8_D1727:PHA_CSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:CAV8_D1727:PHA_CSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>667.4999999999999</x>
-    <y>275</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_750</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB08:CAV8_D1727:PHA_RD</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:CAV8_D1727:PHA_RD</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>836.6666666666665</x>
-    <y>275</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_751</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB08:CAV8_D1727:PHA_RSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB08:CAV8_D1727:PHA_RSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>1005.8333333333331</x>
-    <y>275</y>
-  </widget>
-  <widget type="label" version="2.0.0">
-    <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_254</name>
-    <text>LS1_CB09:CAV8_D1791</text>
-    <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>5</x>
-    <y>305</y>
-  </widget>
-  <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_243</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB09:CAV8_D1791:AMPL_CSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:CAV8_D1791:AMPL_CSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>160</x>
-    <y>305</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_752</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB09:CAV8_D1791:AMPL_RD</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:CAV8_D1791:AMPL_RD</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>329.16666666666663</x>
-    <y>305</y>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_753</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB09:CAV8_D1791:AMPL_RSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:CAV8_D1791:AMPL_RSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>498.33333333333326</x>
-    <y>305</y>
-  </widget>
-  <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_244</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB09:CAV8_D1791:PHA_CSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:CAV8_D1791:PHA_CSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>667.4999999999999</x>
-    <y>305</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <background_color>
@@ -2582,19 +2032,20 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_754</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB09:CAV8_D1791:PHA_RD</value>
+          <value>VA:LS1_CB07:CAV8_D1663:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:CAV8_D1791:PHA_RD</value>
+          <value>loc://time_travel_VA:LS1_CB07:CAV8_D1663:AMPL_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -2609,8 +2060,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
-    <x>836.6666666666665</x>
-    <y>305</y>
+    <x>329.16666666666663</x>
+    <y>275</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
     <background_color>
@@ -2624,19 +2075,402 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_755</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB09:CAV8_D1791:PHA_RSET</value>
+          <value>VA:LS1_CB07:CAV8_D1663:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB09:CAV8_D1791:PHA_RSET</value>
+          <value>loc://time_travel_VA:LS1_CB07:CAV8_D1663:AMPL_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>498.33333333333326</x>
+    <y>275</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextEntry_240</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB07:CAV8_D1663:PHA_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB07:CAV8_D1663:PHA_CSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>667.4999999999999</x>
+    <y>275</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_756</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB07:CAV8_D1663:PHA_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB07:CAV8_D1663:PHA_RD</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>836.6666666666665</x>
+    <y>275</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_757</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB07:CAV8_D1663:PHA_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB07:CAV8_D1663:PHA_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>1005.8333333333331</x>
+    <y>275</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_253</name>
+    <text>LS1_CB08:CAV8_D1727</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>305</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextEntry_241</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB08:CAV8_D1727:AMPL_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB08:CAV8_D1727:AMPL_CSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>160</x>
+    <y>305</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_758</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB08:CAV8_D1727:AMPL_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB08:CAV8_D1727:AMPL_RD</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>329.16666666666663</x>
+    <y>305</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_759</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB08:CAV8_D1727:AMPL_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB08:CAV8_D1727:AMPL_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>498.33333333333326</x>
+    <y>305</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextEntry_242</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB08:CAV8_D1727:PHA_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB08:CAV8_D1727:PHA_CSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>667.4999999999999</x>
+    <y>305</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_760</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB08:CAV8_D1727:PHA_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB08:CAV8_D1727:PHA_RD</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>836.6666666666665</x>
+    <y>305</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_761</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB08:CAV8_D1727:PHA_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB08:CAV8_D1727:PHA_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -2657,8 +2491,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget type="label" version="2.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_255</name>
-    <text>LS1_CB10:CAV8_D1854</text>
+    <name>Label_254</name>
+    <text>LS1_CB09:CAV8_D1791</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
@@ -2670,20 +2504,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_245</name>
+    <name>TextEntry_243</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB10:CAV8_D1854:AMPL_CSET</value>
+          <value>VA:LS1_CB09:CAV8_D1791:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:CAV8_D1854:AMPL_CSET</value>
+          <value>loc://time_travel_VA:LS1_CB09:CAV8_D1791:AMPL_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -2712,20 +2547,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_756</name>
+    <name>TextUpdate_762</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB10:CAV8_D1854:AMPL_RD</value>
+          <value>VA:LS1_CB09:CAV8_D1791:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:CAV8_D1854:AMPL_RD</value>
+          <value>loc://time_travel_VA:LS1_CB09:CAV8_D1791:AMPL_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -2754,20 +2590,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_757</name>
+    <name>TextUpdate_763</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB10:CAV8_D1854:AMPL_RSET</value>
+          <value>VA:LS1_CB09:CAV8_D1791:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:CAV8_D1854:AMPL_RSET</value>
+          <value>loc://time_travel_VA:LS1_CB09:CAV8_D1791:AMPL_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -2791,20 +2628,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_246</name>
+    <name>TextEntry_244</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB10:CAV8_D1854:PHA_CSET</value>
+          <value>VA:LS1_CB09:CAV8_D1791:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:CAV8_D1854:PHA_CSET</value>
+          <value>loc://time_travel_VA:LS1_CB09:CAV8_D1791:PHA_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -2833,20 +2671,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_758</name>
+    <name>TextUpdate_764</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB10:CAV8_D1854:PHA_RD</value>
+          <value>VA:LS1_CB09:CAV8_D1791:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:CAV8_D1854:PHA_RD</value>
+          <value>loc://time_travel_VA:LS1_CB09:CAV8_D1791:PHA_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -2875,20 +2714,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_759</name>
+    <name>TextUpdate_765</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB10:CAV8_D1854:PHA_RSET</value>
+          <value>VA:LS1_CB09:CAV8_D1791:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB10:CAV8_D1854:PHA_RSET</value>
+          <value>loc://time_travel_VA:LS1_CB09:CAV8_D1791:PHA_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -2909,8 +2749,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget type="label" version="2.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_256</name>
-    <text>LS1_CB11:CAV8_D1918</text>
+    <name>Label_255</name>
+    <text>LS1_CB10:CAV8_D1854</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
@@ -2922,20 +2762,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_247</name>
+    <name>TextEntry_245</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB11:CAV8_D1918:AMPL_CSET</value>
+          <value>VA:LS1_CB10:CAV8_D1854:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:CAV8_D1918:AMPL_CSET</value>
+          <value>loc://time_travel_VA:LS1_CB10:CAV8_D1854:AMPL_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -2964,20 +2805,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_760</name>
+    <name>TextUpdate_766</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB11:CAV8_D1918:AMPL_RD</value>
+          <value>VA:LS1_CB10:CAV8_D1854:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:CAV8_D1918:AMPL_RD</value>
+          <value>loc://time_travel_VA:LS1_CB10:CAV8_D1854:AMPL_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -3006,20 +2848,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_761</name>
+    <name>TextUpdate_767</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB11:CAV8_D1918:AMPL_RSET</value>
+          <value>VA:LS1_CB10:CAV8_D1854:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:CAV8_D1918:AMPL_RSET</value>
+          <value>loc://time_travel_VA:LS1_CB10:CAV8_D1854:AMPL_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -3043,20 +2886,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_248</name>
+    <name>TextEntry_246</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB11:CAV8_D1918:PHA_CSET</value>
+          <value>VA:LS1_CB10:CAV8_D1854:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:CAV8_D1918:PHA_CSET</value>
+          <value>loc://time_travel_VA:LS1_CB10:CAV8_D1854:PHA_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -3085,20 +2929,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_762</name>
+    <name>TextUpdate_768</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB11:CAV8_D1918:PHA_RD</value>
+          <value>VA:LS1_CB10:CAV8_D1854:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:CAV8_D1918:PHA_RD</value>
+          <value>loc://time_travel_VA:LS1_CB10:CAV8_D1854:PHA_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -3127,20 +2972,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_763</name>
+    <name>TextUpdate_769</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_CB11:CAV8_D1918:PHA_RSET</value>
+          <value>VA:LS1_CB10:CAV8_D1854:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:LS1_CB11:CAV8_D1918:PHA_RSET</value>
+          <value>loc://time_travel_VA:LS1_CB10:CAV8_D1854:PHA_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_CAV8</pv_name>
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -3157,5 +3003,263 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <width>164.16666666666666</width>
     <x>1005.8333333333331</x>
     <y>365</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_256</name>
+    <text>LS1_CB11:CAV8_D1918</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>395</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextEntry_247</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB11:CAV8_D1918:AMPL_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB11:CAV8_D1918:AMPL_CSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>160</x>
+    <y>395</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_770</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB11:CAV8_D1918:AMPL_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB11:CAV8_D1918:AMPL_RD</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>329.16666666666663</x>
+    <y>395</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_771</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB11:CAV8_D1918:AMPL_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB11:CAV8_D1918:AMPL_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>498.33333333333326</x>
+    <y>395</y>
+  </widget>
+  <widget type="textentry" version="2.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextEntry_248</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB11:CAV8_D1918:PHA_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB11:CAV8_D1918:PHA_CSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>667.4999999999999</x>
+    <y>395</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_772</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB11:CAV8_D1918:PHA_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB11:CAV8_D1918:PHA_RD</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>836.6666666666665</x>
+    <y>395</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_773</name>
+    <precision>5</precision>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:LS1_CB11:CAV8_D1918:PHA_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:LS1_CB11:CAV8_D1918:PHA_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv_name>loc://$(DID)_time_travel_CAV8(0)</pv_name>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>1005.8333333333331</x>
+    <y>395</y>
   </widget>
 </display>

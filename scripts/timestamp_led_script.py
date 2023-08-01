@@ -6,6 +6,8 @@ from org.csstudio.opibuilder.scriptUtil import PVUtil
 # pvs[1]: loc://time_{device_type}
 # pvs[2]: loc://$(DID)_trigger_{device_type}(0)
 # pvs[3]: loc://internal_state_{device_type}
+# pvs[4]: loc://$(DID)_time_travel_{device_type}
+# pvs[5]: loc://debug_message_{device_type}
 
 # The trigger has been updated
 current_timestamp = PVUtil.getString(pvs[1])
@@ -13,9 +15,12 @@ saved_timestamp = PVUtil.getString(pvs[3])
 
 # If the timestamp matches the saved one, turn LED on
 if saved_timestamp == current_timestamp:
-    pvs[0].setValue(1)
+    if PVUtil.getDouble(pvs[4]) == 1:
+        pvs[0].setValue(1)
 
 # If the timestamp is different, turn LED off and update the saved timestamp
 else:
-    pvs[0].setValue(0)
-    pvs[3].setValue(current_timestamp)
+    if PVUtil.getDouble(pvs[4]) == 1:
+        pvs[0].setValue(0)
+        pvs[3].setValue(current_timestamp)
+    pvs[5].setValue('WARNING: Timestamp does not match time travel data!')

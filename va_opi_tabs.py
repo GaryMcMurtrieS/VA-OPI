@@ -7,6 +7,8 @@ from opigen.opimodel import rules
 from opigen.opimodel.colors import Color
 from opigen.opimodel.scripts import Script
 
+from time_travel_control import Colors, create_time_travel_control_row
+
 # Variables to control widget positioning
 FILENAME = "va_opi"
 TAB_FOLDER_PATH = "va_opi_tabs/"
@@ -24,100 +26,6 @@ NAME_WIDTH = 150
 GRAPH_WIDTH = SCREEN_WIDTH - 100
 GRAPH_HEIGHT = SCREEN_HEIGHT - 100
 GRAPH_LINE_WIDTH = 5
-
-TIME_ENTRY_WIDTH = 180
-
-COLOR_ALPHA = 128
-
-
-class Colors:
-    """Enumerator for graph colors"""
-    BLACK = Color((0, 0, 0))
-    BLUE = Color((66, 133, 244), alpha=COLOR_ALPHA)
-    DARK_BLUE = Color((3, 37, 126))
-    GREEN = Color((69, 168, 83), alpha=COLOR_ALPHA)
-    RED = Color((234, 67, 53), alpha=COLOR_ALPHA)
-    YELLOW = Color((251, 188, 5), alpha=COLOR_ALPHA)
-
-
-def create_time_travel_control_row(parent_widget, device_type, filtered_pvs, y_0):
-    """Creates the control row for the time travel mode"""
-    x_0 = HORIZONTAL_GAP
-
-    # Time Travel Toggle button, toggles between time travel mode and current data
-    parent_widget.add_child(
-        widgets.ToggleButton(x_0, y_0, NAME_WIDTH, WIDGET_HEIGHT, "Time Travel On",
-                             "Time Travel Off", f"loc://$(DID)_time_travel_{device_type}(0)"))
-
-    x_0 += NAME_WIDTH + HORIZONTAL_GAP
-
-    timestamp_led = widgets.Led(x_0, y_0, WIDGET_HEIGHT, WIDGET_HEIGHT,
-                                f"loc://time_led_{device_type}(0)")
-
-    timestamp_led.add_rule(
-        rules.SelectionRule("pv_name", f"loc://$(DID)_time_travel_{device_type}",
-                            "Time Travel Toggle Rule", [(0, "sim://const(0)"),
-                                                        (1, f"loc://time_led_{device_type}")]))
-
-    timestamp_led_script = Script("scripts/timestamp_led_script.py")
-    timestamp_led_script.add_pv(f"loc://time_led_{device_type}", False)
-    timestamp_led_script.add_pv(f"loc://time_{device_type}", True)
-    timestamp_led_script.add_pv(f"loc://$(DID)_trigger_{device_type}(0)", True)
-    timestamp_led_script.add_pv(f"loc://internal_state_{device_type}(-1)", False)
-
-    timestamp_led.add_script(timestamp_led_script)
-    parent_widget.add_child(timestamp_led)
-
-    x_0 += WIDGET_HEIGHT + HORIZONTAL_GAP
-
-    # Default timestamp that will be used for archive data retrieval
-    default_time = "2023-07-07T15:00:00.00-04:00"
-
-    # Time entry box, used to choose when to pull data from
-    timestamp_entry = widgets.TextEntry(x_0, y_0, TIME_ENTRY_WIDTH, WIDGET_HEIGHT,
-                                        f'loc://time_{device_type}("{default_time}")')
-    parent_widget.add_child(timestamp_entry)
-
-    x_0 += TIME_ENTRY_WIDTH + HORIZONTAL_GAP
-
-    # Action button that pulls historic data and displays it
-    pull_button = widgets.ActionButton(x_0, y_0, NAME_WIDTH, WIDGET_HEIGHT, "Pull Data")
-    pull_button.add_write_pv(f"loc://$(DID)_trigger_{device_type}(0)", 1)
-
-    # Script that actually runs the command to pull the data
-    pull_script = Script("scripts/pull_data_script.py")
-
-    # Trigger PV that runs the script
-    pull_script.add_pv(f"loc://$(DID)_trigger_{device_type}(0)", True)
-
-    # PV that controls when to pull archival data from
-    pull_script.add_pv(f"loc://time_{device_type}", False)
-    pull_script.add_pv(f"loc://$(DID)_time_travel_{device_type}", False)
-
-    # Creates list of PVs that will have their archived data pulled
-    pvs = list(filtered_pvs["System Identifier"] + ':' + filtered_pvs["Location"] + '_' +
-               filtered_pvs["Managing Device"] + ':' + filtered_pvs["Device Type"] + '_' +
-               filtered_pvs["Position"] + ':' + filtered_pvs["Variable Identifier"])
-
-    # Adds each of the pvs to the script
-    for process_variable in pvs:
-        pull_script.add_pv(process_variable, False)
-        pull_script.add_pv(f"loc://time_travel_{process_variable}", False)
-
-    pull_button.add_script(pull_script)
-    parent_widget.add_child(pull_button)
-
-    x_0 += NAME_WIDTH + HORIZONTAL_GAP
-
-    # Action button that sets current values to historic data
-    set_button = widgets.ActionButton(x_0, y_0, NAME_WIDTH, WIDGET_HEIGHT, "Set Data")
-
-    set_script = Script("scripts/set_data_script.py")
-
-    set_button.add_script(set_script)
-    parent_widget.add_child(set_button)
-
-    return y_0 + WIDGET_HEIGHT + VERTICAL_GAP
 
 
 def create_columns_and_get_width(filtered_pvs, parent_widget, y_0):
@@ -157,15 +65,20 @@ def create_widget_row(parent_widget, device, device_type, column_names, column_w
                             TextUpdate)(x_0, y_0, column_width, WIDGET_HEIGHT, "")
         parameter_output.horizontal_alignment = widgets.HAlign.RIGHT
 
+        # Rule to display historic data in time travel mode
         parameter_output.add_rule(
-            rules.SelectionRule("pv_name", f"loc://$(DID)_time_travel_{device_type}",
+            rules.SelectionRule("pv_name", f"loc://$(DID)_time_travel_{device_type}(0)",
                                 "Time Travel Rule", [(0, process_variable),
                                                      (1, f"loc://time_travel_{process_variable}")]))
 
+        # Rule to set text color to blue
         parameter_output.add_rule(
-            rules.SelectionRule("foreground_color", f"loc://$(DID)_time_travel_{device_type}",
+            rules.SelectionRule("foreground_color", f"loc://$(DID)_time_travel_{device_type}(0)",
                                 "Time Travel Color Rule", [(0, Colors.BLACK),
                                                            (1, Colors.DARK_BLUE)]))
+
+        parameter_output.precision = 5
+        parameter_output.precision_from_pv = False
 
         parent_widget.add_child(parameter_output)
 

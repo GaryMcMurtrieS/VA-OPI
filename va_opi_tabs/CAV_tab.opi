@@ -38,12 +38,12 @@
     <pv_name>loc://time_led_CAV(0)</pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Toggle Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>sim://const(0)</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_led_CAV</value>
+          <value>loc://time_led_CAV(0)</value>
         </exp>
       </rule>
     </rules>
@@ -58,6 +58,8 @@ from org.csstudio.opibuilder.scriptUtil import PVUtil
 # pvs[1]: loc://time_{device_type}
 # pvs[2]: loc://$(DID)_trigger_{device_type}(0)
 # pvs[3]: loc://internal_state_{device_type}
+# pvs[4]: loc://$(DID)_time_travel_{device_type}
+# pvs[5]: loc://debug_message_{device_type}
 
 # The trigger has been updated
 current_timestamp = PVUtil.getString(pvs[1])
@@ -65,17 +67,22 @@ saved_timestamp = PVUtil.getString(pvs[3])
 
 # If the timestamp matches the saved one, turn LED on
 if saved_timestamp == current_timestamp:
-    pvs[0].setValue(1)
+    if PVUtil.getDouble(pvs[4]) == 1:
+        pvs[0].setValue(1)
 
 # If the timestamp is different, turn LED off and update the saved timestamp
 else:
-    pvs[0].setValue(0)
-    pvs[3].setValue(current_timestamp)
+    if PVUtil.getDouble(pvs[4]) == 1:
+        pvs[0].setValue(0)
+        pvs[3].setValue(current_timestamp)
+    pvs[5].setValue('WARNING: Timestamp does not match time travel data!')
 ]]></scriptText>
-        <pv trig="False">loc://time_led_CAV</pv>
-        <pv trig="True">loc://time_CAV</pv>
+        <pv trig="False">loc://time_led_CAV(0)</pv>
+        <pv trig="True">loc://time_CAV("2023-07-07T15:00:00.00-04:00")</pv>
         <pv trig="True">loc://$(DID)_trigger_CAV(0)</pv>
-        <pv trig="False">loc://internal_state_CAV(-1)</pv>
+        <pv trig="False">loc://internal_state_CAV("2023-07-07T15:00:00.00-04:00")</pv>
+        <pv trig="False">loc://$(DID)_time_travel_CAV(0)</pv>
+        <pv trig="False">loc://debug_message_CAV</pv>
       </path>
     </scripts>
     <width>25</width>
@@ -117,72 +124,93 @@ from org.csstudio.opibuilder.scriptUtil import PVUtil
 
 # pvs[0]: loc://$(DID)_trigger_{device_type}
 # pvs[1]: loc://time_{device_type}
-# pvs[2]: loc://$(DID)_time_travel_{device_type}", False)
+# pvs[2]: loc://$(DID)_time_travel_{device_type}"
+# pvs[3]: loc://debug_message_{device_type}
 
-# Get the start and end times for when PV data should be pulled as a string
-time_start = PVUtil.getString(pvs[1])
-time_end = (datetime.datetime.strptime(time_start[:-6], '%Y-%m-%dT%H:%M:%S.%f') +
-            datetime.timedelta(minutes=15)).isoformat() + time_start[-6:]
+PV_START = 4
 
-# Necessary to get pyarchappl to function properly
-unset_command = "unset PYTHONPATH"
+# Only execute script if in time travel mode
+if PVUtil.getDouble(pvs[2]) == 1:
+    # Get the start and end times for when PV data should be pulled as a string
+    time_start = PVUtil.getString(pvs[1])
+    time_end = (datetime.datetime.strptime(time_start[:-6], '%Y-%m-%dT%H:%M:%S.%f') +
+                datetime.timedelta(minutes=15)).isoformat() + time_start[-6:]
 
-# Map each of the accelerator's PV to its local counterpart and create lists for both
-accelerator_pv_list = [str(pv) for pv in pvs[3::2]]
-local_pv_list = pvs[4::2]
+    # Necessary to get pyarchappl to function properly
+    unset_command = "unset PYTHONPATH"
 
-# Prefix, used to check if we already ran the relevant archive command
-prefix = "{}_{}_".format(time_start, str(pvs[0])[21:-3])
-for char in "-:.":
-    prefix = prefix.replace(char, '')
+    # Map each of the accelerator's PV to its local counterpart and create lists for both
+    accelerator_pv_list = [str(pv) for pv in pvs[PV_START::2]]
+    local_pv_list = pvs[PV_START + 1::2]
 
-# Check if the archive file already exists
-existing_files = glob('/tmp/{}*'.format(prefix))
-archive_file = existing_files[0] if existing_files else None
+    # Prefix, used to check if we already ran the relevant archive command
+    prefix = "{}_{}_".format(time_start, str(pvs[0])[21:-3])
+    for char in "-:.":
+        prefix = prefix.replace(char, '')
 
-# If no such file exists, create a new one
-if not archive_file:
-    with tempfile(prefix=prefix, delete=False) as temp_archive_file:
-        archive_file = temp_archive_file.name
+    # Check if the archive file already exists
+    existing_files = glob('/tmp/{}*'.format(prefix))
+    archive_file = existing_files[0] if existing_files else None
 
-        # Command that actually pulls the historic data
-        archappl_command = [
-            "pyarchappl-get", "--from {}".format(time_start), "--to {}".format(time_end),
-            "--url http://127.0.0.1:17665", "--output {}".format(archive_file)
-        ] + ["--pv {}".format(pv) for pv in accelerator_pv_list]
+    # If no such file exists, create a new one
+    if not archive_file:
+        with tempfile(prefix=prefix, delete=False) as temp_archive_file:
+            archive_file = temp_archive_file.name
 
-        full_command = unset_command + "; " + " ".join(archappl_command)
+            # Command that actually pulls the historic data
+            archappl_command = [
+                "pyarchappl-get", "--from {}".format(time_start), "--to {}".format(time_end),
+                "--url http://127.0.0.1:17665", "--output {}".format(archive_file)
+            ] + ["--pv {}".format(pv) for pv in accelerator_pv_list]
 
-        process = subprocess.Popen(full_command, shell=True)
-        process.wait()
+            full_command = unset_command + "; " + " ".join(archappl_command)
 
-# Read the data from the output file
-with open(archive_file) as archive_csv:
-    archived_pvs = next(archive_csv).strip().split(',')[1:]
+            process = subprocess.Popen(full_command, shell=True)
+            process.wait()
 
-    # Create a dict for all PVs that were archived
-    archived_data = {pv: None for pv in archived_pvs}
+    # Read the data from the output file
+    with open(archive_file) as archive_csv:
+        # Check if the file is not empty
+        first_line = archive_csv.readline()
+        if first_line:
+            archived_pvs = first_line.strip().split(',')[1:]
 
-    for row in archive_csv:
-        archived_values = row.strip().split(',')[1:]
+            # Create a dict for all PVs that were archived
+            archived_data = {pv: None for pv in archived_pvs}
 
-        # Iterate over the values and their corresponding PVs
-        for archived_value, archived_pv in zip(archived_values, archived_pvs):
-            # If the value in the dict is None and this value is not an empty string, write
-            # it to the dict
-            if archived_data[archived_pv] is None and archived_value != "":
-                archived_data[archived_pv] = archived_value
+            for row in archive_csv:
+                archived_values = row.strip().split(',')[1:]
 
-# After reading the entire CSV file, write values or "No Data Found" to PVs
-for accelerator_pv, local_pv in zip(accelerator_pv_list, local_pv_list):
-    if accelerator_pv in archived_data:
-        local_pv.setValue(archived_data[accelerator_pv])
-    else:
-        local_pv.setValue("No Data Found!")
+                # Iterate over the values and their corresponding PVs
+                for archived_value, archived_pv in zip(archived_values, archived_pvs):
+                    # If the value in the dict is None and this value is not an empty string, write
+                    # it to the dict
+                    if archived_data[archived_pv] is None and archived_value != "":
+                        archived_data[archived_pv] = archived_value
+
+            # Count of the found and missing PVs
+            found_count = 0
+            missing_count = 0
+
+            # After reading the entire CSV file, write values or "No Data Found" to PVs
+            for accelerator_pv, local_pv in zip(accelerator_pv_list, local_pv_list):
+                if accelerator_pv in archived_data:
+                    local_pv.setValue(archived_data[accelerator_pv])
+                    found_count += 1
+                else:
+                    local_pv.setValue('No Data Found!')
+                    missing_count += 1
+
+            pvs[3].setValue('Data pulled. {} PV(s) loaded, {} PV(s) missing.'.format(
+                found_count, missing_count))
+
+        else:
+            pvs[3].setValue('No Archive Data Found!')
 ]]></scriptText>
         <pv trig="True">loc://$(DID)_trigger_CAV(0)</pv>
-        <pv trig="False">loc://time_CAV</pv>
-        <pv trig="False">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="False">loc://time_CAV("2023-07-07T15:00:00.00-04:00")</pv>
+        <pv trig="False">loc://$(DID)_time_travel_CAV(0)</pv>
+        <pv trig="False">loc://debug_message_CAV</pv>
         <pv trig="False">VA:FS1_MGB01:CAV_D2320:PHA_CSET</pv>
         <pv trig="False">loc://time_travel_VA:FS1_MGB01:CAV_D2320:PHA_CSET</pv>
         <pv trig="False">VA:FS1_MGB01:CAV_D2320:AMPL_CSET</pv>
@@ -307,6 +335,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <x>530</x>
     <y>5</y>
   </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>TextUpdate_301</name>
+    <pv_name>loc://debug_message_CAV("Initialization Complete.")</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>675</width>
+    <x>5</x>
+    <y>35</y>
+  </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
@@ -315,7 +353,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>160</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -325,7 +363,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>329.16666666666663</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -335,7 +373,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>498.33333333333326</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -345,7 +383,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>667.4999999999999</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -355,7 +393,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>836.6666666666665</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -365,7 +403,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>1005.8333333333331</x>
-    <y>35</y>
+    <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
@@ -375,7 +413,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
-    <y>65</y>
+    <y>95</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <background_color>
@@ -384,10 +422,12 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_9</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_MGB01:CAV_D2320:AMPL_CSET</value>
         </exp>
@@ -396,7 +436,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -412,130 +452,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>160</x>
-    <y>65</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_300</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB01:CAV_D2320:AMPL_RD</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2320:AMPL_RD</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>329.16666666666663</x>
-    <y>65</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_301</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB01:CAV_D2320:AMPL_RSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2320:AMPL_RSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>498.33333333333326</x>
-    <y>65</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_10</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB01:CAV_D2320:PHA_CSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2320:PHA_CSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>667.4999999999999</x>
-    <y>65</y>
+    <y>95</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -550,19 +467,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_302</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB01:CAV_D2320:PHA_RD</value>
+          <value>VA:FS1_MGB01:CAV_D2320:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2320:PHA_RD</value>
+          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2320:AMPL_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -577,8 +496,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
-    <x>836.6666666666665</x>
-    <y>65</y>
+    <x>329.16666666666663</x>
+    <y>95</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -593,19 +512,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_303</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB01:CAV_D2320:PHA_RSET</value>
+          <value>VA:FS1_MGB01:CAV_D2320:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2320:PHA_RSET</value>
+          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2320:AMPL_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -620,17 +541,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
-    <x>1005.8333333333331</x>
-    <y>65</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_94</name>
-    <text>FS1_MGB01:CAV_D2323</text>
-    <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>5</x>
+    <x>498.33333333333326</x>
     <y>95</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
@@ -639,20 +550,22 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_11</name>
+    <name>TextEntry_10</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB01:CAV_D2323:AMPL_CSET</value>
+          <value>VA:FS1_MGB01:CAV_D2320:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2323:AMPL_CSET</value>
+          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2320:PHA_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -667,7 +580,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
-    <x>160</x>
+    <x>667.4999999999999</x>
     <y>95</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -683,19 +596,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_304</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB01:CAV_D2323:AMPL_RD</value>
+          <value>VA:FS1_MGB01:CAV_D2320:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2323:AMPL_RD</value>
+          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2320:PHA_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -710,7 +625,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
-    <x>329.16666666666663</x>
+    <x>836.6666666666665</x>
     <y>95</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -726,142 +641,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_305</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB01:CAV_D2323:AMPL_RSET</value>
+          <value>VA:FS1_MGB01:CAV_D2320:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2323:AMPL_RSET</value>
+          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2320:PHA_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>498.33333333333326</x>
-    <y>95</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_12</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB01:CAV_D2323:PHA_CSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2323:PHA_CSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>667.4999999999999</x>
-    <y>95</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_306</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB01:CAV_D2323:PHA_RD</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2323:PHA_RD</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>836.6666666666665</x>
-    <y>95</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_307</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB01:CAV_D2323:PHA_RSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2323:PHA_RSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -882,8 +676,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_95</name>
-    <text>FS1_MGB01:CAV_D2327</text>
+    <name>Label_94</name>
+    <text>FS1_MGB01:CAV_D2323</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
@@ -895,20 +689,22 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_13</name>
+    <name>TextEntry_11</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB01:CAV_D2327:AMPL_CSET</value>
+          <value>VA:FS1_MGB01:CAV_D2323:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2327:AMPL_CSET</value>
+          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2323:AMPL_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -924,6 +720,135 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>160</x>
+    <y>125</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_306</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2323:AMPL_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2323:AMPL_RD</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>329.16666666666663</x>
+    <y>125</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_307</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2323:AMPL_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2323:AMPL_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>498.33333333333326</x>
+    <y>125</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextEntry_12</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2323:PHA_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2323:PHA_CSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>667.4999999999999</x>
     <y>125</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -939,19 +864,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_308</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB01:CAV_D2327:AMPL_RD</value>
+          <value>VA:FS1_MGB01:CAV_D2323:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2327:AMPL_RD</value>
+          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2323:PHA_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -966,7 +893,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
-    <x>329.16666666666663</x>
+    <x>836.6666666666665</x>
     <y>125</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -982,142 +909,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_309</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB01:CAV_D2327:AMPL_RSET</value>
+          <value>VA:FS1_MGB01:CAV_D2323:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2327:AMPL_RSET</value>
+          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2323:PHA_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>498.33333333333326</x>
-    <y>125</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_14</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB01:CAV_D2327:PHA_CSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2327:PHA_CSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>667.4999999999999</x>
-    <y>125</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_310</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB01:CAV_D2327:PHA_RD</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2327:PHA_RD</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>836.6666666666665</x>
-    <y>125</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_311</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB01:CAV_D2327:PHA_RSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2327:PHA_RSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -1138,8 +944,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_96</name>
-    <text>FS1_MGB01:CAV_D2330</text>
+    <name>Label_95</name>
+    <text>FS1_MGB01:CAV_D2327</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
@@ -1151,20 +957,22 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_15</name>
+    <name>TextEntry_13</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB01:CAV_D2330:AMPL_CSET</value>
+          <value>VA:FS1_MGB01:CAV_D2327:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2330:AMPL_CSET</value>
+          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2327:AMPL_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -1180,6 +988,135 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>160</x>
+    <y>155</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_310</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2327:AMPL_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2327:AMPL_RD</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>329.16666666666663</x>
+    <y>155</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_311</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2327:AMPL_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2327:AMPL_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>498.33333333333326</x>
+    <y>155</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextEntry_14</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2327:PHA_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2327:PHA_CSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>667.4999999999999</x>
     <y>155</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -1195,19 +1132,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_312</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB01:CAV_D2330:AMPL_RD</value>
+          <value>VA:FS1_MGB01:CAV_D2327:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2330:AMPL_RD</value>
+          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2327:PHA_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -1222,7 +1161,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
-    <x>329.16666666666663</x>
+    <x>836.6666666666665</x>
     <y>155</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -1238,142 +1177,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_313</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB01:CAV_D2330:AMPL_RSET</value>
+          <value>VA:FS1_MGB01:CAV_D2327:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2330:AMPL_RSET</value>
+          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2327:PHA_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>498.33333333333326</x>
-    <y>155</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_16</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB01:CAV_D2330:PHA_CSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2330:PHA_CSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>667.4999999999999</x>
-    <y>155</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_314</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB01:CAV_D2330:PHA_RD</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2330:PHA_RD</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>836.6666666666665</x>
-    <y>155</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_315</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB01:CAV_D2330:PHA_RSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2330:PHA_RSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -1394,8 +1212,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_97</name>
-    <text>FS1_MGB02:CAV_D2606</text>
+    <name>Label_96</name>
+    <text>FS1_MGB01:CAV_D2330</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
@@ -1407,20 +1225,22 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_17</name>
+    <name>TextEntry_15</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2606:AMPL_CSET</value>
+          <value>VA:FS1_MGB01:CAV_D2330:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2606:AMPL_CSET</value>
+          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2330:AMPL_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -1436,6 +1256,135 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>160</x>
+    <y>185</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_314</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2330:AMPL_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2330:AMPL_RD</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>329.16666666666663</x>
+    <y>185</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_315</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2330:AMPL_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2330:AMPL_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>498.33333333333326</x>
+    <y>185</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextEntry_16</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB01:CAV_D2330:PHA_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2330:PHA_CSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>667.4999999999999</x>
     <y>185</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -1451,19 +1400,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_316</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2606:AMPL_RD</value>
+          <value>VA:FS1_MGB01:CAV_D2330:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2606:AMPL_RD</value>
+          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2330:PHA_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -1478,7 +1429,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
-    <x>329.16666666666663</x>
+    <x>836.6666666666665</x>
     <y>185</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -1494,142 +1445,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_317</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2606:AMPL_RSET</value>
+          <value>VA:FS1_MGB01:CAV_D2330:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2606:AMPL_RSET</value>
+          <value>loc://time_travel_VA:FS1_MGB01:CAV_D2330:PHA_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>498.33333333333326</x>
-    <y>185</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_18</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2606:PHA_CSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2606:PHA_CSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>667.4999999999999</x>
-    <y>185</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_318</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2606:PHA_RD</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2606:PHA_RD</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>836.6666666666665</x>
-    <y>185</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_319</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2606:PHA_RSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2606:PHA_RSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -1650,8 +1480,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_98</name>
-    <text>FS1_MGB02:CAV_D2609</text>
+    <name>Label_97</name>
+    <text>FS1_MGB02:CAV_D2606</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
@@ -1663,20 +1493,22 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_19</name>
+    <name>TextEntry_17</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2609:AMPL_CSET</value>
+          <value>VA:FS1_MGB02:CAV_D2606:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2609:AMPL_CSET</value>
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2606:AMPL_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -1692,6 +1524,135 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>160</x>
+    <y>215</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_318</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2606:AMPL_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2606:AMPL_RD</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>329.16666666666663</x>
+    <y>215</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_319</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2606:AMPL_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2606:AMPL_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>498.33333333333326</x>
+    <y>215</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextEntry_18</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2606:PHA_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2606:PHA_CSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>667.4999999999999</x>
     <y>215</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -1707,19 +1668,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_320</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2609:AMPL_RD</value>
+          <value>VA:FS1_MGB02:CAV_D2606:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2609:AMPL_RD</value>
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2606:PHA_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -1734,7 +1697,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
-    <x>329.16666666666663</x>
+    <x>836.6666666666665</x>
     <y>215</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -1750,142 +1713,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_321</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2609:AMPL_RSET</value>
+          <value>VA:FS1_MGB02:CAV_D2606:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2609:AMPL_RSET</value>
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2606:PHA_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>498.33333333333326</x>
-    <y>215</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_20</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2609:PHA_CSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2609:PHA_CSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>667.4999999999999</x>
-    <y>215</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_322</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2609:PHA_RD</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2609:PHA_RD</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>836.6666666666665</x>
-    <y>215</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_323</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2609:PHA_RSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2609:PHA_RSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -1906,8 +1748,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_99</name>
-    <text>FS1_MGB02:CAV_D2613</text>
+    <name>Label_98</name>
+    <text>FS1_MGB02:CAV_D2609</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
@@ -1919,20 +1761,22 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_21</name>
+    <name>TextEntry_19</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2613:AMPL_CSET</value>
+          <value>VA:FS1_MGB02:CAV_D2609:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2613:AMPL_CSET</value>
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2609:AMPL_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -1948,6 +1792,135 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <vertical_alignment>1</vertical_alignment>
     <width>164.16666666666666</width>
     <x>160</x>
+    <y>245</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_322</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2609:AMPL_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2609:AMPL_RD</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>329.16666666666663</x>
+    <y>245</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_323</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2609:AMPL_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2609:AMPL_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>498.33333333333326</x>
+    <y>245</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextEntry_20</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2609:PHA_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2609:PHA_CSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>667.4999999999999</x>
     <y>245</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -1963,142 +1936,21 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_324</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2613:AMPL_RD</value>
+          <value>VA:FS1_MGB02:CAV_D2609:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2613:AMPL_RD</value>
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2609:PHA_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>329.16666666666663</x>
-    <y>245</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_325</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2613:AMPL_RSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2613:AMPL_RSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>498.33333333333326</x>
-    <y>245</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_22</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2613:PHA_CSET</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2613:PHA_CSET</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>
-            <color red="0" green="0" blue="0"/>
-          </value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>
-            <color red="3" green="37" blue="126"/>
-          </value>
-        </exp>
-      </rule>
-    </rules>
-    <vertical_alignment>1</vertical_alignment>
-    <width>164.16666666666666</width>
-    <x>667.4999999999999</x>
-    <y>245</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_326</name>
-    <pv_name></pv_name>
-    <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
-        <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2613:PHA_RD</value>
-        </exp>
-        <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2613:PHA_RD</value>
-        </exp>
-      </rule>
-      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -2128,20 +1980,22 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_327</name>
+    <name>TextUpdate_325</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2613:PHA_RSET</value>
+          <value>VA:FS1_MGB02:CAV_D2609:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2613:PHA_RSET</value>
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2609:PHA_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -2162,8 +2016,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_100</name>
-    <text>FS1_MGB02:CAV_D2616</text>
+    <name>Label_99</name>
+    <text>FS1_MGB02:CAV_D2613</text>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
     <x>5</x>
@@ -2175,20 +2029,22 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_23</name>
+    <name>TextEntry_21</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2616:AMPL_CSET</value>
+          <value>VA:FS1_MGB02:CAV_D2613:AMPL_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2616:AMPL_CSET</value>
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2613:AMPL_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -2218,20 +2074,22 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_328</name>
+    <name>TextUpdate_326</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2616:AMPL_RD</value>
+          <value>VA:FS1_MGB02:CAV_D2613:AMPL_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2616:AMPL_RD</value>
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2613:AMPL_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -2261,20 +2119,22 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_329</name>
+    <name>TextUpdate_327</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2616:AMPL_RSET</value>
+          <value>VA:FS1_MGB02:CAV_D2613:AMPL_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2616:AMPL_RSET</value>
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2613:AMPL_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -2298,20 +2158,22 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_24</name>
+    <name>TextEntry_22</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2616:PHA_CSET</value>
+          <value>VA:FS1_MGB02:CAV_D2613:PHA_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2616:PHA_CSET</value>
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2613:PHA_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -2341,20 +2203,22 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_330</name>
+    <name>TextUpdate_328</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2616:PHA_RD</value>
+          <value>VA:FS1_MGB02:CAV_D2613:PHA_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2616:PHA_RD</value>
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2613:PHA_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -2384,20 +2248,22 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_331</name>
+    <name>TextUpdate_329</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_MGB02:CAV_D2616:PHA_RSET</value>
+          <value>VA:FS1_MGB02:CAV_D2613:PHA_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2616:PHA_RSET</value>
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2613:PHA_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv trig="true">loc://$(DID)_time_travel_CAV</pv>
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -2414,5 +2280,273 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <width>164.16666666666666</width>
     <x>1005.8333333333331</x>
     <y>275</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_100</name>
+    <text>FS1_MGB02:CAV_D2616</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>305</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextEntry_23</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2616:AMPL_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2616:AMPL_CSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>160</x>
+    <y>305</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_330</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2616:AMPL_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2616:AMPL_RD</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>329.16666666666663</x>
+    <y>305</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_331</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2616:AMPL_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2616:AMPL_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>498.33333333333326</x>
+    <y>305</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
+    <background_color>
+      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
+    </background_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextEntry_24</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2616:PHA_CSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2616:PHA_CSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>667.4999999999999</x>
+    <y>305</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_332</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2616:PHA_RD</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2616:PHA_RD</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>836.6666666666665</x>
+    <y>305</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_333</name>
+    <precision>5</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name></pv_name>
+    <rules>
+      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>VA:FS1_MGB02:CAV_D2616:PHA_RSET</value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>loc://time_travel_VA:FS1_MGB02:CAV_D2616:PHA_RSET</value>
+        </exp>
+      </rule>
+      <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
+        <pv trig="true">loc://$(DID)_time_travel_CAV(0)</pv>
+        <exp bool_exp="pv0 == 0">
+          <value>
+            <color red="0" green="0" blue="0"/>
+          </value>
+        </exp>
+        <exp bool_exp="pv0 == 1">
+          <value>
+            <color red="3" green="37" blue="126"/>
+          </value>
+        </exp>
+      </rule>
+    </rules>
+    <vertical_alignment>1</vertical_alignment>
+    <width>164.16666666666666</width>
+    <x>1005.8333333333331</x>
+    <y>305</y>
   </widget>
 </display>

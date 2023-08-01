@@ -96,10 +96,11 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_0</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <pv_name>loc://$(DID)_time_travel_SVR(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:SVR:BEAM</value>
         </exp>
@@ -108,7 +109,7 @@
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <pv_name>loc://$(DID)_time_travel_SVR(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -133,10 +134,11 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_1</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <pv_name>loc://$(DID)_time_travel_SVR(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:SVR:CHARGE</value>
         </exp>
@@ -145,7 +147,7 @@
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <pv_name>loc://$(DID)_time_travel_SVR(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -170,10 +172,11 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_2</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <pv_name>loc://$(DID)_time_travel_SVR(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:SVR:CNT</value>
         </exp>
@@ -182,7 +185,7 @@
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <pv_name>loc://$(DID)_time_travel_SVR(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -207,10 +210,11 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_3</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <pv_name>loc://$(DID)_time_travel_SVR(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:SVR:MpsStatus</value>
         </exp>
@@ -219,7 +223,7 @@
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <pv_name>loc://$(DID)_time_travel_SVR(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -244,10 +248,11 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_4</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <pv_name>loc://$(DID)_time_travel_SVR(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:SVR:NOISE</value>
         </exp>
@@ -256,7 +261,7 @@
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <pv_name>loc://$(DID)_time_travel_SVR(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -281,10 +286,11 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_5</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <pv_name>loc://$(DID)_time_travel_SVR(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:SVR:RATE</value>
         </exp>
@@ -293,7 +299,7 @@
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <pv_name>loc://$(DID)_time_travel_SVR(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>
@@ -318,10 +324,11 @@
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_6</name>
+    <precision>5</precision>
     <pv_name></pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <pv_name>loc://$(DID)_time_travel_SVR(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:SVR:STATUS</value>
         </exp>
@@ -330,7 +337,7 @@
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
-        <pv_name>loc://$(DID)_time_travel_SVR</pv_name>
+        <pv_name>loc://$(DID)_time_travel_SVR(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>
             <color red="0" green="0" blue="0"/>

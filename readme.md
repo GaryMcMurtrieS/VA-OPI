@@ -8,16 +8,12 @@
 
 ### To-do
 
-- Add additional label for number of PVs that were successfully retrieved
 - Add button to view data in pop-up window - CS-Studio Array?
-- Add indicator whether all data has been imported correctly
 - Add set data button
-- Change precision of displays to fixed value (5)
 - Change XYGraph to be more generic and have bar graph in Contrib
 - Display historic data in read only boxes
 - Display timestamp of when data was changed
 - Input and set for archive data
-- LED **with label** that is green when currently displayed time travel data matches the timestamp
 - Manually set fonts for boxes
 - Merge CAV and SOL tabs
 - Push button that opens text file with pulled data (either in seperate window or CS-Studio Array)
