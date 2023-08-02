@@ -4,8 +4,8 @@ import re
 
 import pandas as pd
 from opigen import Renderer, widgets
-from opigen.contrib import Display, TextEntry, TextUpdate
-from opigen.opimodel import rules
+from opigen.contrib import Display
+from opigen.opimodel import fonts, rules
 
 from time_travel_control import Colors, create_time_travel_control_row
 
@@ -19,9 +19,9 @@ SCREEN_HEIGHT = 700
 HORIZONTAL_GAP = 5
 VERTICAL_GAP = 5
 
-WIDGET_HEIGHT = 25
+WIDGET_HEIGHT = 30
 TOTAL_WIDTH = SCREEN_WIDTH - HORIZONTAL_GAP * 2 - 25
-NAME_WIDTH = 150
+NAME_WIDTH = 200
 COLUMN_WIDTH = 150
 
 GRAPH_WIDTH = SCREEN_WIDTH - 100
@@ -29,7 +29,7 @@ GRAPH_HEIGHT = SCREEN_HEIGHT - 100
 GRAPH_LINE_WIDTH = 5
 
 # Percent of a column's header that will be taken up by the name, units take up the remaining space
-COLUMN_LABEL_NAME_RATIO = 0.7
+COLUMN_LABEL_NAME_RATIO = 0.6
 
 
 def create_columns_and_get_width(filtered_pvs, parent_widget, y_0):
@@ -61,14 +61,16 @@ def create_columns_and_get_width(filtered_pvs, parent_widget, y_0):
         # Label for the column name
         column_label = widgets.Label(x_0, y_0, column_name_width, WIDGET_HEIGHT, column_name)
         column_label.horizontal_alignment = widgets.HAlign.RIGHT
+        column_label.set_font(fonts.DEFAULT_BOLD)
         parent_widget.add_child(column_label)
 
         x_0 += column_name_width + HORIZONTAL_GAP
 
         # TextUpdate widget for the unit
-        column_units_widget = TextUpdate(x_0, y_0, column_units_width, WIDGET_HEIGHT,
-                                         pv_name + ".EGU")
+        column_units_widget = widgets.TextUpdate(x_0, y_0, column_units_width, WIDGET_HEIGHT,
+                                                 pv_name + ".EGU")
         column_units_widget.horizontal_alignment = widgets.HAlign.RIGHT
+        column_units_widget.set_font(fonts.DEFAULT)
         parent_widget.add_child(column_units_widget)
 
         x_0 += column_units_width + HORIZONTAL_GAP
@@ -82,6 +84,7 @@ def create_widget_row(parent_widget, device, device_type, column_names, y_0):
     """Creates a row of widgets for a given device"""
     # Label for the devices name
     device_label = widgets.Label(HORIZONTAL_GAP, y_0, NAME_WIDTH, WIDGET_HEIGHT, device[3:])
+    device_label.set_font(fonts.DEFAULT_BOLD)
     parent_widget.add_child(device_label)
 
     x_0 = HORIZONTAL_GAP + NAME_WIDTH + HORIZONTAL_GAP
@@ -94,6 +97,7 @@ def create_widget_row(parent_widget, device, device_type, column_names, y_0):
         parameter_output = (widgets.TextEntry if parameter.endswith("CSET") or
                             device.endswith("SVR") else widgets.TextUpdate)(x_0, y_0, COLUMN_WIDTH,
                                                                             WIDGET_HEIGHT, "")
+        parameter_output.set_font(fonts.DEFAULT)
         parameter_output.horizontal_alignment = widgets.HAlign.RIGHT
 
         # Rule to display historic data in time travel mode

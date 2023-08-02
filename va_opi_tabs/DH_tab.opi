@@ -17,7 +17,10 @@
   <y>0</y>
   <widget typeId="org.csstudio.opibuilder.widgets.BoolButton" version="1.0.0">
     <effect_3d>true</effect_3d>
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="1" pixels="false">Default Bold</fontdata>
+    </font>
+    <height>30</height>
     <name>ToggleButton_4</name>
     <off_label>Time Travel Off</off_label>
     <on_label>Time Travel On</on_label>
@@ -28,12 +31,12 @@
     <show_led>false</show_led>
     <square_button>true</square_button>
     <toggle_button>true</toggle_button>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
     <y>5</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
-    <height>25</height>
+    <height>30</height>
     <name>Led_4</name>
     <pv_name>loc://time_led_DH(0)</pv_name>
     <rules>
@@ -85,18 +88,21 @@ else:
         <pv trig="False">loc://debug_message_DH</pv>
       </path>
     </scripts>
-    <width>25</width>
-    <x>160</x>
+    <width>30</width>
+    <x>210</x>
     <y>5</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>TextEntry_367</name>
     <pv_name>loc://time_DH("2023-07-07T15:00:00.00-04:00")</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>200</width>
-    <x>190</x>
+    <width>280</width>
+    <x>245</x>
     <y>5</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="1.0.0">
@@ -108,7 +114,10 @@ else:
         <timeout>10</timeout>
       </action>
     </actions>
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="1" pixels="false">Default Bold</fontdata>
+    </font>
+    <height>30</height>
     <name>ActionButton_8</name>
     <scripts>
       <path pathString="EmbeddedPy" checkConnect="true" sfe="false" seoe="false">
@@ -286,12 +295,15 @@ if PVUtil.getDouble(pvs[2]) == 1:
       </path>
     </scripts>
     <text>Pull Data</text>
-    <width>150</width>
-    <x>395</x>
+    <width>200</width>
+    <x>530</x>
     <y>5</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="1" pixels="false">Default Bold</fontdata>
+    </font>
+    <height>30</height>
     <name>ActionButton_9</name>
     <scripts>
       <path pathString="EmbeddedPy" checkConnect="true" sfe="false" seoe="false">
@@ -307,119 +319,119 @@ if PVUtil.getDouble(pvs[2]) == 1:
       </path>
     </scripts>
     <text>Set Data</text>
-    <width>150</width>
-    <x>550</x>
+    <width>200</width>
+    <x>735</x>
     <y>5</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>TextEntry_368</name>
     <pv_name>loc://debug_message_DH("Initialization Complete.")</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>695</width>
+    <width>930</width>
     <x>5</x>
-    <y>35</y>
+    <y>40</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="1" pixels="false">Default Bold</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_335</name>
     <text>I_CSET</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>101.5</width>
-    <x>160</x>
-    <y>65</y>
+    <width>87.0</width>
+    <x>210</x>
+    <y>75</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1027</name>
     <pv_name>VA:FS1_CSS:DH_D2163:I_CSET.EGU</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>43.50000000000001</width>
-    <x>266.5</x>
-    <y>65</y>
+    <width>58.0</width>
+    <x>302.0</x>
+    <y>75</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="1" pixels="false">Default Bold</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_336</name>
     <text>I_RD</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>101.5</width>
-    <x>315.0</x>
-    <y>65</y>
+    <width>87.0</width>
+    <x>365.0</x>
+    <y>75</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1028</name>
     <pv_name>VA:FS1_CSS:DH_D2163:I_RD.EGU</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>43.50000000000001</width>
-    <x>421.5</x>
-    <y>65</y>
+    <width>58.0</width>
+    <x>457.0</x>
+    <y>75</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="1" pixels="false">Default Bold</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_337</name>
     <text>I_RSET</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>101.5</width>
-    <x>470.0</x>
-    <y>65</y>
+    <width>87.0</width>
+    <x>520.0</x>
+    <y>75</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1029</name>
     <pv_name>VA:FS1_CSS:DH_D2163:I_RSET.EGU</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>43.50000000000001</width>
-    <x>576.5</x>
-    <y>65</y>
+    <width>58.0</width>
+    <x>612.0</x>
+    <y>75</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="1" pixels="false">Default Bold</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_338</name>
     <text>FS1_BBS:DH_D2394</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>95</y>
+    <y>110</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_369</name>
     <precision>5</precision>
@@ -452,11 +464,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>95</y>
+    <x>210</x>
+    <y>110</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1030</name>
     <precision>5</precision>
@@ -489,11 +504,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>95</y>
+    <x>365</x>
+    <y>110</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1031</name>
     <precision>5</precision>
@@ -526,21 +544,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>95</y>
+    <x>520</x>
+    <y>110</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="1" pixels="false">Default Bold</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_339</name>
     <text>FS1_BBS:DH_D2435</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>125</y>
+    <y>145</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_370</name>
     <precision>5</precision>
@@ -573,11 +597,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>125</y>
+    <x>210</x>
+    <y>145</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1032</name>
     <precision>5</precision>
@@ -610,11 +637,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>125</y>
+    <x>365</x>
+    <y>145</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1033</name>
     <precision>5</precision>
@@ -647,21 +677,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>125</y>
+    <x>520</x>
+    <y>145</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="1" pixels="false">Default Bold</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_340</name>
     <text>FS1_BBS:DH_D2453</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>155</y>
+    <y>180</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_371</name>
     <precision>5</precision>
@@ -694,11 +730,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>155</y>
+    <x>210</x>
+    <y>180</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1034</name>
     <precision>5</precision>
@@ -731,11 +770,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>155</y>
+    <x>365</x>
+    <y>180</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1035</name>
     <precision>5</precision>
@@ -768,21 +810,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>155</y>
+    <x>520</x>
+    <y>180</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="1" pixels="false">Default Bold</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_341</name>
     <text>FS1_BBS:DH_D2494</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>185</y>
+    <y>215</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_372</name>
     <precision>5</precision>
@@ -815,11 +863,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>185</y>
+    <x>210</x>
+    <y>215</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1036</name>
     <precision>5</precision>
@@ -852,11 +903,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>185</y>
+    <x>365</x>
+    <y>215</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1037</name>
     <precision>5</precision>
@@ -889,21 +943,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>185</y>
+    <x>520</x>
+    <y>215</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="1" pixels="false">Default Bold</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_342</name>
     <text>FS1_CSS:DH_D2163</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>215</y>
+    <y>250</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_373</name>
     <precision>5</precision>
@@ -936,11 +996,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>215</y>
+    <x>210</x>
+    <y>250</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1038</name>
     <precision>5</precision>
@@ -973,11 +1036,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>215</y>
+    <x>365</x>
+    <y>250</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1039</name>
     <precision>5</precision>
@@ -1010,21 +1076,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>215</y>
+    <x>520</x>
+    <y>250</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="1" pixels="false">Default Bold</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_343</name>
     <text>FS1_CSS:DH_D2169</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>245</y>
+    <y>285</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_374</name>
     <precision>5</precision>
@@ -1057,11 +1129,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>245</y>
+    <x>210</x>
+    <y>285</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1040</name>
     <precision>5</precision>
@@ -1094,11 +1169,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>245</y>
+    <x>365</x>
+    <y>285</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1041</name>
     <precision>5</precision>
@@ -1131,21 +1209,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>245</y>
+    <x>520</x>
+    <y>285</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="1" pixels="false">Default Bold</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_344</name>
     <text>FS1_CSS:DH_D2174</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>275</y>
+    <y>320</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_375</name>
     <precision>5</precision>
@@ -1178,11 +1262,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>275</y>
+    <x>210</x>
+    <y>320</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1042</name>
     <precision>5</precision>
@@ -1215,11 +1302,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>275</y>
+    <x>365</x>
+    <y>320</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1043</name>
     <precision>5</precision>
@@ -1252,21 +1342,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>275</y>
+    <x>520</x>
+    <y>320</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="1" pixels="false">Default Bold</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_345</name>
     <text>FS1_CSS:DH_D2180</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>305</y>
+    <y>355</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_376</name>
     <precision>5</precision>
@@ -1299,11 +1395,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>305</y>
+    <x>210</x>
+    <y>355</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1044</name>
     <precision>5</precision>
@@ -1336,11 +1435,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>305</y>
+    <x>365</x>
+    <y>355</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1045</name>
     <precision>5</precision>
@@ -1373,21 +1475,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>305</y>
+    <x>520</x>
+    <y>355</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="1" pixels="false">Default Bold</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_346</name>
     <text>FS1_CSS:DH_D2290</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>335</y>
+    <y>390</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_377</name>
     <precision>5</precision>
@@ -1420,11 +1528,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>335</y>
+    <x>210</x>
+    <y>390</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1046</name>
     <precision>5</precision>
@@ -1457,11 +1568,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>335</y>
+    <x>365</x>
+    <y>390</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1047</name>
     <precision>5</precision>
@@ -1494,21 +1608,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>335</y>
+    <x>520</x>
+    <y>390</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="1" pixels="false">Default Bold</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_347</name>
     <text>FS1_CSS:DH_D2296</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>365</y>
+    <y>425</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_378</name>
     <precision>5</precision>
@@ -1541,11 +1661,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>365</y>
+    <x>210</x>
+    <y>425</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1048</name>
     <precision>5</precision>
@@ -1578,11 +1701,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>365</y>
+    <x>365</x>
+    <y>425</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1049</name>
     <precision>5</precision>
@@ -1615,21 +1741,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>365</y>
+    <x>520</x>
+    <y>425</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="1" pixels="false">Default Bold</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_348</name>
     <text>FS1_CSS:DH_D2302</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>395</y>
+    <y>460</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_379</name>
     <precision>5</precision>
@@ -1662,11 +1794,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>395</y>
+    <x>210</x>
+    <y>460</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1050</name>
     <precision>5</precision>
@@ -1699,11 +1834,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>395</y>
+    <x>365</x>
+    <y>460</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1051</name>
     <precision>5</precision>
@@ -1736,21 +1874,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>395</y>
+    <x>520</x>
+    <y>460</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="1" pixels="false">Default Bold</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_349</name>
     <text>FS1_CSS:DH_D2308</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>425</y>
+    <y>495</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_380</name>
     <precision>5</precision>
@@ -1783,11 +1927,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>425</y>
+    <x>210</x>
+    <y>495</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1052</name>
     <precision>5</precision>
@@ -1820,11 +1967,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>425</y>
+    <x>365</x>
+    <y>495</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <height>25</height>
+    <font>
+      <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1053</name>
     <precision>5</precision>
@@ -1857,7 +2007,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>425</y>
+    <x>520</x>
+    <y>495</y>
   </widget>
 </display>

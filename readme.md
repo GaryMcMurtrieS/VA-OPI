@@ -14,7 +14,6 @@
 - Display historic data in read only boxes
 - Display timestamp of when data was changed
 - Input and set for archive data
-- Manually set fonts for boxes
 - Push button that opens text file with pulled data (either in seperate window or CS-Studio Array)
 - Side-by-Side view for Historic and modern data
 

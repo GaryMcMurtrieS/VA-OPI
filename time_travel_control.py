@@ -1,7 +1,7 @@
 """Creates the time-travel controls for a given tab."""
 
 from opigen import widgets
-from opigen.opimodel import rules
+from opigen.opimodel import fonts, rules
 from opigen.opimodel.colors import Color
 from opigen.opimodel.scripts import Script
 
@@ -9,12 +9,12 @@ from opigen.opimodel.scripts import Script
 HORIZONTAL_GAP = 5
 VERTICAL_GAP = 5
 
-WIDGET_HEIGHT = 25
-NAME_WIDTH = 150
+WIDGET_HEIGHT = 30
+BUTTON_WIDTH = 200
 
 GRAPH_LINE_WIDTH = 5
 
-TIME_ENTRY_WIDTH = 200
+TIME_ENTRY_WIDTH = 280
 
 COLOR_ALPHA = 128
 
@@ -34,11 +34,13 @@ def create_time_travel_control_row(parent_widget, device_type, filtered_pvs, y_0
     x_0 = HORIZONTAL_GAP
 
     # Time Travel Toggle button, toggles between time travel mode and current data
-    parent_widget.add_child(
-        widgets.ToggleButton(x_0, y_0, NAME_WIDTH, WIDGET_HEIGHT, "Time Travel On",
-                             "Time Travel Off", f"loc://$(DID)_time_travel_{device_type}(0)"))
+    time_travel_toggle = widgets.ToggleButton(x_0, y_0, BUTTON_WIDTH, WIDGET_HEIGHT,
+                                              "Time Travel On", "Time Travel Off",
+                                              f"loc://$(DID)_time_travel_{device_type}(0)")
+    time_travel_toggle.set_font(fonts.DEFAULT_BOLD)
+    parent_widget.add_child(time_travel_toggle)
 
-    x_0 += NAME_WIDTH + HORIZONTAL_GAP
+    x_0 += BUTTON_WIDTH + HORIZONTAL_GAP
 
     # Default timestamp that will be used for archive data retrieval
     default_time = "2023-07-07T15:00:00.00-04:00"
@@ -70,12 +72,14 @@ def create_time_travel_control_row(parent_widget, device_type, filtered_pvs, y_0
     # Time entry box, used to choose when to pull data from
     timestamp_entry = widgets.TextEntry(x_0, y_0, TIME_ENTRY_WIDTH, WIDGET_HEIGHT,
                                         f'loc://time_{device_type}("{default_time}")')
+    timestamp_entry.set_font(fonts.DEFAULT)
     parent_widget.add_child(timestamp_entry)
 
     x_0 += TIME_ENTRY_WIDTH + HORIZONTAL_GAP
 
     # Action button that pulls historic data and displays it
-    pull_button = widgets.ActionButton(x_0, y_0, NAME_WIDTH, WIDGET_HEIGHT, "Pull Data")
+    pull_button = widgets.ActionButton(x_0, y_0, BUTTON_WIDTH, WIDGET_HEIGHT, "Pull Data")
+    pull_button.set_font(fonts.DEFAULT_BOLD)
     pull_button.add_write_pv(f"loc://$(DID)_trigger_{device_type}(0)", 1)
 
     # Script that actually runs the command to pull the data
@@ -102,10 +106,11 @@ def create_time_travel_control_row(parent_widget, device_type, filtered_pvs, y_0
     pull_button.add_script(pull_script)
     parent_widget.add_child(pull_button)
 
-    x_0 += NAME_WIDTH + HORIZONTAL_GAP
+    x_0 += BUTTON_WIDTH + HORIZONTAL_GAP
 
     # Action button that sets current values to historic data
-    set_button = widgets.ActionButton(x_0, y_0, NAME_WIDTH, WIDGET_HEIGHT, "Set Data")
+    set_button = widgets.ActionButton(x_0, y_0, BUTTON_WIDTH, WIDGET_HEIGHT, "Set Data")
+    set_button.set_font(fonts.DEFAULT_BOLD)
 
     set_script = Script("scripts/set_data_script.py")
 
@@ -115,12 +120,12 @@ def create_time_travel_control_row(parent_widget, device_type, filtered_pvs, y_0
     y_0 += WIDGET_HEIGHT + VERTICAL_GAP
     x_0 = HORIZONTAL_GAP
 
-    debug_width = NAME_WIDTH + WIDGET_HEIGHT + TIME_ENTRY_WIDTH + NAME_WIDTH + NAME_WIDTH + (
-        4 * HORIZONTAL_GAP)
+    debug_width = (3 * BUTTON_WIDTH) + (4 * HORIZONTAL_GAP) + WIDGET_HEIGHT + TIME_ENTRY_WIDTH
     debug_display = widgets.TextEntry(
         x_0, y_0, debug_width, WIDGET_HEIGHT,
         f'loc://debug_message_{device_type}("Initialization Complete.")')
     debug_display.horizontal_alignment = widgets.HAlign.LEFT
+    debug_display.set_font(fonts.DEFAULT)
     parent_widget.add_child(debug_display)
 
     return y_0 + WIDGET_HEIGHT + VERTICAL_GAP

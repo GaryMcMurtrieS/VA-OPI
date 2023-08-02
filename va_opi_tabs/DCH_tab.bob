@@ -10,17 +10,20 @@
   <x>0</x>
   <y>0</y>
   <widget type="bool_button" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <name>ToggleButton_2</name>
     <off_label>Time Travel Off</off_label>
     <on_label>Time Travel On</on_label>
     <pv_name>loc://$(DID)_time_travel_DCH(0)</pv_name>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
     <y>5</y>
   </widget>
   <widget type="led" version="2.0.0">
-    <height>25</height>
+    <height>30</height>
     <name>Led_2</name>
     <pv_name>loc://time_led_DCH(0)</pv_name>
     <rules>
@@ -71,18 +74,21 @@ else:
         <pv_name trigger="False">loc://debug_message_DCH</pv_name>
       </script>
     </scripts>
-    <width>25</width>
-    <x>160</x>
+    <width>30</width>
+    <x>210</x>
     <y>5</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>TextEntry_243</name>
     <pv_name>loc://time_DCH("2023-07-07T15:00:00.00-04:00")</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>200</width>
-    <x>190</x>
+    <width>280</width>
+    <x>245</x>
     <y>5</y>
   </widget>
   <widget type="action_button" version="2.0.0">
@@ -93,7 +99,10 @@ else:
         <value>1</value>
       </action>
     </actions>
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <name>ActionButton_4</name>
     <scripts>
       <script file="EmbeddedPy">
@@ -558,12 +567,15 @@ if PVUtil.getDouble(pvs[2]) == 1:
       </script>
     </scripts>
     <text>Pull Data</text>
-    <width>150</width>
-    <x>395</x>
+    <width>200</width>
+    <x>530</x>
     <y>5</y>
   </widget>
   <widget type="action_button" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <name>ActionButton_5</name>
     <scripts>
       <script file="EmbeddedPy">
@@ -578,116 +590,119 @@ if PVUtil.getDouble(pvs[2]) == 1:
       </script>
     </scripts>
     <text>Set Data</text>
-    <width>150</width>
-    <x>550</x>
+    <width>200</width>
+    <x>735</x>
     <y>5</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>TextEntry_244</name>
     <pv_name>loc://debug_message_DCH("Initialization Complete.")</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>695</width>
+    <width>930</width>
     <x>5</x>
-    <y>35</y>
+    <y>40</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_209</name>
     <text>I_CSET</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>101.5</width>
-    <x>160</x>
-    <y>65</y>
+    <width>87.0</width>
+    <x>210</x>
+    <y>75</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_781</name>
     <pv_name>VA:LS1_CA01:DCH_D1132:I_CSET.EGU</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>43.50000000000001</width>
-    <x>266.5</x>
-    <y>65</y>
+    <width>58.0</width>
+    <x>302.0</x>
+    <y>75</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_210</name>
     <text>I_RD</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>101.5</width>
-    <x>315.0</x>
-    <y>65</y>
+    <width>87.0</width>
+    <x>365.0</x>
+    <y>75</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_782</name>
     <pv_name>VA:LS1_CA01:DCH_D1132:I_RD.EGU</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>43.50000000000001</width>
-    <x>421.5</x>
-    <y>65</y>
+    <width>58.0</width>
+    <x>457.0</x>
+    <y>75</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_211</name>
     <text>I_RSET</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>101.5</width>
-    <x>470.0</x>
-    <y>65</y>
+    <width>87.0</width>
+    <x>520.0</x>
+    <y>75</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_783</name>
     <pv_name>VA:LS1_CA01:DCH_D1132:I_RSET.EGU</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>43.50000000000001</width>
-    <x>576.5</x>
-    <y>65</y>
+    <width>58.0</width>
+    <x>612.0</x>
+    <y>75</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_212</name>
     <text>FS1_BBS:DCH_D2412</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>95</y>
+    <y>110</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_245</name>
     <precision>5</precision>
@@ -719,11 +734,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>95</y>
+    <x>210</x>
+    <y>110</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_784</name>
     <precision>5</precision>
@@ -755,11 +773,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>95</y>
+    <x>365</x>
+    <y>110</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_785</name>
     <precision>5</precision>
@@ -791,21 +812,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>95</y>
+    <x>520</x>
+    <y>110</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_213</name>
     <text>FS1_BBS:DCH_D2476</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>125</y>
+    <y>145</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_246</name>
     <precision>5</precision>
@@ -837,11 +864,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>125</y>
+    <x>210</x>
+    <y>145</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_786</name>
     <precision>5</precision>
@@ -873,11 +903,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>125</y>
+    <x>365</x>
+    <y>145</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_787</name>
     <precision>5</precision>
@@ -909,21 +942,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>125</y>
+    <x>520</x>
+    <y>145</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_214</name>
     <text>FS1_BMS:DCH_D2507</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>155</y>
+    <y>180</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_247</name>
     <precision>5</precision>
@@ -955,11 +994,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>155</y>
+    <x>210</x>
+    <y>180</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_788</name>
     <precision>5</precision>
@@ -991,11 +1033,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>155</y>
+    <x>365</x>
+    <y>180</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_789</name>
     <precision>5</precision>
@@ -1027,21 +1072,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>155</y>
+    <x>520</x>
+    <y>180</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_215</name>
     <text>FS1_BMS:DCH_D2534</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>185</y>
+    <y>215</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_248</name>
     <precision>5</precision>
@@ -1073,11 +1124,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>185</y>
+    <x>210</x>
+    <y>215</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_790</name>
     <precision>5</precision>
@@ -1109,11 +1163,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>185</y>
+    <x>365</x>
+    <y>215</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_791</name>
     <precision>5</precision>
@@ -1145,21 +1202,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>185</y>
+    <x>520</x>
+    <y>215</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_216</name>
     <text>FS1_BMS:DCH_D2584</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>215</y>
+    <y>250</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_249</name>
     <precision>5</precision>
@@ -1191,11 +1254,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>215</y>
+    <x>210</x>
+    <y>250</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_792</name>
     <precision>5</precision>
@@ -1227,11 +1293,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>215</y>
+    <x>365</x>
+    <y>250</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_793</name>
     <precision>5</precision>
@@ -1263,21 +1332,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>215</y>
+    <x>520</x>
+    <y>250</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_217</name>
     <text>FS1_BMS:DCH_D2640</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>245</y>
+    <y>285</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_250</name>
     <precision>5</precision>
@@ -1309,11 +1384,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>245</y>
+    <x>210</x>
+    <y>285</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_794</name>
     <precision>5</precision>
@@ -1345,11 +1423,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>245</y>
+    <x>365</x>
+    <y>285</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_795</name>
     <precision>5</precision>
@@ -1381,21 +1462,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>245</y>
+    <x>520</x>
+    <y>285</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_218</name>
     <text>FS1_BMS:DCH_D2662</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>275</y>
+    <y>320</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_251</name>
     <precision>5</precision>
@@ -1427,11 +1514,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>275</y>
+    <x>210</x>
+    <y>320</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_796</name>
     <precision>5</precision>
@@ -1463,11 +1553,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>275</y>
+    <x>365</x>
+    <y>320</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_797</name>
     <precision>5</precision>
@@ -1499,21 +1592,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>275</y>
+    <x>520</x>
+    <y>320</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_219</name>
     <text>FS1_BMS:DCH_D2688</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>305</y>
+    <y>355</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_252</name>
     <precision>5</precision>
@@ -1545,11 +1644,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>305</y>
+    <x>210</x>
+    <y>355</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_798</name>
     <precision>5</precision>
@@ -1581,11 +1683,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>305</y>
+    <x>365</x>
+    <y>355</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_799</name>
     <precision>5</precision>
@@ -1617,21 +1722,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>305</y>
+    <x>520</x>
+    <y>355</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_220</name>
     <text>FS1_CSS:DCH_D2189</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>335</y>
+    <y>390</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_253</name>
     <precision>5</precision>
@@ -1663,11 +1774,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>335</y>
+    <x>210</x>
+    <y>390</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_800</name>
     <precision>5</precision>
@@ -1699,11 +1813,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>335</y>
+    <x>365</x>
+    <y>390</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_801</name>
     <precision>5</precision>
@@ -1735,21 +1852,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>335</y>
+    <x>520</x>
+    <y>390</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_221</name>
     <text>FS1_CSS:DCH_D2210</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>365</y>
+    <y>425</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_254</name>
     <precision>5</precision>
@@ -1781,11 +1904,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>365</y>
+    <x>210</x>
+    <y>425</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_802</name>
     <precision>5</precision>
@@ -1817,11 +1943,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>365</y>
+    <x>365</x>
+    <y>425</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_803</name>
     <precision>5</precision>
@@ -1853,21 +1982,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>365</y>
+    <x>520</x>
+    <y>425</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_222</name>
     <text>FS1_CSS:DCH_D2257</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>395</y>
+    <y>460</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_255</name>
     <precision>5</precision>
@@ -1899,11 +2034,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>395</y>
+    <x>210</x>
+    <y>460</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_804</name>
     <precision>5</precision>
@@ -1935,11 +2073,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>395</y>
+    <x>365</x>
+    <y>460</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_805</name>
     <precision>5</precision>
@@ -1971,21 +2112,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>395</y>
+    <x>520</x>
+    <y>460</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_223</name>
     <text>FS1_CSS:DCH_D2276</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>425</y>
+    <y>495</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_256</name>
     <precision>5</precision>
@@ -2017,11 +2164,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>425</y>
+    <x>210</x>
+    <y>495</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_806</name>
     <precision>5</precision>
@@ -2053,11 +2203,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>425</y>
+    <x>365</x>
+    <y>495</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_807</name>
     <precision>5</precision>
@@ -2089,21 +2242,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>425</y>
+    <x>520</x>
+    <y>495</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_224</name>
     <text>FS1_CSS:DCH_D2351</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>455</y>
+    <y>530</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_257</name>
     <precision>5</precision>
@@ -2135,11 +2294,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>455</y>
+    <x>210</x>
+    <y>530</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_808</name>
     <precision>5</precision>
@@ -2171,11 +2333,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>455</y>
+    <x>365</x>
+    <y>530</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_809</name>
     <precision>5</precision>
@@ -2207,21 +2372,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>455</y>
+    <x>520</x>
+    <y>530</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_225</name>
     <text>FS1_CSS:DCH_D2367</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>485</y>
+    <y>565</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_258</name>
     <precision>5</precision>
@@ -2253,11 +2424,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>485</y>
+    <x>210</x>
+    <y>565</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_810</name>
     <precision>5</precision>
@@ -2289,11 +2463,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>485</y>
+    <x>365</x>
+    <y>565</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_811</name>
     <precision>5</precision>
@@ -2325,21 +2502,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>485</y>
+    <x>520</x>
+    <y>565</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_226</name>
     <text>FS1_CSS:DCH_D2381</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>515</y>
+    <y>600</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_259</name>
     <precision>5</precision>
@@ -2371,11 +2554,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>515</y>
+    <x>210</x>
+    <y>600</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_812</name>
     <precision>5</precision>
@@ -2407,11 +2593,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>515</y>
+    <x>365</x>
+    <y>600</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_813</name>
     <precision>5</precision>
@@ -2443,21 +2632,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>515</y>
+    <x>520</x>
+    <y>600</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_227</name>
     <text>LS1_BTS:DCH_D1937</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>545</y>
+    <y>635</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_260</name>
     <precision>5</precision>
@@ -2489,11 +2684,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>545</y>
+    <x>210</x>
+    <y>635</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_814</name>
     <precision>5</precision>
@@ -2525,11 +2723,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>545</y>
+    <x>365</x>
+    <y>635</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_815</name>
     <precision>5</precision>
@@ -2561,21 +2762,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>545</y>
+    <x>520</x>
+    <y>635</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_228</name>
     <text>LS1_BTS:DCH_D1964</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>575</y>
+    <y>670</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_261</name>
     <precision>5</precision>
@@ -2607,11 +2814,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>575</y>
+    <x>210</x>
+    <y>670</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_816</name>
     <precision>5</precision>
@@ -2643,11 +2853,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>575</y>
+    <x>365</x>
+    <y>670</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_817</name>
     <precision>5</precision>
@@ -2679,21 +2892,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>575</y>
+    <x>520</x>
+    <y>670</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_229</name>
     <text>LS1_BTS:DCH_D1997</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>605</y>
+    <y>705</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_262</name>
     <precision>5</precision>
@@ -2725,11 +2944,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>605</y>
+    <x>210</x>
+    <y>705</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_818</name>
     <precision>5</precision>
@@ -2761,11 +2983,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>605</y>
+    <x>365</x>
+    <y>705</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_819</name>
     <precision>5</precision>
@@ -2797,21 +3022,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>605</y>
+    <x>520</x>
+    <y>705</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_230</name>
     <text>LS1_BTS:DCH_D2024</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>635</y>
+    <y>740</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_263</name>
     <precision>5</precision>
@@ -2843,11 +3074,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>635</y>
+    <x>210</x>
+    <y>740</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_820</name>
     <precision>5</precision>
@@ -2879,11 +3113,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>635</y>
+    <x>365</x>
+    <y>740</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_821</name>
     <precision>5</precision>
@@ -2915,21 +3152,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>635</y>
+    <x>520</x>
+    <y>740</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_231</name>
     <text>LS1_BTS:DCH_D2061</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>665</y>
+    <y>775</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_264</name>
     <precision>5</precision>
@@ -2961,11 +3204,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>665</y>
+    <x>210</x>
+    <y>775</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_822</name>
     <precision>5</precision>
@@ -2997,11 +3243,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>665</y>
+    <x>365</x>
+    <y>775</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_823</name>
     <precision>5</precision>
@@ -3033,21 +3282,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>665</y>
+    <x>520</x>
+    <y>775</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_232</name>
     <text>LS1_BTS:DCH_D2114</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>695</y>
+    <y>810</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_265</name>
     <precision>5</precision>
@@ -3079,11 +3334,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>695</y>
+    <x>210</x>
+    <y>810</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_824</name>
     <precision>5</precision>
@@ -3115,11 +3373,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>695</y>
+    <x>365</x>
+    <y>810</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_825</name>
     <precision>5</precision>
@@ -3151,21 +3412,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>695</y>
+    <x>520</x>
+    <y>810</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_233</name>
     <text>LS1_CA01:DCH_D1132</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>725</y>
+    <y>845</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_266</name>
     <precision>5</precision>
@@ -3197,11 +3464,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>725</y>
+    <x>210</x>
+    <y>845</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_826</name>
     <precision>5</precision>
@@ -3233,11 +3503,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>725</y>
+    <x>365</x>
+    <y>845</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_827</name>
     <precision>5</precision>
@@ -3269,21 +3542,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>725</y>
+    <x>520</x>
+    <y>845</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_234</name>
     <text>LS1_CA01:DCH_D1146</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>755</y>
+    <y>880</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_267</name>
     <precision>5</precision>
@@ -3315,11 +3594,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>755</y>
+    <x>210</x>
+    <y>880</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_828</name>
     <precision>5</precision>
@@ -3351,11 +3633,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>755</y>
+    <x>365</x>
+    <y>880</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_829</name>
     <precision>5</precision>
@@ -3387,21 +3672,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>755</y>
+    <x>520</x>
+    <y>880</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_235</name>
     <text>LS1_CA02:DCH_D1165</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>785</y>
+    <y>915</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_268</name>
     <precision>5</precision>
@@ -3433,11 +3724,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>785</y>
+    <x>210</x>
+    <y>915</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_830</name>
     <precision>5</precision>
@@ -3469,11 +3763,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>785</y>
+    <x>365</x>
+    <y>915</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_831</name>
     <precision>5</precision>
@@ -3505,21 +3802,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>785</y>
+    <x>520</x>
+    <y>915</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_236</name>
     <text>LS1_CA02:DCH_D1180</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>815</y>
+    <y>950</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_269</name>
     <precision>5</precision>
@@ -3551,11 +3854,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>815</y>
+    <x>210</x>
+    <y>950</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_832</name>
     <precision>5</precision>
@@ -3587,11 +3893,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>815</y>
+    <x>365</x>
+    <y>950</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_833</name>
     <precision>5</precision>
@@ -3623,21 +3932,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>815</y>
+    <x>520</x>
+    <y>950</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_237</name>
     <text>LS1_CA03:DCH_D1199</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>845</y>
+    <y>985</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_270</name>
     <precision>5</precision>
@@ -3669,11 +3984,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>845</y>
+    <x>210</x>
+    <y>985</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_834</name>
     <precision>5</precision>
@@ -3705,11 +4023,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>845</y>
+    <x>365</x>
+    <y>985</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_835</name>
     <precision>5</precision>
@@ -3741,21 +4062,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>845</y>
+    <x>520</x>
+    <y>985</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_238</name>
     <text>LS1_CA03:DCH_D1214</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>875</y>
+    <y>1020</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_271</name>
     <precision>5</precision>
@@ -3787,11 +4114,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>875</y>
+    <x>210</x>
+    <y>1020</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_836</name>
     <precision>5</precision>
@@ -3823,11 +4153,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>875</y>
+    <x>365</x>
+    <y>1020</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_837</name>
     <precision>5</precision>
@@ -3859,21 +4192,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>875</y>
+    <x>520</x>
+    <y>1020</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_239</name>
     <text>LS1_CB01:DCH_D1235</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>905</y>
+    <y>1055</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_272</name>
     <precision>5</precision>
@@ -3905,11 +4244,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>905</y>
+    <x>210</x>
+    <y>1055</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_838</name>
     <precision>5</precision>
@@ -3941,11 +4283,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>905</y>
+    <x>365</x>
+    <y>1055</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_839</name>
     <precision>5</precision>
@@ -3977,21 +4322,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>905</y>
+    <x>520</x>
+    <y>1055</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_240</name>
     <text>LS1_CB01:DCH_D1255</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>935</y>
+    <y>1090</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_273</name>
     <precision>5</precision>
@@ -4023,11 +4374,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>935</y>
+    <x>210</x>
+    <y>1090</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_840</name>
     <precision>5</precision>
@@ -4059,11 +4413,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>935</y>
+    <x>365</x>
+    <y>1090</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_841</name>
     <precision>5</precision>
@@ -4095,21 +4452,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>935</y>
+    <x>520</x>
+    <y>1090</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_241</name>
     <text>LS1_CB01:DCH_D1275</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>965</y>
+    <y>1125</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_274</name>
     <precision>5</precision>
@@ -4141,11 +4504,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>965</y>
+    <x>210</x>
+    <y>1125</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_842</name>
     <precision>5</precision>
@@ -4177,11 +4543,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>965</y>
+    <x>365</x>
+    <y>1125</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_843</name>
     <precision>5</precision>
@@ -4213,21 +4582,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>965</y>
+    <x>520</x>
+    <y>1125</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_242</name>
     <text>LS1_CB02:DCH_D1299</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>995</y>
+    <y>1160</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_275</name>
     <precision>5</precision>
@@ -4259,11 +4634,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>995</y>
+    <x>210</x>
+    <y>1160</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_844</name>
     <precision>5</precision>
@@ -4295,11 +4673,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>995</y>
+    <x>365</x>
+    <y>1160</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_845</name>
     <precision>5</precision>
@@ -4331,21 +4712,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>995</y>
+    <x>520</x>
+    <y>1160</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_243</name>
     <text>LS1_CB02:DCH_D1319</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1025</y>
+    <y>1195</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_276</name>
     <precision>5</precision>
@@ -4377,11 +4764,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1025</y>
+    <x>210</x>
+    <y>1195</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_846</name>
     <precision>5</precision>
@@ -4413,11 +4803,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1025</y>
+    <x>365</x>
+    <y>1195</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_847</name>
     <precision>5</precision>
@@ -4449,21 +4842,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1025</y>
+    <x>520</x>
+    <y>1195</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_244</name>
     <text>LS1_CB02:DCH_D1339</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1055</y>
+    <y>1230</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_277</name>
     <precision>5</precision>
@@ -4495,11 +4894,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1055</y>
+    <x>210</x>
+    <y>1230</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_848</name>
     <precision>5</precision>
@@ -4531,11 +4933,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1055</y>
+    <x>365</x>
+    <y>1230</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_849</name>
     <precision>5</precision>
@@ -4567,21 +4972,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1055</y>
+    <x>520</x>
+    <y>1230</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_245</name>
     <text>LS1_CB03:DCH_D1363</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1085</y>
+    <y>1265</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_278</name>
     <precision>5</precision>
@@ -4613,11 +5024,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1085</y>
+    <x>210</x>
+    <y>1265</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_850</name>
     <precision>5</precision>
@@ -4649,11 +5063,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1085</y>
+    <x>365</x>
+    <y>1265</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_851</name>
     <precision>5</precision>
@@ -4685,21 +5102,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1085</y>
+    <x>520</x>
+    <y>1265</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_246</name>
     <text>LS1_CB03:DCH_D1383</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1115</y>
+    <y>1300</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_279</name>
     <precision>5</precision>
@@ -4731,11 +5154,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1115</y>
+    <x>210</x>
+    <y>1300</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_852</name>
     <precision>5</precision>
@@ -4767,11 +5193,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1115</y>
+    <x>365</x>
+    <y>1300</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_853</name>
     <precision>5</precision>
@@ -4803,21 +5232,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1115</y>
+    <x>520</x>
+    <y>1300</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_247</name>
     <text>LS1_CB03:DCH_D1403</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1145</y>
+    <y>1335</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_280</name>
     <precision>5</precision>
@@ -4849,11 +5284,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1145</y>
+    <x>210</x>
+    <y>1335</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_854</name>
     <precision>5</precision>
@@ -4885,11 +5323,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1145</y>
+    <x>365</x>
+    <y>1335</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_855</name>
     <precision>5</precision>
@@ -4921,21 +5362,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1145</y>
+    <x>520</x>
+    <y>1335</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_248</name>
     <text>LS1_CB04:DCH_D1426</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1175</y>
+    <y>1370</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_281</name>
     <precision>5</precision>
@@ -4967,11 +5414,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1175</y>
+    <x>210</x>
+    <y>1370</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_856</name>
     <precision>5</precision>
@@ -5003,11 +5453,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1175</y>
+    <x>365</x>
+    <y>1370</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_857</name>
     <precision>5</precision>
@@ -5039,21 +5492,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1175</y>
+    <x>520</x>
+    <y>1370</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_249</name>
     <text>LS1_CB04:DCH_D1446</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1205</y>
+    <y>1405</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_282</name>
     <precision>5</precision>
@@ -5085,11 +5544,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1205</y>
+    <x>210</x>
+    <y>1405</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_858</name>
     <precision>5</precision>
@@ -5121,11 +5583,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1205</y>
+    <x>365</x>
+    <y>1405</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_859</name>
     <precision>5</precision>
@@ -5157,21 +5622,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1205</y>
+    <x>520</x>
+    <y>1405</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_250</name>
     <text>LS1_CB04:DCH_D1466</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1235</y>
+    <y>1440</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_283</name>
     <precision>5</precision>
@@ -5203,11 +5674,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1235</y>
+    <x>210</x>
+    <y>1440</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_860</name>
     <precision>5</precision>
@@ -5239,11 +5713,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1235</y>
+    <x>365</x>
+    <y>1440</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_861</name>
     <precision>5</precision>
@@ -5275,21 +5752,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1235</y>
+    <x>520</x>
+    <y>1440</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_251</name>
     <text>LS1_CB05:DCH_D1490</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1265</y>
+    <y>1475</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_284</name>
     <precision>5</precision>
@@ -5321,11 +5804,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1265</y>
+    <x>210</x>
+    <y>1475</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_862</name>
     <precision>5</precision>
@@ -5357,11 +5843,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1265</y>
+    <x>365</x>
+    <y>1475</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_863</name>
     <precision>5</precision>
@@ -5393,21 +5882,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1265</y>
+    <x>520</x>
+    <y>1475</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_252</name>
     <text>LS1_CB05:DCH_D1510</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1295</y>
+    <y>1510</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_285</name>
     <precision>5</precision>
@@ -5439,11 +5934,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1295</y>
+    <x>210</x>
+    <y>1510</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_864</name>
     <precision>5</precision>
@@ -5475,11 +5973,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1295</y>
+    <x>365</x>
+    <y>1510</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_865</name>
     <precision>5</precision>
@@ -5511,21 +6012,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1295</y>
+    <x>520</x>
+    <y>1510</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_253</name>
     <text>LS1_CB05:DCH_D1530</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1325</y>
+    <y>1545</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_286</name>
     <precision>5</precision>
@@ -5557,11 +6064,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1325</y>
+    <x>210</x>
+    <y>1545</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_866</name>
     <precision>5</precision>
@@ -5593,11 +6103,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1325</y>
+    <x>365</x>
+    <y>1545</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_867</name>
     <precision>5</precision>
@@ -5629,21 +6142,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1325</y>
+    <x>520</x>
+    <y>1545</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_254</name>
     <text>LS1_CB06:DCH_D1554</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1355</y>
+    <y>1580</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_287</name>
     <precision>5</precision>
@@ -5675,11 +6194,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1355</y>
+    <x>210</x>
+    <y>1580</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_868</name>
     <precision>5</precision>
@@ -5711,11 +6233,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1355</y>
+    <x>365</x>
+    <y>1580</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_869</name>
     <precision>5</precision>
@@ -5747,21 +6272,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1355</y>
+    <x>520</x>
+    <y>1580</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_255</name>
     <text>LS1_CB06:DCH_D1574</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1385</y>
+    <y>1615</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_288</name>
     <precision>5</precision>
@@ -5793,11 +6324,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1385</y>
+    <x>210</x>
+    <y>1615</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_870</name>
     <precision>5</precision>
@@ -5829,11 +6363,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1385</y>
+    <x>365</x>
+    <y>1615</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_871</name>
     <precision>5</precision>
@@ -5865,21 +6402,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1385</y>
+    <x>520</x>
+    <y>1615</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_256</name>
     <text>LS1_CB06:DCH_D1594</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1415</y>
+    <y>1650</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_289</name>
     <precision>5</precision>
@@ -5911,11 +6454,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1415</y>
+    <x>210</x>
+    <y>1650</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_872</name>
     <precision>5</precision>
@@ -5947,11 +6493,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1415</y>
+    <x>365</x>
+    <y>1650</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_873</name>
     <precision>5</precision>
@@ -5983,21 +6532,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1415</y>
+    <x>520</x>
+    <y>1650</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_257</name>
     <text>LS1_CB07:DCH_D1618</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1445</y>
+    <y>1685</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_290</name>
     <precision>5</precision>
@@ -6029,11 +6584,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1445</y>
+    <x>210</x>
+    <y>1685</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_874</name>
     <precision>5</precision>
@@ -6065,11 +6623,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1445</y>
+    <x>365</x>
+    <y>1685</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_875</name>
     <precision>5</precision>
@@ -6101,21 +6662,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1445</y>
+    <x>520</x>
+    <y>1685</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_258</name>
     <text>LS1_CB07:DCH_D1637</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1475</y>
+    <y>1720</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_291</name>
     <precision>5</precision>
@@ -6147,11 +6714,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1475</y>
+    <x>210</x>
+    <y>1720</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_876</name>
     <precision>5</precision>
@@ -6183,11 +6753,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1475</y>
+    <x>365</x>
+    <y>1720</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_877</name>
     <precision>5</precision>
@@ -6219,21 +6792,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1475</y>
+    <x>520</x>
+    <y>1720</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_259</name>
     <text>LS1_CB07:DCH_D1657</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1505</y>
+    <y>1755</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_292</name>
     <precision>5</precision>
@@ -6265,11 +6844,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1505</y>
+    <x>210</x>
+    <y>1755</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_878</name>
     <precision>5</precision>
@@ -6301,11 +6883,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1505</y>
+    <x>365</x>
+    <y>1755</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_879</name>
     <precision>5</precision>
@@ -6337,21 +6922,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1505</y>
+    <x>520</x>
+    <y>1755</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_260</name>
     <text>LS1_CB08:DCH_D1681</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1535</y>
+    <y>1790</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_293</name>
     <precision>5</precision>
@@ -6383,11 +6974,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1535</y>
+    <x>210</x>
+    <y>1790</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_880</name>
     <precision>5</precision>
@@ -6419,11 +7013,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1535</y>
+    <x>365</x>
+    <y>1790</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_881</name>
     <precision>5</precision>
@@ -6455,21 +7052,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1535</y>
+    <x>520</x>
+    <y>1790</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_261</name>
     <text>LS1_CB08:DCH_D1701</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1565</y>
+    <y>1825</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_294</name>
     <precision>5</precision>
@@ -6501,11 +7104,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1565</y>
+    <x>210</x>
+    <y>1825</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_882</name>
     <precision>5</precision>
@@ -6537,11 +7143,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1565</y>
+    <x>365</x>
+    <y>1825</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_883</name>
     <precision>5</precision>
@@ -6573,21 +7182,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1565</y>
+    <x>520</x>
+    <y>1825</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_262</name>
     <text>LS1_CB08:DCH_D1721</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1595</y>
+    <y>1860</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_295</name>
     <precision>5</precision>
@@ -6619,11 +7234,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1595</y>
+    <x>210</x>
+    <y>1860</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_884</name>
     <precision>5</precision>
@@ -6655,11 +7273,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1595</y>
+    <x>365</x>
+    <y>1860</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_885</name>
     <precision>5</precision>
@@ -6691,21 +7312,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1595</y>
+    <x>520</x>
+    <y>1860</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_263</name>
     <text>LS1_CB09:DCH_D1745</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1625</y>
+    <y>1895</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_296</name>
     <precision>5</precision>
@@ -6737,11 +7364,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1625</y>
+    <x>210</x>
+    <y>1895</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_886</name>
     <precision>5</precision>
@@ -6773,11 +7403,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1625</y>
+    <x>365</x>
+    <y>1895</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_887</name>
     <precision>5</precision>
@@ -6809,21 +7442,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1625</y>
+    <x>520</x>
+    <y>1895</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_264</name>
     <text>LS1_CB09:DCH_D1765</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1655</y>
+    <y>1930</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_297</name>
     <precision>5</precision>
@@ -6855,11 +7494,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1655</y>
+    <x>210</x>
+    <y>1930</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_888</name>
     <precision>5</precision>
@@ -6891,11 +7533,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1655</y>
+    <x>365</x>
+    <y>1930</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_889</name>
     <precision>5</precision>
@@ -6927,21 +7572,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1655</y>
+    <x>520</x>
+    <y>1930</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_265</name>
     <text>LS1_CB09:DCH_D1785</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1685</y>
+    <y>1965</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_298</name>
     <precision>5</precision>
@@ -6973,11 +7624,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1685</y>
+    <x>210</x>
+    <y>1965</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_890</name>
     <precision>5</precision>
@@ -7009,11 +7663,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1685</y>
+    <x>365</x>
+    <y>1965</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_891</name>
     <precision>5</precision>
@@ -7045,21 +7702,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1685</y>
+    <x>520</x>
+    <y>1965</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_266</name>
     <text>LS1_CB10:DCH_D1809</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1715</y>
+    <y>2000</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_299</name>
     <precision>5</precision>
@@ -7091,11 +7754,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1715</y>
+    <x>210</x>
+    <y>2000</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_892</name>
     <precision>5</precision>
@@ -7127,11 +7793,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1715</y>
+    <x>365</x>
+    <y>2000</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_893</name>
     <precision>5</precision>
@@ -7163,21 +7832,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1715</y>
+    <x>520</x>
+    <y>2000</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_267</name>
     <text>LS1_CB10:DCH_D1829</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1745</y>
+    <y>2035</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_300</name>
     <precision>5</precision>
@@ -7209,11 +7884,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1745</y>
+    <x>210</x>
+    <y>2035</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_894</name>
     <precision>5</precision>
@@ -7245,11 +7923,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1745</y>
+    <x>365</x>
+    <y>2035</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_895</name>
     <precision>5</precision>
@@ -7281,21 +7962,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1745</y>
+    <x>520</x>
+    <y>2035</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_268</name>
     <text>LS1_CB10:DCH_D1849</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1775</y>
+    <y>2070</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_301</name>
     <precision>5</precision>
@@ -7327,11 +8014,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1775</y>
+    <x>210</x>
+    <y>2070</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_896</name>
     <precision>5</precision>
@@ -7363,11 +8053,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1775</y>
+    <x>365</x>
+    <y>2070</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_897</name>
     <precision>5</precision>
@@ -7399,21 +8092,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1775</y>
+    <x>520</x>
+    <y>2070</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_269</name>
     <text>LS1_CB11:DCH_D1872</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1805</y>
+    <y>2105</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_302</name>
     <precision>5</precision>
@@ -7445,11 +8144,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1805</y>
+    <x>210</x>
+    <y>2105</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_898</name>
     <precision>5</precision>
@@ -7481,11 +8183,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1805</y>
+    <x>365</x>
+    <y>2105</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_899</name>
     <precision>5</precision>
@@ -7517,21 +8222,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1805</y>
+    <x>520</x>
+    <y>2105</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_270</name>
     <text>LS1_CB11:DCH_D1892</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1835</y>
+    <y>2140</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_303</name>
     <precision>5</precision>
@@ -7563,11 +8274,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1835</y>
+    <x>210</x>
+    <y>2140</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_900</name>
     <precision>5</precision>
@@ -7599,11 +8313,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1835</y>
+    <x>365</x>
+    <y>2140</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_901</name>
     <precision>5</precision>
@@ -7635,21 +8352,27 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1835</y>
+    <x>520</x>
+    <y>2140</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_271</name>
     <text>LS1_CB11:DCH_D1912</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>1865</y>
+    <y>2175</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_304</name>
     <precision>5</precision>
@@ -7681,11 +8404,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>1865</y>
+    <x>210</x>
+    <y>2175</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_902</name>
     <precision>5</precision>
@@ -7717,11 +8443,14 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>1865</y>
+    <x>365</x>
+    <y>2175</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_903</name>
     <precision>5</precision>
@@ -7753,7 +8482,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>1865</y>
+    <x>520</x>
+    <y>2175</y>
   </widget>
 </display>

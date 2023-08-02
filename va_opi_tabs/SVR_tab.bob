@@ -10,213 +10,205 @@
   <x>0</x>
   <y>0</y>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_0</name>
     <text>BEAM</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>101.5</width>
-    <x>160</x>
-    <y>35</y>
+    <width>87.0</width>
+    <x>210</x>
+    <y>40</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_0</name>
     <pv_name>VA:SVR:BEAM.EGU</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>43.50000000000001</width>
-    <x>266.5</x>
-    <y>35</y>
+    <width>58.0</width>
+    <x>302.0</x>
+    <y>40</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_1</name>
     <text>CHARGE</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>101.5</width>
-    <x>315.0</x>
-    <y>35</y>
+    <width>87.0</width>
+    <x>365.0</x>
+    <y>40</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_1</name>
     <pv_name>VA:SVR:CHARGE.EGU</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>43.50000000000001</width>
-    <x>421.5</x>
-    <y>35</y>
+    <width>58.0</width>
+    <x>457.0</x>
+    <y>40</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_2</name>
     <text>CNT</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>101.5</width>
-    <x>470.0</x>
-    <y>35</y>
+    <width>87.0</width>
+    <x>520.0</x>
+    <y>40</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_2</name>
     <pv_name>VA:SVR:CNT.EGU</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>43.50000000000001</width>
-    <x>576.5</x>
-    <y>35</y>
+    <width>58.0</width>
+    <x>612.0</x>
+    <y>40</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_3</name>
     <text>MpsStatus</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>101.5</width>
-    <x>625.0</x>
-    <y>35</y>
+    <width>87.0</width>
+    <x>675.0</x>
+    <y>40</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_3</name>
     <pv_name>VA:SVR:MpsStatus.EGU</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>43.50000000000001</width>
-    <x>731.5</x>
-    <y>35</y>
+    <width>58.0</width>
+    <x>767.0</x>
+    <y>40</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_4</name>
     <text>NOISE</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>101.5</width>
-    <x>780.0</x>
-    <y>35</y>
+    <width>87.0</width>
+    <x>830.0</x>
+    <y>40</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_4</name>
     <pv_name>VA:SVR:NOISE.EGU</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>43.50000000000001</width>
-    <x>886.5</x>
-    <y>35</y>
+    <width>58.0</width>
+    <x>922.0</x>
+    <y>40</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_5</name>
     <text>RATE</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>101.5</width>
-    <x>935.0</x>
-    <y>35</y>
+    <width>87.0</width>
+    <x>985.0</x>
+    <y>40</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_5</name>
     <pv_name>VA:SVR:RATE.EGU</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>43.50000000000001</width>
-    <x>1041.5</x>
-    <y>35</y>
+    <width>58.0</width>
+    <x>1077.0</x>
+    <y>40</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_6</name>
     <text>STATUS</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>101.5</width>
-    <x>1090.0</x>
-    <y>35</y>
+    <width>87.0</width>
+    <x>1140.0</x>
+    <y>40</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextUpdate_6</name>
     <pv_name>VA:SVR:STATUS.EGU</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>43.50000000000001</width>
-    <x>1196.5</x>
-    <y>35</y>
+    <width>58.0</width>
+    <x>1232.0</x>
+    <y>40</y>
   </widget>
   <widget type="label" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Label_7</name>
     <text>SVR</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
+    <width>200</width>
     <x>5</x>
-    <y>65</y>
+    <y>75</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_0</name>
     <precision>5</precision>
@@ -248,11 +240,14 @@
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>160</x>
-    <y>65</y>
+    <x>210</x>
+    <y>75</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_1</name>
     <precision>5</precision>
@@ -284,11 +279,14 @@
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>315</x>
-    <y>65</y>
+    <x>365</x>
+    <y>75</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_2</name>
     <precision>5</precision>
@@ -320,11 +318,14 @@
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>470</x>
-    <y>65</y>
+    <x>520</x>
+    <y>75</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_3</name>
     <precision>5</precision>
@@ -356,11 +357,14 @@
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>625</x>
-    <y>65</y>
+    <x>675</x>
+    <y>75</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_4</name>
     <precision>5</precision>
@@ -392,11 +396,14 @@
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>780</x>
-    <y>65</y>
+    <x>830</x>
+    <y>75</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_5</name>
     <precision>5</precision>
@@ -428,11 +435,14 @@
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>935</x>
-    <y>65</y>
+    <x>985</x>
+    <y>75</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <height>25</height>
+    <font>
+      <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
+    </font>
+    <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_6</name>
     <precision>5</precision>
@@ -464,7 +474,7 @@
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
     <width>150</width>
-    <x>1090</x>
-    <y>65</y>
+    <x>1140</x>
+    <y>75</y>
   </widget>
 </display>
