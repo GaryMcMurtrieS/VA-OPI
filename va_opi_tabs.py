@@ -22,33 +22,63 @@ VERTICAL_GAP = 5
 WIDGET_HEIGHT = 25
 TOTAL_WIDTH = SCREEN_WIDTH - HORIZONTAL_GAP * 2 - 25
 NAME_WIDTH = 150
+COLUMN_WIDTH = 150
 
 GRAPH_WIDTH = SCREEN_WIDTH - 100
 GRAPH_HEIGHT = SCREEN_HEIGHT - 100
 GRAPH_LINE_WIDTH = 5
+
+# Percent of a column's header that will be taken up by the name, units take up the remaining space
+COLUMN_LABEL_NAME_RATIO = 0.7
 
 
 def create_columns_and_get_width(filtered_pvs, parent_widget, y_0):
     """Creates column labels for the given tab"""
     # Gets and sorts all column names
     column_names = sorted(filtered_pvs["Variable Identifier"].unique())
-    column_count = len(column_names)
-    column_width = ((TOTAL_WIDTH - NAME_WIDTH) / column_count) - HORIZONTAL_GAP
 
-    # Creates all the widgets for column name labels
+    # Define widths for column names and units
+    column_name_width = (COLUMN_WIDTH - HORIZONTAL_GAP) * COLUMN_LABEL_NAME_RATIO
+    column_units_width = (COLUMN_WIDTH - HORIZONTAL_GAP) * (1 - COLUMN_LABEL_NAME_RATIO)
+
+    # Create all the widgets for column name labels
     x_0 = HORIZONTAL_GAP + NAME_WIDTH + HORIZONTAL_GAP
 
     for column_name in column_names:
-        column_label = widgets.Label(x_0, y_0, column_width, WIDGET_HEIGHT, column_name)
+        # Form the full process variable name for the first row
+        first_pv_row = filtered_pvs[filtered_pvs["Variable Identifier"] == column_name].iloc[0]
+
+        # Special handling for the SVR tab
+        if first_pv_row["Location"] == "SVR":
+            device_name = "VA:SVR"
+        else:
+            device_name = first_pv_row["System Identifier"] + ':' + first_pv_row["Location"] + \
+                '_' + first_pv_row["Managing Device"] + ':' + first_pv_row["Device Type"] + \
+                '_' + first_pv_row["Position"]
+
+        pv_name = device_name + ':' + column_name
+
+        # Label for the column name
+        column_label = widgets.Label(x_0, y_0, column_name_width, WIDGET_HEIGHT, column_name)
         column_label.horizontal_alignment = widgets.HAlign.RIGHT
         parent_widget.add_child(column_label)
 
-        x_0 += column_width + HORIZONTAL_GAP
+        x_0 += column_name_width + HORIZONTAL_GAP
 
-    return column_width, column_names
+        # TextUpdate widget for the unit
+        column_units_widget = TextUpdate(x_0, y_0, column_units_width, WIDGET_HEIGHT,
+                                         pv_name + ".EGU")
+        column_units_widget.horizontal_alignment = widgets.HAlign.RIGHT
+        parent_widget.add_child(column_units_widget)
+
+        x_0 += column_units_width + HORIZONTAL_GAP
+
+    y_0 += WIDGET_HEIGHT + HORIZONTAL_GAP
+
+    return y_0, column_names
 
 
-def create_widget_row(parent_widget, device, device_type, column_names, column_width, y_0):
+def create_widget_row(parent_widget, device, device_type, column_names, y_0):
     """Creates a row of widgets for a given device"""
     # Label for the devices name
     device_label = widgets.Label(HORIZONTAL_GAP, y_0, NAME_WIDTH, WIDGET_HEIGHT, device[3:])
@@ -61,15 +91,16 @@ def create_widget_row(parent_widget, device, device_type, column_names, column_w
     # and only read back
     for parameter in column_names:
         process_variable = device + ':' + parameter
-        parameter_output = (TextEntry if parameter.endswith("CSET") or device.endswith("SVR") else
-                            TextUpdate)(x_0, y_0, column_width, WIDGET_HEIGHT, "")
+        parameter_output = (widgets.TextEntry if parameter.endswith("CSET") or
+                            device.endswith("SVR") else widgets.TextUpdate)(x_0, y_0, COLUMN_WIDTH,
+                                                                            WIDGET_HEIGHT, "")
         parameter_output.horizontal_alignment = widgets.HAlign.RIGHT
 
         # Rule to display historic data in time travel mode
         parameter_output.add_rule(
             rules.SelectionRule("pv_name", f"loc://$(DID)_time_travel_{device_type}(0)",
                                 "Time Travel Rule", [(0, process_variable),
-                                                     (1, f"loc://time_travel_{process_variable}")]))
+                                                     (1, f'loc://time_travel_{process_variable}')]))
 
         # Rule to set text color to blue
         parameter_output.add_rule(
@@ -79,10 +110,11 @@ def create_widget_row(parent_widget, device, device_type, column_names, column_w
 
         parameter_output.precision = 5
         parameter_output.precision_from_pv = False
+        parameter_output.show_units = False
 
         parent_widget.add_child(parameter_output)
 
-        x_0 += column_width + HORIZONTAL_GAP
+        x_0 += COLUMN_WIDTH + HORIZONTAL_GAP
 
 
 def create_svr_tab(folder_path, svr_data):
@@ -99,11 +131,10 @@ def create_svr_tab(folder_path, svr_data):
     y_0 += WIDGET_HEIGHT + VERTICAL_GAP
 
     # Create column labels
-    column_width, column_names = create_columns_and_get_width(svr_data, opi, y_0)
-    y_0 += WIDGET_HEIGHT + VERTICAL_GAP
+    y_0, column_names = create_columns_and_get_width(svr_data, opi, y_0)
 
     # Once we have all the device names, we loop through and add a row for each of them
-    create_widget_row(opi, "VA:SVR", "SVR", column_names, column_width, y_0)
+    create_widget_row(opi, "VA:SVR", "SVR", column_names, y_0)
 
     # Outputs to file
     opi_renderer = Renderer(opi)
@@ -192,8 +223,7 @@ def create_tab_widget(folder_path, filtered_pvs, device_type):
     y_0 = create_time_travel_control_row(opi, device_type, filtered_pvs, y_0)
 
     # Create column labels
-    column_width, column_names = create_columns_and_get_width(filtered_pvs, opi, y_0)
-    y_0 += WIDGET_HEIGHT + VERTICAL_GAP
+    y_0, column_names = create_columns_and_get_width(filtered_pvs, opi, y_0)
 
     # Get all the devices names with that type
     device_names = sorted((filtered_pvs["System Identifier"] + ':' + filtered_pvs["Location"] +
@@ -202,7 +232,7 @@ def create_tab_widget(folder_path, filtered_pvs, device_type):
 
     # Once we have all the device names, we loop through and add a row for each of them
     for device in device_names:
-        create_widget_row(opi, device, device_type, column_names, column_width, y_0)
+        create_widget_row(opi, device, device_type, column_names, y_0)
         y_0 += WIDGET_HEIGHT + VERTICAL_GAP
 
     # Outputs to file

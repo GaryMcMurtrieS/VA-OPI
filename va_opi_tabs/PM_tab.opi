@@ -92,10 +92,10 @@ else:
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>TextEntry_376</name>
+    <name>TextEntry_381</name>
     <pv_name>loc://time_PM("2023-07-07T15:00:00.00-04:00")</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>180</width>
+    <width>200</width>
     <x>190</x>
     <y>5</y>
   </widget>
@@ -212,178 +212,178 @@ if PVUtil.getDouble(pvs[2]) == 1:
         <pv trig="False">loc://$(DID)_time_travel_PM(0)</pv>
         <pv trig="False">loc://debug_message_PM</pv>
         <pv trig="False">VA:LS1_BTS:PM_D2056:XCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2056:XCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2056:XCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:LS1_BTS:PM_D2056:YCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2056:YCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2056:YCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:LS1_BTS:PM_D2056:XY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2056:XY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2056:XY_RD("No Data Yet")</pv>
         <pv trig="False">VA:LS1_BTS:PM_D2056:XRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2056:XRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2056:XRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:LS1_BTS:PM_D2056:YRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2056:YRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2056:YRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:LS1_BTS:PM_D2056:XYRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2056:XYRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2056:XYRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:LS1_BTS:PM_D2056:CXY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2056:CXY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2056:CXY_RD("No Data Yet")</pv>
         <pv trig="False">VA:LS1_BTS:PM_D2131:XCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2131:XCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2131:XCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:LS1_BTS:PM_D2131:YCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2131:YCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2131:YCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:LS1_BTS:PM_D2131:XY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2131:XY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2131:XY_RD("No Data Yet")</pv>
         <pv trig="False">VA:LS1_BTS:PM_D2131:XRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2131:XRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2131:XRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:LS1_BTS:PM_D2131:YRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2131:YRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2131:YRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:LS1_BTS:PM_D2131:XYRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2131:XYRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2131:XYRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:LS1_BTS:PM_D2131:CXY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2131:CXY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:LS1_BTS:PM_D2131:CXY_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2198:XCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2198:XCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2198:XCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2198:YCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2198:YCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2198:YCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2198:XY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2198:XY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2198:XY_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2198:XRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2198:XRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2198:XRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2198:YRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2198:YRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2198:YRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2198:XYRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2198:XYRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2198:XYRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2198:CXY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2198:CXY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2198:CXY_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2225:XCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2225:XCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2225:XCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2225:YCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2225:YCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2225:YCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2225:XY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2225:XY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2225:XY_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2225:XRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2225:XRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2225:XRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2225:YRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2225:YRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2225:YRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2225:XYRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2225:XYRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2225:XYRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2225:CXY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2225:CXY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2225:CXY_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2249:XCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2249:XCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2249:XCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2249:YCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2249:YCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2249:YCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2249:XY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2249:XY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2249:XY_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2249:XRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2249:XRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2249:XRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2249:YRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2249:YRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2249:YRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2249:XYRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2249:XYRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2249:XYRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2249:CXY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2249:CXY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2249:CXY_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2315:XCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2315:XCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2315:XCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2315:YCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2315:YCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2315:YCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2315:XY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2315:XY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2315:XY_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2315:XRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2315:XRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2315:XRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2315:YRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2315:YRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2315:YRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2315:XYRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2315:XYRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2315:XYRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2315:CXY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2315:CXY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2315:CXY_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2385:XCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2385:XCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2385:XCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2385:YCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2385:YCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2385:YCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2385:XY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2385:XY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2385:XY_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2385:XRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2385:XRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2385:XRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2385:YRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2385:YRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2385:YRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2385:XYRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2385:XYRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2385:XYRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:PM_D2385:CXY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2385:CXY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_CSS:PM_D2385:CXY_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BBS:PM_D2444:XCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2444:XCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2444:XCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BBS:PM_D2444:YCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2444:YCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2444:YCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BBS:PM_D2444:XY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2444:XY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2444:XY_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BBS:PM_D2444:XRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2444:XRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2444:XRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BBS:PM_D2444:YRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2444:YRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2444:YRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BBS:PM_D2444:XYRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2444:XYRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2444:XYRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BBS:PM_D2444:CXY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2444:CXY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2444:CXY_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BBS:PM_D2482:XCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2482:XCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2482:XCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BBS:PM_D2482:YCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2482:YCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2482:YCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BBS:PM_D2482:XY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2482:XY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2482:XY_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BBS:PM_D2482:XRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2482:XRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2482:XRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BBS:PM_D2482:YRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2482:YRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2482:YRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BBS:PM_D2482:XYRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2482:XYRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2482:XYRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BBS:PM_D2482:CXY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2482:CXY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BBS:PM_D2482:CXY_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:PM_D2504:XCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2504:XCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2504:XCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:PM_D2504:YCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2504:YCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2504:YCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:PM_D2504:XY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2504:XY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2504:XY_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:PM_D2504:XRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2504:XRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2504:XRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:PM_D2504:YRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2504:YRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2504:YRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:PM_D2504:XYRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2504:XYRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2504:XYRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:PM_D2504:CXY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2504:CXY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2504:CXY_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:PM_D2602:XCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2602:XCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2602:XCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:PM_D2602:YCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2602:YCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2602:YCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:PM_D2602:XY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2602:XY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2602:XY_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:PM_D2602:XRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2602:XRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2602:XRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:PM_D2602:YRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2602:YRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2602:YRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:PM_D2602:XYRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2602:XYRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2602:XYRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:PM_D2602:CXY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2602:CXY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2602:CXY_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:PM_D2703:XCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2703:XCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2703:XCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:PM_D2703:YCEN_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2703:YCEN_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2703:YCEN_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:PM_D2703:XY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2703:XY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2703:XY_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:PM_D2703:XRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2703:XRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2703:XRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:PM_D2703:YRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2703:YRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2703:YRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:PM_D2703:XYRMS_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2703:XYRMS_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2703:XYRMS_RD("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:PM_D2703:CXY_RD</pv>
-        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2703:CXY_RD</pv>
+        <pv trig="False">loc://time_travel_VA:FS1_BMS:PM_D2703:CXY_RD("No Data Yet")</pv>
       </path>
     </scripts>
     <text>Pull Data</text>
     <width>150</width>
-    <x>375</x>
+    <x>395</x>
     <y>5</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="1.0.0">
@@ -404,16 +404,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </scripts>
     <text>Set Data</text>
     <width>150</width>
-    <x>530</x>
+    <x>550</x>
     <y>5</y>
   </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+  <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>TextUpdate_1033</name>
+    <name>TextEntry_382</name>
     <pv_name>loc://debug_message_PM("Initialization Complete.")</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>675</width>
+    <width>695</width>
     <x>5</x>
     <y>35</y>
   </widget>
@@ -423,79 +423,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <name>Label_350</name>
     <text>CXY_RD</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
+    <width>101.5</width>
     <x>160</x>
     <y>65</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>Label_351</name>
-    <text>XCEN_RD</text>
-    <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>305.0</x>
-    <y>65</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>Label_352</name>
-    <text>XRMS_RD</text>
-    <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>450.0</x>
-    <y>65</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>Label_353</name>
-    <text>XYRMS_RD</text>
-    <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>595.0</x>
-    <y>65</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>Label_354</name>
-    <text>XY_RD</text>
-    <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>740.0</x>
-    <y>65</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>Label_355</name>
-    <text>YCEN_RD</text>
-    <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>885.0</x>
-    <y>65</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <height>25</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>Label_356</name>
-    <text>YRMS_RD</text>
-    <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>1030.0</x>
-    <y>65</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <height>25</height>
-    <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_357</name>
-    <text>FS1_BBS:PM_D2444</text>
-    <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>5</x>
-    <y>95</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <background_color>
@@ -509,7 +439,201 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1034</name>
+    <name>TextUpdate_1054</name>
+    <pv_name>VA:LS1_BTS:PM_D2056:CXY_RD.EGU</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>43.50000000000001</width>
+    <x>266.5</x>
+    <y>65</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Label_351</name>
+    <text>XCEN_RD</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>101.5</width>
+    <x>315.0</x>
+    <y>65</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_1055</name>
+    <pv_name>VA:LS1_BTS:PM_D2056:XCEN_RD.EGU</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>43.50000000000001</width>
+    <x>421.5</x>
+    <y>65</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Label_352</name>
+    <text>XRMS_RD</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>101.5</width>
+    <x>470.0</x>
+    <y>65</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_1056</name>
+    <pv_name>VA:LS1_BTS:PM_D2056:XRMS_RD.EGU</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>43.50000000000001</width>
+    <x>576.5</x>
+    <y>65</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Label_353</name>
+    <text>XYRMS_RD</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>101.5</width>
+    <x>625.0</x>
+    <y>65</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_1057</name>
+    <pv_name>VA:LS1_BTS:PM_D2056:XYRMS_RD.EGU</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>43.50000000000001</width>
+    <x>731.5</x>
+    <y>65</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Label_354</name>
+    <text>XY_RD</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>101.5</width>
+    <x>780.0</x>
+    <y>65</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_1058</name>
+    <pv_name>VA:LS1_BTS:PM_D2056:XY_RD.EGU</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>43.50000000000001</width>
+    <x>886.5</x>
+    <y>65</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Label_355</name>
+    <text>YCEN_RD</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>101.5</width>
+    <x>935.0</x>
+    <y>65</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_1059</name>
+    <pv_name>VA:LS1_BTS:PM_D2056:YCEN_RD.EGU</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>43.50000000000001</width>
+    <x>1041.5</x>
+    <y>65</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Label_356</name>
+    <text>YRMS_RD</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>101.5</width>
+    <x>1090.0</x>
+    <y>65</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_1060</name>
+    <pv_name>VA:LS1_BTS:PM_D2056:YRMS_RD.EGU</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>43.50000000000001</width>
+    <x>1196.5</x>
+    <y>65</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_357</name>
+    <text>FS1_BBS:PM_D2444</text>
+    <vertical_alignment>1</vertical_alignment>
+    <width>150</width>
+    <x>5</x>
+    <y>95</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_1061</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -537,24 +661,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
+    <width>150</width>
     <x>160</x>
     <y>95</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1035</name>
+    <name>TextUpdate_1062</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -582,24 +698,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>305.0</x>
+    <width>150</width>
+    <x>315</x>
     <y>95</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1036</name>
+    <name>TextUpdate_1063</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -627,24 +735,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>450.0</x>
+    <width>150</width>
+    <x>470</x>
     <y>95</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1037</name>
+    <name>TextUpdate_1064</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -672,24 +772,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>595.0</x>
+    <width>150</width>
+    <x>625</x>
     <y>95</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1038</name>
+    <name>TextUpdate_1065</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -717,24 +809,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>740.0</x>
+    <width>150</width>
+    <x>780</x>
     <y>95</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1039</name>
+    <name>TextUpdate_1066</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -762,24 +846,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>885.0</x>
+    <width>150</width>
+    <x>935</x>
     <y>95</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1040</name>
+    <name>TextUpdate_1067</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -807,9 +883,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>1030.0</x>
+    <width>150</width>
+    <x>1090</x>
     <y>95</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -823,18 +900,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>125</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1041</name>
+    <name>TextUpdate_1068</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -862,24 +930,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
+    <width>150</width>
     <x>160</x>
     <y>125</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1042</name>
+    <name>TextUpdate_1069</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -907,24 +967,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>305.0</x>
+    <width>150</width>
+    <x>315</x>
     <y>125</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1043</name>
+    <name>TextUpdate_1070</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -952,24 +1004,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>450.0</x>
+    <width>150</width>
+    <x>470</x>
     <y>125</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1044</name>
+    <name>TextUpdate_1071</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -997,24 +1041,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>595.0</x>
+    <width>150</width>
+    <x>625</x>
     <y>125</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1045</name>
+    <name>TextUpdate_1072</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1042,24 +1078,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>740.0</x>
+    <width>150</width>
+    <x>780</x>
     <y>125</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1046</name>
+    <name>TextUpdate_1073</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1087,24 +1115,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>885.0</x>
+    <width>150</width>
+    <x>935</x>
     <y>125</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1047</name>
+    <name>TextUpdate_1074</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1132,9 +1152,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>1030.0</x>
+    <width>150</width>
+    <x>1090</x>
     <y>125</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -1148,18 +1169,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>155</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1048</name>
+    <name>TextUpdate_1075</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1187,24 +1199,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
+    <width>150</width>
     <x>160</x>
     <y>155</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1049</name>
+    <name>TextUpdate_1076</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1232,24 +1236,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>305.0</x>
+    <width>150</width>
+    <x>315</x>
     <y>155</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1050</name>
+    <name>TextUpdate_1077</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1277,24 +1273,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>450.0</x>
+    <width>150</width>
+    <x>470</x>
     <y>155</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1051</name>
+    <name>TextUpdate_1078</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1322,24 +1310,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>595.0</x>
+    <width>150</width>
+    <x>625</x>
     <y>155</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1052</name>
+    <name>TextUpdate_1079</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1367,24 +1347,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>740.0</x>
+    <width>150</width>
+    <x>780</x>
     <y>155</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1053</name>
+    <name>TextUpdate_1080</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1412,24 +1384,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>885.0</x>
+    <width>150</width>
+    <x>935</x>
     <y>155</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1054</name>
+    <name>TextUpdate_1081</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1457,9 +1421,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>1030.0</x>
+    <width>150</width>
+    <x>1090</x>
     <y>155</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -1473,18 +1438,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>185</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1055</name>
+    <name>TextUpdate_1082</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1512,24 +1468,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
+    <width>150</width>
     <x>160</x>
     <y>185</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1056</name>
+    <name>TextUpdate_1083</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1557,24 +1505,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>305.0</x>
+    <width>150</width>
+    <x>315</x>
     <y>185</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1057</name>
+    <name>TextUpdate_1084</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1602,24 +1542,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>450.0</x>
+    <width>150</width>
+    <x>470</x>
     <y>185</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1058</name>
+    <name>TextUpdate_1085</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1647,24 +1579,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>595.0</x>
+    <width>150</width>
+    <x>625</x>
     <y>185</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1059</name>
+    <name>TextUpdate_1086</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1692,24 +1616,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>740.0</x>
+    <width>150</width>
+    <x>780</x>
     <y>185</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1060</name>
+    <name>TextUpdate_1087</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1737,24 +1653,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>885.0</x>
+    <width>150</width>
+    <x>935</x>
     <y>185</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1061</name>
+    <name>TextUpdate_1088</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1782,9 +1690,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>1030.0</x>
+    <width>150</width>
+    <x>1090</x>
     <y>185</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -1798,18 +1707,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>215</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1062</name>
+    <name>TextUpdate_1089</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1837,24 +1737,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
+    <width>150</width>
     <x>160</x>
     <y>215</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1063</name>
+    <name>TextUpdate_1090</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1882,24 +1774,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>305.0</x>
+    <width>150</width>
+    <x>315</x>
     <y>215</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1064</name>
+    <name>TextUpdate_1091</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1927,24 +1811,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>450.0</x>
+    <width>150</width>
+    <x>470</x>
     <y>215</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1065</name>
+    <name>TextUpdate_1092</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -1972,24 +1848,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>595.0</x>
+    <width>150</width>
+    <x>625</x>
     <y>215</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1066</name>
+    <name>TextUpdate_1093</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2017,24 +1885,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>740.0</x>
+    <width>150</width>
+    <x>780</x>
     <y>215</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1067</name>
+    <name>TextUpdate_1094</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2062,24 +1922,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>885.0</x>
+    <width>150</width>
+    <x>935</x>
     <y>215</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1068</name>
+    <name>TextUpdate_1095</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2107,9 +1959,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>1030.0</x>
+    <width>150</width>
+    <x>1090</x>
     <y>215</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -2123,18 +1976,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>245</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1069</name>
+    <name>TextUpdate_1096</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2162,24 +2006,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
+    <width>150</width>
     <x>160</x>
     <y>245</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1070</name>
+    <name>TextUpdate_1097</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2207,24 +2043,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>305.0</x>
+    <width>150</width>
+    <x>315</x>
     <y>245</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1071</name>
+    <name>TextUpdate_1098</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2252,24 +2080,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>450.0</x>
+    <width>150</width>
+    <x>470</x>
     <y>245</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1072</name>
+    <name>TextUpdate_1099</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2297,24 +2117,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>595.0</x>
+    <width>150</width>
+    <x>625</x>
     <y>245</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1073</name>
+    <name>TextUpdate_1100</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2342,24 +2154,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>740.0</x>
+    <width>150</width>
+    <x>780</x>
     <y>245</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1074</name>
+    <name>TextUpdate_1101</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2387,24 +2191,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>885.0</x>
+    <width>150</width>
+    <x>935</x>
     <y>245</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1075</name>
+    <name>TextUpdate_1102</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2432,9 +2228,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>1030.0</x>
+    <width>150</width>
+    <x>1090</x>
     <y>245</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -2448,18 +2245,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>275</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1076</name>
+    <name>TextUpdate_1103</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2487,24 +2275,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
+    <width>150</width>
     <x>160</x>
     <y>275</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1077</name>
+    <name>TextUpdate_1104</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2532,24 +2312,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>305.0</x>
+    <width>150</width>
+    <x>315</x>
     <y>275</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1078</name>
+    <name>TextUpdate_1105</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2577,24 +2349,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>450.0</x>
+    <width>150</width>
+    <x>470</x>
     <y>275</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1079</name>
+    <name>TextUpdate_1106</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2622,24 +2386,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>595.0</x>
+    <width>150</width>
+    <x>625</x>
     <y>275</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1080</name>
+    <name>TextUpdate_1107</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2667,24 +2423,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>740.0</x>
+    <width>150</width>
+    <x>780</x>
     <y>275</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1081</name>
+    <name>TextUpdate_1108</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2712,24 +2460,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>885.0</x>
+    <width>150</width>
+    <x>935</x>
     <y>275</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1082</name>
+    <name>TextUpdate_1109</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2757,9 +2497,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>1030.0</x>
+    <width>150</width>
+    <x>1090</x>
     <y>275</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -2773,18 +2514,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>305</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1083</name>
+    <name>TextUpdate_1110</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2812,24 +2544,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
+    <width>150</width>
     <x>160</x>
     <y>305</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1084</name>
+    <name>TextUpdate_1111</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2857,24 +2581,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>305.0</x>
+    <width>150</width>
+    <x>315</x>
     <y>305</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1085</name>
+    <name>TextUpdate_1112</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2902,24 +2618,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>450.0</x>
+    <width>150</width>
+    <x>470</x>
     <y>305</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1086</name>
+    <name>TextUpdate_1113</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2947,24 +2655,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>595.0</x>
+    <width>150</width>
+    <x>625</x>
     <y>305</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1087</name>
+    <name>TextUpdate_1114</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -2992,24 +2692,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>740.0</x>
+    <width>150</width>
+    <x>780</x>
     <y>305</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1088</name>
+    <name>TextUpdate_1115</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3037,24 +2729,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>885.0</x>
+    <width>150</width>
+    <x>935</x>
     <y>305</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1089</name>
+    <name>TextUpdate_1116</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3082,9 +2766,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>1030.0</x>
+    <width>150</width>
+    <x>1090</x>
     <y>305</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -3098,18 +2783,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>335</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1090</name>
+    <name>TextUpdate_1117</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3137,24 +2813,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
+    <width>150</width>
     <x>160</x>
     <y>335</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1091</name>
+    <name>TextUpdate_1118</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3182,24 +2850,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>305.0</x>
+    <width>150</width>
+    <x>315</x>
     <y>335</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1092</name>
+    <name>TextUpdate_1119</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3227,24 +2887,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>450.0</x>
+    <width>150</width>
+    <x>470</x>
     <y>335</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1093</name>
+    <name>TextUpdate_1120</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3272,24 +2924,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>595.0</x>
+    <width>150</width>
+    <x>625</x>
     <y>335</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1094</name>
+    <name>TextUpdate_1121</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3317,24 +2961,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>740.0</x>
+    <width>150</width>
+    <x>780</x>
     <y>335</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1095</name>
+    <name>TextUpdate_1122</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3362,24 +2998,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>885.0</x>
+    <width>150</width>
+    <x>935</x>
     <y>335</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1096</name>
+    <name>TextUpdate_1123</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3407,9 +3035,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>1030.0</x>
+    <width>150</width>
+    <x>1090</x>
     <y>335</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -3423,18 +3052,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>365</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1097</name>
+    <name>TextUpdate_1124</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3462,24 +3082,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
+    <width>150</width>
     <x>160</x>
     <y>365</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1098</name>
+    <name>TextUpdate_1125</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3507,24 +3119,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>305.0</x>
+    <width>150</width>
+    <x>315</x>
     <y>365</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1099</name>
+    <name>TextUpdate_1126</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3552,24 +3156,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>450.0</x>
+    <width>150</width>
+    <x>470</x>
     <y>365</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1100</name>
+    <name>TextUpdate_1127</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3597,24 +3193,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>595.0</x>
+    <width>150</width>
+    <x>625</x>
     <y>365</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1101</name>
+    <name>TextUpdate_1128</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3642,24 +3230,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>740.0</x>
+    <width>150</width>
+    <x>780</x>
     <y>365</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1102</name>
+    <name>TextUpdate_1129</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3687,24 +3267,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>885.0</x>
+    <width>150</width>
+    <x>935</x>
     <y>365</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1103</name>
+    <name>TextUpdate_1130</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3732,9 +3304,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>1030.0</x>
+    <width>150</width>
+    <x>1090</x>
     <y>365</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -3748,18 +3321,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>395</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1104</name>
+    <name>TextUpdate_1131</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3787,24 +3351,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
+    <width>150</width>
     <x>160</x>
     <y>395</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1105</name>
+    <name>TextUpdate_1132</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3832,24 +3388,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>305.0</x>
+    <width>150</width>
+    <x>315</x>
     <y>395</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1106</name>
+    <name>TextUpdate_1133</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3877,24 +3425,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>450.0</x>
+    <width>150</width>
+    <x>470</x>
     <y>395</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1107</name>
+    <name>TextUpdate_1134</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3922,24 +3462,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>595.0</x>
+    <width>150</width>
+    <x>625</x>
     <y>395</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1108</name>
+    <name>TextUpdate_1135</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -3967,24 +3499,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>740.0</x>
+    <width>150</width>
+    <x>780</x>
     <y>395</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1109</name>
+    <name>TextUpdate_1136</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4012,24 +3536,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>885.0</x>
+    <width>150</width>
+    <x>935</x>
     <y>395</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1110</name>
+    <name>TextUpdate_1137</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4057,9 +3573,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>1030.0</x>
+    <width>150</width>
+    <x>1090</x>
     <y>395</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -4073,18 +3590,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>425</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1111</name>
+    <name>TextUpdate_1138</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4112,24 +3620,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
+    <width>150</width>
     <x>160</x>
     <y>425</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1112</name>
+    <name>TextUpdate_1139</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4157,24 +3657,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>305.0</x>
+    <width>150</width>
+    <x>315</x>
     <y>425</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1113</name>
+    <name>TextUpdate_1140</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4202,24 +3694,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>450.0</x>
+    <width>150</width>
+    <x>470</x>
     <y>425</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1114</name>
+    <name>TextUpdate_1141</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4247,24 +3731,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>595.0</x>
+    <width>150</width>
+    <x>625</x>
     <y>425</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1115</name>
+    <name>TextUpdate_1142</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4292,24 +3768,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>740.0</x>
+    <width>150</width>
+    <x>780</x>
     <y>425</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1116</name>
+    <name>TextUpdate_1143</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4337,24 +3805,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>885.0</x>
+    <width>150</width>
+    <x>935</x>
     <y>425</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_style>0</border_style>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1117</name>
+    <name>TextUpdate_1144</name>
     <precision>5</precision>
     <precision_from_pv>false</precision_from_pv>
     <pv_name></pv_name>
@@ -4382,9 +3842,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>1030.0</x>
+    <width>150</width>
+    <x>1090</x>
     <y>425</y>
   </widget>
 </display>

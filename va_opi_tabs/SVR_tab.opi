@@ -21,8 +21,27 @@
     <name>Label_0</name>
     <text>BEAM</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
+    <width>101.5</width>
     <x>160</x>
+    <y>35</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_0</name>
+    <pv_name>VA:SVR:BEAM.EGU</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>43.50000000000001</width>
+    <x>266.5</x>
     <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -31,8 +50,27 @@
     <name>Label_1</name>
     <text>CHARGE</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>305.0</x>
+    <width>101.5</width>
+    <x>315.0</x>
+    <y>35</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_1</name>
+    <pv_name>VA:SVR:CHARGE.EGU</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>43.50000000000001</width>
+    <x>421.5</x>
     <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -41,8 +79,27 @@
     <name>Label_2</name>
     <text>CNT</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>450.0</x>
+    <width>101.5</width>
+    <x>470.0</x>
+    <y>35</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_2</name>
+    <pv_name>VA:SVR:CNT.EGU</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>43.50000000000001</width>
+    <x>576.5</x>
     <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -51,8 +108,27 @@
     <name>Label_3</name>
     <text>MpsStatus</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>595.0</x>
+    <width>101.5</width>
+    <x>625.0</x>
+    <y>35</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_3</name>
+    <pv_name>VA:SVR:MpsStatus.EGU</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>43.50000000000001</width>
+    <x>731.5</x>
     <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -61,8 +137,27 @@
     <name>Label_4</name>
     <text>NOISE</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>740.0</x>
+    <width>101.5</width>
+    <x>780.0</x>
+    <y>35</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_4</name>
+    <pv_name>VA:SVR:NOISE.EGU</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>43.50000000000001</width>
+    <x>886.5</x>
     <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -71,8 +166,27 @@
     <name>Label_5</name>
     <text>RATE</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>885.0</x>
+    <width>101.5</width>
+    <x>935.0</x>
+    <y>35</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_5</name>
+    <pv_name>VA:SVR:RATE.EGU</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>43.50000000000001</width>
+    <x>1041.5</x>
     <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -81,8 +195,27 @@
     <name>Label_6</name>
     <text>STATUS</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>1030.0</x>
+    <width>101.5</width>
+    <x>1090.0</x>
+    <y>35</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_style>0</border_style>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_6</name>
+    <pv_name>VA:SVR:STATUS.EGU</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>43.50000000000001</width>
+    <x>1196.5</x>
     <y>35</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -96,9 +229,6 @@
     <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_0</name>
@@ -129,15 +259,13 @@
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
+    <width>150</width>
     <x>160</x>
     <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_1</name>
@@ -168,15 +296,13 @@
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>305.0</x>
+    <width>150</width>
+    <x>315</x>
     <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_2</name>
@@ -207,15 +333,13 @@
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>450.0</x>
+    <width>150</width>
+    <x>470</x>
     <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_3</name>
@@ -246,15 +370,13 @@
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>595.0</x>
+    <width>150</width>
+    <x>625</x>
     <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_4</name>
@@ -285,15 +407,13 @@
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>740.0</x>
+    <width>150</width>
+    <x>780</x>
     <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_5</name>
@@ -324,15 +444,13 @@
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>885.0</x>
+    <width>150</width>
+    <x>935</x>
     <y>65</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="1.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_6</name>
@@ -363,9 +481,10 @@
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>140.0</width>
-    <x>1030.0</x>
+    <width>150</width>
+    <x>1090</x>
     <y>65</y>
   </widget>
 </display>

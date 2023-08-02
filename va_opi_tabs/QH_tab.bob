@@ -78,10 +78,10 @@ else:
   <widget type="textentry" version="2.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>TextEntry_377</name>
+    <name>TextEntry_383</name>
     <pv_name>loc://time_QH("2023-07-07T15:00:00.00-04:00")</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>180</width>
+    <width>200</width>
     <x>190</x>
     <y>5</y>
   </widget>
@@ -196,142 +196,142 @@ if PVUtil.getDouble(pvs[2]) == 1:
         <pv_name trigger="False">loc://$(DID)_time_travel_QH(0)</pv_name>
         <pv_name trigger="False">loc://debug_message_QH</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:QH_D1942:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D1942:I_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D1942:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:QH_D1969:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D1969:I_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D1969:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:QH_D2002:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2002:I_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2002:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:QH_D2029:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2029:I_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2029:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:QH_D2073:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2073:I_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2073:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:QH_D2126:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2126:I_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2126:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:QH_D2194:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2194:I_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2194:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:QH_D2215:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2215:I_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2215:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:QH_D2260:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2260:I_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2260:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:QH_D2280:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2280:I_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2280:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:QH_D2356:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2356:I_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2356:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:QH_D2362:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2362:I_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2362:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:QH_D2377:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2377:I_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2377:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:QH_D2416:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:QH_D2416:I_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:QH_D2416:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:QH_D2472:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:QH_D2472:I_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:QH_D2472:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:QH_D2515:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2515:I_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2515:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:QH_D2563:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2563:I_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2563:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:QH_D2597:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2597:I_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2597:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:QH_D2645:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2645:I_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2645:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:QH_D2666:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2666:I_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2666:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:QH_D2679:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2679:I_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2679:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:QH_D2698:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2698:I_CSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2698:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:QH_D1942:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D1942:I_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D1942:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:QH_D1942:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D1942:I_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D1942:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:QH_D1969:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D1969:I_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D1969:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:QH_D1969:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D1969:I_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D1969:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:QH_D2002:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2002:I_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2002:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:QH_D2002:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2002:I_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2002:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:QH_D2029:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2029:I_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2029:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:QH_D2029:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2029:I_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2029:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:QH_D2073:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2073:I_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2073:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:QH_D2073:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2073:I_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2073:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:QH_D2126:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2126:I_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2126:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:LS1_BTS:QH_D2126:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2126:I_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:LS1_BTS:QH_D2126:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:QH_D2194:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2194:I_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2194:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:QH_D2194:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2194:I_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2194:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:QH_D2215:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2215:I_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2215:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:QH_D2215:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2215:I_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2215:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:QH_D2260:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2260:I_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2260:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:QH_D2260:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2260:I_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2260:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:QH_D2280:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2280:I_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2280:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:QH_D2280:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2280:I_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2280:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:QH_D2356:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2356:I_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2356:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:QH_D2356:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2356:I_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2356:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:QH_D2362:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2362:I_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2362:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:QH_D2362:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2362:I_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2362:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:QH_D2377:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2377:I_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2377:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:QH_D2377:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2377:I_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:QH_D2377:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:QH_D2416:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:QH_D2416:I_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:QH_D2416:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:QH_D2416:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:QH_D2416:I_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:QH_D2416:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:QH_D2472:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:QH_D2472:I_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:QH_D2472:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:QH_D2472:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:QH_D2472:I_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:QH_D2472:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:QH_D2515:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2515:I_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2515:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:QH_D2515:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2515:I_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2515:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:QH_D2563:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2563:I_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2563:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:QH_D2563:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2563:I_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2563:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:QH_D2597:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2597:I_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2597:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:QH_D2597:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2597:I_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2597:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:QH_D2645:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2645:I_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2645:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:QH_D2645:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2645:I_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2645:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:QH_D2666:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2666:I_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2666:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:QH_D2666:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2666:I_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2666:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:QH_D2679:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2679:I_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2679:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:QH_D2679:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2679:I_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2679:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:QH_D2698:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2698:I_RSET</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2698:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BMS:QH_D2698:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2698:I_RD</pv_name>
+        <pv_name trigger="False">loc://time_travel_VA:FS1_BMS:QH_D2698:I_RD("No Data Yet")</pv_name>
       </script>
     </scripts>
     <text>Pull Data</text>
     <width>150</width>
-    <x>375</x>
+    <x>395</x>
     <y>5</y>
   </widget>
   <widget type="action_button" version="2.0.0">
@@ -351,16 +351,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </scripts>
     <text>Set Data</text>
     <width>150</width>
-    <x>530</x>
+    <x>550</x>
     <y>5</y>
   </widget>
-  <widget type="textupdate" version="2.0.0">
+  <widget type="textentry" version="2.0.0">
     <height>25</height>
     <horizontal_alignment>0</horizontal_alignment>
-    <name>TextUpdate_1118</name>
+    <name>TextEntry_384</name>
     <pv_name>loc://debug_message_QH("Initialization Complete.")</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>675</width>
+    <width>695</width>
     <x>5</x>
     <y>35</y>
   </widget>
@@ -370,8 +370,26 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <name>Label_369</name>
     <text>I_CSET</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
+    <width>101.5</width>
     <x>160</x>
+    <y>65</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_1145</name>
+    <pv_name>VA:LS1_BTS:QH_D1942:I_CSET.EGU</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>43.50000000000001</width>
+    <x>266.5</x>
     <y>65</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -380,8 +398,26 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <name>Label_370</name>
     <text>I_RD</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>498.3333333333333</x>
+    <width>101.5</width>
+    <x>315.0</x>
+    <y>65</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_1146</name>
+    <pv_name>VA:LS1_BTS:QH_D1942:I_RD.EGU</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>43.50000000000001</width>
+    <x>421.5</x>
     <y>65</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -390,8 +426,26 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <name>Label_371</name>
     <text>I_RSET</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>836.6666666666666</x>
+    <width>101.5</width>
+    <x>470.0</x>
+    <y>65</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <background_color>
+      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_width>0</border_width>
+    <border_color>
+      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
+    </border_color>
+    <height>25</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>TextUpdate_1147</name>
+    <pv_name>VA:LS1_BTS:QH_D1942:I_RSET.EGU</pv_name>
+    <vertical_alignment>1</vertical_alignment>
+    <width>43.50000000000001</width>
+    <x>576.5</x>
     <y>65</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -405,12 +459,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>95</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_378</name>
+    <name>TextEntry_385</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -437,23 +488,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
+    <width>150</width>
     <x>160</x>
     <y>95</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1119</name>
+    <name>TextUpdate_1148</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -480,23 +524,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>498.3333333333333</x>
+    <width>150</width>
+    <x>315</x>
     <y>95</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1120</name>
+    <name>TextUpdate_1149</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -523,9 +560,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>836.6666666666666</x>
+    <width>150</width>
+    <x>470</x>
     <y>95</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -539,12 +577,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>125</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_379</name>
+    <name>TextEntry_386</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -571,23 +606,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
+    <width>150</width>
     <x>160</x>
     <y>125</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1121</name>
+    <name>TextUpdate_1150</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -614,23 +642,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>498.3333333333333</x>
+    <width>150</width>
+    <x>315</x>
     <y>125</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1122</name>
+    <name>TextUpdate_1151</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -657,9 +678,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>836.6666666666666</x>
+    <width>150</width>
+    <x>470</x>
     <y>125</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -673,12 +695,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>155</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_380</name>
+    <name>TextEntry_387</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -705,23 +724,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
+    <width>150</width>
     <x>160</x>
     <y>155</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1123</name>
+    <name>TextUpdate_1152</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -748,23 +760,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>498.3333333333333</x>
+    <width>150</width>
+    <x>315</x>
     <y>155</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1124</name>
+    <name>TextUpdate_1153</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -791,9 +796,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>836.6666666666666</x>
+    <width>150</width>
+    <x>470</x>
     <y>155</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -807,12 +813,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>185</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_381</name>
+    <name>TextEntry_388</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -839,23 +842,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
+    <width>150</width>
     <x>160</x>
     <y>185</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1125</name>
+    <name>TextUpdate_1154</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -882,23 +878,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>498.3333333333333</x>
+    <width>150</width>
+    <x>315</x>
     <y>185</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1126</name>
+    <name>TextUpdate_1155</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -925,9 +914,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>836.6666666666666</x>
+    <width>150</width>
+    <x>470</x>
     <y>185</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -941,12 +931,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>215</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_382</name>
+    <name>TextEntry_389</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -973,23 +960,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
+    <width>150</width>
     <x>160</x>
     <y>215</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1127</name>
+    <name>TextUpdate_1156</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -1016,23 +996,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>498.3333333333333</x>
+    <width>150</width>
+    <x>315</x>
     <y>215</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1128</name>
+    <name>TextUpdate_1157</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -1059,9 +1032,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>836.6666666666666</x>
+    <width>150</width>
+    <x>470</x>
     <y>215</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1075,12 +1049,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>245</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_383</name>
+    <name>TextEntry_390</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -1107,23 +1078,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
+    <width>150</width>
     <x>160</x>
     <y>245</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1129</name>
+    <name>TextUpdate_1158</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -1150,23 +1114,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>498.3333333333333</x>
+    <width>150</width>
+    <x>315</x>
     <y>245</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1130</name>
+    <name>TextUpdate_1159</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -1193,9 +1150,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>836.6666666666666</x>
+    <width>150</width>
+    <x>470</x>
     <y>245</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1209,12 +1167,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>275</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_384</name>
+    <name>TextEntry_391</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -1241,23 +1196,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
+    <width>150</width>
     <x>160</x>
     <y>275</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1131</name>
+    <name>TextUpdate_1160</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -1284,23 +1232,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>498.3333333333333</x>
+    <width>150</width>
+    <x>315</x>
     <y>275</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1132</name>
+    <name>TextUpdate_1161</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -1327,9 +1268,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>836.6666666666666</x>
+    <width>150</width>
+    <x>470</x>
     <y>275</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1343,12 +1285,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>305</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_385</name>
+    <name>TextEntry_392</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -1375,23 +1314,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
+    <width>150</width>
     <x>160</x>
     <y>305</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1133</name>
+    <name>TextUpdate_1162</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -1418,23 +1350,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>498.3333333333333</x>
+    <width>150</width>
+    <x>315</x>
     <y>305</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1134</name>
+    <name>TextUpdate_1163</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -1461,9 +1386,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>836.6666666666666</x>
+    <width>150</width>
+    <x>470</x>
     <y>305</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1477,12 +1403,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>335</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_386</name>
+    <name>TextEntry_393</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -1509,23 +1432,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
+    <width>150</width>
     <x>160</x>
     <y>335</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1135</name>
+    <name>TextUpdate_1164</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -1552,23 +1468,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>498.3333333333333</x>
+    <width>150</width>
+    <x>315</x>
     <y>335</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1136</name>
+    <name>TextUpdate_1165</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -1595,9 +1504,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>836.6666666666666</x>
+    <width>150</width>
+    <x>470</x>
     <y>335</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1611,12 +1521,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>365</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_387</name>
+    <name>TextEntry_394</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -1643,23 +1550,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
+    <width>150</width>
     <x>160</x>
     <y>365</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1137</name>
+    <name>TextUpdate_1166</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -1686,23 +1586,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>498.3333333333333</x>
+    <width>150</width>
+    <x>315</x>
     <y>365</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1138</name>
+    <name>TextUpdate_1167</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -1729,9 +1622,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>836.6666666666666</x>
+    <width>150</width>
+    <x>470</x>
     <y>365</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1745,12 +1639,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>395</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_388</name>
+    <name>TextEntry_395</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -1777,23 +1668,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
+    <width>150</width>
     <x>160</x>
     <y>395</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1139</name>
+    <name>TextUpdate_1168</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -1820,23 +1704,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>498.3333333333333</x>
+    <width>150</width>
+    <x>315</x>
     <y>395</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1140</name>
+    <name>TextUpdate_1169</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -1863,9 +1740,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>836.6666666666666</x>
+    <width>150</width>
+    <x>470</x>
     <y>395</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -1879,12 +1757,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>425</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_389</name>
+    <name>TextEntry_396</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -1911,23 +1786,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
+    <width>150</width>
     <x>160</x>
     <y>425</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1141</name>
+    <name>TextUpdate_1170</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -1954,23 +1822,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>498.3333333333333</x>
+    <width>150</width>
+    <x>315</x>
     <y>425</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1142</name>
+    <name>TextUpdate_1171</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -1997,9 +1858,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>836.6666666666666</x>
+    <width>150</width>
+    <x>470</x>
     <y>425</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2013,12 +1875,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>455</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_390</name>
+    <name>TextEntry_397</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -2045,23 +1904,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
+    <width>150</width>
     <x>160</x>
     <y>455</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1143</name>
+    <name>TextUpdate_1172</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -2088,23 +1940,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>498.3333333333333</x>
+    <width>150</width>
+    <x>315</x>
     <y>455</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1144</name>
+    <name>TextUpdate_1173</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -2131,9 +1976,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>836.6666666666666</x>
+    <width>150</width>
+    <x>470</x>
     <y>455</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2147,12 +1993,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>485</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_391</name>
+    <name>TextEntry_398</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -2179,23 +2022,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
+    <width>150</width>
     <x>160</x>
     <y>485</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1145</name>
+    <name>TextUpdate_1174</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -2222,23 +2058,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>498.3333333333333</x>
+    <width>150</width>
+    <x>315</x>
     <y>485</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1146</name>
+    <name>TextUpdate_1175</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -2265,9 +2094,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>836.6666666666666</x>
+    <width>150</width>
+    <x>470</x>
     <y>485</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2281,12 +2111,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>515</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_392</name>
+    <name>TextEntry_399</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -2313,23 +2140,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
+    <width>150</width>
     <x>160</x>
     <y>515</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1147</name>
+    <name>TextUpdate_1176</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -2356,23 +2176,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>498.3333333333333</x>
+    <width>150</width>
+    <x>315</x>
     <y>515</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1148</name>
+    <name>TextUpdate_1177</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -2399,9 +2212,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>836.6666666666666</x>
+    <width>150</width>
+    <x>470</x>
     <y>515</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2415,12 +2229,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>545</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_393</name>
+    <name>TextEntry_400</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -2447,23 +2258,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
+    <width>150</width>
     <x>160</x>
     <y>545</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1149</name>
+    <name>TextUpdate_1178</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -2490,23 +2294,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>498.3333333333333</x>
+    <width>150</width>
+    <x>315</x>
     <y>545</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1150</name>
+    <name>TextUpdate_1179</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -2533,9 +2330,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>836.6666666666666</x>
+    <width>150</width>
+    <x>470</x>
     <y>545</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2549,12 +2347,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>575</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_394</name>
+    <name>TextEntry_401</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -2581,23 +2376,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
+    <width>150</width>
     <x>160</x>
     <y>575</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1151</name>
+    <name>TextUpdate_1180</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -2624,23 +2412,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>498.3333333333333</x>
+    <width>150</width>
+    <x>315</x>
     <y>575</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1152</name>
+    <name>TextUpdate_1181</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -2667,9 +2448,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>836.6666666666666</x>
+    <width>150</width>
+    <x>470</x>
     <y>575</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2683,12 +2465,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>605</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_395</name>
+    <name>TextEntry_402</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -2715,23 +2494,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
+    <width>150</width>
     <x>160</x>
     <y>605</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1153</name>
+    <name>TextUpdate_1182</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -2758,23 +2530,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>498.3333333333333</x>
+    <width>150</width>
+    <x>315</x>
     <y>605</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1154</name>
+    <name>TextUpdate_1183</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -2801,9 +2566,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>836.6666666666666</x>
+    <width>150</width>
+    <x>470</x>
     <y>605</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2817,12 +2583,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>635</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_396</name>
+    <name>TextEntry_403</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -2849,23 +2612,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
+    <width>150</width>
     <x>160</x>
     <y>635</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1155</name>
+    <name>TextUpdate_1184</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -2892,23 +2648,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>498.3333333333333</x>
+    <width>150</width>
+    <x>315</x>
     <y>635</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1156</name>
+    <name>TextUpdate_1185</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -2935,9 +2684,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>836.6666666666666</x>
+    <width>150</width>
+    <x>470</x>
     <y>635</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -2951,12 +2701,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>665</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_397</name>
+    <name>TextEntry_404</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -2983,23 +2730,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
+    <width>150</width>
     <x>160</x>
     <y>665</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1157</name>
+    <name>TextUpdate_1186</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -3026,23 +2766,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>498.3333333333333</x>
+    <width>150</width>
+    <x>315</x>
     <y>665</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1158</name>
+    <name>TextUpdate_1187</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -3069,9 +2802,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>836.6666666666666</x>
+    <width>150</width>
+    <x>470</x>
     <y>665</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -3085,12 +2819,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>695</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_398</name>
+    <name>TextEntry_405</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -3117,23 +2848,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
+    <width>150</width>
     <x>160</x>
     <y>695</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1159</name>
+    <name>TextUpdate_1188</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -3160,23 +2884,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>498.3333333333333</x>
+    <width>150</width>
+    <x>315</x>
     <y>695</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1160</name>
+    <name>TextUpdate_1189</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -3203,9 +2920,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>836.6666666666666</x>
+    <width>150</width>
+    <x>470</x>
     <y>695</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -3219,12 +2937,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>725</y>
   </widget>
   <widget type="textentry" version="2.0.0">
-    <background_color>
-      <color red="236" green="240" blue="241" name="TEXTENTRY_BG"/>
-    </background_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextEntry_399</name>
+    <name>TextEntry_406</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -3251,23 +2966,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
+    <width>150</width>
     <x>160</x>
     <y>725</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1161</name>
+    <name>TextUpdate_1190</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -3294,23 +3002,16 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>498.3333333333333</x>
+    <width>150</width>
+    <x>315</x>
     <y>725</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <background_color>
-      <color red="240" green="240" blue="240" name="TEXTUPDATE_BG"/>
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_width>0</border_width>
-    <border_color>
-      <color red="0" green="128" blue="255" name="BORDER_BLUE"/>
-    </border_color>
     <height>25</height>
     <horizontal_alignment>2</horizontal_alignment>
-    <name>TextUpdate_1162</name>
+    <name>TextUpdate_1191</name>
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
@@ -3337,9 +3038,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
         </exp>
       </rule>
     </rules>
+    <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>333.3333333333333</width>
-    <x>836.6666666666666</x>
+    <width>150</width>
+    <x>470</x>
     <y>725</y>
   </widget>
 </display>

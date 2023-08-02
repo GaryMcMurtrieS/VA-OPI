@@ -14,7 +14,7 @@ NAME_WIDTH = 150
 
 GRAPH_LINE_WIDTH = 5
 
-TIME_ENTRY_WIDTH = 180
+TIME_ENTRY_WIDTH = 200
 
 COLOR_ALPHA = 128
 
@@ -97,7 +97,7 @@ def create_time_travel_control_row(parent_widget, device_type, filtered_pvs, y_0
     # Adds each of the pvs to the script
     for process_variable in pvs:
         pull_script.add_pv(process_variable, False)
-        pull_script.add_pv(f"loc://time_travel_{process_variable}", False)
+        pull_script.add_pv(f'loc://time_travel_{process_variable}("No Data Yet")', False)
 
     pull_button.add_script(pull_script)
     parent_widget.add_child(pull_button)
@@ -117,7 +117,7 @@ def create_time_travel_control_row(parent_widget, device_type, filtered_pvs, y_0
 
     debug_width = NAME_WIDTH + WIDGET_HEIGHT + TIME_ENTRY_WIDTH + NAME_WIDTH + NAME_WIDTH + (
         4 * HORIZONTAL_GAP)
-    debug_display = widgets.TextUpdate(
+    debug_display = widgets.TextEntry(
         x_0, y_0, debug_width, WIDGET_HEIGHT,
         f'loc://debug_message_{device_type}("Initialization Complete.")')
     debug_display.horizontal_alignment = widgets.HAlign.LEFT
