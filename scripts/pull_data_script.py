@@ -33,7 +33,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     local_pv_list = pvs[PV_START + 1::2]
 
     # Prefix, used to check if we already ran the relevant archive command
-    prefix = "{}_{}_".format(time_start, str(pvs[0])[21:-3])
+    device_type = str(pvs[0])[str(pvs[0]).rfind('_') + 1:-3]
+    prefix = "{}_{}_".format(time_start, device_type)
+
     for char in "-:.":
         prefix = prefix.replace(char, '')
 
@@ -81,6 +83,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
 
         else:
             pvs[3].setValue('No Archive Data Found!')
+
+    # with open("/tmp/2023_command.txt", 'w') as command_file:
+    #     command_file.write(full_command)
 
     # Count of the found and missing PVs
     found_count = 0

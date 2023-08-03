@@ -115,6 +115,9 @@ def create_widget_row(parent_widget, device, device_type, column_names, y_0):
         parameter_output.precision_from_pv = False
         parameter_output.show_units = False
 
+        if parameter.endswith("CSET") and ("DCH" in parameter or "DCV" in parameter):
+            parameter_output.format_type = 7
+
         parent_widget.add_child(parameter_output)
 
         x_0 += COLUMN_WIDTH + HORIZONTAL_GAP
@@ -160,10 +163,10 @@ def create_tab_widget(folder_path, filtered_pvs, device_type):
     # Create column labels
     y_0, column_names = create_columns_and_get_width(filtered_pvs, opi, y_0)
 
-    # Get all the devices names with that type
-    device_names = sorted((filtered_pvs["System Identifier"] + ':' + filtered_pvs["Location"] +
-                           '_' + filtered_pvs["Managing Device"] + ':' +
-                           filtered_pvs["Device Type"] + '_' + filtered_pvs["Position"]).unique())
+    # Get all the device names with that type
+    device_names = (filtered_pvs["System Identifier"] + ':' + filtered_pvs["Location"] + '_' +
+                    filtered_pvs["Managing Device"] + ':' + filtered_pvs["Device Type"] + '_' +
+                    filtered_pvs["Position"]).unique()
 
     # Once we have all the device names, we loop through and add a row for each of them
     for device in device_names:
@@ -196,6 +199,8 @@ def create_embeds(folder_path=TAB_FOLDER_PATH):
     for device_type in device_types:
         # Filters data to only data on that tab
         filtered_pvs = pv_data[pv_data["Base Device Type"] == device_type]
+        # Sort the DataFrame by Position
+        filtered_pvs = filtered_pvs.sort_values("Position")
         # Creates, fills, and outputs the OPI for that device type
         create_tab_widget(folder_path, filtered_pvs, device_type)
 

@@ -43,7 +43,7 @@ def create_time_travel_control_row(parent_widget, device_type, filtered_pvs, y_0
     x_0 += BUTTON_WIDTH + HORIZONTAL_GAP
 
     # Default timestamp that will be used for archive data retrieval
-    default_time = "2023-07-07T15:00:00.00-04:00"
+    default_time = "2023-08-02T15:00:00.00-04:00"
 
     # LED that shows if timestamp matches timestamp of pulled data
     timestamp_led = widgets.Led(x_0, y_0, WIDGET_HEIGHT, WIDGET_HEIGHT,

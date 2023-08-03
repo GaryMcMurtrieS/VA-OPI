@@ -81,9 +81,9 @@ else:
     pvs[5].setValue('WARNING: Timestamp does not match time travel data!')
 ]]></scriptText>
         <pv trig="False">loc://$(DID)_time_led_QV(0)</pv>
-        <pv trig="True">loc://$(DID)_time_QV("2023-07-07T15:00:00.00-04:00")</pv>
+        <pv trig="True">loc://$(DID)_time_QV("2023-08-02T15:00:00.00-04:00")</pv>
         <pv trig="True">loc://$(DID)_trigger_time_led_QV(0)</pv>
-        <pv trig="False">loc://$(DID)_old_timestamp_QV("2023-07-07T15:00:00.00-04:00")</pv>
+        <pv trig="False">loc://$(DID)_old_timestamp_QV("2023-08-02T15:00:00.00-04:00")</pv>
         <pv trig="False">loc://$(DID)_time_travel_QV(0)</pv>
         <pv trig="False">loc://$(DID)_debug_message_QV</pv>
       </path>
@@ -99,7 +99,7 @@ else:
     <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>TextEntry_407</name>
-    <pv_name>loc://$(DID)_time_QV("2023-07-07T15:00:00.00-04:00")</pv_name>
+    <pv_name>loc://$(DID)_time_QV("2023-08-02T15:00:00.00-04:00")</pv_name>
     <vertical_alignment>1</vertical_alignment>
     <width>280</width>
     <x>245</x>
@@ -157,7 +157,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
     local_pv_list = pvs[PV_START + 1::2]
 
     # Prefix, used to check if we already ran the relevant archive command
-    prefix = "{}_{}_".format(time_start, str(pvs[0])[21:-3])
+    device_type = str(pvs[0])[str(pvs[0]).rfind('_') + 1:-3]
+    prefix = "{}_{}_".format(time_start, device_type)
+
     for char in "-:.":
         prefix = prefix.replace(char, '')
 
@@ -206,6 +208,9 @@ if PVUtil.getDouble(pvs[2]) == 1:
         else:
             pvs[3].setValue('No Archive Data Found!')
 
+    # with open("/tmp/2023_command.txt", 'w') as command_file:
+    #     command_file.write(full_command)
+
     # Count of the found and missing PVs
     found_count = 0
     missing_count = 0
@@ -225,114 +230,114 @@ if PVUtil.getDouble(pvs[2]) == 1:
     pvs[4].setValue(1)
 ]]></scriptText>
         <pv trig="True">loc://$(DID)_trigger_time_travel_QV(0)</pv>
-        <pv trig="False">loc://$(DID)_time_QV("2023-07-07T15:00:00.00-04:00")</pv>
+        <pv trig="False">loc://$(DID)_time_QV("2023-08-02T15:00:00.00-04:00")</pv>
         <pv trig="False">loc://$(DID)_time_travel_QV(0)</pv>
         <pv trig="False">loc://$(DID)_debug_message_QV</pv>
         <pv trig="False">loc://$(DID)_trigger_time_led_QV(0)</pv>
         <pv trig="False">VA:LS1_BTS:QV_D1950:I_CSET</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D1950:I_CSET("No Data Yet")</pv>
-        <pv trig="False">VA:LS1_BTS:QV_D1976:I_CSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D1976:I_CSET("No Data Yet")</pv>
-        <pv trig="False">VA:LS1_BTS:QV_D2013:I_CSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2013:I_CSET("No Data Yet")</pv>
-        <pv trig="False">VA:LS1_BTS:QV_D2042:I_CSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2042:I_CSET("No Data Yet")</pv>
-        <pv trig="False">VA:LS1_BTS:QV_D2066:I_CSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2066:I_CSET("No Data Yet")</pv>
-        <pv trig="False">VA:LS1_BTS:QV_D2118:I_CSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2118:I_CSET("No Data Yet")</pv>
-        <pv trig="False">VA:FS1_CSS:QV_D2202:I_CSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2202:I_CSET("No Data Yet")</pv>
-        <pv trig="False">VA:FS1_CSS:QV_D2220:I_CSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2220:I_CSET("No Data Yet")</pv>
-        <pv trig="False">VA:FS1_CSS:QV_D2254:I_CSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2254:I_CSET("No Data Yet")</pv>
-        <pv trig="False">VA:FS1_CSS:QV_D2272:I_CSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2272:I_CSET("No Data Yet")</pv>
-        <pv trig="False">VA:FS1_CSS:QV_D2372:I_CSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2372:I_CSET("No Data Yet")</pv>
-        <pv trig="False">VA:FS1_BBS:QV_D2424:I_CSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BBS:QV_D2424:I_CSET("No Data Yet")</pv>
-        <pv trig="False">VA:FS1_BBS:QV_D2463:I_CSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BBS:QV_D2463:I_CSET("No Data Yet")</pv>
-        <pv trig="False">VA:FS1_BMS:QV_D2511:I_CSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2511:I_CSET("No Data Yet")</pv>
-        <pv trig="False">VA:FS1_BMS:QV_D2539:I_CSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2539:I_CSET("No Data Yet")</pv>
-        <pv trig="False">VA:FS1_BMS:QV_D2590:I_CSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2590:I_CSET("No Data Yet")</pv>
-        <pv trig="False">VA:FS1_BMS:QV_D2654:I_CSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2654:I_CSET("No Data Yet")</pv>
-        <pv trig="False">VA:FS1_BMS:QV_D2693:I_CSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2693:I_CSET("No Data Yet")</pv>
-        <pv trig="False">VA:LS1_BTS:QV_D1950:I_RSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D1950:I_RSET("No Data Yet")</pv>
         <pv trig="False">VA:LS1_BTS:QV_D1950:I_RD</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D1950:I_RD("No Data Yet")</pv>
-        <pv trig="False">VA:LS1_BTS:QV_D1976:I_RSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D1976:I_RSET("No Data Yet")</pv>
+        <pv trig="False">VA:LS1_BTS:QV_D1950:I_RSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D1950:I_RSET("No Data Yet")</pv>
+        <pv trig="False">VA:LS1_BTS:QV_D1976:I_CSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D1976:I_CSET("No Data Yet")</pv>
         <pv trig="False">VA:LS1_BTS:QV_D1976:I_RD</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D1976:I_RD("No Data Yet")</pv>
-        <pv trig="False">VA:LS1_BTS:QV_D2013:I_RSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2013:I_RSET("No Data Yet")</pv>
+        <pv trig="False">VA:LS1_BTS:QV_D1976:I_RSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D1976:I_RSET("No Data Yet")</pv>
+        <pv trig="False">VA:LS1_BTS:QV_D2013:I_CSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2013:I_CSET("No Data Yet")</pv>
         <pv trig="False">VA:LS1_BTS:QV_D2013:I_RD</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2013:I_RD("No Data Yet")</pv>
-        <pv trig="False">VA:LS1_BTS:QV_D2042:I_RSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2042:I_RSET("No Data Yet")</pv>
+        <pv trig="False">VA:LS1_BTS:QV_D2013:I_RSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2013:I_RSET("No Data Yet")</pv>
+        <pv trig="False">VA:LS1_BTS:QV_D2042:I_CSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2042:I_CSET("No Data Yet")</pv>
         <pv trig="False">VA:LS1_BTS:QV_D2042:I_RD</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2042:I_RD("No Data Yet")</pv>
-        <pv trig="False">VA:LS1_BTS:QV_D2066:I_RSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2066:I_RSET("No Data Yet")</pv>
+        <pv trig="False">VA:LS1_BTS:QV_D2042:I_RSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2042:I_RSET("No Data Yet")</pv>
         <pv trig="False">VA:LS1_BTS:QV_D2066:I_RD</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2066:I_RD("No Data Yet")</pv>
+        <pv trig="False">VA:LS1_BTS:QV_D2066:I_RSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2066:I_RSET("No Data Yet")</pv>
+        <pv trig="False">VA:LS1_BTS:QV_D2066:I_CSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2066:I_CSET("No Data Yet")</pv>
         <pv trig="False">VA:LS1_BTS:QV_D2118:I_RSET</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2118:I_RSET("No Data Yet")</pv>
         <pv trig="False">VA:LS1_BTS:QV_D2118:I_RD</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2118:I_RD("No Data Yet")</pv>
-        <pv trig="False">VA:FS1_CSS:QV_D2202:I_RSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2202:I_RSET("No Data Yet")</pv>
+        <pv trig="False">VA:LS1_BTS:QV_D2118:I_CSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2118:I_CSET("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:QV_D2202:I_RD</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2202:I_RD("No Data Yet")</pv>
+        <pv trig="False">VA:FS1_CSS:QV_D2202:I_RSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2202:I_RSET("No Data Yet")</pv>
+        <pv trig="False">VA:FS1_CSS:QV_D2202:I_CSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2202:I_CSET("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:QV_D2220:I_RSET</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2220:I_RSET("No Data Yet")</pv>
+        <pv trig="False">VA:FS1_CSS:QV_D2220:I_CSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2220:I_CSET("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:QV_D2220:I_RD</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2220:I_RD("No Data Yet")</pv>
+        <pv trig="False">VA:FS1_CSS:QV_D2254:I_CSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2254:I_CSET("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:QV_D2254:I_RSET</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2254:I_RSET("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:QV_D2254:I_RD</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2254:I_RD("No Data Yet")</pv>
-        <pv trig="False">VA:FS1_CSS:QV_D2272:I_RSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2272:I_RSET("No Data Yet")</pv>
+        <pv trig="False">VA:FS1_CSS:QV_D2272:I_CSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2272:I_CSET("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:QV_D2272:I_RD</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2272:I_RD("No Data Yet")</pv>
-        <pv trig="False">VA:FS1_CSS:QV_D2372:I_RSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2372:I_RSET("No Data Yet")</pv>
+        <pv trig="False">VA:FS1_CSS:QV_D2272:I_RSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2272:I_RSET("No Data Yet")</pv>
+        <pv trig="False">VA:FS1_CSS:QV_D2372:I_CSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2372:I_CSET("No Data Yet")</pv>
         <pv trig="False">VA:FS1_CSS:QV_D2372:I_RD</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2372:I_RD("No Data Yet")</pv>
-        <pv trig="False">VA:FS1_BBS:QV_D2424:I_RSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BBS:QV_D2424:I_RSET("No Data Yet")</pv>
+        <pv trig="False">VA:FS1_CSS:QV_D2372:I_RSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2372:I_RSET("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BBS:QV_D2424:I_RD</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BBS:QV_D2424:I_RD("No Data Yet")</pv>
-        <pv trig="False">VA:FS1_BBS:QV_D2463:I_RSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BBS:QV_D2463:I_RSET("No Data Yet")</pv>
+        <pv trig="False">VA:FS1_BBS:QV_D2424:I_CSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BBS:QV_D2424:I_CSET("No Data Yet")</pv>
+        <pv trig="False">VA:FS1_BBS:QV_D2424:I_RSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BBS:QV_D2424:I_RSET("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BBS:QV_D2463:I_RD</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BBS:QV_D2463:I_RD("No Data Yet")</pv>
-        <pv trig="False">VA:FS1_BMS:QV_D2511:I_RSET</pv>
-        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2511:I_RSET("No Data Yet")</pv>
+        <pv trig="False">VA:FS1_BBS:QV_D2463:I_CSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BBS:QV_D2463:I_CSET("No Data Yet")</pv>
+        <pv trig="False">VA:FS1_BBS:QV_D2463:I_RSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BBS:QV_D2463:I_RSET("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2511:I_RD</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2511:I_RD("No Data Yet")</pv>
+        <pv trig="False">VA:FS1_BMS:QV_D2511:I_RSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2511:I_RSET("No Data Yet")</pv>
+        <pv trig="False">VA:FS1_BMS:QV_D2511:I_CSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2511:I_CSET("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2539:I_RSET</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2539:I_RSET("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2539:I_RD</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2539:I_RD("No Data Yet")</pv>
+        <pv trig="False">VA:FS1_BMS:QV_D2539:I_CSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2539:I_CSET("No Data Yet")</pv>
+        <pv trig="False">VA:FS1_BMS:QV_D2590:I_CSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2590:I_CSET("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2590:I_RSET</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2590:I_RSET("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2590:I_RD</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2590:I_RD("No Data Yet")</pv>
+        <pv trig="False">VA:FS1_BMS:QV_D2654:I_CSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2654:I_CSET("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2654:I_RSET</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2654:I_RSET("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2654:I_RD</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2654:I_RD("No Data Yet")</pv>
+        <pv trig="False">VA:FS1_BMS:QV_D2693:I_CSET</pv>
+        <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2693:I_CSET("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2693:I_RSET</pv>
         <pv trig="False">loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2693:I_RSET("No Data Yet")</pv>
         <pv trig="False">VA:FS1_BMS:QV_D2693:I_RD</pv>
@@ -466,7 +471,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_397</name>
-    <text>FS1_BBS:QV_D2424</text>
+    <text>LS1_BTS:QV_D1950</text>
     <vertical_alignment>1</vertical_alignment>
     <width>220</width>
     <x>5</x>
@@ -486,10 +491,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_BBS:QV_D2424:I_CSET</value>
+          <value>VA:LS1_BTS:QV_D1950:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_BBS:QV_D2424:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D1950:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -526,10 +531,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_BBS:QV_D2424:I_RD</value>
+          <value>VA:LS1_BTS:QV_D1950:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_BBS:QV_D2424:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D1950:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -566,10 +571,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_BBS:QV_D2424:I_RSET</value>
+          <value>VA:LS1_BTS:QV_D1950:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_BBS:QV_D2424:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D1950:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -599,7 +604,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_398</name>
-    <text>FS1_BBS:QV_D2463</text>
+    <text>LS1_BTS:QV_D1976</text>
     <vertical_alignment>1</vertical_alignment>
     <width>220</width>
     <x>5</x>
@@ -619,10 +624,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_BBS:QV_D2463:I_CSET</value>
+          <value>VA:LS1_BTS:QV_D1976:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_BBS:QV_D2463:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D1976:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -659,10 +664,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_BBS:QV_D2463:I_RD</value>
+          <value>VA:LS1_BTS:QV_D1976:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_BBS:QV_D2463:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D1976:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -699,10 +704,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_BBS:QV_D2463:I_RSET</value>
+          <value>VA:LS1_BTS:QV_D1976:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_BBS:QV_D2463:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D1976:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -732,7 +737,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_399</name>
-    <text>FS1_BMS:QV_D2511</text>
+    <text>LS1_BTS:QV_D2013</text>
     <vertical_alignment>1</vertical_alignment>
     <width>220</width>
     <x>5</x>
@@ -752,10 +757,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_BMS:QV_D2511:I_CSET</value>
+          <value>VA:LS1_BTS:QV_D2013:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2511:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2013:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -792,10 +797,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_BMS:QV_D2511:I_RD</value>
+          <value>VA:LS1_BTS:QV_D2013:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2511:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2013:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -832,10 +837,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_BMS:QV_D2511:I_RSET</value>
+          <value>VA:LS1_BTS:QV_D2013:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2511:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2013:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -865,7 +870,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_400</name>
-    <text>FS1_BMS:QV_D2539</text>
+    <text>LS1_BTS:QV_D2042</text>
     <vertical_alignment>1</vertical_alignment>
     <width>220</width>
     <x>5</x>
@@ -885,10 +890,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_BMS:QV_D2539:I_CSET</value>
+          <value>VA:LS1_BTS:QV_D2042:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2539:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2042:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -925,10 +930,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_BMS:QV_D2539:I_RD</value>
+          <value>VA:LS1_BTS:QV_D2042:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2539:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2042:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -965,10 +970,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_BMS:QV_D2539:I_RSET</value>
+          <value>VA:LS1_BTS:QV_D2042:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2539:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2042:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -998,7 +1003,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_401</name>
-    <text>FS1_BMS:QV_D2590</text>
+    <text>LS1_BTS:QV_D2066</text>
     <vertical_alignment>1</vertical_alignment>
     <width>220</width>
     <x>5</x>
@@ -1018,10 +1023,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_BMS:QV_D2590:I_CSET</value>
+          <value>VA:LS1_BTS:QV_D2066:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2590:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2066:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1058,10 +1063,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_BMS:QV_D2590:I_RD</value>
+          <value>VA:LS1_BTS:QV_D2066:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2590:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2066:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1098,10 +1103,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_BMS:QV_D2590:I_RSET</value>
+          <value>VA:LS1_BTS:QV_D2066:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2590:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2066:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1131,7 +1136,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_402</name>
-    <text>FS1_BMS:QV_D2654</text>
+    <text>LS1_BTS:QV_D2118</text>
     <vertical_alignment>1</vertical_alignment>
     <width>220</width>
     <x>5</x>
@@ -1151,10 +1156,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_BMS:QV_D2654:I_CSET</value>
+          <value>VA:LS1_BTS:QV_D2118:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2654:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2118:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1191,10 +1196,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_BMS:QV_D2654:I_RD</value>
+          <value>VA:LS1_BTS:QV_D2118:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2654:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2118:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1231,10 +1236,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_BMS:QV_D2654:I_RSET</value>
+          <value>VA:LS1_BTS:QV_D2118:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2654:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2118:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1264,7 +1269,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_403</name>
-    <text>FS1_BMS:QV_D2693</text>
+    <text>FS1_CSS:QV_D2202</text>
     <vertical_alignment>1</vertical_alignment>
     <width>220</width>
     <x>5</x>
@@ -1284,10 +1289,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_BMS:QV_D2693:I_CSET</value>
+          <value>VA:FS1_CSS:QV_D2202:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2693:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2202:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1324,10 +1329,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_BMS:QV_D2693:I_RD</value>
+          <value>VA:FS1_CSS:QV_D2202:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2693:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2202:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1364,10 +1369,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_BMS:QV_D2693:I_RSET</value>
+          <value>VA:FS1_CSS:QV_D2202:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2693:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2202:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1397,7 +1402,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_404</name>
-    <text>FS1_CSS:QV_D2202</text>
+    <text>FS1_CSS:QV_D2220</text>
     <vertical_alignment>1</vertical_alignment>
     <width>220</width>
     <x>5</x>
@@ -1417,10 +1422,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_CSS:QV_D2202:I_CSET</value>
+          <value>VA:FS1_CSS:QV_D2220:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2202:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2220:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1457,10 +1462,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_CSS:QV_D2202:I_RD</value>
+          <value>VA:FS1_CSS:QV_D2220:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2202:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2220:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1497,10 +1502,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_CSS:QV_D2202:I_RSET</value>
+          <value>VA:FS1_CSS:QV_D2220:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2202:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2220:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1530,7 +1535,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_405</name>
-    <text>FS1_CSS:QV_D2220</text>
+    <text>FS1_CSS:QV_D2254</text>
     <vertical_alignment>1</vertical_alignment>
     <width>220</width>
     <x>5</x>
@@ -1550,10 +1555,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_CSS:QV_D2220:I_CSET</value>
+          <value>VA:FS1_CSS:QV_D2254:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2220:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2254:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1590,10 +1595,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_CSS:QV_D2220:I_RD</value>
+          <value>VA:FS1_CSS:QV_D2254:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2220:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2254:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1630,10 +1635,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_CSS:QV_D2220:I_RSET</value>
+          <value>VA:FS1_CSS:QV_D2254:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2220:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2254:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1663,7 +1668,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_406</name>
-    <text>FS1_CSS:QV_D2254</text>
+    <text>FS1_CSS:QV_D2272</text>
     <vertical_alignment>1</vertical_alignment>
     <width>220</width>
     <x>5</x>
@@ -1683,10 +1688,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_CSS:QV_D2254:I_CSET</value>
+          <value>VA:FS1_CSS:QV_D2272:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2254:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2272:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1723,10 +1728,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_CSS:QV_D2254:I_RD</value>
+          <value>VA:FS1_CSS:QV_D2272:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2254:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2272:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1763,10 +1768,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_CSS:QV_D2254:I_RSET</value>
+          <value>VA:FS1_CSS:QV_D2272:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2254:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2272:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1796,7 +1801,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_407</name>
-    <text>FS1_CSS:QV_D2272</text>
+    <text>FS1_CSS:QV_D2372</text>
     <vertical_alignment>1</vertical_alignment>
     <width>220</width>
     <x>5</x>
@@ -1816,10 +1821,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_CSS:QV_D2272:I_CSET</value>
+          <value>VA:FS1_CSS:QV_D2372:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2272:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2372:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1856,10 +1861,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_CSS:QV_D2272:I_RD</value>
+          <value>VA:FS1_CSS:QV_D2372:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2272:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2372:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1896,10 +1901,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_CSS:QV_D2272:I_RSET</value>
+          <value>VA:FS1_CSS:QV_D2372:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2272:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2372:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1929,7 +1934,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_408</name>
-    <text>FS1_CSS:QV_D2372</text>
+    <text>FS1_BBS:QV_D2424</text>
     <vertical_alignment>1</vertical_alignment>
     <width>220</width>
     <x>5</x>
@@ -1949,10 +1954,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_CSS:QV_D2372:I_CSET</value>
+          <value>VA:FS1_BBS:QV_D2424:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2372:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BBS:QV_D2424:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1989,10 +1994,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_CSS:QV_D2372:I_RD</value>
+          <value>VA:FS1_BBS:QV_D2424:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2372:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BBS:QV_D2424:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -2029,10 +2034,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:FS1_CSS:QV_D2372:I_RSET</value>
+          <value>VA:FS1_BBS:QV_D2424:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:FS1_CSS:QV_D2372:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BBS:QV_D2424:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -2062,7 +2067,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_409</name>
-    <text>LS1_BTS:QV_D1950</text>
+    <text>FS1_BBS:QV_D2463</text>
     <vertical_alignment>1</vertical_alignment>
     <width>220</width>
     <x>5</x>
@@ -2082,10 +2087,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_BTS:QV_D1950:I_CSET</value>
+          <value>VA:FS1_BBS:QV_D2463:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D1950:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BBS:QV_D2463:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -2122,10 +2127,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_BTS:QV_D1950:I_RD</value>
+          <value>VA:FS1_BBS:QV_D2463:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D1950:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BBS:QV_D2463:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -2162,10 +2167,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_BTS:QV_D1950:I_RSET</value>
+          <value>VA:FS1_BBS:QV_D2463:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D1950:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BBS:QV_D2463:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -2195,7 +2200,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_410</name>
-    <text>LS1_BTS:QV_D1976</text>
+    <text>FS1_BMS:QV_D2511</text>
     <vertical_alignment>1</vertical_alignment>
     <width>220</width>
     <x>5</x>
@@ -2215,10 +2220,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_BTS:QV_D1976:I_CSET</value>
+          <value>VA:FS1_BMS:QV_D2511:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D1976:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2511:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -2255,10 +2260,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_BTS:QV_D1976:I_RD</value>
+          <value>VA:FS1_BMS:QV_D2511:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D1976:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2511:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -2295,10 +2300,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_BTS:QV_D1976:I_RSET</value>
+          <value>VA:FS1_BMS:QV_D2511:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D1976:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2511:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -2328,7 +2333,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_411</name>
-    <text>LS1_BTS:QV_D2013</text>
+    <text>FS1_BMS:QV_D2539</text>
     <vertical_alignment>1</vertical_alignment>
     <width>220</width>
     <x>5</x>
@@ -2348,10 +2353,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_BTS:QV_D2013:I_CSET</value>
+          <value>VA:FS1_BMS:QV_D2539:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2013:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2539:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -2388,10 +2393,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_BTS:QV_D2013:I_RD</value>
+          <value>VA:FS1_BMS:QV_D2539:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2013:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2539:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -2428,10 +2433,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_BTS:QV_D2013:I_RSET</value>
+          <value>VA:FS1_BMS:QV_D2539:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2013:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2539:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -2461,7 +2466,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_412</name>
-    <text>LS1_BTS:QV_D2042</text>
+    <text>FS1_BMS:QV_D2590</text>
     <vertical_alignment>1</vertical_alignment>
     <width>220</width>
     <x>5</x>
@@ -2481,10 +2486,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_BTS:QV_D2042:I_CSET</value>
+          <value>VA:FS1_BMS:QV_D2590:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2042:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2590:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -2521,10 +2526,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_BTS:QV_D2042:I_RD</value>
+          <value>VA:FS1_BMS:QV_D2590:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2042:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2590:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -2561,10 +2566,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_BTS:QV_D2042:I_RSET</value>
+          <value>VA:FS1_BMS:QV_D2590:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2042:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2590:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -2594,7 +2599,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_413</name>
-    <text>LS1_BTS:QV_D2066</text>
+    <text>FS1_BMS:QV_D2654</text>
     <vertical_alignment>1</vertical_alignment>
     <width>220</width>
     <x>5</x>
@@ -2614,10 +2619,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_BTS:QV_D2066:I_CSET</value>
+          <value>VA:FS1_BMS:QV_D2654:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2066:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2654:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -2654,10 +2659,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_BTS:QV_D2066:I_RD</value>
+          <value>VA:FS1_BMS:QV_D2654:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2066:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2654:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -2694,10 +2699,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_BTS:QV_D2066:I_RSET</value>
+          <value>VA:FS1_BMS:QV_D2654:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2066:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2654:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -2727,7 +2732,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Label_414</name>
-    <text>LS1_BTS:QV_D2118</text>
+    <text>FS1_BMS:QV_D2693</text>
     <vertical_alignment>1</vertical_alignment>
     <width>220</width>
     <x>5</x>
@@ -2747,10 +2752,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_BTS:QV_D2118:I_CSET</value>
+          <value>VA:FS1_BMS:QV_D2693:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2118:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2693:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -2787,10 +2792,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_BTS:QV_D2118:I_RD</value>
+          <value>VA:FS1_BMS:QV_D2693:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2118:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2693:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -2827,10 +2832,10 @@ if PVUtil.getDouble(pvs[2]) == 1:
       <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv trig="true">loc://$(DID)_time_travel_QV(0)</pv>
         <exp bool_exp="pv0 == 0">
-          <value>VA:LS1_BTS:QV_D2118:I_RSET</value>
+          <value>VA:FS1_BMS:QV_D2693:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://$(DID)_time_travel_VA:LS1_BTS:QV_D2118:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BMS:QV_D2693:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
