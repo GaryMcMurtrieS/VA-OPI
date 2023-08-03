@@ -2,12 +2,12 @@
 
 from org.csstudio.opibuilder.scriptUtil import PVUtil
 
-# pvs[0]: loc://time_led_{device_type}
-# pvs[1]: loc://time_{device_type}
-# pvs[2]: loc://$(DID)_trigger_{device_type}(0)
-# pvs[3]: loc://internal_state_{device_type}
+# pvs[0]: loc://$(DID)_time_led_{device_type}
+# pvs[1]: loc://$(DID)_time_{device_type}
+# pvs[2]: loc://$(DID)_trigger_time_led_{device_type}(0)
+# pvs[3]: loc://$(DID)_old_timestamp_{device_type}
 # pvs[4]: loc://$(DID)_time_travel_{device_type}
-# pvs[5]: loc://debug_message_{device_type}
+# pvs[5]: loc://$(DID)_debug_message_{device_type}
 
 # The trigger has been updated
 current_timestamp = PVUtil.getString(pvs[1])

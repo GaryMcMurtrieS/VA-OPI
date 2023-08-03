@@ -7,15 +7,19 @@ from tempfile import NamedTemporaryFile as tempfile
 
 from org.csstudio.opibuilder.scriptUtil import PVUtil
 
-# pvs[0]: loc://$(DID)_trigger_{device_type}
-# pvs[1]: loc://time_{device_type}
-# pvs[2]: loc://$(DID)_time_travel_{device_type}"
-# pvs[3]: loc://debug_message_{device_type}
+# pvs[0]: loc://$(DID)_trigger_time_travel_{device_type}
+# pvs[1]: loc://$(DID)_time_{device_type}
+# pvs[2]: loc://$(DID)_time_travel_{device_type}
+# pvs[3]: loc://$(DID)_debug_message_{device_type}
+# pvs[4]: loc://$(DID)_trigger_time_led_{device_type}
 
-PV_START = 4
+# Index at which VA PVs actually start
+PV_START = 5
 
 # Only execute script if in time travel mode
 if PVUtil.getDouble(pvs[2]) == 1:
+    pvs[3].setValue('Pulling data, please be patient!')
+
     # Get the start and end times for when PV data should be pulled as a string
     time_start = PVUtil.getString(pvs[1])
     time_end = (datetime.datetime.strptime(time_start[:-6], '%Y-%m-%dT%H:%M:%S.%f') +
@@ -55,6 +59,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
 
     # Read the data from the output file
     with open(archive_file) as archive_csv:
+        archived_data = {}
+
         # Check if the file is not empty
         first_line = archive_csv.readline()
         if first_line:
@@ -73,21 +79,23 @@ if PVUtil.getDouble(pvs[2]) == 1:
                     if archived_data[archived_pv] is None and archived_value != "":
                         archived_data[archived_pv] = archived_value
 
-            # Count of the found and missing PVs
-            found_count = 0
-            missing_count = 0
-
-            # After reading the entire CSV file, write values or "No Data Found" to PVs
-            for accelerator_pv, local_pv in zip(accelerator_pv_list, local_pv_list):
-                if accelerator_pv in archived_data:
-                    local_pv.setValue(archived_data[accelerator_pv])
-                    found_count += 1
-                else:
-                    local_pv.setValue('No Data Found!')
-                    missing_count += 1
-
-            pvs[3].setValue('Data pulled. {} PV(s) loaded, {} PV(s) missing.'.format(
-                found_count, missing_count))
-
         else:
             pvs[3].setValue('No Archive Data Found!')
+
+    # Count of the found and missing PVs
+    found_count = 0
+    missing_count = 0
+
+    # After reading the entire CSV file, write values or "No Data Found" to PVs
+    for accelerator_pv, local_pv in zip(accelerator_pv_list, local_pv_list):
+        if accelerator_pv in archived_data:
+            local_pv.setValue(archived_data[accelerator_pv])
+            found_count += 1
+        else:
+            local_pv.setValue('No Data Found!')
+            missing_count += 1
+
+    pvs[3].setValue('Data pulled. {} PV(s) loaded, {} PV(s) missing.'.format(
+        found_count, missing_count))
+
+    pvs[4].setValue(1)

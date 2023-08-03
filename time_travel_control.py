@@ -47,22 +47,24 @@ def create_time_travel_control_row(parent_widget, device_type, filtered_pvs, y_0
 
     # LED that shows if timestamp matches timestamp of pulled data
     timestamp_led = widgets.Led(x_0, y_0, WIDGET_HEIGHT, WIDGET_HEIGHT,
-                                f"loc://time_led_{device_type}(0)")
+                                f"loc://$(DID)_time_led_{device_type}(0)")
 
     # Rule, sets LED to be off when time travel is off
     timestamp_led.add_rule(
         rules.SelectionRule("pv_name", f"loc://$(DID)_time_travel_{device_type}(0)",
-                            "Time Travel Toggle Rule", [(0, "sim://const(0)"),
-                                                        (1, f"loc://time_led_{device_type}(0)")]))
+                            "Time Travel Toggle Rule",
+                            [(0, "sim://const(0)"),
+                             (1, f"loc://$(DID)_time_led_{device_type}(0)")]))
 
     # Script that controls whether LED is on or off
     timestamp_led_script = Script("scripts/timestamp_led_script.py")
-    timestamp_led_script.add_pv(f"loc://time_led_{device_type}(0)", False)
-    timestamp_led_script.add_pv(f'loc://time_{device_type}("{default_time}")', True)
-    timestamp_led_script.add_pv(f"loc://$(DID)_trigger_{device_type}(0)", True)
-    timestamp_led_script.add_pv(f'loc://internal_state_{device_type}("{default_time}")', False)
+    timestamp_led_script.add_pv(f"loc://$(DID)_time_led_{device_type}(0)", False)
+    timestamp_led_script.add_pv(f'loc://$(DID)_time_{device_type}("{default_time}")', True)
+    timestamp_led_script.add_pv(f"loc://$(DID)_trigger_time_led_{device_type}(0)", True)
+    timestamp_led_script.add_pv(f'loc://$(DID)_old_timestamp_{device_type}("{default_time}")',
+                                False)
     timestamp_led_script.add_pv(f"loc://$(DID)_time_travel_{device_type}(0)", False)
-    timestamp_led_script.add_pv(f'loc://debug_message_{device_type}', False)
+    timestamp_led_script.add_pv(f'loc://$(DID)_debug_message_{device_type}', False)
 
     timestamp_led.add_script(timestamp_led_script)
     parent_widget.add_child(timestamp_led)
@@ -71,7 +73,7 @@ def create_time_travel_control_row(parent_widget, device_type, filtered_pvs, y_0
 
     # Time entry box, used to choose when to pull data from
     timestamp_entry = widgets.TextEntry(x_0, y_0, TIME_ENTRY_WIDTH, WIDGET_HEIGHT,
-                                        f'loc://time_{device_type}("{default_time}")')
+                                        f'loc://$(DID)_time_{device_type}("{default_time}")')
     timestamp_entry.set_font(fonts.DEFAULT)
     parent_widget.add_child(timestamp_entry)
 
@@ -80,18 +82,19 @@ def create_time_travel_control_row(parent_widget, device_type, filtered_pvs, y_0
     # Action button that pulls historic data and displays it
     pull_button = widgets.ActionButton(x_0, y_0, BUTTON_WIDTH, WIDGET_HEIGHT, "Pull Data")
     pull_button.set_font(fonts.DEFAULT_BOLD)
-    pull_button.add_write_pv(f"loc://$(DID)_trigger_{device_type}(0)", 1)
+    pull_button.add_write_pv(f"loc://$(DID)_trigger_time_travel_{device_type}(0)", 1)
 
     # Script that actually runs the command to pull the data
     pull_script = Script("scripts/pull_data_script.py")
 
     # Trigger PV that runs the script
-    pull_script.add_pv(f"loc://$(DID)_trigger_{device_type}(0)", True)
+    pull_script.add_pv(f"loc://$(DID)_trigger_time_travel_{device_type}(0)", True)
 
     # PV that controls when to pull archival data from
-    pull_script.add_pv(f'loc://time_{device_type}("{default_time}")', False)
+    pull_script.add_pv(f'loc://$(DID)_time_{device_type}("{default_time}")', False)
     pull_script.add_pv(f"loc://$(DID)_time_travel_{device_type}(0)", False)
-    pull_script.add_pv(f'loc://debug_message_{device_type}', False)
+    pull_script.add_pv(f'loc://$(DID)_debug_message_{device_type}', False)
+    pull_script.add_pv(f"loc://$(DID)_trigger_time_led_{device_type}(0)", False)
 
     # Creates list of PVs that will have their archived data pulled
     pvs = list(filtered_pvs["System Identifier"] + ':' + filtered_pvs["Location"] + '_' +
@@ -101,7 +104,7 @@ def create_time_travel_control_row(parent_widget, device_type, filtered_pvs, y_0
     # Adds each of the pvs to the script
     for process_variable in pvs:
         pull_script.add_pv(process_variable, False)
-        pull_script.add_pv(f'loc://time_travel_{process_variable}("No Data Yet")', False)
+        pull_script.add_pv(f'loc://$(DID)_time_travel_{process_variable}("No Data Yet")', False)
 
     pull_button.add_script(pull_script)
     parent_widget.add_child(pull_button)
@@ -123,9 +126,13 @@ def create_time_travel_control_row(parent_widget, device_type, filtered_pvs, y_0
     debug_width = (3 * BUTTON_WIDTH) + (4 * HORIZONTAL_GAP) + WIDGET_HEIGHT + TIME_ENTRY_WIDTH
     debug_display = widgets.TextEntry(
         x_0, y_0, debug_width, WIDGET_HEIGHT,
-        f'loc://debug_message_{device_type}("Initialization Complete.")')
+        f'loc://$(DID)_debug_message_{device_type}("Initialization Complete.")')
     debug_display.horizontal_alignment = widgets.HAlign.LEFT
     debug_display.set_font(fonts.DEFAULT)
     parent_widget.add_child(debug_display)
 
     return y_0 + WIDGET_HEIGHT + VERTICAL_GAP
+
+
+if __name__ == "__main__":
+    print("You ran the wrong file, run va_opi_tabs.py or va_opi.py!")

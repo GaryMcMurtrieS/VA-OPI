@@ -7,6 +7,7 @@ from opigen import Renderer, widgets
 from opigen.contrib import Display
 from opigen.opimodel import fonts, rules
 
+from graphs_tab import create_graphs_tab
 from time_travel_control import Colors, create_time_travel_control_row
 
 # Variables to control widget positioning
@@ -21,12 +22,8 @@ VERTICAL_GAP = 5
 
 WIDGET_HEIGHT = 30
 TOTAL_WIDTH = SCREEN_WIDTH - HORIZONTAL_GAP * 2 - 25
-NAME_WIDTH = 200
-COLUMN_WIDTH = 150
-
-GRAPH_WIDTH = SCREEN_WIDTH - 100
-GRAPH_HEIGHT = SCREEN_HEIGHT - 100
-GRAPH_LINE_WIDTH = 5
+NAME_WIDTH = 220
+COLUMN_WIDTH = 170
 
 # Percent of a column's header that will be taken up by the name, units take up the remaining space
 COLUMN_LABEL_NAME_RATIO = 0.6
@@ -84,7 +81,8 @@ def create_widget_row(parent_widget, device, device_type, column_names, y_0):
     """Creates a row of widgets for a given device"""
     # Label for the devices name
     device_label = widgets.Label(HORIZONTAL_GAP, y_0, NAME_WIDTH, WIDGET_HEIGHT, device[3:])
-    device_label.set_font(fonts.DEFAULT_BOLD)
+    device_label.set_font(fonts.MONOSPACE_BOLD)
+    device_label.horizontal_alignment = widgets.HAlign.RIGHT
     parent_widget.add_child(device_label)
 
     x_0 = HORIZONTAL_GAP + NAME_WIDTH + HORIZONTAL_GAP
@@ -103,8 +101,9 @@ def create_widget_row(parent_widget, device, device_type, column_names, y_0):
         # Rule to display historic data in time travel mode
         parameter_output.add_rule(
             rules.SelectionRule("pv_name", f"loc://$(DID)_time_travel_{device_type}(0)",
-                                "Time Travel Rule", [(0, process_variable),
-                                                     (1, f'loc://time_travel_{process_variable}')]))
+                                "Time Travel PV Rule",
+                                [(0, process_variable),
+                                 (1, f'loc://$(DID)_time_travel_{process_variable}')]))
 
         # Rule to set text color to blue
         parameter_output.add_rule(
@@ -144,74 +143,6 @@ def create_svr_tab(folder_path, svr_data):
     opi_renderer = Renderer(opi)
     opi_renderer.to_opi(f"{folder_path}{'SVR'}_tab.opi")
     opi_renderer.to_bob(f"{folder_path}{'SVR'}_tab.bob")
-
-
-def create_graphs_tab(folder_path):
-    """Creates the OPI for the XY Graphs with BPM data"""
-    # OPI to render to
-    opi = Display(SCREEN_WIDTH, SCREEN_HEIGHT, "Graphs")
-    opi.add_scale_options()
-
-    # Creates the graph and sets x axis title
-    graph = widgets.XYGraph(HORIZONTAL_GAP, VERTICAL_GAP, GRAPH_WIDTH, GRAPH_HEIGHT)
-    graph.set_axis_title("Position of Device (m)", 0)
-    graph.set_axis_grid(False, 0)
-    graph.set_axis_scale(0, 160, 0)
-
-    # Adding traces for x and y readbacks
-    graph.add_trace("VA:LS1FS1:BPM_ALL:X_RD",
-                    "VA:LS1FS1:BPM_ALL:POS_RD",
-                    legend="X_RD",
-                    line_width=GRAPH_LINE_WIDTH,
-                    trace_color=Colors.RED)
-
-    graph.add_trace("VA:LS1FS1:BPM_ALL:Y_RD",
-                    "VA:LS1FS1:BPM_ALL:POS_RD",
-                    legend="Y_RD",
-                    line_width=GRAPH_LINE_WIDTH,
-                    trace_color=Colors.BLUE)
-
-    # Setting y axis for pos readbacks
-    graph.set_axis_title("Value Reading (m)", 1)
-    graph.set_axis_grid(False, 1)
-    graph.set_axis_scale(-0.032, 0.007, 1)
-    graph.set_axis_color(Colors.RED, 1)
-
-    # Adding trace for PHA readback
-    graph.add_y_axis()
-    graph.add_trace("VA:LS1FS1:BPM_ALL:PHA_RD",
-                    "VA:LS1FS1:BPM_ALL:POS_RD",
-                    legend="PHA_RD",
-                    line_width=GRAPH_LINE_WIDTH,
-                    y_axis=1,
-                    trace_color=Colors.YELLOW)
-
-    # Setting y axis for PHA readbacks
-    graph.set_axis_title("Value Reading (degrees)", 2)
-    graph.set_axis_grid(False, 2)
-    graph.set_axis_scale(-600, 600, 2)
-    graph.set_axis_color(Colors.YELLOW, 2)
-
-    # Adding trace for ENG readback
-    graph.add_y_axis()
-    graph.add_trace("VA:LS1FS1:BPM_ALL:ENG_RD",
-                    "VA:LS1FS1:BPM_ALL:POS_RD",
-                    legend="ENG_RD",
-                    line_width=GRAPH_LINE_WIDTH,
-                    y_axis=2,
-                    trace_color=Colors.GREEN)
-
-    # Setting y axis for ENG readbacks
-    graph.set_axis_title("Value Reading (MeV)", 3)
-    graph.set_axis_grid(False, 3)
-    graph.set_axis_scale(-1, 60, 3)
-    graph.set_axis_color(Colors.GREEN, 3)
-
-    opi.add_child(graph)
-
-    opi_renderer = Renderer(opi)
-    opi_renderer.to_opi(f"{folder_path}{'Graphs'}_tab.opi")
-    opi_renderer.to_bob(f"{folder_path}{'Graphs'}_tab.bob")
 
 
 def create_tab_widget(folder_path, filtered_pvs, device_type):

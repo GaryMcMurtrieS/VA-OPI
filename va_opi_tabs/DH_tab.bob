@@ -25,7 +25,7 @@
   <widget type="led" version="2.0.0">
     <height>30</height>
     <name>Led_4</name>
-    <pv_name>loc://time_led_DH(0)</pv_name>
+    <pv_name>loc://$(DID)_time_led_DH(0)</pv_name>
     <rules>
       <rule prop_id="pv_name" name="Time Travel Toggle Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
@@ -33,7 +33,7 @@
           <value>sim://const(0)</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_led_DH(0)</value>
+          <value>loc://$(DID)_time_led_DH(0)</value>
         </exp>
       </rule>
     </rules>
@@ -43,12 +43,12 @@
 
 from org.csstudio.opibuilder.scriptUtil import PVUtil
 
-# pvs[0]: loc://time_led_{device_type}
-# pvs[1]: loc://time_{device_type}
-# pvs[2]: loc://$(DID)_trigger_{device_type}(0)
-# pvs[3]: loc://internal_state_{device_type}
+# pvs[0]: loc://$(DID)_time_led_{device_type}
+# pvs[1]: loc://$(DID)_time_{device_type}
+# pvs[2]: loc://$(DID)_trigger_time_led_{device_type}(0)
+# pvs[3]: loc://$(DID)_old_timestamp_{device_type}
 # pvs[4]: loc://$(DID)_time_travel_{device_type}
-# pvs[5]: loc://debug_message_{device_type}
+# pvs[5]: loc://$(DID)_debug_message_{device_type}
 
 # The trigger has been updated
 current_timestamp = PVUtil.getString(pvs[1])
@@ -66,12 +66,12 @@ else:
         pvs[3].setValue(current_timestamp)
     pvs[5].setValue('WARNING: Timestamp does not match time travel data!')
 ]]></text>
-        <pv_name trigger="False">loc://time_led_DH(0)</pv_name>
-        <pv_name trigger="True">loc://time_DH("2023-07-07T15:00:00.00-04:00")</pv_name>
-        <pv_name trigger="True">loc://$(DID)_trigger_DH(0)</pv_name>
-        <pv_name trigger="False">loc://internal_state_DH("2023-07-07T15:00:00.00-04:00")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_led_DH(0)</pv_name>
+        <pv_name trigger="True">loc://$(DID)_time_DH("2023-07-07T15:00:00.00-04:00")</pv_name>
+        <pv_name trigger="True">loc://$(DID)_trigger_time_led_DH(0)</pv_name>
+        <pv_name trigger="False">loc://$(DID)_old_timestamp_DH("2023-07-07T15:00:00.00-04:00")</pv_name>
         <pv_name trigger="False">loc://$(DID)_time_travel_DH(0)</pv_name>
-        <pv_name trigger="False">loc://debug_message_DH</pv_name>
+        <pv_name trigger="False">loc://$(DID)_debug_message_DH</pv_name>
       </script>
     </scripts>
     <width>30</width>
@@ -85,7 +85,7 @@ else:
     <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>TextEntry_367</name>
-    <pv_name>loc://time_DH("2023-07-07T15:00:00.00-04:00")</pv_name>
+    <pv_name>loc://$(DID)_time_DH("2023-07-07T15:00:00.00-04:00")</pv_name>
     <vertical_alignment>1</vertical_alignment>
     <width>280</width>
     <x>245</x>
@@ -94,7 +94,7 @@ else:
   <widget type="action_button" version="2.0.0">
     <actions>
       <action type="write_pv">
-        <pv_name>loc://$(DID)_trigger_DH(0)</pv_name>
+        <pv_name>loc://$(DID)_trigger_time_travel_DH(0)</pv_name>
         <description></description>
         <value>1</value>
       </action>
@@ -115,15 +115,19 @@ from tempfile import NamedTemporaryFile as tempfile
 
 from org.csstudio.opibuilder.scriptUtil import PVUtil
 
-# pvs[0]: loc://$(DID)_trigger_{device_type}
-# pvs[1]: loc://time_{device_type}
-# pvs[2]: loc://$(DID)_time_travel_{device_type}"
-# pvs[3]: loc://debug_message_{device_type}
+# pvs[0]: loc://$(DID)_trigger_time_travel_{device_type}
+# pvs[1]: loc://$(DID)_time_{device_type}
+# pvs[2]: loc://$(DID)_time_travel_{device_type}
+# pvs[3]: loc://$(DID)_debug_message_{device_type}
+# pvs[4]: loc://$(DID)_trigger_time_led_{device_type}
 
-PV_START = 4
+# Index at which VA PVs actually start
+PV_START = 5
 
 # Only execute script if in time travel mode
 if PVUtil.getDouble(pvs[2]) == 1:
+    pvs[3].setValue('Pulling data, please be patient!')
+
     # Get the start and end times for when PV data should be pulled as a string
     time_start = PVUtil.getString(pvs[1])
     time_end = (datetime.datetime.strptime(time_start[:-6], '%Y-%m-%dT%H:%M:%S.%f') +
@@ -163,6 +167,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
 
     # Read the data from the output file
     with open(archive_file) as archive_csv:
+        archived_data = {}
+
         # Check if the file is not empty
         first_line = archive_csv.readline()
         if first_line:
@@ -181,101 +187,104 @@ if PVUtil.getDouble(pvs[2]) == 1:
                     if archived_data[archived_pv] is None and archived_value != "":
                         archived_data[archived_pv] = archived_value
 
-            # Count of the found and missing PVs
-            found_count = 0
-            missing_count = 0
-
-            # After reading the entire CSV file, write values or "No Data Found" to PVs
-            for accelerator_pv, local_pv in zip(accelerator_pv_list, local_pv_list):
-                if accelerator_pv in archived_data:
-                    local_pv.setValue(archived_data[accelerator_pv])
-                    found_count += 1
-                else:
-                    local_pv.setValue('No Data Found!')
-                    missing_count += 1
-
-            pvs[3].setValue('Data pulled. {} PV(s) loaded, {} PV(s) missing.'.format(
-                found_count, missing_count))
-
         else:
             pvs[3].setValue('No Archive Data Found!')
+
+    # Count of the found and missing PVs
+    found_count = 0
+    missing_count = 0
+
+    # After reading the entire CSV file, write values or "No Data Found" to PVs
+    for accelerator_pv, local_pv in zip(accelerator_pv_list, local_pv_list):
+        if accelerator_pv in archived_data:
+            local_pv.setValue(archived_data[accelerator_pv])
+            found_count += 1
+        else:
+            local_pv.setValue('No Data Found!')
+            missing_count += 1
+
+    pvs[3].setValue('Data pulled. {} PV(s) loaded, {} PV(s) missing.'.format(
+        found_count, missing_count))
+
+    pvs[4].setValue(1)
 ]]></text>
-        <pv_name trigger="True">loc://$(DID)_trigger_DH(0)</pv_name>
-        <pv_name trigger="False">loc://time_DH("2023-07-07T15:00:00.00-04:00")</pv_name>
+        <pv_name trigger="True">loc://$(DID)_trigger_time_travel_DH(0)</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_DH("2023-07-07T15:00:00.00-04:00")</pv_name>
         <pv_name trigger="False">loc://$(DID)_time_travel_DH(0)</pv_name>
-        <pv_name trigger="False">loc://debug_message_DH</pv_name>
+        <pv_name trigger="False">loc://$(DID)_debug_message_DH</pv_name>
+        <pv_name trigger="False">loc://$(DID)_trigger_time_led_DH(0)</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2163:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2163:I_CSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2163:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2169:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2169:I_CSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2169:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2174:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2174:I_CSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2174:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2180:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2180:I_CSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2180:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2290:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2290:I_CSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2290:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2296:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2296:I_CSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2296:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2302:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2302:I_CSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2302:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2308:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2308:I_CSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2308:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:DH_D2394:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:DH_D2394:I_CSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2394:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:DH_D2435:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:DH_D2435:I_CSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2435:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:DH_D2453:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:DH_D2453:I_CSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2453:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:DH_D2494:I_CSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:DH_D2494:I_CSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2494:I_CSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2163:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2163:I_RSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2163:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2163:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2163:I_RD("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2163:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2169:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2169:I_RSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2169:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2169:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2169:I_RD("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2169:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2174:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2174:I_RSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2174:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2174:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2174:I_RD("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2174:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2180:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2180:I_RSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2180:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2180:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2180:I_RD("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2180:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2290:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2290:I_RSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2290:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2290:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2290:I_RD("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2290:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2296:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2296:I_RSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2296:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2296:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2296:I_RD("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2296:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2302:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2302:I_RSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2302:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2302:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2302:I_RD("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2302:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2308:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2308:I_RSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2308:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_CSS:DH_D2308:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_CSS:DH_D2308:I_RD("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2308:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:DH_D2394:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:DH_D2394:I_RSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2394:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:DH_D2394:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:DH_D2394:I_RD("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2394:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:DH_D2435:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:DH_D2435:I_RSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2435:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:DH_D2435:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:DH_D2435:I_RD("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2435:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:DH_D2453:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:DH_D2453:I_RSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2453:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:DH_D2453:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:DH_D2453:I_RD("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2453:I_RD("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:DH_D2494:I_RSET</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:DH_D2494:I_RSET("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2494:I_RSET("No Data Yet")</pv_name>
         <pv_name trigger="False">VA:FS1_BBS:DH_D2494:I_RD</pv_name>
-        <pv_name trigger="False">loc://time_travel_VA:FS1_BBS:DH_D2494:I_RD("No Data Yet")</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2494:I_RD("No Data Yet")</pv_name>
       </script>
     </scripts>
     <text>Pull Data</text>
@@ -313,7 +322,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <height>30</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>TextEntry_368</name>
-    <pv_name>loc://debug_message_DH("Initialization Complete.")</pv_name>
+    <pv_name>loc://$(DID)_debug_message_DH("Initialization Complete.")</pv_name>
     <vertical_alignment>1</vertical_alignment>
     <width>930</width>
     <x>5</x>
@@ -328,8 +337,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <name>Label_335</name>
     <text>I_CSET</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>87.0</width>
-    <x>210</x>
+    <width>99.0</width>
+    <x>230</x>
     <y>75</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -341,8 +350,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <name>TextUpdate_1027</name>
     <pv_name>VA:FS1_CSS:DH_D2163:I_CSET.EGU</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>58.0</width>
-    <x>302.0</x>
+    <width>66.0</width>
+    <x>334.0</x>
     <y>75</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -354,8 +363,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <name>Label_336</name>
     <text>I_RD</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>87.0</width>
-    <x>365.0</x>
+    <width>99.0</width>
+    <x>405.0</x>
     <y>75</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -367,8 +376,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <name>TextUpdate_1028</name>
     <pv_name>VA:FS1_CSS:DH_D2163:I_RD.EGU</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>58.0</width>
-    <x>457.0</x>
+    <width>66.0</width>
+    <x>509.0</x>
     <y>75</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -380,8 +389,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <name>Label_337</name>
     <text>I_RSET</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>87.0</width>
-    <x>520.0</x>
+    <width>99.0</width>
+    <x>580.0</x>
     <y>75</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -393,20 +402,20 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <name>TextUpdate_1029</name>
     <pv_name>VA:FS1_CSS:DH_D2163:I_RSET.EGU</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>58.0</width>
-    <x>612.0</x>
+    <width>66.0</width>
+    <x>684.0</x>
     <y>75</y>
   </widget>
   <widget type="label" version="2.0.0">
     <font>
-      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+      <font family="Liberation Mono" size="18" style="BOLD">Monospace Bold</font>
     </font>
     <height>30</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_338</name>
     <text>FS1_BBS:DH_D2394</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>200</width>
+    <width>220</width>
     <x>5</x>
     <y>110</y>
   </widget>
@@ -420,13 +429,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_BBS:DH_D2394:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:DH_D2394:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2394:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -445,8 +454,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>210</x>
+    <width>170</width>
+    <x>230</x>
     <y>110</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -459,13 +468,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_BBS:DH_D2394:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:DH_D2394:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2394:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -484,8 +493,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>365</x>
+    <width>170</width>
+    <x>405</x>
     <y>110</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -498,13 +507,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_BBS:DH_D2394:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:DH_D2394:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2394:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -523,20 +532,20 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>520</x>
+    <width>170</width>
+    <x>580</x>
     <y>110</y>
   </widget>
   <widget type="label" version="2.0.0">
     <font>
-      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+      <font family="Liberation Mono" size="18" style="BOLD">Monospace Bold</font>
     </font>
     <height>30</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_339</name>
     <text>FS1_BBS:DH_D2435</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>200</width>
+    <width>220</width>
     <x>5</x>
     <y>145</y>
   </widget>
@@ -550,13 +559,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_BBS:DH_D2435:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:DH_D2435:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2435:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -575,8 +584,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>210</x>
+    <width>170</width>
+    <x>230</x>
     <y>145</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -589,13 +598,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_BBS:DH_D2435:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:DH_D2435:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2435:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -614,8 +623,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>365</x>
+    <width>170</width>
+    <x>405</x>
     <y>145</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -628,13 +637,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_BBS:DH_D2435:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:DH_D2435:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2435:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -653,20 +662,20 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>520</x>
+    <width>170</width>
+    <x>580</x>
     <y>145</y>
   </widget>
   <widget type="label" version="2.0.0">
     <font>
-      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+      <font family="Liberation Mono" size="18" style="BOLD">Monospace Bold</font>
     </font>
     <height>30</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_340</name>
     <text>FS1_BBS:DH_D2453</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>200</width>
+    <width>220</width>
     <x>5</x>
     <y>180</y>
   </widget>
@@ -680,13 +689,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_BBS:DH_D2453:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:DH_D2453:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2453:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -705,8 +714,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>210</x>
+    <width>170</width>
+    <x>230</x>
     <y>180</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -719,13 +728,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_BBS:DH_D2453:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:DH_D2453:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2453:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -744,8 +753,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>365</x>
+    <width>170</width>
+    <x>405</x>
     <y>180</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -758,13 +767,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_BBS:DH_D2453:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:DH_D2453:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2453:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -783,20 +792,20 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>520</x>
+    <width>170</width>
+    <x>580</x>
     <y>180</y>
   </widget>
   <widget type="label" version="2.0.0">
     <font>
-      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+      <font family="Liberation Mono" size="18" style="BOLD">Monospace Bold</font>
     </font>
     <height>30</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_341</name>
     <text>FS1_BBS:DH_D2494</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>200</width>
+    <width>220</width>
     <x>5</x>
     <y>215</y>
   </widget>
@@ -810,13 +819,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_BBS:DH_D2494:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:DH_D2494:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2494:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -835,8 +844,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>210</x>
+    <width>170</width>
+    <x>230</x>
     <y>215</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -849,13 +858,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_BBS:DH_D2494:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:DH_D2494:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2494:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -874,8 +883,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>365</x>
+    <width>170</width>
+    <x>405</x>
     <y>215</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -888,13 +897,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_BBS:DH_D2494:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_BBS:DH_D2494:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_BBS:DH_D2494:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -913,20 +922,20 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>520</x>
+    <width>170</width>
+    <x>580</x>
     <y>215</y>
   </widget>
   <widget type="label" version="2.0.0">
     <font>
-      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+      <font family="Liberation Mono" size="18" style="BOLD">Monospace Bold</font>
     </font>
     <height>30</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_342</name>
     <text>FS1_CSS:DH_D2163</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>200</width>
+    <width>220</width>
     <x>5</x>
     <y>250</y>
   </widget>
@@ -940,13 +949,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2163:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2163:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2163:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -965,8 +974,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>210</x>
+    <width>170</width>
+    <x>230</x>
     <y>250</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -979,13 +988,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2163:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2163:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2163:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1004,8 +1013,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>365</x>
+    <width>170</width>
+    <x>405</x>
     <y>250</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1018,13 +1027,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2163:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2163:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2163:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1043,20 +1052,20 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>520</x>
+    <width>170</width>
+    <x>580</x>
     <y>250</y>
   </widget>
   <widget type="label" version="2.0.0">
     <font>
-      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+      <font family="Liberation Mono" size="18" style="BOLD">Monospace Bold</font>
     </font>
     <height>30</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_343</name>
     <text>FS1_CSS:DH_D2169</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>200</width>
+    <width>220</width>
     <x>5</x>
     <y>285</y>
   </widget>
@@ -1070,13 +1079,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2169:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2169:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2169:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1095,8 +1104,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>210</x>
+    <width>170</width>
+    <x>230</x>
     <y>285</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1109,13 +1118,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2169:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2169:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2169:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1134,8 +1143,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>365</x>
+    <width>170</width>
+    <x>405</x>
     <y>285</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1148,13 +1157,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2169:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2169:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2169:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1173,20 +1182,20 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>520</x>
+    <width>170</width>
+    <x>580</x>
     <y>285</y>
   </widget>
   <widget type="label" version="2.0.0">
     <font>
-      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+      <font family="Liberation Mono" size="18" style="BOLD">Monospace Bold</font>
     </font>
     <height>30</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_344</name>
     <text>FS1_CSS:DH_D2174</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>200</width>
+    <width>220</width>
     <x>5</x>
     <y>320</y>
   </widget>
@@ -1200,13 +1209,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2174:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2174:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2174:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1225,8 +1234,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>210</x>
+    <width>170</width>
+    <x>230</x>
     <y>320</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1239,13 +1248,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2174:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2174:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2174:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1264,8 +1273,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>365</x>
+    <width>170</width>
+    <x>405</x>
     <y>320</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1278,13 +1287,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2174:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2174:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2174:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1303,20 +1312,20 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>520</x>
+    <width>170</width>
+    <x>580</x>
     <y>320</y>
   </widget>
   <widget type="label" version="2.0.0">
     <font>
-      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+      <font family="Liberation Mono" size="18" style="BOLD">Monospace Bold</font>
     </font>
     <height>30</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_345</name>
     <text>FS1_CSS:DH_D2180</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>200</width>
+    <width>220</width>
     <x>5</x>
     <y>355</y>
   </widget>
@@ -1330,13 +1339,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2180:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2180:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2180:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1355,8 +1364,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>210</x>
+    <width>170</width>
+    <x>230</x>
     <y>355</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1369,13 +1378,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2180:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2180:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2180:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1394,8 +1403,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>365</x>
+    <width>170</width>
+    <x>405</x>
     <y>355</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1408,13 +1417,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2180:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2180:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2180:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1433,20 +1442,20 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>520</x>
+    <width>170</width>
+    <x>580</x>
     <y>355</y>
   </widget>
   <widget type="label" version="2.0.0">
     <font>
-      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+      <font family="Liberation Mono" size="18" style="BOLD">Monospace Bold</font>
     </font>
     <height>30</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_346</name>
     <text>FS1_CSS:DH_D2290</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>200</width>
+    <width>220</width>
     <x>5</x>
     <y>390</y>
   </widget>
@@ -1460,13 +1469,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2290:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2290:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2290:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1485,8 +1494,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>210</x>
+    <width>170</width>
+    <x>230</x>
     <y>390</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1499,13 +1508,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2290:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2290:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2290:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1524,8 +1533,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>365</x>
+    <width>170</width>
+    <x>405</x>
     <y>390</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1538,13 +1547,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2290:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2290:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2290:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1563,20 +1572,20 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>520</x>
+    <width>170</width>
+    <x>580</x>
     <y>390</y>
   </widget>
   <widget type="label" version="2.0.0">
     <font>
-      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+      <font family="Liberation Mono" size="18" style="BOLD">Monospace Bold</font>
     </font>
     <height>30</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_347</name>
     <text>FS1_CSS:DH_D2296</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>200</width>
+    <width>220</width>
     <x>5</x>
     <y>425</y>
   </widget>
@@ -1590,13 +1599,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2296:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2296:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2296:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1615,8 +1624,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>210</x>
+    <width>170</width>
+    <x>230</x>
     <y>425</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1629,13 +1638,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2296:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2296:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2296:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1654,8 +1663,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>365</x>
+    <width>170</width>
+    <x>405</x>
     <y>425</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1668,13 +1677,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2296:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2296:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2296:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1693,20 +1702,20 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>520</x>
+    <width>170</width>
+    <x>580</x>
     <y>425</y>
   </widget>
   <widget type="label" version="2.0.0">
     <font>
-      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+      <font family="Liberation Mono" size="18" style="BOLD">Monospace Bold</font>
     </font>
     <height>30</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_348</name>
     <text>FS1_CSS:DH_D2302</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>200</width>
+    <width>220</width>
     <x>5</x>
     <y>460</y>
   </widget>
@@ -1720,13 +1729,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2302:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2302:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2302:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1745,8 +1754,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>210</x>
+    <width>170</width>
+    <x>230</x>
     <y>460</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1759,13 +1768,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2302:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2302:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2302:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1784,8 +1793,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>365</x>
+    <width>170</width>
+    <x>405</x>
     <y>460</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1798,13 +1807,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2302:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2302:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2302:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1823,20 +1832,20 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>520</x>
+    <width>170</width>
+    <x>580</x>
     <y>460</y>
   </widget>
   <widget type="label" version="2.0.0">
     <font>
-      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+      <font family="Liberation Mono" size="18" style="BOLD">Monospace Bold</font>
     </font>
     <height>30</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_349</name>
     <text>FS1_CSS:DH_D2308</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>200</width>
+    <width>220</width>
     <x>5</x>
     <y>495</y>
   </widget>
@@ -1850,13 +1859,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2308:I_CSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2308:I_CSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2308:I_CSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1875,8 +1884,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>210</x>
+    <width>170</width>
+    <x>230</x>
     <y>495</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1889,13 +1898,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2308:I_RD</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2308:I_RD</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2308:I_RD</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1914,8 +1923,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>365</x>
+    <width>170</width>
+    <x>405</x>
     <y>495</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -1928,13 +1937,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_DH(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:FS1_CSS:DH_D2308:I_RSET</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:FS1_CSS:DH_D2308:I_RSET</value>
+          <value>loc://$(DID)_time_travel_VA:FS1_CSS:DH_D2308:I_RSET</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -1953,8 +1962,8 @@ if PVUtil.getDouble(pvs[2]) == 1:
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>520</x>
+    <width>170</width>
+    <x>580</x>
     <y>495</y>
   </widget>
 </display>

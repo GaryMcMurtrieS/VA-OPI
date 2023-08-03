@@ -18,8 +18,8 @@
     <name>Label_0</name>
     <text>BEAM</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>87.0</width>
-    <x>210</x>
+    <width>99.0</width>
+    <x>230</x>
     <y>40</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -31,8 +31,8 @@
     <name>TextUpdate_0</name>
     <pv_name>VA:SVR:BEAM.EGU</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>58.0</width>
-    <x>302.0</x>
+    <width>66.0</width>
+    <x>334.0</x>
     <y>40</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -44,8 +44,8 @@
     <name>Label_1</name>
     <text>CHARGE</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>87.0</width>
-    <x>365.0</x>
+    <width>99.0</width>
+    <x>405.0</x>
     <y>40</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -57,8 +57,8 @@
     <name>TextUpdate_1</name>
     <pv_name>VA:SVR:CHARGE.EGU</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>58.0</width>
-    <x>457.0</x>
+    <width>66.0</width>
+    <x>509.0</x>
     <y>40</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -70,8 +70,8 @@
     <name>Label_2</name>
     <text>CNT</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>87.0</width>
-    <x>520.0</x>
+    <width>99.0</width>
+    <x>580.0</x>
     <y>40</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -83,8 +83,8 @@
     <name>TextUpdate_2</name>
     <pv_name>VA:SVR:CNT.EGU</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>58.0</width>
-    <x>612.0</x>
+    <width>66.0</width>
+    <x>684.0</x>
     <y>40</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -96,8 +96,8 @@
     <name>Label_3</name>
     <text>MpsStatus</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>87.0</width>
-    <x>675.0</x>
+    <width>99.0</width>
+    <x>755.0</x>
     <y>40</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -109,8 +109,8 @@
     <name>TextUpdate_3</name>
     <pv_name>VA:SVR:MpsStatus.EGU</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>58.0</width>
-    <x>767.0</x>
+    <width>66.0</width>
+    <x>859.0</x>
     <y>40</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -122,8 +122,8 @@
     <name>Label_4</name>
     <text>NOISE</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>87.0</width>
-    <x>830.0</x>
+    <width>99.0</width>
+    <x>930.0</x>
     <y>40</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -135,8 +135,8 @@
     <name>TextUpdate_4</name>
     <pv_name>VA:SVR:NOISE.EGU</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>58.0</width>
-    <x>922.0</x>
+    <width>66.0</width>
+    <x>1034.0</x>
     <y>40</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -148,8 +148,8 @@
     <name>Label_5</name>
     <text>RATE</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>87.0</width>
-    <x>985.0</x>
+    <width>99.0</width>
+    <x>1105.0</x>
     <y>40</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -161,8 +161,8 @@
     <name>TextUpdate_5</name>
     <pv_name>VA:SVR:RATE.EGU</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>58.0</width>
-    <x>1077.0</x>
+    <width>66.0</width>
+    <x>1209.0</x>
     <y>40</y>
   </widget>
   <widget type="label" version="2.0.0">
@@ -174,8 +174,8 @@
     <name>Label_6</name>
     <text>STATUS</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>87.0</width>
-    <x>1140.0</x>
+    <width>99.0</width>
+    <x>1280.0</x>
     <y>40</y>
   </widget>
   <widget type="textupdate" version="2.0.0">
@@ -187,20 +187,20 @@
     <name>TextUpdate_6</name>
     <pv_name>VA:SVR:STATUS.EGU</pv_name>
     <vertical_alignment>1</vertical_alignment>
-    <width>58.0</width>
-    <x>1232.0</x>
+    <width>66.0</width>
+    <x>1384.0</x>
     <y>40</y>
   </widget>
   <widget type="label" version="2.0.0">
     <font>
-      <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
+      <font family="Liberation Mono" size="18" style="BOLD">Monospace Bold</font>
     </font>
     <height>30</height>
-    <horizontal_alignment>0</horizontal_alignment>
+    <horizontal_alignment>2</horizontal_alignment>
     <name>Label_7</name>
     <text>SVR</text>
     <vertical_alignment>1</vertical_alignment>
-    <width>200</width>
+    <width>220</width>
     <x>5</x>
     <y>75</y>
   </widget>
@@ -214,13 +214,13 @@
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_SVR(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:SVR:BEAM</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:SVR:BEAM</value>
+          <value>loc://$(DID)_time_travel_VA:SVR:BEAM</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -239,8 +239,8 @@
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>210</x>
+    <width>170</width>
+    <x>230</x>
     <y>75</y>
   </widget>
   <widget type="textentry" version="2.0.0">
@@ -253,13 +253,13 @@
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_SVR(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:SVR:CHARGE</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:SVR:CHARGE</value>
+          <value>loc://$(DID)_time_travel_VA:SVR:CHARGE</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -278,8 +278,8 @@
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>365</x>
+    <width>170</width>
+    <x>405</x>
     <y>75</y>
   </widget>
   <widget type="textentry" version="2.0.0">
@@ -292,13 +292,13 @@
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_SVR(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:SVR:CNT</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:SVR:CNT</value>
+          <value>loc://$(DID)_time_travel_VA:SVR:CNT</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -317,8 +317,8 @@
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>520</x>
+    <width>170</width>
+    <x>580</x>
     <y>75</y>
   </widget>
   <widget type="textentry" version="2.0.0">
@@ -331,13 +331,13 @@
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_SVR(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:SVR:MpsStatus</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:SVR:MpsStatus</value>
+          <value>loc://$(DID)_time_travel_VA:SVR:MpsStatus</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -356,8 +356,8 @@
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>675</x>
+    <width>170</width>
+    <x>755</x>
     <y>75</y>
   </widget>
   <widget type="textentry" version="2.0.0">
@@ -370,13 +370,13 @@
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_SVR(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:SVR:NOISE</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:SVR:NOISE</value>
+          <value>loc://$(DID)_time_travel_VA:SVR:NOISE</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -395,8 +395,8 @@
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>830</x>
+    <width>170</width>
+    <x>930</x>
     <y>75</y>
   </widget>
   <widget type="textentry" version="2.0.0">
@@ -409,13 +409,13 @@
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_SVR(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:SVR:RATE</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:SVR:RATE</value>
+          <value>loc://$(DID)_time_travel_VA:SVR:RATE</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -434,8 +434,8 @@
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>985</x>
+    <width>170</width>
+    <x>1105</x>
     <y>75</y>
   </widget>
   <widget type="textentry" version="2.0.0">
@@ -448,13 +448,13 @@
     <precision>5</precision>
     <pv_name></pv_name>
     <rules>
-      <rule prop_id="pv_name" name="Time Travel Rule" out_exp="false">
+      <rule prop_id="pv_name" name="Time Travel PV Rule" out_exp="false">
         <pv_name>loc://$(DID)_time_travel_SVR(0)</pv_name>
         <exp bool_exp="pv0 == 0">
           <value>VA:SVR:STATUS</value>
         </exp>
         <exp bool_exp="pv0 == 1">
-          <value>loc://time_travel_VA:SVR:STATUS</value>
+          <value>loc://$(DID)_time_travel_VA:SVR:STATUS</value>
         </exp>
       </rule>
       <rule prop_id="foreground_color" name="Time Travel Color Rule" out_exp="false">
@@ -473,8 +473,8 @@
     </rules>
     <show_units>false</show_units>
     <vertical_alignment>1</vertical_alignment>
-    <width>150</width>
-    <x>1140</x>
+    <width>170</width>
+    <x>1280</x>
     <y>75</y>
   </widget>
 </display>
