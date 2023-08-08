@@ -583,6 +583,13 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <y>5</y>
   </widget>
   <widget type="action_button" version="2.0.0">
+    <actions>
+      <action type="write_pv">
+        <pv_name>loc://$(DID)_trigger_time_set_DCH(0)</pv_name>
+        <description></description>
+        <value>1</value>
+      </action>
+    </actions>
     <font>
       <font family="Liberation Sans" size="18" style="BOLD">Default Bold</font>
     </font>
@@ -594,10 +601,411 @@ if PVUtil.getDouble(pvs[2]) == 1:
 
 from org.csstudio.opibuilder.scriptUtil import PVUtil
 
+# pvs[0]: loc://$(DID)_trigger_time_set_{device_type}
+# pvs[1]: loc://$(DID)_debug_message_{device_type}
+# pvs[2]: loc://$(DID)_time_travel_{device_type}
+
+# Index at which VA PVs actually start
+PV_START = 3
+
 # Only execute script if in time travel mode
 if PVUtil.getDouble(pvs[2]) == 1:
-    pass
+    pvs[1].setValue('Setting data...')
+
+    # Pair up each of the time_travel PVs with their corresponding real PV
+    time_travel_pv_list = pvs[PV_START::2]
+    real_pv_list = pvs[PV_START + 1::2]
+
+    # Initialize counters
+    set_count = 0
+    not_set_count = 0
+
+    # Iterate over pairs and set the real PV with the value of the time_travel PV if the conditions
+    # are met
+    for time_travel_pv, real_pv in zip(time_travel_pv_list, real_pv_list):
+        time_travel_value = PVUtil.getString(time_travel_pv)
+
+        # Check conditions to see if we should update the actual PV
+        if str(real_pv).endswith("CSET"):
+            try:
+                real_value = float(time_travel_value)
+                real_pv.setValue(real_value)
+                set_count += 1
+
+            except ValueError:
+                not_set_count += 1
+                continue
+
+    # Update the message PV with the final counts
+    if set_count > 0:
+        pvs[1].setValue('Data set complete. {} PV(s) loaded, {} PV(s) not set.'.format(
+            set_count, not_set_count))
+    else:
+        pvs[1].setValue("No data to set!")
 ]]></text>
+        <pv_name trigger="True">loc://$(DID)_trigger_time_set_DCH(0)</pv_name>
+        <pv_name trigger="False">loc://$(DID)_debug_message_DCH</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_DCH(0)</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CA01:DCH_D1132:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CA01:DCH_D1132:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CA01:DCH_D1132:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CA01:DCH_D1132:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CA01:DCH_D1132:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CA01:DCH_D1132:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CA01:DCH_D1146:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CA01:DCH_D1146:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CA01:DCH_D1146:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CA01:DCH_D1146:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CA01:DCH_D1146:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CA01:DCH_D1146:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CA02:DCH_D1165:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CA02:DCH_D1165:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CA02:DCH_D1165:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CA02:DCH_D1165:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CA02:DCH_D1165:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CA02:DCH_D1165:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CA02:DCH_D1180:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CA02:DCH_D1180:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CA02:DCH_D1180:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CA02:DCH_D1180:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CA02:DCH_D1180:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CA02:DCH_D1180:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CA03:DCH_D1199:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CA03:DCH_D1199:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CA03:DCH_D1199:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CA03:DCH_D1199:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CA03:DCH_D1199:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CA03:DCH_D1199:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CA03:DCH_D1214:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CA03:DCH_D1214:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CA03:DCH_D1214:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CA03:DCH_D1214:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CA03:DCH_D1214:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CA03:DCH_D1214:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB01:DCH_D1235:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB01:DCH_D1235:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB01:DCH_D1235:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB01:DCH_D1235:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB01:DCH_D1235:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB01:DCH_D1235:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB01:DCH_D1255:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB01:DCH_D1255:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB01:DCH_D1255:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB01:DCH_D1255:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB01:DCH_D1255:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB01:DCH_D1255:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB01:DCH_D1275:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB01:DCH_D1275:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB01:DCH_D1275:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB01:DCH_D1275:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB01:DCH_D1275:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB01:DCH_D1275:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB02:DCH_D1299:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB02:DCH_D1299:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB02:DCH_D1299:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB02:DCH_D1299:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB02:DCH_D1299:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB02:DCH_D1299:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB02:DCH_D1319:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB02:DCH_D1319:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB02:DCH_D1319:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB02:DCH_D1319:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB02:DCH_D1319:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB02:DCH_D1319:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB02:DCH_D1339:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB02:DCH_D1339:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB02:DCH_D1339:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB02:DCH_D1339:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB02:DCH_D1339:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB02:DCH_D1339:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB03:DCH_D1363:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB03:DCH_D1363:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB03:DCH_D1363:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB03:DCH_D1363:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB03:DCH_D1363:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB03:DCH_D1363:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB03:DCH_D1383:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB03:DCH_D1383:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB03:DCH_D1383:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB03:DCH_D1383:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB03:DCH_D1383:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB03:DCH_D1383:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB03:DCH_D1403:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB03:DCH_D1403:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB03:DCH_D1403:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB03:DCH_D1403:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB03:DCH_D1403:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB03:DCH_D1403:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB04:DCH_D1426:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB04:DCH_D1426:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB04:DCH_D1426:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB04:DCH_D1426:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB04:DCH_D1426:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB04:DCH_D1426:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB04:DCH_D1446:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB04:DCH_D1446:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB04:DCH_D1446:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB04:DCH_D1446:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB04:DCH_D1446:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB04:DCH_D1446:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB04:DCH_D1466:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB04:DCH_D1466:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB04:DCH_D1466:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB04:DCH_D1466:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB04:DCH_D1466:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB04:DCH_D1466:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB05:DCH_D1490:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB05:DCH_D1490:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB05:DCH_D1490:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB05:DCH_D1490:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB05:DCH_D1490:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB05:DCH_D1490:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB05:DCH_D1510:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB05:DCH_D1510:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB05:DCH_D1510:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB05:DCH_D1510:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB05:DCH_D1510:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB05:DCH_D1510:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB05:DCH_D1530:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB05:DCH_D1530:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB05:DCH_D1530:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB05:DCH_D1530:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB05:DCH_D1530:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB05:DCH_D1530:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB06:DCH_D1554:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB06:DCH_D1554:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB06:DCH_D1554:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB06:DCH_D1554:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB06:DCH_D1554:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB06:DCH_D1554:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB06:DCH_D1574:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB06:DCH_D1574:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB06:DCH_D1574:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB06:DCH_D1574:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB06:DCH_D1574:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB06:DCH_D1574:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB06:DCH_D1594:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB06:DCH_D1594:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB06:DCH_D1594:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB06:DCH_D1594:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB06:DCH_D1594:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB06:DCH_D1594:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB07:DCH_D1618:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB07:DCH_D1618:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB07:DCH_D1618:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB07:DCH_D1618:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB07:DCH_D1618:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB07:DCH_D1618:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB07:DCH_D1637:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB07:DCH_D1637:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB07:DCH_D1637:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB07:DCH_D1637:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB07:DCH_D1637:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB07:DCH_D1637:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB07:DCH_D1657:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB07:DCH_D1657:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB07:DCH_D1657:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB07:DCH_D1657:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB07:DCH_D1657:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB07:DCH_D1657:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB08:DCH_D1681:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB08:DCH_D1681:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB08:DCH_D1681:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB08:DCH_D1681:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB08:DCH_D1681:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB08:DCH_D1681:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB08:DCH_D1701:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB08:DCH_D1701:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB08:DCH_D1701:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB08:DCH_D1701:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB08:DCH_D1701:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB08:DCH_D1701:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB08:DCH_D1721:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB08:DCH_D1721:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB08:DCH_D1721:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB08:DCH_D1721:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB08:DCH_D1721:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB08:DCH_D1721:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB09:DCH_D1745:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB09:DCH_D1745:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB09:DCH_D1745:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB09:DCH_D1745:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB09:DCH_D1745:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB09:DCH_D1745:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB09:DCH_D1765:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB09:DCH_D1765:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB09:DCH_D1765:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB09:DCH_D1765:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB09:DCH_D1765:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB09:DCH_D1765:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB09:DCH_D1785:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB09:DCH_D1785:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB09:DCH_D1785:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB09:DCH_D1785:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB09:DCH_D1785:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB09:DCH_D1785:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB10:DCH_D1809:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB10:DCH_D1809:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB10:DCH_D1809:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB10:DCH_D1809:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB10:DCH_D1809:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB10:DCH_D1809:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB10:DCH_D1829:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB10:DCH_D1829:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB10:DCH_D1829:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB10:DCH_D1829:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB10:DCH_D1829:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB10:DCH_D1829:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB10:DCH_D1849:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB10:DCH_D1849:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB10:DCH_D1849:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB10:DCH_D1849:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB10:DCH_D1849:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB10:DCH_D1849:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB11:DCH_D1872:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB11:DCH_D1872:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB11:DCH_D1872:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB11:DCH_D1872:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB11:DCH_D1872:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB11:DCH_D1872:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB11:DCH_D1892:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB11:DCH_D1892:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB11:DCH_D1892:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB11:DCH_D1892:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB11:DCH_D1892:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB11:DCH_D1892:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB11:DCH_D1912:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB11:DCH_D1912:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB11:DCH_D1912:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_CB11:DCH_D1912:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_CB11:DCH_D1912:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_CB11:DCH_D1912:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_BTS:DCH_D1937:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:DCH_D1937:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_BTS:DCH_D1937:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:DCH_D1937:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_BTS:DCH_D1937:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:DCH_D1937:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_BTS:DCH_D1964:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:DCH_D1964:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_BTS:DCH_D1964:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:DCH_D1964:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_BTS:DCH_D1964:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:DCH_D1964:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_BTS:DCH_D1997:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:DCH_D1997:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_BTS:DCH_D1997:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:DCH_D1997:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_BTS:DCH_D1997:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:DCH_D1997:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_BTS:DCH_D2024:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:DCH_D2024:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_BTS:DCH_D2024:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:DCH_D2024:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_BTS:DCH_D2024:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:DCH_D2024:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_BTS:DCH_D2061:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:DCH_D2061:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_BTS:DCH_D2061:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:DCH_D2061:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_BTS:DCH_D2061:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:DCH_D2061:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_BTS:DCH_D2114:I_RD</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:DCH_D2114:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_BTS:DCH_D2114:I_RSET</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:DCH_D2114:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:LS1_BTS:DCH_D2114:I_CSET</pv_name>
+        <pv_name trigger="False">VA:LS1_BTS:DCH_D2114:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DCH_D2189:I_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:DCH_D2189:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DCH_D2189:I_RSET</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:DCH_D2189:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DCH_D2189:I_CSET</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:DCH_D2189:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DCH_D2210:I_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:DCH_D2210:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DCH_D2210:I_RSET</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:DCH_D2210:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DCH_D2210:I_CSET</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:DCH_D2210:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DCH_D2257:I_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:DCH_D2257:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DCH_D2257:I_RSET</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:DCH_D2257:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DCH_D2257:I_CSET</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:DCH_D2257:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DCH_D2276:I_RSET</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:DCH_D2276:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DCH_D2276:I_CSET</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:DCH_D2276:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DCH_D2276:I_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:DCH_D2276:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DCH_D2351:I_CSET</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:DCH_D2351:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DCH_D2351:I_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:DCH_D2351:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DCH_D2351:I_RSET</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:DCH_D2351:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DCH_D2367:I_CSET</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:DCH_D2367:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DCH_D2367:I_RSET</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:DCH_D2367:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DCH_D2367:I_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:DCH_D2367:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DCH_D2381:I_CSET</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:DCH_D2381:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DCH_D2381:I_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:DCH_D2381:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_CSS:DCH_D2381:I_RSET</pv_name>
+        <pv_name trigger="False">VA:FS1_CSS:DCH_D2381:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BBS:DCH_D2412:I_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BBS:DCH_D2412:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BBS:DCH_D2412:I_CSET</pv_name>
+        <pv_name trigger="False">VA:FS1_BBS:DCH_D2412:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BBS:DCH_D2412:I_RSET</pv_name>
+        <pv_name trigger="False">VA:FS1_BBS:DCH_D2412:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BBS:DCH_D2476:I_CSET</pv_name>
+        <pv_name trigger="False">VA:FS1_BBS:DCH_D2476:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BBS:DCH_D2476:I_RSET</pv_name>
+        <pv_name trigger="False">VA:FS1_BBS:DCH_D2476:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BBS:DCH_D2476:I_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BBS:DCH_D2476:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BMS:DCH_D2507:I_RSET</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:DCH_D2507:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BMS:DCH_D2507:I_CSET</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:DCH_D2507:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BMS:DCH_D2507:I_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:DCH_D2507:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BMS:DCH_D2534:I_RSET</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:DCH_D2534:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BMS:DCH_D2534:I_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:DCH_D2534:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BMS:DCH_D2534:I_CSET</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:DCH_D2534:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BMS:DCH_D2584:I_RSET</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:DCH_D2584:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BMS:DCH_D2584:I_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:DCH_D2584:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BMS:DCH_D2584:I_CSET</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:DCH_D2584:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BMS:DCH_D2640:I_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:DCH_D2640:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BMS:DCH_D2640:I_CSET</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:DCH_D2640:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BMS:DCH_D2640:I_RSET</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:DCH_D2640:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BMS:DCH_D2662:I_CSET</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:DCH_D2662:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BMS:DCH_D2662:I_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:DCH_D2662:I_RD</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BMS:DCH_D2662:I_RSET</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:DCH_D2662:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BMS:DCH_D2688:I_CSET</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:DCH_D2688:I_CSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BMS:DCH_D2688:I_RSET</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:DCH_D2688:I_RSET</pv_name>
+        <pv_name trigger="False">loc://$(DID)_time_travel_VA:FS1_BMS:DCH_D2688:I_RD</pv_name>
+        <pv_name trigger="False">VA:FS1_BMS:DCH_D2688:I_RD</pv_name>
       </script>
     </scripts>
     <text>Set Data</text>

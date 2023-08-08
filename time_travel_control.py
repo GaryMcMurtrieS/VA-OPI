@@ -114,8 +114,21 @@ def create_time_travel_control_row(parent_widget, device_type, filtered_pvs, y_0
     # Action button that sets current values to historic data
     set_button = widgets.ActionButton(x_0, y_0, BUTTON_WIDTH, WIDGET_HEIGHT, "Set Data")
     set_button.set_font(fonts.DEFAULT_BOLD)
+    set_button.add_write_pv(f"loc://$(DID)_trigger_time_set_{device_type}(0)", 1)
 
+    # Script that sets the data
     set_script = Script("scripts/set_data_script.py")
+
+    # Trigger PV that runs the set script
+    set_script.add_pv(f"loc://$(DID)_trigger_time_set_{device_type}(0)", True)
+    set_script.add_pv(f'loc://$(DID)_debug_message_{device_type}', False)
+    set_script.add_pv(f"loc://$(DID)_time_travel_{device_type}(0)", False)
+
+
+    # Adds each of the time_travel pvs and their corresponding real PVs to the script
+    for process_variable in pvs:
+        set_script.add_pv(f'loc://$(DID)_time_travel_{process_variable}', False)
+        set_script.add_pv(process_variable, False)
 
     set_button.add_script(set_script)
     parent_widget.add_child(set_button)
