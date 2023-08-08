@@ -192,9 +192,6 @@ if PVUtil.getDouble(pvs[2]) == 1:
         else:
             pvs[3].setValue('No Archive Data Found!')
 
-    # with open("/tmp/2023_command.txt", 'w') as command_file:
-    #     command_file.write(full_command)
-
     # Count of the found and missing PVs
     found_count = 0
     missing_count = 0

@@ -208,9 +208,6 @@ if PVUtil.getDouble(pvs[2]) == 1:
         else:
             pvs[3].setValue('No Archive Data Found!')
 
-    # with open("/tmp/2023_command.txt", 'w') as command_file:
-    #     command_file.write(full_command)
-
     # Count of the found and missing PVs
     found_count = 0
     missing_count = 0
@@ -733,6 +730,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_245</name>
@@ -866,6 +864,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_246</name>
@@ -999,6 +998,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_247</name>
@@ -1132,6 +1132,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_248</name>
@@ -1265,6 +1266,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_249</name>
@@ -1398,6 +1400,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_250</name>
@@ -1531,6 +1534,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_251</name>
@@ -1664,6 +1668,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_252</name>
@@ -1797,6 +1802,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_253</name>
@@ -1930,6 +1936,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_254</name>
@@ -2063,6 +2070,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_255</name>
@@ -2196,6 +2204,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_256</name>
@@ -2329,6 +2338,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_257</name>
@@ -2462,6 +2472,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_258</name>
@@ -2595,6 +2606,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_259</name>
@@ -2728,6 +2740,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_260</name>
@@ -2861,6 +2874,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_261</name>
@@ -2994,6 +3008,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_262</name>
@@ -3127,6 +3142,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_263</name>
@@ -3260,6 +3276,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_264</name>
@@ -3393,6 +3410,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_265</name>
@@ -3526,6 +3544,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_266</name>
@@ -3659,6 +3678,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_267</name>
@@ -3792,6 +3812,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_268</name>
@@ -3925,6 +3946,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_269</name>
@@ -4058,6 +4080,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_270</name>
@@ -4191,6 +4214,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_271</name>
@@ -4324,6 +4348,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_272</name>
@@ -4457,6 +4482,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_273</name>
@@ -4590,6 +4616,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_274</name>
@@ -4723,6 +4750,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_275</name>
@@ -4856,6 +4884,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_276</name>
@@ -4989,6 +5018,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_277</name>
@@ -5122,6 +5152,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_278</name>
@@ -5255,6 +5286,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_279</name>
@@ -5388,6 +5420,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_280</name>
@@ -5521,6 +5554,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_281</name>
@@ -5654,6 +5688,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_282</name>
@@ -5787,6 +5822,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_283</name>
@@ -5920,6 +5956,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_284</name>
@@ -6053,6 +6090,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_285</name>
@@ -6186,6 +6224,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_286</name>
@@ -6319,6 +6358,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_287</name>
@@ -6452,6 +6492,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_288</name>
@@ -6585,6 +6626,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_289</name>
@@ -6718,6 +6760,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_290</name>
@@ -6851,6 +6894,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_291</name>
@@ -6984,6 +7028,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_292</name>
@@ -7117,6 +7162,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_293</name>
@@ -7250,6 +7296,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_294</name>
@@ -7383,6 +7430,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_295</name>
@@ -7516,6 +7564,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_296</name>
@@ -7649,6 +7698,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_297</name>
@@ -7782,6 +7832,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_298</name>
@@ -7915,6 +7966,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_299</name>
@@ -8048,6 +8100,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_300</name>
@@ -8181,6 +8234,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_301</name>
@@ -8314,6 +8368,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_302</name>
@@ -8447,6 +8502,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_303</name>
@@ -8580,6 +8636,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <fontdata fontName="Liberation Sans" height="13" style="0" pixels="false">Default</fontdata>
     </font>
+    <format_type>7</format_type>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_304</name>

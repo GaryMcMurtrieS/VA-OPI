@@ -115,8 +115,8 @@ def create_widget_row(parent_widget, device, device_type, column_names, y_0):
         parameter_output.precision_from_pv = False
         parameter_output.show_units = False
 
-        if parameter.endswith("CSET") and ("DCH" in parameter or "DCV" in parameter):
-            parameter_output.format_type = 7
+        if parameter.endswith("CSET") and (device_type == "DCH" or device_type == "DCV"):
+            parameter_output.format_type = widgets.FormatType.ENGINEERING
 
         parent_widget.add_child(parameter_output)
 

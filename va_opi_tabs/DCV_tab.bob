@@ -192,9 +192,6 @@ if PVUtil.getDouble(pvs[2]) == 1:
         else:
             pvs[3].setValue('No Archive Data Found!')
 
-    # with open("/tmp/2023_command.txt", 'w') as command_file:
-    #     command_file.write(full_command)
-
     # Count of the found and missing PVs
     found_count = 0
     missing_count = 0
@@ -716,6 +713,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_307</name>
@@ -846,6 +844,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_308</name>
@@ -976,6 +975,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_309</name>
@@ -1106,6 +1106,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_310</name>
@@ -1236,6 +1237,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_311</name>
@@ -1366,6 +1368,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_312</name>
@@ -1496,6 +1499,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_313</name>
@@ -1626,6 +1630,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_314</name>
@@ -1756,6 +1761,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_315</name>
@@ -1886,6 +1892,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_316</name>
@@ -2016,6 +2023,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_317</name>
@@ -2146,6 +2154,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_318</name>
@@ -2276,6 +2285,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_319</name>
@@ -2406,6 +2416,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_320</name>
@@ -2536,6 +2547,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_321</name>
@@ -2666,6 +2678,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_322</name>
@@ -2796,6 +2809,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_323</name>
@@ -2926,6 +2940,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_324</name>
@@ -3056,6 +3071,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_325</name>
@@ -3186,6 +3202,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_326</name>
@@ -3316,6 +3333,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_327</name>
@@ -3446,6 +3464,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_328</name>
@@ -3576,6 +3595,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_329</name>
@@ -3706,6 +3726,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_330</name>
@@ -3836,6 +3857,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_331</name>
@@ -3966,6 +3988,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_332</name>
@@ -4096,6 +4119,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_333</name>
@@ -4226,6 +4250,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_334</name>
@@ -4356,6 +4381,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_335</name>
@@ -4486,6 +4512,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_336</name>
@@ -4616,6 +4643,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_337</name>
@@ -4746,6 +4774,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_338</name>
@@ -4876,6 +4905,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_339</name>
@@ -5006,6 +5036,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_340</name>
@@ -5136,6 +5167,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_341</name>
@@ -5266,6 +5298,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_342</name>
@@ -5396,6 +5429,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_343</name>
@@ -5526,6 +5560,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_344</name>
@@ -5656,6 +5691,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_345</name>
@@ -5786,6 +5822,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_346</name>
@@ -5916,6 +5953,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_347</name>
@@ -6046,6 +6084,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_348</name>
@@ -6176,6 +6215,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_349</name>
@@ -6306,6 +6346,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_350</name>
@@ -6436,6 +6477,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_351</name>
@@ -6566,6 +6608,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_352</name>
@@ -6696,6 +6739,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_353</name>
@@ -6826,6 +6870,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_354</name>
@@ -6956,6 +7001,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_355</name>
@@ -7086,6 +7132,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_356</name>
@@ -7216,6 +7263,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_357</name>
@@ -7346,6 +7394,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_358</name>
@@ -7476,6 +7525,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_359</name>
@@ -7606,6 +7656,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_360</name>
@@ -7736,6 +7787,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_361</name>
@@ -7866,6 +7918,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_362</name>
@@ -7996,6 +8049,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_363</name>
@@ -8126,6 +8180,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_364</name>
@@ -8256,6 +8311,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_365</name>
@@ -8386,6 +8442,7 @@ if PVUtil.getDouble(pvs[2]) == 1:
     <font>
       <font family="Liberation Sans" size="18" style="REGULAR">Default</font>
     </font>
+    <format>3</format>
     <height>30</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>TextEntry_366</name>
